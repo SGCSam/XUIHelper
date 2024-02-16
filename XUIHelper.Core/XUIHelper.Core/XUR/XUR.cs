@@ -12,13 +12,15 @@ namespace XUIHelper.Core
     {
         public string FilePath { get; private set; }
         public IXURHeader Header { get; protected set; }
+        public IXURSectionsTable SectionsTable { get; protected set; }
 
         protected BinaryReader Reader { get; private set; }
 
-        public XUR(string filePath, IXURHeader header)
+        public XUR(string filePath, IXURHeader header, IXURSectionsTable sectionsTable)
         {
             FilePath = filePath;
             Header = header;
+            SectionsTable = sectionsTable;
         }
 
         public virtual bool TryReadAsync(ILogger? logger)
@@ -39,6 +41,12 @@ namespace XUIHelper.Core
                 if (!Header.TryReadAsync(this, Reader, logger))
                 {
                     logger?.Here().Error("XUR file header read has failed, returning false.", FilePath);
+                    return false;
+                }
+
+                if (!SectionsTable.TryReadAsync(this, Reader, logger))
+                {
+                    logger?.Here().Error("XUR file sections table read has failed, returning false.", FilePath);
                     return false;
                 }
 

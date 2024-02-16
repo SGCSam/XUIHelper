@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace XUIHelper.Core
 {
-    public class XUR5 : XUR
+    public interface IXURSectionsTable : IXURReadable
     {
-        public XUR5(string filePath) : base(filePath, new XUR5Header(), new XUR5SectionsTable())
-        {
 
-        }
     }
 }

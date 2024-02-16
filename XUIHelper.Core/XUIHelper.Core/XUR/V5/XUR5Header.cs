@@ -52,6 +52,7 @@ namespace XUIHelper.Core
                     return false;
                 }
 
+                logger?.Here().Verbose("XUR5 header read successful!");
                 return true;
 
             }
