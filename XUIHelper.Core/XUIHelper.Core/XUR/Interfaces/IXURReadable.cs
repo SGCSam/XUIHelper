@@ -9,6 +9,6 @@ namespace XUIHelper.Core
 {
     public interface IXURReadable
     {
-        bool TryRead(IXUR xur, BinaryReader reader, ILogger? logger = null);
+        bool TryReadAsync(IXUR xur, BinaryReader reader, ILogger? logger = null);
     }
 }

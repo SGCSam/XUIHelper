@@ -8,5 +8,6 @@ namespace XUIHelper.Core
 {
     public interface IXURHeader : IXURReadable
     {
+        public const int ExpectedMagic = 0x58554942;
     }
 }

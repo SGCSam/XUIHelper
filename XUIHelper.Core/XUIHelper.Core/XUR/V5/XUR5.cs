@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace XUIHelper.Core
 {
-    public class XUR5 : IXUR
+    public class XUR5 : XUR
     {
-        private static Serilog.ILogger Log => Serilog.Log.ForContext(typeof(XUR5));
+        public XUR5(string filePath) : base(filePath, new XUR5Header())
+        {
+
+        }
     }
 }

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUIHelper.Core", "XUIHelper.Core\XUIHelper.Core.csproj", "{1EFA63EA-FCAA-4CB6-A196-FA59EC44B730}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUIHelper.Tests", "XUIHelper.Tests\XUIHelper.Tests.csproj", "{083C02B8-5938-42EC-B514-94408901825F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1EFA63EA-FCAA-4CB6-A196-FA59EC44B730}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EFA63EA-FCAA-4CB6-A196-FA59EC44B730}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EFA63EA-FCAA-4CB6-A196-FA59EC44B730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{083C02B8-5938-42EC-B514-94408901825F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{083C02B8-5938-42EC-B514-94408901825F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{083C02B8-5938-42EC-B514-94408901825F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{083C02B8-5938-42EC-B514-94408901825F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
