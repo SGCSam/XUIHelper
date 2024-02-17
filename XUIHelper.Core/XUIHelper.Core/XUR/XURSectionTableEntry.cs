@@ -14,28 +14,28 @@ namespace XUIHelper.Core
         public int Offset { get; private set; }
         public int Length { get; private set; }
 
-        public bool TryReadAsync(IXUR xur, BinaryReader reader, ILogger? logger = null)
+        public bool TryReadAsync(IXUR xur, BinaryReader reader)
         {
             try
             {
-                logger = logger?.ForContext(typeof(XURSectionTableEntry));
+                xur.Logger = xur.Logger?.ForContext(typeof(XURSectionTableEntry));
 
-                logger?.Here().Verbose("Reading XUR section table entry.");
+                xur.Logger?.Here().Verbose("Reading XUR section table entry.");
 
                 Magic = reader.ReadInt32BE();
-                logger?.Here().Verbose("Magic is {0:X8}", Magic);
+                xur.Logger?.Here().Verbose("Magic is {0:X8}", Magic);
 
                 Offset = reader.ReadInt32BE();
-                logger?.Here().Verbose("Offset is {0:X8}", Offset);
+                xur.Logger?.Here().Verbose("Offset is {0:X8}", Offset);
 
                 Length = reader.ReadInt32BE();
-                logger?.Here().Verbose("Length is {0:X8}", Length);
+                xur.Logger?.Here().Verbose("Length is {0:X8}", Length);
 
                 return true;
             }
             catch (Exception ex)
             {
-                logger?.Here().Error("Caught an exception when reading XUR5 section table entry, returning false. The exception is: {0}", ex);
+                xur.Logger?.Here().Error("Caught an exception when reading XUR5 section table entry, returning false. The exception is: {0}", ex);
                 return false;
             }
         }

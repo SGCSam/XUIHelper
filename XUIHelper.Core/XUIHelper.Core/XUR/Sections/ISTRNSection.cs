@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace XUIHelper.Core
 {
-    public interface IXURSectionsTable : IXURReadable
+    public interface ISTRNSection : IXURSection
     {
-        short SectionsCount { get; }
+        const int ExpectedMagic = 0x5354524E;
 
-        List<XURSectionTableEntry> Entries { get; }
+        List<string> Strings { get; }
     }
 }
