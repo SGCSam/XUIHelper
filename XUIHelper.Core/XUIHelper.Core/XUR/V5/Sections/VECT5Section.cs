@@ -10,6 +10,8 @@ namespace XUIHelper.Core
 {
     public class VECT5Section : IVECTSection
     {
+        public int Magic { get { return IVECTSection.ExpectedMagic; } }
+
         public List<XUVector> Vectors { get; private set; } = new List<XUVector>();
 
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)

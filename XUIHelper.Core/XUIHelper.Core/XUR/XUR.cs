@@ -62,10 +62,10 @@ namespace XUIHelper.Core
                 Logger?.Here().Verbose("Reading all entries from sections table.");
                 foreach (XURSectionTableEntry entry in SectionsTable.Entries)
                 {
-                    IXURSection? section = TryGetXURSectionForMagic(entry.Magic);
+                    IXURSection? section = TryCreateXURSectionForMagic(entry.Magic);
                     if (section == null)
                     {
-                        Logger?.Here().Error("Failed to get XUR section for magic {0:X8}, returning false.", entry.Magic);
+                        Logger?.Here().Error("Failed to create XUR section for magic {0:X8}, returning false.", entry.Magic);
                         return false;
                     }
 
@@ -85,6 +85,7 @@ namespace XUIHelper.Core
                         return false;
                     }
 
+                    Sections.Add(section);
                     Logger?.Here().Verbose("Read {0:X8} section successfully!", entry.Magic);
                 }
 
@@ -98,8 +99,6 @@ namespace XUIHelper.Core
             }
         }
 
-        
-
-        protected abstract IXURSection? TryGetXURSectionForMagic(int Magic);
+        protected abstract IXURSection? TryCreateXURSectionForMagic(int Magic);
     }
 }

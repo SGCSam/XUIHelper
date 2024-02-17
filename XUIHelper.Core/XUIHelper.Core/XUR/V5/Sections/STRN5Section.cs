@@ -10,6 +10,8 @@ namespace XUIHelper.Core
 {
     public class STRN5Section : ISTRNSection
     {
+        public int Magic { get { return ISTRNSection.ExpectedMagic; } }
+
         public List<string> Strings { get; private set; } = new List<string>();
 
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)

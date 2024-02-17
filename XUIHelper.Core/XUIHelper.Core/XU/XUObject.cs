@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace XUIHelper.Core
 {
-    public interface IXURSection : IXURReadable
+    public class XUObject
     {
-        int Magic { get; }
     }
 }

@@ -12,6 +12,8 @@ namespace XUIHelper.Core
 {
     public class CUST5Section : ICUSTSection
     {
+        public int Magic { get { return ICUSTSection.ExpectedMagic; } }
+
         public List<XUFigure> Figures { get; private set; } = new List<XUFigure>();
 
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)

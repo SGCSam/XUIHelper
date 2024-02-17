@@ -36,5 +36,18 @@ namespace XUIHelper.Core
                 return null;
             }
         }
+
+        public T? TryFindXURSectionByMagic<T>(int Magic)
+        {
+            foreach(IXURSection section in Sections)
+            {
+                if(section.Magic == Magic)
+                {
+                    return (T?)section;
+                }
+            }
+
+            return default(T);
+        }
     }
 }

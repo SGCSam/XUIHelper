@@ -15,7 +15,7 @@ namespace XUIHelper.Core
 
         }
 
-        protected override IXURSection? TryGetXURSectionForMagic(int Magic)
+        protected override IXURSection? TryCreateXURSectionForMagic(int Magic)
         {
             try
             {
@@ -39,6 +39,11 @@ namespace XUIHelper.Core
                     {
                         Logger?.Here().Verbose("Returning CUST5 section.");
                         return new CUST5Section();
+                    }
+                    case IDATASection.ExpectedMagic:
+                    {
+                        Logger?.Here().Verbose("Returning DATA5 section.");
+                        return new DATA5Section();
                     }
                     default:
                     {

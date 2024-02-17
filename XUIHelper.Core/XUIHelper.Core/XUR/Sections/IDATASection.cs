@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace XUIHelper.Core
 {
-    public interface IXURSection : IXURReadable
+    public interface IDATASection : IXURSection
     {
-        int Magic { get; }
+        const int ExpectedMagic = 0x44415441;
+
+        XUObject? RootObject { get; }
     }
 }
