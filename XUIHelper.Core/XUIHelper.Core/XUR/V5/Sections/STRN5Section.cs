@@ -26,7 +26,7 @@ namespace XUIHelper.Core
                     return false;
                 }
 
-                xur.Logger?.Here().Verbose("Reading string from offset {0:X8}.", entry.Offset);
+                xur.Logger?.Here().Verbose("Reading strings from offset {0:X8}.", entry.Offset);
                 reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
                 int bytesRead;
@@ -41,7 +41,7 @@ namespace XUIHelper.Core
                     bytesRead += (2 + (stringLength * 2));
                 }
 
-                xur.Logger?.Here().Verbose("Read all strings successfully, read a total of {0:X8} bytes.", bytesRead);
+                xur.Logger?.Here().Verbose("Read  strings successfully, read a total of {0} strings, {1:X8} bytes.", Strings.Count, bytesRead);
                 return true;
             }
             catch(Exception ex) 

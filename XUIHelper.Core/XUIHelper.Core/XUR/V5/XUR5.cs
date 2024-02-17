@@ -27,9 +27,14 @@ namespace XUIHelper.Core
                 {
                     case ISTRNSection.ExpectedMagic:
                     {
-                        Logger?.Here().Verbose("Returning STRN5Section.");
+                        Logger?.Here().Verbose("Returning STRN5 section.");
                         return new STRN5Section();
                     }
+                    case IVECTSection.ExpectedMagic:
+                    {
+                        Logger?.Here().Verbose("Returning VECT5 section.");
+                        return new VECT5Section();
+                    }    
                     default:
                     {
                         Logger?.Here().Error("Hit default case, unhandled magic.");
