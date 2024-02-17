@@ -12,7 +12,7 @@ namespace XUIHelper.Core
     {
         public List<XUVector> Vectors { get; private set; } = new List<XUVector>();
 
-        public bool TryReadAsync(IXUR xur, BinaryReader reader)
+        public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
             try
             {

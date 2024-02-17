@@ -9,6 +9,6 @@ namespace XUIHelper.Core
 {
     public interface IXURReadable
     {
-        bool TryReadAsync(IXUR xur, BinaryReader reader);
+        Task<bool> TryReadAsync(IXUR xur, BinaryReader reader);
     }
 }

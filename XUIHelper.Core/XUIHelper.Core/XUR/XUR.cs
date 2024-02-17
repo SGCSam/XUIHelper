@@ -28,7 +28,7 @@ namespace XUIHelper.Core
             Logger = logger?.ForContext(typeof(XUR));
         }
 
-        public virtual bool TryReadAsync()
+        public virtual async Task<bool> TryReadAsync()
         {
             try
             {
@@ -41,13 +41,13 @@ namespace XUIHelper.Core
                 Logger?.Here().Information("Reading XUR file at {0}", FilePath);
                 Reader = new BinaryReader(File.OpenRead(FilePath));
 
-                if (!Header.TryReadAsync(this, Reader))
+                if (!await Header.TryReadAsync(this, Reader))
                 {
                     Logger?.Here().Error("XUR file header read has failed, returning false.", FilePath);
                     return false;
                 }
 
-                if (!SectionsTable.TryReadAsync(this, Reader))
+                if (!await SectionsTable.TryReadAsync(this, Reader))
                 {
                     Logger?.Here().Error("XUR file sections table read has failed, returning false.", FilePath);
                     return false;
@@ -71,7 +71,7 @@ namespace XUIHelper.Core
 
                     Logger?.Here().Verbose("Reading section {0:X8} from offset {1:X8}.", entry.Magic, entry.Offset);
                     Reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
-                    if(!section.TryReadAsync(this, Reader))
+                    if(!await section.TryReadAsync(this, Reader))
                     {
                         Logger?.Here().Error("Failed to read section {0:X8}, returning false.", entry.Magic);
                         return false;

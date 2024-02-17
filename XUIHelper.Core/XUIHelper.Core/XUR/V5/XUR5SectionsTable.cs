@@ -15,7 +15,7 @@ namespace XUIHelper.Core
 
         public List<XURSectionTableEntry> Entries { get; private set; } = new List<XURSectionTableEntry>();
 
-        public bool TryReadAsync(IXUR xur, BinaryReader reader)
+        public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace XUIHelper.Core
                 for(int i = 0; i < SectionsCount; i++)
                 {
                     XURSectionTableEntry thisEntry = new XURSectionTableEntry();
-                    if (!thisEntry.TryReadAsync(xur, reader))
+                    if (!await thisEntry.TryReadAsync(xur, reader))
                     {
                         xur.Logger?.Here().Error("XUR section table entry read for index {0} has failed, returning false.", i);
                         return false;

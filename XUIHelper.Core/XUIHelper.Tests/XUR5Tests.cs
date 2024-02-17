@@ -11,10 +11,10 @@ namespace XUIHelper.Tests
         {
         }
 
-        public void CheckReadSuccessful(string filePath, ILogger? logger = null)
+        public async void CheckReadSuccessful(string filePath, ILogger? logger = null)
         {
             XUR5 xur = new XUR5(filePath, logger);
-            Assert.True(xur.TryReadAsync());
+            Assert.True(await xur.TryReadAsync());
         }
 
         [Test]

@@ -18,7 +18,7 @@ namespace XUIHelper.Core
         public short ToolVersion { get; private set; }
         public int FileSize { get; private set; }
 
-        public bool TryReadAsync(IXUR xur, BinaryReader reader)
+        public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
             try
             {

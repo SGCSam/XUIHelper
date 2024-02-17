@@ -14,7 +14,7 @@ namespace XUIHelper.Core
         public int Offset { get; private set; }
         public int Length { get; private set; }
 
-        public bool TryReadAsync(IXUR xur, BinaryReader reader)
+        public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
             try
             {
