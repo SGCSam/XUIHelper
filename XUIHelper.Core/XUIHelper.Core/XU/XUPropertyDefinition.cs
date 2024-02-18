@@ -44,6 +44,25 @@ namespace XUIHelper.Core
     }
 
     [Serializable]
+    public enum XUPropertyDefinitionFlags
+    {
+        [XmlEnum(Name = "indexed")]
+        Indexed,
+
+        [XmlEnum(Name = "hidden")]
+        Hidden,
+
+        [XmlEnum(Name = "localize")]
+        Localized,
+
+        [XmlEnum(Name = "noanim")]
+        NoAnimation,
+
+        [XmlEnum(Name = "filepath")]
+        FilePath
+    }
+
+    [Serializable]
     public class XUPropertyDefinition
     {
         [XmlAttribute("Id")]
@@ -55,20 +74,52 @@ namespace XUIHelper.Core
         [XmlAttribute("Type")]
         public XUPropertyDefinitionTypes Type { get; set; }
 
+        [XmlAttribute("Flags")]
+        public string FlagsString { get; set; } = string.Empty;
+
         [XmlElement("DefaultVal")]
         public XUDefaultValue DefaultValue { get; set; }
 
-        public XUPropertyDefinition(int id, string name, XUPropertyDefinitionTypes type, XUDefaultValue defaultVal)
+        [XmlIgnore]
+        public HashSet<XUPropertyDefinitionFlags> FlagsSet { get; private set; } = new HashSet<XUPropertyDefinitionFlags>();
+
+        private void GetFlagsFromString()
+        {
+            if(string.IsNullOrEmpty(FlagsString))
+            {
+                return;
+            }
+
+            foreach (string flag in FlagsString.Split('|'))
+            {
+                switch(flag)
+                {
+                    case "indexed":
+                    {
+                        FlagsSet.Add(XUPropertyDefinitionFlags.Indexed);
+                        break;
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        public XUPropertyDefinition(int id, string name, XUPropertyDefinitionTypes type, string flagsString, XUDefaultValue defaultVal)
         {
             ID = id;
             Name = name;
             Type = type;
+            FlagsString = flagsString;
             DefaultValue = defaultVal;
+            GetFlagsFromString();
         }
 
         public XUPropertyDefinition() 
         {
-        
-        } 
+            GetFlagsFromString();
+        }
     }
 }
