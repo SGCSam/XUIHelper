@@ -1,0 +1,9 @@
+﻿<XUIClassExtension version="0001">
+  <XUIClass
+      Name="LegacyControl"
+      BaseClassName="XuiControl"
+      DefaultWidth="880"
+      DefaultHeight="480"
+      Description="Legacy Control" >
+  </XUIClass>
+</XUIClassExtension>

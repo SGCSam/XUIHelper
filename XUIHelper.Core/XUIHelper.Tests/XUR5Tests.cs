@@ -31,9 +31,10 @@ namespace XUIHelper.Tests
 
             XMLExtensionsManager v5Extensions = new XMLExtensionsManager(log);
             _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\XuiElements.xml");
+            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199DashElements.xml");
             XUIHelperCoreConstants.VersionedExtensions[0x5] = v5Extensions;
 
-            CheckReadSuccessful(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199dashSysCslSetClockTime.xur", log);
+            CheckReadSuccessful(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199dashSysCslSetStartUp.xur", log);
         }
     }
 }
