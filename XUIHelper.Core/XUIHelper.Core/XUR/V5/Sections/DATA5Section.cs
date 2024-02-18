@@ -52,7 +52,7 @@ namespace XUIHelper.Core
                 reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
                 XUObject dummyParent = new XUObject();
-                RootObject = ReadObject(xur, reader, ref dummyParent);
+                RootObject = TryReadObject(xur, reader, ref dummyParent);
                 if (RootObject == null)
                 {
                     xur.Logger?.Here().Error("Root object was null, read must have failed, returning false.");
@@ -68,7 +68,7 @@ namespace XUIHelper.Core
             }
         }
 
-        private XUObject? ReadObject(IXUR xur, BinaryReader reader, ref XUObject parentObject)
+        private XUObject? TryReadObject(IXUR xur, BinaryReader reader, ref XUObject parentObject)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace XUIHelper.Core
 
                 if (stringIndex < 0 || stringIndex > STRNSection.Strings.Count - 1)
                 {
-                    xur.Logger?.Here().Verbose("String index of {0:X8} is invalid, must be between 0 and {1}, returning null.", stringIndex, STRNSection.Strings.Count - 1);
+                    xur.Logger?.Here().Error("String index of {0:X8} is invalid, must be between 0 and {1}, returning null.", stringIndex, STRNSection.Strings.Count - 1);
                     return null;
                 }
 
@@ -120,7 +120,7 @@ namespace XUIHelper.Core
                     for (int childIndex = 0; childIndex < childrenCount; childIndex++)
                     {
                         xur.Logger?.Here().Verbose("Reading child object index {0}.", childIndex);
-                        XUObject? thisChild = ReadObject(xur, reader, ref thisObject);
+                        XUObject? thisChild = TryReadObject(xur, reader, ref thisObject);
                         if (thisChild == null)
                         {
                             xur.Logger?.Here().Error("Failed to read child object index {0}, returning false.", childIndex);
@@ -133,9 +133,52 @@ namespace XUIHelper.Core
 
                 if((flags & 0x4) == 0x4) 
                 {
-                    xur.Logger?.Here().Verbose("Class has timeline data.");
-                    xur.Logger?.Error("Not implemented.");
-                    return null;
+                    xur.Logger?.Here().Verbose("Class has timeline data, reading named frames count.");
+
+                    int namedFramesCount = reader.ReadInt32BE();
+                    xur.Logger?.Here().Verbose("Class has {0} named frames.", namedFramesCount);
+
+                    for (int namedFrameIndex = 0; namedFrameIndex < namedFramesCount; namedFrameIndex++)
+                    {
+                        xur.Logger?.Here().Verbose("Reading named frame index {0}.", namedFrameIndex);
+                        XUNamedFrame? thisNamedFrame = xur.TryReadNamedFrame(reader);
+                        if (thisNamedFrame == null)
+                        {
+                            xur.Logger?.Here().Error("Failed to read named frame index {0}, returning false.", namedFrameIndex);
+                            return null;
+                        }
+
+                        thisObject.NamedFrames.Add(thisNamedFrame);
+                    }
+
+                    if (parentObject.Children.Count == 0)
+                    {
+                        xur.Logger?.Here().Verbose("The parent object had no children, no need to load timeline data.");
+                        return thisObject;
+                    }
+
+                    xur.Logger?.Here().Verbose("Reading timelines count.");
+                    int timelinesCount = reader.ReadInt32BE();
+                    xur.Logger?.Here().Verbose("Class has {0:X8} timelines.", timelinesCount);
+
+                    if (timelinesCount == 0)
+                    {
+                        xur.Logger?.Here().Verbose("There are no timelines, no need to load timeline data, returning true.");
+                        return thisObject;
+                    }
+
+                    for (int timelineIndex = 0; timelineIndex < timelinesCount; timelineIndex++)
+                    {
+                        xur.Logger?.Here().Verbose("Reading timeline index {0}.", timelineIndex);
+                        XUTimeline? thisTimeline = xur.TryReadTimeline(reader);
+                        if (thisTimeline == null)
+                        {
+                            xur.Logger?.Here().Error("Failed to read timeline index {0}, returning false.", timelineIndex);
+                            return null;
+                        }
+
+                        thisObject.Timelines.Add(thisTimeline);
+                    }
                 }
 
                 return thisObject;

@@ -224,5 +224,122 @@ namespace XUIHelper.Core
                 return null;
             }
         }
+
+        public static XUNamedFrame? TryReadNamedFrame(this XUR5 xur, BinaryReader reader)
+        {
+            try
+            {
+                short namedFrameStringIndex = (short)(reader.ReadInt16BE() - 1);
+                xur.Logger?.Here().Verbose("Read named frame string index of {0:X8}.", namedFrameStringIndex);
+
+                ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
+                {
+                    xur.Logger?.Here().Error("STRN section was null, returning null.");
+                    return null;
+                }
+
+                if (strnSection.Strings.Count == 0 || strnSection.Strings.Count <= namedFrameStringIndex)
+                {
+                    xur.Logger?.Here().Error("Failed to read string as we got an invalid index of {0}. The strings length is {1}. Returning null.", namedFrameStringIndex, strnSection.Strings.Count);
+                    return null;
+                }
+
+                if (namedFrameStringIndex < 0 || namedFrameStringIndex > strnSection.Strings.Count - 1)
+                {
+                    xur.Logger?.Here().Error("String index of {0:X8} is invalid, must be between 0 and {1}, returning null.", namedFrameStringIndex, strnSection.Strings.Count - 1);
+                    return null;
+                }
+
+                string namedFrameName = strnSection.Strings[namedFrameStringIndex];
+                xur.Logger?.Here().Verbose("Got a named frame of {0}.", namedFrameName);
+
+                int namedFrameKeyframe = reader.ReadInt32BE();
+                xur.Logger?.Here().Verbose("Got a named frame keyframe of {0}.", namedFrameKeyframe);
+
+                byte namedFrameCommandByte = reader.ReadByte();
+                xur.Logger?.Here().Verbose("Got a named frame command byte of {0:X8}.", namedFrameCommandByte);
+
+                if (!Enum.IsDefined(typeof(XUNamedFrameCommandTypes), (int)namedFrameCommandByte))
+                {
+                    xur.Logger?.Here().Error("Command byte of {0:X8} is not a valid command, returning null.", namedFrameCommandByte);
+                    return null;
+                }
+
+                XUNamedFrameCommandTypes namedFrameCommandType = (XUNamedFrameCommandTypes)namedFrameCommandByte;
+                xur.Logger?.Here().Verbose("Got a named frame command type of {0}.", namedFrameCommandType);
+                short unknownShort = reader.ReadInt16BE();  //TODO: ...
+
+                return new XUNamedFrame(namedFrameName, namedFrameKeyframe, namedFrameCommandType);
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when reading named frame, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
+
+        public static XUTimeline? TryReadTimeline(this XUR5 xur, BinaryReader reader)
+        {
+            try
+            {
+                short elementNameStringIndex = (short)(reader.ReadInt16BE() - 1);
+                xur.Logger?.Here().Verbose("Read element name string index of {0:X8}.", elementNameStringIndex);
+
+                ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
+                {
+                    xur.Logger?.Here().Error("STRN section was null, returning null.");
+                    return null;
+                }
+
+                if (strnSection.Strings.Count == 0 || strnSection.Strings.Count <= elementNameStringIndex)
+                {
+                    xur.Logger?.Here().Error("Failed to read string as we got an invalid index of {0}. The strings length is {1}. Returning null.", elementNameStringIndex, strnSection.Strings.Count);
+                    return null;
+                }
+
+                if (elementNameStringIndex < 0 || elementNameStringIndex > strnSection.Strings.Count - 1)
+                {
+                    xur.Logger?.Here().Error("String index of {0:X8} is invalid, must be between 0 and {1}, returning null.", elementNameStringIndex, strnSection.Strings.Count - 1);
+                    return null;
+                }
+
+                string elementName = strnSection.Strings[elementNameStringIndex];
+                xur.Logger?.Here().Verbose("Got an element name of {0}.", elementName);
+
+                int propertyPathsCount = reader.ReadInt32BE();
+                xur.Logger?.Here().Verbose("Got a count of {0} property paths.", propertyPathsCount);
+
+                //TODO: Continue here. The main thing to think about is how to structure XUTimeline with XUKeyframe, XUNamedFrame, etc
+                //Ideally, we don't have to create XUTimelinePropertyPath and just store pure data in the XUTimeline class, XUTimelinePropertyPath can be derived at write time
+                //
+                //Does separating XUNamedFrame from XUTimeline make sense? This may actually be correct, verify.
+                //
+                //Also investigate the unknown short TODO in TryReadNamedFrame, it may be some member we've not implemented.
+                //Best way to do this is read in a huge XUR and see if we can find a non-zero unknown short and work it out
+
+                for (int j = 0; j < propertyPathsCount; j++)
+                {
+                    /*XUTimelinePropertyPath? thisTimelinePropertyPath = TryReadTimelinePropertyPath(reader, xur, parentObject, elementName, logger);
+
+                    if (thisTimelinePropertyPath == null)
+                    {
+                        logger?.Error("Failed to read timeline property path, returning null.");
+                        return null;
+                    }
+
+                    indexes.Add(thisTimelinePropertyPath.Index);
+                    propertyPaths.Add(thisTimelinePropertyPath);*/
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when reading timeline, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
     }
 }
