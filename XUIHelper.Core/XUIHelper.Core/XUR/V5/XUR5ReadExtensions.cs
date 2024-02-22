@@ -43,6 +43,10 @@ namespace XUIHelper.Core
                     {
                         return TryReadColourProperty(xur, reader, propertyDefinition);
                     }
+                    case XUPropertyDefinitionTypes.Custom:
+                    {
+                        return TryReadCustomProperty(xur, reader, propertyDefinition);
+                    }
                     default:
                     {
                         xur.Logger?.Here().Error("Unhandled property type of {0} when reading property {1}, returning null.", propertyDefinition.Type, propertyDefinition.Name);
@@ -371,6 +375,67 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when reading colour property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static XUProperty? TryReadCustomProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Custom)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not custom, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                int custOffset = reader.ReadInt32BE();
+                xur.Logger?.Here()?.Verbose("Reading custom, got offset index of {0:X8}", custOffset);
+
+                ICUSTSection? custSection = ((IXUR)xur).TryFindXURSectionByMagic<ICUSTSection>(ICUSTSection.ExpectedMagic);
+                if (custSection == null)
+                {
+                    xur.Logger?.Here().Error("CUST section was null, returning null.");
+                    return null;
+                }
+
+                if (custSection.Figures.Count <= 0)
+                {
+                    xur.Logger?.Here().Error("Failed to read custom as we have no figures, returning null.");
+                    return null;
+                }
+
+                if (custOffset == 0) 
+                {
+                    xur.Logger?.Here().Verbose("Custom offset is 0, returning first figure.");
+                    return new XUProperty(propertyDefinition, custSection.Figures[0]);
+                }
+                else
+                {
+                    int calculatedOffset = 0;
+                    for (int i = 0; i < custSection.Figures.Count; i++)
+                    {
+                        XUFigure thisFigure = custSection.Figures[i];
+                        calculatedOffset += 0x10 + (thisFigure.Points.Count * 0x18);
+
+                        if (calculatedOffset == custOffset)
+                        {
+                            xur.Logger?.Here().Verbose("Custom offset is {0:X8}, returning figure at index {1}.", custOffset, i);
+                            return new XUProperty(propertyDefinition, custSection.Figures[i]);
+                        }
+                        else if (calculatedOffset > custOffset)
+                        {
+                            break;
+                        }
+                    }
+
+                    xur.Logger?.Here().Error("Failed to find figured with custom offset {0:X8}, returning null.", custOffset);
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when reading custom property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
                 return null;
             }
         }
