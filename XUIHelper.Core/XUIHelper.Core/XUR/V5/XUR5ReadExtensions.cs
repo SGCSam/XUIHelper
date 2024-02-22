@@ -268,9 +268,28 @@ namespace XUIHelper.Core
 
                 XUNamedFrameCommandTypes namedFrameCommandType = (XUNamedFrameCommandTypes)namedFrameCommandByte;
                 xur.Logger?.Here().Verbose("Got a named frame command type of {0}.", namedFrameCommandType);
-                short unknownShort = reader.ReadInt16BE();  //TODO: ...
 
-                return new XUNamedFrame(namedFrameName, namedFrameKeyframe, namedFrameCommandType);
+                short targetParameterStringIndex = (short)(reader.ReadInt16BE() - 1);
+                xur.Logger?.Here().Verbose("Read target parameter string index of {0:X8}.", targetParameterStringIndex);
+
+                if (targetParameterStringIndex < -1 || targetParameterStringIndex > strnSection.Strings.Count - 1)
+                {
+                    xur.Logger?.Here().Error("String index of {0:X8} is invalid, must be between 0 and {1}, returning null.", targetParameterStringIndex, strnSection.Strings.Count - 1);
+                    return null;
+                }
+
+                if(targetParameterStringIndex == -1)
+                {
+                    //Not an error, only goto commands support parameters but XUR5 includes the string index as 0 anyway if non-goto
+                    xur.Logger?.Here().Verbose("The command type {0} has a target parameter string index of 0, it must not support parameters.", namedFrameCommandType);
+                    return new XUNamedFrame(namedFrameName, namedFrameKeyframe, namedFrameCommandType);
+                }
+                else
+                {
+                    string targetParameter = strnSection.Strings[targetParameterStringIndex];
+                    xur.Logger?.Here().Verbose("Got a target parameter of {0}.", targetParameter);
+                    return new XUNamedFrame(namedFrameName, namedFrameKeyframe, namedFrameCommandType, targetParameter);
+                }
             }
             catch (Exception ex)
             {
