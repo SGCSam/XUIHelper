@@ -1,10 +1,4 @@
 ﻿using Serilog;
-using Serilog.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XUIHelper.Core.Extensions;
 
 namespace XUIHelper.Core
@@ -40,6 +34,14 @@ namespace XUIHelper.Core
                     case XUPropertyDefinitionTypes.Vector:
                     {
                         return TryReadVectorProperty(xur, reader, propertyDefinition);
+                    }
+                    case XUPropertyDefinitionTypes.Object:
+                    {
+                        return TryReadObjectProperty(xur, reader, propertyDefinition);
+                    }
+                    case XUPropertyDefinitionTypes.Colour:
+                    {
+                        return TryReadColourProperty(xur, reader, propertyDefinition);
                     }
                     default:
                     {
@@ -221,6 +223,154 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when reading vector property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static XUProperty? TryReadObjectProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Object)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not object, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                XMLExtensionsManager? ext = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x5);
+                if (ext == null)
+                {
+                    xur.Logger?.Here().Error("Failed to get extensions manager, returning null.");
+                    return null;
+                }
+
+                int compoundClassIndex = reader.ReadInt16BE() - 1;
+                XUClass? compoundClass = null;
+                switch (compoundClassIndex)
+                {
+                    case 0:
+                    {
+                        xur.Logger?.Here()?.Verbose("Reading object, got a compound class index of {0}, treating as fill.", compoundClassIndex);
+                        compoundClass = ext.TryGetClassByName("XuiFigureFill");
+                        break;
+                    }
+                    case 1:
+                    {
+                        xur.Logger?.Here()?.Verbose("Reading object, got a compound class index of {0}, treating as gradient.", compoundClassIndex);
+                        compoundClass = ext.TryGetClassByName("XuiFigureFillGradient");
+                        break;
+                    }
+                    case 2:
+                    {
+                        xur.Logger?.Here()?.Verbose("Reading object, got a compound class index of {0}, treating as stroke.", compoundClassIndex);
+                        compoundClass = ext.TryGetClassByName("XuiFigureStroke");
+                        break;
+                    }
+                    default:
+                    {
+                        xur.Logger?.Here().Error("Unhandled compound class index of {0}, returning null.", compoundClassIndex);
+                        return null;
+                    }
+                }
+
+                if(compoundClass == null)
+                {
+                    xur.Logger?.Here()?.Verbose("Compound class was null, the class lookup must have failed, returning null.");
+                    return null;
+                }
+
+                byte propertiesCount = reader.ReadByte();
+                xur.Logger?.Here()?.Verbose("Compound class has {0:X8} properties.", propertiesCount);
+
+                int propertyMasksCount = Math.Max((int)Math.Ceiling(compoundClass.PropertyDefinitions.Count / 8.0f), 1);
+                xur.Logger?.Here().Verbose("Compound class has {0:X8} property definitions, will have {1:X8} mask(s).", compoundClass.PropertyDefinitions.Count, propertyMasksCount);
+
+                byte[] propertyMasks = new byte[propertyMasksCount];
+                for (int i = 0; i < propertyMasksCount; i++)
+                {
+                    byte readMask = reader.ReadByte();
+                    propertyMasks[i] = readMask;
+                    xur.Logger?.Here().Verbose("Read property mask {0:X8}.", readMask);
+                }
+                Array.Reverse(propertyMasks);
+
+                List<XUProperty> compoundProperties = new List<XUProperty>();
+                for (int i = 0; i < propertyMasksCount; i++)
+                {
+                    byte thisPropertyMask = propertyMasks[i];
+                    xur.Logger?.Here().Verbose("Handling property mask {0:X8} for compound class {1}.", thisPropertyMask, compoundClass.Name);
+
+                    if (thisPropertyMask == 0x00)
+                    {
+                        xur.Logger?.Here().Verbose("Property mask is 0, continuing.");
+                        continue;
+                    }
+
+                    int propertyIndex = 0;
+                    List<XUPropertyDefinition> thisMaskPropertyDefinitions = compoundClass.PropertyDefinitions.Skip(i * 8).Take(8).ToList();
+                    foreach (XUPropertyDefinition maskedPropertyDefinition in thisMaskPropertyDefinitions)
+                    {
+                        int flag = 1 << propertyIndex;
+
+                        if ((thisPropertyMask & flag) == flag)
+                        {
+                            xur.Logger?.Here().Verbose("Reading {0} property.", maskedPropertyDefinition.Name);
+
+                            int indexCount = 1;
+                            if (maskedPropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                            {
+                                indexCount = (int)reader.ReadPackedULong();
+                                xur.Logger?.Here().Verbose("The property {0} is indexed and has an index count of {1}.", maskedPropertyDefinition.Name, indexCount);
+                            }
+
+                            for (int currentIndex = 0; currentIndex < indexCount; currentIndex++)
+                            {
+                                XUProperty? xuProperty = xur.TryReadProperty(reader, maskedPropertyDefinition);
+                                if (xuProperty == null)
+                                {
+                                    xur.Logger?.Here().Error("Failed to read {0} property, returning null.", maskedPropertyDefinition.Name);
+                                    return null;
+                                }
+
+                                compoundProperties.Add(xuProperty);
+                            }
+                        }
+
+                        propertyIndex++;
+                    }
+                }
+
+                return new XUProperty(propertyDefinition, compoundProperties);
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when reading object property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static XUProperty? TryReadColourProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Colour)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not colour, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                byte a = reader.ReadByte();
+                byte r = reader.ReadByte();
+                byte g = reader.ReadByte();
+                byte b = reader.ReadByte();
+
+                XUColour colour = new XUColour(a, r, g, b);
+                xur.Logger?.Here().Error("Read a colour, {0}.", colour);
+                return new XUProperty(propertyDefinition, colour);
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when reading colour property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
                 return null;
             }
         }
