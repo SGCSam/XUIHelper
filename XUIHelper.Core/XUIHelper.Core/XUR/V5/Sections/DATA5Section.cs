@@ -51,7 +51,7 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Reading data from offset {0:X8}.", entry.Offset);
                 reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
-                XUObject dummyParent = new XUObject();
+                XUObject dummyParent = new XUObject("");
                 RootObject = TryReadObject(xur, reader, ref dummyParent);
                 if (RootObject == null)
                 {
@@ -94,7 +94,7 @@ namespace XUIHelper.Core
 
                 string className = STRNSection.Strings[stringIndex];
 
-                XUObject thisObject = new XUObject();
+                XUObject thisObject = new XUObject(className);
                 xur.Logger?.Here().Verbose("Reading class {0}.", className);
 
                 if ((flags & 0x1) == 0x1)
@@ -170,7 +170,7 @@ namespace XUIHelper.Core
                     for (int timelineIndex = 0; timelineIndex < timelinesCount; timelineIndex++)
                     {
                         xur.Logger?.Here().Verbose("Reading timeline index {0}.", timelineIndex);
-                        XUTimeline? thisTimeline = xur.TryReadTimeline(reader);
+                        XUTimeline? thisTimeline = xur.TryReadTimeline(reader, thisObject);
                         if (thisTimeline == null)
                         {
                             xur.Logger?.Here().Error("Failed to read timeline index {0}, returning false.", timelineIndex);

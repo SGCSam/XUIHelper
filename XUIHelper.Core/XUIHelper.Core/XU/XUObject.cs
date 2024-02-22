@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace XUIHelper.Core
 {
@@ -23,9 +24,28 @@ namespace XUIHelper.Core
             Timelines = timelines;
         }
 
-        public XUObject() 
+        public XUObject(string className)
         {
-            
+            ClassName = className;
+        }
+
+        public XUObject? TryFindChildById(string id)
+        {
+            foreach (XUObject child in Children)
+            {
+                foreach (XUProperty property in child.Properties)
+                {
+                    if (property.PropertyDefinition.Name == "Id")
+                    {
+                        if (property.Value?.ToString() == id)
+                        {
+                            return child;
+                        }
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

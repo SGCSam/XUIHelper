@@ -52,14 +52,14 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUTimeline? TryReadTimeline(this IXUR xur, BinaryReader reader)
+        public static XUTimeline? TryReadTimeline(this IXUR xur, BinaryReader reader, XUObject obj)
         {
             try
             {
                 if (xur is XUR5 xur5)
                 {
                     xur.Logger?.Here().Verbose("Trying to read XUR5 timeline.");
-                    return xur5.TryReadTimeline(reader);
+                    return xur5.TryReadTimeline(reader, obj);
                 }
 
                 xur.Logger?.Here().Error("Unhandled IXUR for timeline, returning null.");

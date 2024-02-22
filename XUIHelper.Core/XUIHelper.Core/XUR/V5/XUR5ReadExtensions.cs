@@ -298,12 +298,12 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUTimeline? TryReadTimeline(this XUR5 xur, BinaryReader reader)
+        public static XUTimeline? TryReadTimeline(this XUR5 xur, BinaryReader reader, XUObject obj)
         {
             try
             {
-                short elementNameStringIndex = (short)(reader.ReadInt16BE() - 1);
-                xur.Logger?.Here().Verbose("Read element name string index of {0:X8}.", elementNameStringIndex);
+                short objectNameStringIndex = (short)(reader.ReadInt16BE() - 1);
+                xur.Logger?.Here().Verbose("Read object name string index of {0:X8}.", objectNameStringIndex);
 
                 ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
                 if (strnSection == null)
@@ -312,47 +312,125 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                if (strnSection.Strings.Count == 0 || strnSection.Strings.Count <= elementNameStringIndex)
+                if (strnSection.Strings.Count == 0 || strnSection.Strings.Count <= objectNameStringIndex)
                 {
-                    xur.Logger?.Here().Error("Failed to read string as we got an invalid index of {0}. The strings length is {1}. Returning null.", elementNameStringIndex, strnSection.Strings.Count);
+                    xur.Logger?.Here().Error("Failed to read string as we got an invalid index of {0}. The strings length is {1}. Returning null.", objectNameStringIndex, strnSection.Strings.Count);
                     return null;
                 }
 
-                if (elementNameStringIndex < 0 || elementNameStringIndex > strnSection.Strings.Count - 1)
+                if (objectNameStringIndex < 0 || objectNameStringIndex > strnSection.Strings.Count - 1)
                 {
-                    xur.Logger?.Here().Error("String index of {0:X8} is invalid, must be between 0 and {1}, returning null.", elementNameStringIndex, strnSection.Strings.Count - 1);
+                    xur.Logger?.Here().Error("String index of {0:X8} is invalid, must be between 0 and {1}, returning null.", objectNameStringIndex, strnSection.Strings.Count - 1);
                     return null;
                 }
 
-                string elementName = strnSection.Strings[elementNameStringIndex];
-                xur.Logger?.Here().Verbose("Got an element name of {0}.", elementName);
+                string objectName = strnSection.Strings[objectNameStringIndex];
+                xur.Logger?.Here().Verbose("Got an object name of {0}.", objectName);
 
-                int propertyPathsCount = reader.ReadInt32BE();
-                xur.Logger?.Here().Verbose("Got a count of {0} property paths.", propertyPathsCount);
-
-                //TODO: Continue here. The main thing to think about is how to structure XUTimeline with XUKeyframe, XUNamedFrame, etc
-                //Ideally, we don't have to create XUTimelinePropertyPath and just store pure data in the XUTimeline class, XUTimelinePropertyPath can be derived at write time
-                //
-                //Does separating XUNamedFrame from XUTimeline make sense? This may actually be correct, verify.
-                //
-                //Also investigate the unknown short TODO in TryReadNamedFrame, it may be some member we've not implemented.
-                //Best way to do this is read in a huge XUR and see if we can find a non-zero unknown short and work it out
-
-                for (int j = 0; j < propertyPathsCount; j++)
+                XUObject? elementObject = obj.TryFindChildById(objectName);
+                if (elementObject == null) 
                 {
-                    /*XUTimelinePropertyPath? thisTimelinePropertyPath = TryReadTimelinePropertyPath(reader, xur, parentObject, elementName, logger);
+                    xur.Logger?.Here().Error("Failed to find object, returning null.");
+                    return null;
+                }
 
-                    if (thisTimelinePropertyPath == null)
+                XMLExtensionsManager? ext = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x5);
+                if (ext == null)
+                {
+                    xur.Logger?.Here().Error("Failed to get extensions manager, returning null.");
+                    return null;
+                }
+
+                xur.Logger?.Here().Verbose("Found object has a class name of {0}.", elementObject.ClassName);
+                List<XUClass>? classList = ext.TryGetClassHierarchy(elementObject.ClassName);
+                if (classList == null)
+                {
+                    Log.Error(string.Format("Failed to get {0} class hierarchy, returning false.", elementObject.ClassName));
+                    return null;
+                }
+                classList.Reverse();
+
+                int propertyDefinitionsCount = reader.ReadInt32BE();
+                xur.Logger?.Here().Verbose("Got a count of {0} property definitions.", propertyDefinitionsCount);
+
+                List<XUPropertyDefinition> animatedPropertyDefinitions = new List<XUPropertyDefinition>();
+
+                for (int i = 0; i < propertyDefinitionsCount; i++)
+                {
+                    byte propertyDepth = reader.ReadByte();
+                    xur.Logger?.Here().Verbose("Read a property depth of {0:X8}", propertyDepth);
+                    byte classDepth = reader.ReadByte();
+                    xur.Logger?.Here().Verbose("Read a class depth of {0:X8}", classDepth);
+                    byte propertyIndex = reader.ReadByte();
+                    xur.Logger?.Here().Verbose("Read a property index of {0:X8}", propertyIndex);
+
+                    if(propertyDepth == 0x1)
                     {
-                        logger?.Error("Failed to read timeline property path, returning null.");
+                        if(classDepth < 0 || classDepth > classList.Count - 1)
+                        {
+                            xur.Logger?.Here().Error("Class depth of {0:X8} is invalid, must be between 0 and {1}, returning null.", classDepth, classList.Count - 1);
+                            return null;
+                        }
+
+                        XUClass classAtDepth = classList[classDepth];
+                        if (propertyIndex < 0 || propertyIndex > classAtDepth.PropertyDefinitions.Count)
+                        {
+                            xur.Logger?.Here().Error("Property index of {0:X8} is invalid, must be between 0 and {1}, returning null.", propertyIndex, classAtDepth.PropertyDefinitions.Count);
+                            return null;
+                        }
+
+                        XUPropertyDefinition thisPropDef = classAtDepth.PropertyDefinitions[propertyIndex];
+                        xur.Logger?.Here().Verbose("Property {0} of {1} is animated.", thisPropDef.Name, classAtDepth.Name);
+                        animatedPropertyDefinitions.Add(thisPropDef);
+                    }
+                    else
+                    {
+                        xur.Logger?.Here().Error("Unimplemented.");
+                        return null;
+                    }
+                }
+
+                int keyframesCount = reader.ReadInt32BE();
+                xur.Logger?.Here().Verbose("Timeline for {0} has {1} keyframes.", objectName, keyframesCount);
+                List<XUKeyframe> keyframes = new List<XUKeyframe>();
+
+                for (int i = 0; i < keyframesCount; i++)
+                {
+                    List<XUProperty> animatedProperties = new List<XUProperty>();
+                    int keyframe = reader.ReadInt32BE();
+                    byte interpolationTypeByte = reader.ReadByte();
+                    byte easeIn = reader.ReadByte();
+                    byte easeOut = reader.ReadByte();
+                    byte easeScale = reader.ReadByte();
+
+                    if (!Enum.IsDefined(typeof(XUKeyframeInterpolationTypes), (int)interpolationTypeByte))
+                    {
+                        xur.Logger?.Here().Error("Interpolation type byte of {0:X8} is not a valid type, returning null.", interpolationTypeByte);
                         return null;
                     }
 
-                    indexes.Add(thisTimelinePropertyPath.Index);
-                    propertyPaths.Add(thisTimelinePropertyPath);*/
+                    XUKeyframeInterpolationTypes interpolationType = (XUKeyframeInterpolationTypes)interpolationTypeByte;
+                    xur.Logger?.Here().Verbose("Keyframe {0}: Interpolation Type {1}, Ease In: {2}, Ease Out: {3}, Scale {4}.", keyframe, interpolationTypeByte, easeIn, easeOut, easeScale);
+
+                    foreach(XUPropertyDefinition animatedPropertyDefinition in animatedPropertyDefinitions)
+                    {
+                        xur.Logger?.Here().Verbose("Reading animated property {0}.", animatedPropertyDefinition.Name);
+                        XUProperty? xuProperty = xur.TryReadProperty(reader, animatedPropertyDefinition);
+                        if (xuProperty == null)
+                        {
+                            xur.Logger?.Here().Error("Failed to read {0} property, returning null.", animatedPropertyDefinition.Name);
+                            return null;
+                        }
+
+                        xur.Logger?.Here().Verbose("Animated property {0} has a value of {1} at keyframe {2}.", animatedPropertyDefinition.Name, xuProperty.Value, keyframe);
+                        animatedProperties.Add(xuProperty);
+                    }
+
+                    XUKeyframe thisKeyframe = new XUKeyframe(keyframe, interpolationType, easeIn, easeOut, easeScale, animatedProperties);
+                    keyframes.Add(thisKeyframe);
                 }
 
-                return null;
+                return new XUTimeline(objectName, keyframes);
             }
             catch (Exception ex)
             {
