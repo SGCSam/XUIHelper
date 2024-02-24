@@ -25,9 +25,9 @@ namespace XUIHelper.Tests
             var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
 
             ILogger log = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
+            .MinimumLevel.Information()
             .Enrich.FromLogContext()
-            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
+            .WriteTo.File(logPath, LogEventLevel.Information, outputTemplate)
             .CreateLogger();
 
             XMLExtensionsManager v5Extensions = new XMLExtensionsManager(log);
@@ -35,9 +35,10 @@ namespace XUIHelper.Tests
             _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199DashElements.xml");
             XUIHelperCoreConstants.VersionedExtensions[0x5] = v5Extensions;
 
-            Assert.True(await CheckReadSuccessful(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199FriendsUpsellScene.xur", log));
+            //Assert.True(await CheckReadSuccessful(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199GamerCard.xur", log));
+            //Assert.True(await CheckReadSuccessful(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199FriendsUpsellScene.xur", log));
 
-            /*bool anyFailed = false;
+            bool anyFailed = false;
             foreach(string xurFilePath in Directory.GetFiles(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199 All\Working", "*.xur"))
             {
                 string fileName = Path.GetFileName(xurFilePath);
@@ -48,7 +49,7 @@ namespace XUIHelper.Tests
                 }
             }
 
-            Assert.False(anyFailed);*/
+            Assert.False(anyFailed);
         }
     }
 }

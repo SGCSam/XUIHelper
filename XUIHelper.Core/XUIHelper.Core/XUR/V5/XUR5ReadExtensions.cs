@@ -302,28 +302,29 @@ namespace XUIHelper.Core
                 }
 
                 //TODO: I don't think this is an index, is it a mask?
-                int compoundClassIndex = reader.ReadInt16BE() - 1;
+                int compoundPropertyValuesCount = reader.ReadInt16BE();
+                xur.Logger?.Here()?.Verbose("Got a compound properties value count of {0}.", compoundPropertyValuesCount);
 
                 XUClass? compoundClass = null;
                 switch (propertyDefinition.Name)
                 {
                     case "Fill":
                     {
-                        xur.Logger?.Here()?.Verbose("Reading object, got a compound class index of {0}, treating as fill.", compoundClassIndex);
+                        xur.Logger?.Here()?.Verbose("Reading fill object.");
                         compoundClass = ext.TryGetClassByName("XuiFigureFill");
                         break;
                     }
 
                     case "Gradient":
                     {
-                        xur.Logger?.Here()?.Verbose("Reading object, got a compound class index of {0}, treating as gradient.", compoundClassIndex);
+                        xur.Logger?.Here()?.Verbose("Reading gradient object.");
                         compoundClass = ext.TryGetClassByName("XuiFigureFillGradient");
                         break;
                     }
 
                     case "Stroke":
                     {
-                        xur.Logger?.Here()?.Verbose("Reading object, got a compound class index of {0}, treating as stroke.", compoundClassIndex);
+                        xur.Logger?.Here()?.Verbose("Reading stroke object.");
                         compoundClass = ext.TryGetClassByName("XuiFigureStroke");
                         break;
                     }
@@ -388,6 +389,25 @@ namespace XUIHelper.Core
 
                         propertyIndex++;
                     }
+                }
+
+                int actualCompoundPropertyValuesCount = 0;
+                foreach (XUProperty compoundProperty in compoundProperties)
+                {
+                    if(compoundProperty.Value is List<object> valList)
+                    {
+                        actualCompoundPropertyValuesCount += valList.Count;
+                    }
+                    else if(compoundProperty.Value is not null)
+                    {
+                        actualCompoundPropertyValuesCount++;
+                    }
+                }
+
+                if (compoundPropertyValuesCount != actualCompoundPropertyValuesCount)
+                {
+                    xur.Logger?.Here()?.Error("Mismatch between compound properties value count. Expected: {0}, Actual: {1}, returning null.", compoundPropertyValuesCount, actualCompoundPropertyValuesCount);
+                    return null;
                 }
 
                 return compoundProperties;
