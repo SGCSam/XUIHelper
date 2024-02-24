@@ -2,6 +2,7 @@
 using Serilog.Core;
 using System;
 using System.Reflection.Metadata;
+using System.Reflection.Metadata.Ecma335;
 using XUIHelper.Core.Extensions;
 
 namespace XUIHelper.Core
@@ -94,7 +95,7 @@ namespace XUIHelper.Core
                         return null;
                     }
 
-                    if(indexCount == 1)
+                    if(!propertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
                     {
                         return new XUProperty(propertyDefinition, value);
                     }
@@ -651,7 +652,7 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Got a count of {0} property definitions.", propertyDefinitionsCount);
 
                 List<XUPropertyDefinition> animatedPropertyDefinitions = new List<XUPropertyDefinition>();
-
+                List<int> indexedPropertyIndexes = new List<int>();
                 for (int i = 0; i < propertyDefinitionsCount; i++)
                 {
                     byte packedByte = reader.ReadByte();
@@ -676,6 +677,12 @@ namespace XUIHelper.Core
                     {
                         propertyIndex = reader.ReadByte();
                         xur.Logger?.Here().Verbose("Read a property index of {0:X8}", propertyIndex);
+
+                        if (classAtIndex == null)
+                        {
+                            xur.Logger?.Here()?.Error("Class at index was null, the class lookup must have failed, returning null.");
+                            return null;
+                        }
 
                         XUPropertyDefinition thisPropDef = classAtIndex.PropertyDefinitions[propertyIndex];
                         xur.Logger?.Here().Verbose("Handling animated property for {0}.", thisPropDef.Name);
@@ -732,6 +739,7 @@ namespace XUIHelper.Core
                     {
                         int index = reader.ReadInt32BE();
                         xur.Logger?.Here()?.Verbose("Read a timeline compound index value of {0}", index);
+                        indexedPropertyIndexes.Add(index);
                     }
                 }
 
@@ -742,6 +750,8 @@ namespace XUIHelper.Core
                 for (int i = 0; i < keyframesCount; i++)
                 {
                     List<XUProperty> animatedProperties = new List<XUProperty>();
+                    int handledIndexedProperties = 0;
+
                     int keyframe = reader.ReadInt32BE();
                     byte interpolationTypeByte = reader.ReadByte();
                     byte easeIn = reader.ReadByte();
@@ -768,6 +778,43 @@ namespace XUIHelper.Core
                         }
 
                         xur.Logger?.Here().Verbose("Animated property {0} has a value of {1} at keyframe {2}.", animatedPropertyDefinition.Name, xuProperty.Value, keyframe);
+                        if (animatedPropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                        {
+                            if(handledIndexedProperties < 0 || handledIndexedProperties >= indexedPropertyIndexes.Count)
+                            {
+                                xur.Logger?.Here().Error("Indexed properties index of {0:X8} is invalid, must be between 0 and {1}, returning null.", handledIndexedProperties, indexedPropertyIndexes.Count);
+                                return null;
+                            }
+
+                            xur.Logger?.Here().Verbose("The property {0} is indexed, using index of {1}.", animatedPropertyDefinition.Name, indexedPropertyIndexes[handledIndexedProperties]);
+                            
+                            foreach(XUProperty addedAnimatedProperty in animatedProperties)
+                            {
+                                if(addedAnimatedProperty.PropertyDefinition == xuProperty.PropertyDefinition)
+                                {
+                                    if(addedAnimatedProperty.Value is List<object> addedList)
+                                    {
+                                        if (xuProperty.Value is List<object> readList)
+                                        {
+                                            addedList.AddRange(readList);
+                                            handledIndexedProperties++;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            xur.Logger?.Here().Error("Read animated property was not a list value type, returning null.");
+                                            return null;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        xur.Logger?.Here().Error("Added animated property was not a list value type, returning null.");
+                                        return null;
+                                    }
+                                }
+                            }
+                        }
+
                         animatedProperties.Add(xuProperty);
                     }
 
