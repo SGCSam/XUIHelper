@@ -39,58 +39,60 @@ namespace XUIHelper.Core
                 }
 
                 Logger?.Here().Information("Reading XUR file at {0}", FilePath);
-                Reader = new BinaryReader(File.OpenRead(FilePath));
-
-                if (!await Header.TryReadAsync(this, Reader))
+                using (Reader = new BinaryReader(File.OpenRead(FilePath)))
                 {
-                    Logger?.Here().Error("XUR file header read has failed, returning false.", FilePath);
-                    return false;
-                }
 
-                if (!await SectionsTable.TryReadAsync(this, Reader))
-                {
-                    Logger?.Here().Error("XUR file sections table read has failed, returning false.", FilePath);
-                    return false;
-                }
-
-                if(SectionsTable.Entries.Count <= 0)
-                {
-                    Logger?.Here().Error("The sections table has no entries, returning false.", FilePath);
-                    return false;
-                }
-
-                Logger?.Here().Verbose("Reading all entries from sections table.");
-                foreach (XURSectionTableEntry entry in SectionsTable.Entries)
-                {
-                    IXURSection? section = TryCreateXURSectionForMagic(entry.Magic);
-                    if (section == null)
+                    if (!await Header.TryReadAsync(this, Reader))
                     {
-                        Logger?.Here().Error("Failed to create XUR section for magic {0:X8}, returning false.", entry.Magic);
+                        Logger?.Here().Error("XUR file header read has failed, returning false.", FilePath);
                         return false;
                     }
 
-                    Logger?.Here().Verbose("Reading section {0:X8} from offset {1:X8}.", entry.Magic, entry.Offset);
-                    Reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
-                    if(!await section.TryReadAsync(this, Reader))
+                    if (!await SectionsTable.TryReadAsync(this, Reader))
                     {
-                        Logger?.Here().Error("Failed to read section {0:X8}, returning false.", entry.Magic);
+                        Logger?.Here().Error("XUR file sections table read has failed, returning false.", FilePath);
                         return false;
                     }
 
-                    int expectedOffset = entry.Offset + entry.Length;
-                    if(Reader.BaseStream.Position != expectedOffset)
+                    if (SectionsTable.Entries.Count <= 0)
                     {
-                        Logger?.Here().Error("The read of section {0:X8} succeeded, but the expected offset did not match the actual offset. returning false. " +
-                            "There must be a logic bug with some data unread. Expected: {1:X8}, Actual: {2:X8}", entry.Magic, expectedOffset, Reader.BaseStream.Position);
+                        Logger?.Here().Error("The sections table has no entries, returning false.", FilePath);
                         return false;
                     }
 
-                    Sections.Add(section);
-                    Logger?.Here().Verbose("Read {0:X8} section successfully!", entry.Magic);
+                    Logger?.Here().Verbose("Reading all entries from sections table.");
+                    foreach (XURSectionTableEntry entry in SectionsTable.Entries)
+                    {
+                        IXURSection? section = TryCreateXURSectionForMagic(entry.Magic);
+                        if (section == null)
+                        {
+                            Logger?.Here().Error("Failed to create XUR section for magic {0:X8}, returning false.", entry.Magic);
+                            return false;
+                        }
+
+                        Logger?.Here().Verbose("Reading section {0:X8} from offset {1:X8}.", entry.Magic, entry.Offset);
+                        Reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
+                        if (!await section.TryReadAsync(this, Reader))
+                        {
+                            Logger?.Here().Error("Failed to read section {0:X8}, returning false.", entry.Magic);
+                            return false;
+                        }
+
+                        int expectedOffset = entry.Offset + entry.Length;
+                        if (Reader.BaseStream.Position != expectedOffset)
+                        {
+                            Logger?.Here().Error("The read of section {0:X8} succeeded, but the expected offset did not match the actual offset. returning false. " +
+                                "There must be a logic bug with some data unread. Expected: {1:X8}, Actual: {2:X8}", entry.Magic, expectedOffset, Reader.BaseStream.Position);
+                            return false;
+                        }
+
+                        Sections.Add(section);
+                        Logger?.Here().Verbose("Read {0:X8} section successfully!", entry.Magic);
+                    }
+
+                    Logger?.Here().Information("Read successful!");
+                    return true;
                 }
-
-                Logger?.Here().Information("Read successful!");
-                return true;
             }
             catch(Exception ex)
             {

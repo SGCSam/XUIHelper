@@ -415,7 +415,7 @@ namespace XUIHelper.Core
                 byte b = reader.ReadByte();
 
                 XUColour colour = new XUColour(a, r, g, b);
-                xur.Logger?.Here().Error("Read a colour, {0}.", colour);
+                xur.Logger?.Here().Verbose("Read a colour, {0}.", colour);
                 return colour;
             }
             catch (Exception ex)
