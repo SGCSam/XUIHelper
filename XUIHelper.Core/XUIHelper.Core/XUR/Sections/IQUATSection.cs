@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace XUIHelper.Core
 {
-    public interface IXURSectionsTable : IXURReadable
+    public interface IQUATSection : IXURSection
     {
-        List<XURSectionTableEntry> Entries { get; }
+        const int ExpectedMagic = 0x51554154;
+
+        List<XUQuaternion> Quaternions { get; }
     }
 }

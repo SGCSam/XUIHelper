@@ -41,7 +41,7 @@ namespace XUIHelper.Core
 
                     int dataLength = reader.ReadInt32BE();
                     xur.Logger?.Here().Verbose("Got a custom data length of {0:X8}", dataLength);
-                    bytesRead += dataLength;
+                    bytesRead += 4;
 
                     int dataRead = 0;
                     float boundingBoxX = reader.ReadSingleBE();

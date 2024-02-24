@@ -11,8 +11,6 @@ namespace XUIHelper.Core
 {
     public class XUR5SectionsTable : IXURSectionsTable
     {
-        public short SectionsCount { get; private set; }
-
         public List<XURSectionTableEntry> Entries { get; private set; } = new List<XURSectionTableEntry>();
 
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
@@ -23,10 +21,13 @@ namespace XUIHelper.Core
 
                 xur.Logger?.Here().Verbose("Reading XUR5 sections table.");
 
-                SectionsCount = reader.ReadInt16BE();
-                xur.Logger?.Here().Verbose("Sections count is {0:X8}", SectionsCount);
+                if(xur.Header is not XUR5Header xur5Header)
+                {
+                    xur.Logger?.Here().Error("The header of the XUR file was not a XUR5 header, returning false.");
+                    return false;
+                }
 
-                for(int i = 0; i < SectionsCount; i++)
+                for(int i = 0; i < xur5Header.SectionsCount; i++)
                 {
                     XURSectionTableEntry thisEntry = new XURSectionTableEntry();
                     if (!await thisEntry.TryReadAsync(xur, reader))
