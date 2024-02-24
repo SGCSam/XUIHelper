@@ -1,58 +1,110 @@
 ﻿using Serilog;
+using Serilog.Core;
+using System;
+using System.Reflection.Metadata;
 using XUIHelper.Core.Extensions;
 
 namespace XUIHelper.Core
 {
     public static class XUR5ReadExtensions
     {
-        public static XUProperty? TryReadProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static XUProperty? TryReadProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition, bool readIndex = true)
         {
             try
             {
-                switch(propertyDefinition.Type)
+                int indexCount = 1;
+                if (readIndex && propertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
                 {
-                    case XUPropertyDefinitionTypes.Bool:
+                    indexCount = (int)reader.ReadByte();
+                    xur.Logger?.Here().Verbose("The property {0} is indexed and has an index count of {1}.", propertyDefinition.Name, indexCount);
+                }
+
+                List<object> readValues = new List<object>();
+                for(int i = 0; i < indexCount; i++)
+                {
+                    object? value = null;
+
+                    if(indexCount > 1)
                     {
-                        return TryReadBoolProperty(xur, reader, propertyDefinition);
+                        xur.Logger?.Here().Verbose("Reading indexed property {0}.", i);
                     }
-                    case XUPropertyDefinitionTypes.Integer: 
+
+                    switch (propertyDefinition.Type)
                     {
-                        return TryReadIntegerProperty(xur, reader, propertyDefinition);
+                        case XUPropertyDefinitionTypes.Bool:
+                        {
+                            value = TryReadBoolProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        case XUPropertyDefinitionTypes.Integer:
+                        {
+                            value = TryReadIntegerProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        case XUPropertyDefinitionTypes.Unsigned:
+                        {
+                            value = TryReadUnsignedProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        case XUPropertyDefinitionTypes.String:
+                        {
+                            value = TryReadStringProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        case XUPropertyDefinitionTypes.Float:
+                        {
+                            value = TryReadFloatProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        case XUPropertyDefinitionTypes.Vector:
+                        {
+                            value = TryReadVectorProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        case XUPropertyDefinitionTypes.Object:
+                        {
+                            value = TryReadObjectProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        case XUPropertyDefinitionTypes.Colour:
+                        {
+                            value = TryReadColourProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        case XUPropertyDefinitionTypes.Custom:
+                        {
+                            value = TryReadCustomProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        case XUPropertyDefinitionTypes.Quaternion:
+                        {
+                            value = TryReadQuaternionProperty(xur, reader, propertyDefinition);
+                            break;
+                        }
+                        default:
+                        {
+                            xur.Logger?.Here().Error("Unhandled property type of {0} when reading property {1}, returning null.", propertyDefinition.Type, propertyDefinition.Name);
+                            return null;
+                        }
                     }
-                    case XUPropertyDefinitionTypes.Unsigned:
+
+                    if(value == null)
                     {
-                        return TryReadUnsignedProperty(xur, reader, propertyDefinition);
-                    }
-                    case XUPropertyDefinitionTypes.String:
-                    {
-                        return TryReadStringProperty(xur, reader, propertyDefinition);
-                    }
-                    case XUPropertyDefinitionTypes.Float:
-                    {
-                        return TryReadFloatProperty(xur, reader, propertyDefinition);
-                    }
-                    case XUPropertyDefinitionTypes.Vector:
-                    {
-                        return TryReadVectorProperty(xur, reader, propertyDefinition);
-                    }
-                    case XUPropertyDefinitionTypes.Object:
-                    {
-                        return TryReadObjectProperty(xur, reader, propertyDefinition);
-                    }
-                    case XUPropertyDefinitionTypes.Colour:
-                    {
-                        return TryReadColourProperty(xur, reader, propertyDefinition);
-                    }
-                    case XUPropertyDefinitionTypes.Custom:
-                    {
-                        return TryReadCustomProperty(xur, reader, propertyDefinition);
-                    }
-                    default:
-                    {
-                        xur.Logger?.Here().Error("Unhandled property type of {0} when reading property {1}, returning null.", propertyDefinition.Type, propertyDefinition.Name);
+                        xur.Logger?.Here().Error("Read value was null when reading property {0}, an error must have occurred, returning null.", propertyDefinition.Name);
                         return null;
                     }
+
+                    if(indexCount == 1)
+                    {
+                        return new XUProperty(propertyDefinition, value);
+                    }
+                    else
+                    {
+                        readValues.Add(value);
+                    }
                 }
+
+                return new XUProperty(propertyDefinition, readValues);
             }
             catch (Exception ex)
             {
@@ -61,7 +113,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUProperty? TryReadBoolProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static bool? TryReadBoolProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
         {
             try
             {
@@ -73,7 +125,7 @@ namespace XUIHelper.Core
 
                 bool val = reader.ReadByte() > 0 ? true : false;
                 xur.Logger?.Here().Verbose("Read {0} boolean property value of {1}.", propertyDefinition.Name, val);
-                return new XUProperty(propertyDefinition, val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -82,7 +134,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUProperty? TryReadIntegerProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static int? TryReadIntegerProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
         {
             try
             {
@@ -94,7 +146,7 @@ namespace XUIHelper.Core
 
                 int val = reader.ReadInt32BE();
                 xur.Logger?.Here().Verbose("Read {0} integer property value of {1}.", propertyDefinition.Name, val);
-                return new XUProperty(propertyDefinition, val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -103,7 +155,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUProperty? TryReadUnsignedProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static uint? TryReadUnsignedProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
         {
             try
             {
@@ -115,7 +167,7 @@ namespace XUIHelper.Core
 
                 uint val = reader.ReadUInt32BE();
                 xur.Logger?.Here().Verbose("Read {0} unsigned property value of {1}.", propertyDefinition.Name, val);
-                return new XUProperty(propertyDefinition, val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -124,7 +176,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUProperty? TryReadStringProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static string? TryReadStringProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
         {
             try
             {
@@ -146,7 +198,7 @@ namespace XUIHelper.Core
                     //We also use less than, since the zero based index method of -1 takes does 0 - 1, so we'll get a negative number
 
                     xur.Logger?.Here()?.Verbose("String index was 0, returning empty string.");
-                    return new XUProperty(propertyDefinition, string.Empty);
+                    return string.Empty;
                 }
 
                 ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
@@ -164,7 +216,7 @@ namespace XUIHelper.Core
 
                 string val = strnSection.Strings[stringIndex];
                 xur.Logger?.Here().Verbose("Read string value of {0}.", val);
-                return new XUProperty(propertyDefinition, val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -173,7 +225,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUProperty? TryReadFloatProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static float? TryReadFloatProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
         {
             try
             {
@@ -185,7 +237,7 @@ namespace XUIHelper.Core
 
                 float val = reader.ReadSingleBE();
                 xur.Logger?.Here().Verbose("Read {0} float property value of {1}.", propertyDefinition.Name, val);
-                return new XUProperty(propertyDefinition, val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -194,7 +246,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUProperty? TryReadVectorProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static XUVector? TryReadVectorProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
         {
             try
             {
@@ -222,7 +274,7 @@ namespace XUIHelper.Core
 
                 XUVector val = vectSection.Vectors[vectIndex];
                 xur.Logger?.Here().Verbose("Read vector value of {0}.", val);
-                return new XUProperty(propertyDefinition, val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -231,7 +283,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUProperty? TryReadObjectProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static List<XUProperty>? TryReadObjectProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
         {
             try
             {
@@ -248,23 +300,27 @@ namespace XUIHelper.Core
                     return null;
                 }
 
+                //TODO: I don't think this is an index, is it a mask?
                 int compoundClassIndex = reader.ReadInt16BE() - 1;
+
                 XUClass? compoundClass = null;
-                switch (compoundClassIndex)
+                switch (propertyDefinition.Name)
                 {
-                    case 0:
+                    case "Fill":
                     {
                         xur.Logger?.Here()?.Verbose("Reading object, got a compound class index of {0}, treating as fill.", compoundClassIndex);
                         compoundClass = ext.TryGetClassByName("XuiFigureFill");
                         break;
                     }
-                    case 1:
+
+                    case "Gradient":
                     {
                         xur.Logger?.Here()?.Verbose("Reading object, got a compound class index of {0}, treating as gradient.", compoundClassIndex);
                         compoundClass = ext.TryGetClassByName("XuiFigureFillGradient");
                         break;
                     }
-                    case 2:
+
+                    case "Stroke":
                     {
                         xur.Logger?.Here()?.Verbose("Reading object, got a compound class index of {0}, treating as stroke.", compoundClassIndex);
                         compoundClass = ext.TryGetClassByName("XuiFigureStroke");
@@ -272,14 +328,14 @@ namespace XUIHelper.Core
                     }
                     default:
                     {
-                        xur.Logger?.Here().Error("Unhandled compound class index of {0}, returning null.", compoundClassIndex);
+                        xur.Logger?.Here().Error("Unhandled compound class of {0}, returning null.", propertyDefinition.Name);
                         return null;
                     }
                 }
 
                 if(compoundClass == null)
                 {
-                    xur.Logger?.Here()?.Verbose("Compound class was null, the class lookup must have failed, returning null.");
+                    xur.Logger?.Here()?.Error("Compound class was null, the class lookup must have failed, returning null.");
                     return null;
                 }
 
@@ -319,32 +375,21 @@ namespace XUIHelper.Core
                         if ((thisPropertyMask & flag) == flag)
                         {
                             xur.Logger?.Here().Verbose("Reading {0} property.", maskedPropertyDefinition.Name);
-
-                            int indexCount = 1;
-                            if (maskedPropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                            XUProperty? xuProperty = xur.TryReadProperty(reader, maskedPropertyDefinition);
+                            if (xuProperty == null)
                             {
-                                indexCount = (int)reader.ReadPackedULong();
-                                xur.Logger?.Here().Verbose("The property {0} is indexed and has an index count of {1}.", maskedPropertyDefinition.Name, indexCount);
+                                xur.Logger?.Here().Error("Failed to read {0} property, returning null.", maskedPropertyDefinition.Name);
+                                return null;
                             }
 
-                            for (int currentIndex = 0; currentIndex < indexCount; currentIndex++)
-                            {
-                                XUProperty? xuProperty = xur.TryReadProperty(reader, maskedPropertyDefinition);
-                                if (xuProperty == null)
-                                {
-                                    xur.Logger?.Here().Error("Failed to read {0} property, returning null.", maskedPropertyDefinition.Name);
-                                    return null;
-                                }
-
-                                compoundProperties.Add(xuProperty);
-                            }
+                            compoundProperties.Add(xuProperty);
                         }
 
                         propertyIndex++;
                     }
                 }
 
-                return new XUProperty(propertyDefinition, compoundProperties);
+                return compoundProperties;
             }
             catch (Exception ex)
             {
@@ -353,7 +398,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUProperty? TryReadColourProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static XUColour? TryReadColourProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
         {
             try
             {
@@ -370,7 +415,7 @@ namespace XUIHelper.Core
 
                 XUColour colour = new XUColour(a, r, g, b);
                 xur.Logger?.Here().Error("Read a colour, {0}.", colour);
-                return new XUProperty(propertyDefinition, colour);
+                return colour;
             }
             catch (Exception ex)
             {
@@ -379,7 +424,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUProperty? TryReadCustomProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        public static XUFigure? TryReadCustomProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
         {
             try
             {
@@ -408,7 +453,7 @@ namespace XUIHelper.Core
                 if (custOffset == 0) 
                 {
                     xur.Logger?.Here().Verbose("Custom offset is 0, returning first figure.");
-                    return new XUProperty(propertyDefinition, custSection.Figures[0]);
+                    return custSection.Figures[0];
                 }
                 else
                 {
@@ -421,7 +466,7 @@ namespace XUIHelper.Core
                         if (calculatedOffset == custOffset)
                         {
                             xur.Logger?.Here().Verbose("Custom offset is {0:X8}, returning figure at index {1}.", custOffset, i);
-                            return new XUProperty(propertyDefinition, custSection.Figures[i]);
+                            return custSection.Figures[i];
                         }
                         else if (calculatedOffset > custOffset)
                         {
@@ -436,6 +481,43 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when reading custom property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static XUQuaternion? TryReadQuaternionProperty(this XUR5 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Quaternion)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not quaternion, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                int quatIndex = reader.ReadInt32BE();
+                xur.Logger?.Here()?.Verbose("Reading quaternion, got quaternion index of {0}", quatIndex);
+
+                IQUATSection? quatSection = ((IXUR)xur).TryFindXURSectionByMagic<IQUATSection>(IQUATSection.ExpectedMagic);
+                if (quatSection == null)
+                {
+                    xur.Logger?.Here().Error("QUAT section was null, returning null.");
+                    return null;
+                }
+
+                if (quatSection.Quaternions.Count == 0 || quatSection.Quaternions.Count <= quatIndex)
+                {
+                    xur.Logger?.Here().Error("Failed to read quaternion as we got an invalid index of {0}. The quaternions length is {1}. Returning null.", quatIndex, quatSection.Quaternions.Count);
+                    return null;
+                }
+
+                XUQuaternion val = quatSection.Quaternions[quatIndex];
+                xur.Logger?.Here().Verbose("Read quaternion value of {0}.", val);
+                return val;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when reading quaternion property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
                 return null;
             }
         }
@@ -572,36 +654,84 @@ namespace XUIHelper.Core
 
                 for (int i = 0; i < propertyDefinitionsCount; i++)
                 {
-                    byte propertyDepth = reader.ReadByte();
-                    xur.Logger?.Here().Verbose("Read a property depth of {0:X8}", propertyDepth);
-                    byte classDepth = reader.ReadByte();
+                    byte packedByte = reader.ReadByte();
+                    xur.Logger?.Here().Verbose("Read a packed byte {0:X8}", packedByte);
+                    int classDepth = (packedByte & 0x7F);
                     xur.Logger?.Here().Verbose("Read a class depth of {0:X8}", classDepth);
-                    byte propertyIndex = reader.ReadByte();
-                    xur.Logger?.Here().Verbose("Read a property index of {0:X8}", propertyIndex);
+                    bool isIndexed = ((packedByte & 0x80) != 0);
+                    xur.Logger?.Here().Verbose("Is indexed is {0}", isIndexed);
 
-                    if(propertyDepth == 0x1)
+                    byte classIndex = reader.ReadByte();
+                    xur.Logger?.Here().Verbose("Read a class index of {0:X8}", classIndex);
+
+                    if (classIndex < 0 || classIndex > classList.Count - 1)
                     {
-                        if(classDepth < 0 || classDepth > classList.Count - 1)
-                        {
-                            xur.Logger?.Here().Error("Class depth of {0:X8} is invalid, must be between 0 and {1}, returning null.", classDepth, classList.Count - 1);
-                            return null;
-                        }
-
-                        XUClass classAtDepth = classList[classDepth];
-                        if (propertyIndex < 0 || propertyIndex > classAtDepth.PropertyDefinitions.Count)
-                        {
-                            xur.Logger?.Here().Error("Property index of {0:X8} is invalid, must be between 0 and {1}, returning null.", propertyIndex, classAtDepth.PropertyDefinitions.Count);
-                            return null;
-                        }
-
-                        XUPropertyDefinition thisPropDef = classAtDepth.PropertyDefinitions[propertyIndex];
-                        xur.Logger?.Here().Verbose("Property {0} of {1} is animated.", thisPropDef.Name, classAtDepth.Name);
-                        animatedPropertyDefinitions.Add(thisPropDef);
-                    }
-                    else
-                    {
-                        xur.Logger?.Here().Error("Unimplemented.");
+                        xur.Logger?.Here().Error("Class index of {0:X8} is invalid, must be between 0 and {1}, returning null.", classIndex, classList.Count - 1);
                         return null;
+                    }
+
+                    byte propertyIndex = 0;
+                    XUClass? classAtIndex = classList[classIndex];
+                    for (int j = 0; j < classDepth; j++)
+                    {
+                        propertyIndex = reader.ReadByte();
+                        xur.Logger?.Here().Verbose("Read a property index of {0:X8}", propertyIndex);
+
+                        XUPropertyDefinition thisPropDef = classAtIndex.PropertyDefinitions[propertyIndex];
+                        xur.Logger?.Here().Verbose("Handling animated property for {0}.", thisPropDef.Name);
+
+                        if (j != classDepth - 1)
+                        {
+                            switch (thisPropDef.Name)
+                            {
+                                case "Fill":
+                                {
+                                    xur.Logger?.Here()?.Verbose("Got a class depth of {0}, handling fill.", classDepth);
+                                    classAtIndex = ext.TryGetClassByName("XuiFigureFill");
+                                    break;
+                                }
+
+                                case "Gradient":
+                                {
+                                    xur.Logger?.Here()?.Verbose("Got a class depth of {0}, handling gradient.", classDepth);
+                                    classAtIndex = ext.TryGetClassByName("XuiFigureFillGradient");
+                                    break;
+                                }
+
+                                case "Stroke":
+                                {
+                                    xur.Logger?.Here()?.Verbose("Got a class depth of {0}, handling stroke.", classDepth);
+                                    classAtIndex = ext.TryGetClassByName("XuiFigureStroke");
+                                    break;
+                                }
+                                default:
+                                {
+                                    xur.Logger?.Here().Error("Unhandled compound class of {0}, returning null.", thisPropDef.Name);
+                                    return null;
+                                }
+                            }
+                        }
+                    }
+
+                    if (classAtIndex == null)
+                    {
+                        xur.Logger?.Here()?.Error("Class at index was null, the class lookup must have failed, returning null.");
+                        return null;
+                    }
+
+                    if (propertyIndex < 0 || propertyIndex >= classAtIndex.PropertyDefinitions.Count)
+                    {
+                        xur.Logger?.Here().Error("Property index of {0:X8} is invalid, must be between 0 and {1}, returning null.", propertyIndex, classAtIndex.PropertyDefinitions.Count);
+                        return null;
+                    }
+
+                    xur.Logger?.Here().Verbose("Property {0} of {1} is animated.", classAtIndex.PropertyDefinitions[propertyIndex].Name, classAtIndex.Name);
+                    animatedPropertyDefinitions.Add(classAtIndex.PropertyDefinitions[propertyIndex]);
+
+                    if (isIndexed)
+                    {
+                        int index = reader.ReadInt32BE();
+                        xur.Logger?.Here()?.Verbose("Read a timeline compound index value of {0}", index);
                     }
                 }
 
@@ -630,7 +760,7 @@ namespace XUIHelper.Core
                     foreach(XUPropertyDefinition animatedPropertyDefinition in animatedPropertyDefinitions)
                     {
                         xur.Logger?.Here().Verbose("Reading animated property {0}.", animatedPropertyDefinition.Name);
-                        XUProperty? xuProperty = xur.TryReadProperty(reader, animatedPropertyDefinition);
+                        XUProperty? xuProperty = xur.TryReadProperty(reader, animatedPropertyDefinition, false);
                         if (xuProperty == null)
                         {
                             xur.Logger?.Here().Error("Failed to read {0} property, returning null.", animatedPropertyDefinition.Name);

@@ -151,7 +151,7 @@ namespace XUIHelper.Core
                         thisObject.NamedFrames.Add(thisNamedFrame);
                     }
 
-                    if (parentObject.Children.Count == 0)
+                    if (thisObject.Children.Count == 0)
                     {
                         xur.Logger?.Here().Verbose("The parent object had no children, no need to load timeline data.");
                         return thisObject;
@@ -250,25 +250,14 @@ namespace XUIHelper.Core
                             if ((thisPropertyMask & flag) == flag)
                             {
                                 xur.Logger?.Here().Verbose("Reading {0} property.", propertyDefinition.Name);
-
-                                int indexCount = 1;
-                                if (propertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                                XUProperty? xuProperty = xur.TryReadProperty(reader, propertyDefinition);
+                                if (xuProperty == null)
                                 {
-                                    indexCount = (int)reader.ReadPackedULong();
-                                    xur.Logger?.Here().Verbose("The property {0} is indexed and has an index count of {1}.", propertyDefinition.Name, indexCount);
+                                    xur.Logger?.Here().Error("Failed to read {0} property, returning null.", propertyDefinition.Name);
+                                    return null;
                                 }
 
-                                for (int currentIndex = 0; currentIndex < indexCount; currentIndex++)
-                                {
-                                    XUProperty? xuProperty = xur.TryReadProperty(reader, propertyDefinition);
-                                    if (xuProperty == null)
-                                    {
-                                        xur.Logger?.Here().Error("Failed to read {0} property, returning null.", propertyDefinition.Name);
-                                        return null;
-                                    }
-
-                                    retProperties.Add(xuProperty);
-                                }
+                                retProperties.Add(xuProperty);
                             }
 
                             propertyIndex++;

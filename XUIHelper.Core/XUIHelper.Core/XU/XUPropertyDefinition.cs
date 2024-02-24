@@ -65,6 +65,8 @@ namespace XUIHelper.Core
     [Serializable]
     public class XUPropertyDefinition
     {
+        private string _FlagsString;
+
         [XmlAttribute("Id")]
         public int ID { get; set; }
 
@@ -75,7 +77,18 @@ namespace XUIHelper.Core
         public XUPropertyDefinitionTypes Type { get; set; }
 
         [XmlAttribute("Flags")]
-        public string FlagsString { get; set; } = string.Empty;
+        public string FlagsString 
+        { 
+            get 
+            { 
+                return _FlagsString; 
+            } 
+            set 
+            { 
+                _FlagsString =  value;
+                GetFlagsFromString();
+            } 
+        }
 
         [XmlElement("DefaultVal")]
         public XUDefaultValue DefaultValue { get; set; }
@@ -114,12 +127,11 @@ namespace XUIHelper.Core
             Type = type;
             FlagsString = flagsString;
             DefaultValue = defaultVal;
-            GetFlagsFromString();
         }
 
         public XUPropertyDefinition() 
         {
-            GetFlagsFromString();
+
         }
     }
 }
