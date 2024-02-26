@@ -4,7 +4,7 @@ using XUIHelper.Core;
 
 namespace XUIHelper.Tests
 {
-    public class Tests
+    public class XUR5Tests
     {
         [SetUp]
         public void Setup()
