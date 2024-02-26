@@ -301,7 +301,6 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                //TODO: I don't think this is an index, is it a mask?
                 int compoundPropertyValuesCount = reader.ReadInt16BE();
                 xur.Logger?.Here()?.Verbose("Got a compound properties value count of {0}.", compoundPropertyValuesCount);
 
@@ -807,7 +806,8 @@ namespace XUIHelper.Core
                             }
 
                             xur.Logger?.Here().Verbose("The property {0} is indexed, using index of {1}.", animatedPropertyDefinition.Name, indexedPropertyIndexes[handledIndexedProperties]);
-                            
+
+                            bool found = false;
                             foreach(XUProperty addedAnimatedProperty in animatedProperties)
                             {
                                 if(addedAnimatedProperty.PropertyDefinition == xuProperty.PropertyDefinition)
@@ -818,6 +818,7 @@ namespace XUIHelper.Core
                                         {
                                             addedList.AddRange(readList);
                                             handledIndexedProperties++;
+                                            found = true;
                                             break;
                                         }
                                         else
@@ -832,6 +833,12 @@ namespace XUIHelper.Core
                                         return null;
                                     }
                                 }
+                            }
+
+                            if(found)
+                            {
+                                //Don't re-add the XUProperty again if we've just updated the existing one
+                                continue;
                             }
                         }
 

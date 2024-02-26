@@ -18,6 +18,7 @@ namespace XUIHelper.Core
         public short ToolVersion { get; private set; }
         public int FileSize { get; private set; }
         public short SectionsCount { get; private set; }
+        public XUR5CountHeader? CountHeader { get; private set; }
 
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
@@ -58,10 +59,13 @@ namespace XUIHelper.Core
 
                 if((Flags & 0x1) == 0x1) 
                 {
-                    xur.Logger?.Here().Verbose("Extended header data flag is set.");
-
-                    //TODO: Handle extended header data here
-                    reader.ReadBytes(0x28);
+                    xur.Logger?.Here().Verbose("Count header data flag is set, reading...");
+                    CountHeader = new XUR5CountHeader();
+                    if(!await CountHeader.TryReadAsync(xur, reader))
+                    {
+                        xur.Logger?.Here().Error("Failed to read count header, returning false.");
+                        return false;
+                    }
                 }
 
                 xur.Logger?.Here().Verbose("XUR5 header read successful!");
