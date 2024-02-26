@@ -6,10 +6,6 @@ namespace XUIHelper.Tests
 {
     public class Tests
     {
-        //TODO: Proper addition of IXURCountHeader so we can handle this for XUR8 as well
-        //TODO: Override Read in XUR5, if it succeeds, verify the count header with our own count functions on the root object
-        //TODO: Add a check to ensure count header is not null if 0x1 flag is set in the base header
-
         [SetUp]
         public void Setup()
         {
@@ -18,26 +14,7 @@ namespace XUIHelper.Tests
         public async Task<bool> CheckReadSuccessful(string filePath, ILogger? logger = null)
         {
             XUR5 xur = new XUR5(filePath, logger);
-            bool successful = await xur.TryReadAsync();
-            IDATASection? data = ((IXUR)xur).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
-            if (data != null && data.RootObject != null)
-            {
-                int objCount = data.RootObject.GetTotalObjectsCount();
-                int totalPropertiesCount = data.RootObject.GetTotalPropertiesCount();
-                int propArrayCount = data.RootObject.GetPropertiesArrayCount();
-                int keyframePropertiesCount = data.RootObject.GetTotalKeyframePropertiesCount();
-                int totalKeyframePropertiesClassDepth = data.RootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth(0x5).Value;
-                int keyframePropertyDefinitionsCount = data.RootObject.GetKeyframePropertyDefinitionsCount();
-                int keyframesCount = data.RootObject.GetKeyframesCount();
-                int timelinesCount = data.RootObject.GetTimelinesCount();
-                int namedFramesCount = data.RootObject.GetNamedFramesCount();
-                int objWithChildrenCount = data.RootObject.GetObjectsWithChildrenCount();
-
-
-                XUR5CountHeader? countHeader = ((XUR5Header)xur.Header).CountHeader;
-                int debug = 0;
-            }
-            return successful;
+            return await xur.TryReadAsync();
         }
 
         public void RegisterExtensions(ILogger? logger = null)

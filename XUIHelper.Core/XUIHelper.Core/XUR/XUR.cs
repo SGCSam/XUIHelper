@@ -15,6 +15,7 @@ namespace XUIHelper.Core
 
         public string FilePath { get; private set; }
         public IXURHeader Header { get; protected set; }
+        public IXURCountHeader? CountHeader { get; protected set; }
         public IXURSectionsTable SectionsTable { get; protected set; }
         public List<IXURSection> Sections { get; protected set; } = new List<IXURSection>();
 
@@ -41,11 +42,21 @@ namespace XUIHelper.Core
                 Logger?.Here().Information("Reading XUR file at {0}", FilePath);
                 using (Reader = new BinaryReader(File.OpenRead(FilePath)))
                 {
-
                     if (!await Header.TryReadAsync(this, Reader))
                     {
                         Logger?.Here().Error("XUR file header read has failed, returning false.", FilePath);
                         return false;
+                    }
+
+                    if (HasCountHeader())
+                    {
+                        Logger?.Here().Verbose("Reading count header...");
+                        CountHeader = GetCountHeader();
+                        if (!await CountHeader.TryReadAsync(this, Reader))
+                        {
+                            Logger?.Here().Error("Failed to read count header, returning false.");
+                            return false;
+                        }
                     }
 
                     if (!await SectionsTable.TryReadAsync(this, Reader))
@@ -90,6 +101,20 @@ namespace XUIHelper.Core
                         Logger?.Here().Verbose("Read {0:X8} section successfully!", entry.Magic);
                     }
 
+                    Logger?.Here().Verbose("All sections read successfully!");
+
+                    if(CountHeader != null) 
+                    {
+                        Logger?.Here().Verbose("Verifying count header...");
+                        if (!CountHeader.TryVerify(this))
+                        {
+                            Logger?.Here().Error("Failed to verify count header, returning false.");
+                            return false;
+                        }
+
+                        Logger?.Here().Verbose("Verified count header successfully!");
+                    }
+
                     Logger?.Here().Information("Read successful!");
                     return true;
                 }
@@ -102,5 +127,9 @@ namespace XUIHelper.Core
         }
 
         protected abstract IXURSection? TryCreateXURSectionForMagic(int Magic);
+
+        protected abstract bool HasCountHeader();
+
+        protected abstract IXURCountHeader GetCountHeader();
     }
 }

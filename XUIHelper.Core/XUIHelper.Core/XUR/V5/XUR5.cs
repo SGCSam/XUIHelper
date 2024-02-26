@@ -63,5 +63,15 @@ namespace XUIHelper.Core
                 return null;
             }
         }
+
+        protected override IXURCountHeader GetCountHeader()
+        {
+            return new XUR5CountHeader();
+        }
+
+        protected override bool HasCountHeader()
+        {
+            return (((XUR5Header)Header).Flags & 0x1) == 0x1;
+        }
     }
 }
