@@ -20,7 +20,7 @@ namespace XUIHelper.Core
 
         public XUObject? RootObject;
 
-        private XMLExtensionsManager? _ExtensionsManager;
+        public XMLExtensionsManager? ExtensionsManager { get; private set; }
 
         public XUI(string filePath, ILogger? logger = null)
         {
@@ -44,7 +44,7 @@ namespace XUIHelper.Core
                     return false;
                 }
 
-                _ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
+                ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
                 Logger?.Here().Information("Reading XUI file at {0}", FilePath);
 
                 XDocument document = XDocument.Load(FilePath);
@@ -74,21 +74,21 @@ namespace XUIHelper.Core
 
         public XUObject? TryReadObject(XElement objectElement, ref XUObject parent)
         {
-            if(_ExtensionsManager == null) 
+            if(ExtensionsManager == null) 
             {
                 Logger?.Here().Error("Extensions manager was null, returning null.");
                 return null;
             }
 
             Logger?.Here().Verbose("Reading class {0}", objectElement.Name);
-            XUClass? elementClass = _ExtensionsManager.TryGetClassByName(objectElement.Name.ToString());
+            XUClass? elementClass = ExtensionsManager.TryGetClassByName(objectElement.Name.ToString());
             if(elementClass == null) 
             {
                 Logger?.Here().Error("Failed to find class {0}, returning null.", objectElement.Name);
                 return null;
             }
 
-            List<XUClass>? classHierarchy = _ExtensionsManager.TryGetClassHierarchy(elementClass.Name);
+            List<XUClass>? classHierarchy = ExtensionsManager.TryGetClassHierarchy(elementClass.Name);
             if (classHierarchy == null)
             {
                 Logger?.Here().Error("Failed to get class hierarchy for {0}, returning null.", elementClass.Name);
@@ -102,7 +102,7 @@ namespace XUIHelper.Core
                 return null;
             }
 
-            IEnumerable<XElement> childPropertyElements = parentPropertiesElement.Descendants();
+            IEnumerable<XElement> childPropertyElements = parentPropertiesElement.Elements();
             Logger?.Here().Verbose("Class {0} has {1} properties.", elementClass.Name, childPropertyElements.Count());
 
             List<XUProperty> properties = new List<XUProperty>();
@@ -126,6 +126,27 @@ namespace XUIHelper.Core
                     {
                         Logger?.Here().Error("Read property was null, an error must have occurred, returning null.");
                         return null;
+                    }
+
+                    if(readProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Custom)
+                    {
+                        Logger?.Here().Verbose("Property definition {0} was custom, updating bounding box...", propertyDefinition.Name);
+                        XUFigure oldFigure = (XUFigure)readProperty.Value;
+                        XUProperty? widthProperty = properties.Where(x => x.PropertyDefinition.Name == "Width").FirstOrDefault();
+                        if(widthProperty == null)
+                        {
+                            Logger?.Here().Error("Width property was null, returning null.");
+                            return null;
+                        }
+
+                        XUProperty? heightProperty = properties.Where(x => x.PropertyDefinition.Name == "Height").FirstOrDefault();
+                        if(heightProperty == null)
+                        {
+                            Logger?.Here().Error("Height property was null, returning null.");
+                            return null;
+                        }
+
+                        readProperty = new XUProperty(propertyDefinition, new XUFigure(new XUPoint((float)widthProperty.Value, (float)heightProperty.Value), oldFigure.Points));
                     }
 
                     properties.Add(readProperty);
