@@ -161,11 +161,54 @@ namespace XUIHelper.Core
                 }
             }
 
+            List<XUNamedFrame> namedFrames = new List<XUNamedFrame>();
+            List<XUTimeline> timelines = new List<XUTimeline>();
+
+            XElement? parentTimelinesElement = objectElement.Descendants("Timelines").FirstOrDefault();
+            if (parentTimelinesElement != null)
+            {
+                XElement? parentNamedFramesElement = parentTimelinesElement.Element("NamedFrames");
+                if (parentNamedFramesElement != null)
+                {
+                    IEnumerable<XElement> childNamedFrameElements = parentNamedFramesElement.Elements("NamedFrame");
+                    Logger?.Here().Verbose("Class {0} has {1} named frames.", elementClass.Name, childNamedFrameElements.Count());
+                    foreach (XElement childNamedFrameElement in childNamedFrameElements)
+                    {
+                        XUNamedFrame? thisChildNamedFrame = this.TryReadNamedFrame(childNamedFrameElement);
+                        if (thisChildNamedFrame == null)
+                        {
+                            Logger?.Here().Error("Read named frame object was null, an error must have occurred, returning null.");
+                            return null;
+                        }
+
+                        namedFrames.Add(thisChildNamedFrame);
+                    }
+                }
+
+                /*IEnumerable<XElement> childTimelineElements = parentTimelinesElement.Elements("Timeline");
+                Logger?.Here().Verbose("Class {0} has {1} timelines.", elementClass.Name, childTimelineElements.Count());
+                foreach(XElement childTimelineElement in childTimelineElements)
+                {
+                    XUTimeline? thisChildTimeline = TryReadTimeline(childTimelineElement, ref thisObject);
+                    if (thisChildTimeline == null)
+                    {
+                        Logger?.Here().Error("Read timeline object was null, an error must have occurred, returning null.");
+                        return null;
+                    }
+
+                    thisObject.Timelines.Add(thisChildTimeline);
+                }*/
+            }
+
+            //TODO: Continue here. See "Timelines - Formatted.txt" - add support for named frame and timeline reads
+
             XUObject thisObject = new XUObject(elementClass.Name);
             thisObject.Properties = properties;
+            thisObject.NamedFrames = namedFrames;
+            thisObject.Timelines = timelines;
             foreach(XElement childObjectElement in objectElement.Elements())
             {
-                if(childObjectElement.Name != "Properties")
+                if(childObjectElement.Name != "Properties" && childObjectElement.Name != "Timelines")
                 {
                     Logger?.Here().Verbose("Reading child object {0}", childObjectElement.Name);
                     XUObject? thisChildObject = TryReadObject(childObjectElement, ref thisObject);

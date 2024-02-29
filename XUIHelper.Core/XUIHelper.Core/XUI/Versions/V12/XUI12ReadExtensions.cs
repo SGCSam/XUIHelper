@@ -439,5 +439,88 @@ namespace XUIHelper.Core
                 return null;
             }
         }
+
+        public static XUNamedFrame? TryReadNamedFrame(this XUI12 xui, XElement element)
+        {
+            try
+            {
+                string? name = element.Element("Name")?.Value;
+                if(name == null)
+                {
+                    xui.Logger?.Here().Error("Name of named frame was null, returning null.");
+                    return null;
+                }
+                xui.Logger?.Here().Verbose("Read a named frame name of {0}.", name);
+
+                string? keyframeString = element.Element("Time")?.Value;
+                if (keyframeString == null)
+                {
+                    xui.Logger?.Here().Error("Keyframe of named frame was null, returning null.");
+                    return null;
+                }
+                xui.Logger?.Here().Verbose("Read a keyframe of {0}.", keyframeString);
+                int keyframe = Convert.ToInt32(keyframeString);
+
+                string? commandString = element.Element("Command")?.Value;
+                if(commandString == null)
+                {
+                    xui.Logger?.Here().Verbose("There is no command string, treating as play.");
+                    return new XUNamedFrame(name, keyframe, XUNamedFrameCommandTypes.Play);
+                }
+
+                XUNamedFrameCommandTypes? commandType = null;
+                switch(commandString.ToLower())
+                {
+                    case "stop":
+                    {
+                        xui.Logger?.Here().Verbose("Returning keyframe as stop.");
+                        return new XUNamedFrame(name, keyframe, XUNamedFrameCommandTypes.Stop);
+                    }
+                    case "goto":
+                    {
+                        xui.Logger?.Here().Verbose("Got a command type of Go To.");
+                        commandType = XUNamedFrameCommandTypes.GoTo;
+                        break;
+                    }
+                    case "gotoandplay":
+                    {
+                        xui.Logger?.Here().Verbose("Got a command type of Go To and Play.");
+                        commandType = XUNamedFrameCommandTypes.GoToAndPlay;
+                        break;
+                    }
+                    case "gotoandstop":
+                    {
+                        xui.Logger?.Here().Verbose("Got a command type of Go To and Stop.");
+                        commandType = XUNamedFrameCommandTypes.GotoAndStop;
+                        break;
+                    }
+                    default:
+                    {
+                        xui.Logger?.Here().Error("Unhandled command type of {0}, returning null.", commandString.ToLower());
+                        return null;
+                    }
+                }
+
+                if (commandType == null)
+                {
+                    xui.Logger?.Here().Error("Command type is null, returning null.");
+                    return null;
+                }
+
+                string? target = element.Element("CommandParams")?.Value;
+                if (target == null)
+                {
+                    xui.Logger?.Here().Error("Target is null, returning null.");
+                    return null;
+                }
+
+                return new XUNamedFrame(name, keyframe, commandType.Value, target);
+            }
+            catch (Exception ex)
+            {
+                xui.Logger?.Here().Error("Caught an exception when reading named frame, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
     }
 }

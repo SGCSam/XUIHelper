@@ -30,5 +30,25 @@ namespace XUIHelper.Core
                 return null;
             }
         }
+
+        public static XUNamedFrame? TryReadNamedFrame(this IXUI xui, XElement element)
+        {
+            try
+            {
+                if (xui is XUI12 xui12)
+                {
+                    xui.Logger?.Here().Verbose("Trying to read XUI12 named frame.");
+                    return xui12.TryReadNamedFrame(element);
+                }
+
+                xui.Logger?.Here().Error("Unhandled IXUI for named frame, returning null.");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                xui.Logger?.Here().Error("Caught an exception when trying to read named frame, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
     }
 }
