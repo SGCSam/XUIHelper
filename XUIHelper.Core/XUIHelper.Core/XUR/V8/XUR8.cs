@@ -40,12 +40,12 @@ namespace XUIHelper.Core
                         Logger?.Here().Verbose("Returning QUAT8 section.");
                         return new QUAT8Section();
                     }
-                    /*case ICUSTSection.ExpectedMagic:
+                    case ICUSTSection.ExpectedMagic:
                     {
                         Logger?.Here().Verbose("Returning CUST8 section.");
-                        return new CUST5Section();
+                        return new CUST8Section();
                     }
-                    case IDATASection.ExpectedMagic:
+                    /*case IDATASection.ExpectedMagic:
                     {
                         Logger?.Here().Verbose("Returning DATA8 section.");
                         return new DATA5Section();
