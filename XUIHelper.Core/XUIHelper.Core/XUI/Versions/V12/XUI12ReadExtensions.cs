@@ -513,7 +513,7 @@ namespace XUIHelper.Core
                     case "gotoandstop":
                     {
                         xui.Logger?.Here().Verbose("Got a command type of Go To and Stop.");
-                        commandType = XUNamedFrameCommandTypes.GotoAndStop;
+                        commandType = XUNamedFrameCommandTypes.GoToAndStop;
                         break;
                     }
                     default:

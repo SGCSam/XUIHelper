@@ -12,7 +12,7 @@ namespace XUIHelper.Core
         Stop,
         GoTo,
         GoToAndPlay,
-        GotoAndStop,
+        GoToAndStop,
         Count
     }
 
