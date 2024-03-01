@@ -25,5 +25,10 @@ namespace XUIHelper.Core
             EaseScale = easeScale;
             PropertyIndex = propIndex;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Keyframe: {0}, Interp: {1}, In: {2}, Out: {3}, Scale: {4}, Vector: {5}, Property: {6}", Keyframe, InterpolationType, EaseIn, EaseOut, EaseScale, VectorIndex, PropertyIndex);
+        }
     }
 }

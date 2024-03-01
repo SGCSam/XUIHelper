@@ -32,6 +32,7 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Reading keyframe data from offset {0:X8}.", entry.Offset);
                 reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
+                int dataIndex = 0;
                 for (int bytesRead = 0; bytesRead < entry.Length;)
                 {
                     byte readFrameBytes;
@@ -72,7 +73,10 @@ namespace XUIHelper.Core
                     ulong propertyIndex = reader.ReadPackedULong(out readPropertyIndexBytes);
                     bytesRead += readPropertyIndexBytes;
 
-                    Keyframes.Add(new XURKeyframe(frame, interpolationType, easeIn, easeOut, easeScale, vectorIndex, propertyIndex));
+                    XURKeyframe readKeyframe = new XURKeyframe(frame, interpolationType, easeIn, easeOut, easeScale, vectorIndex, propertyIndex);
+                    Keyframes.Add(readKeyframe);
+                    xur.Logger?.Here().Verbose("Read keyframe data index {0} as {1}.", dataIndex, readKeyframe);
+                    dataIndex++;
                 }
 
                 xur.Logger?.Here().Verbose("Read keyframe data successfully, read a total of {0} keyframes", Keyframes.Count);

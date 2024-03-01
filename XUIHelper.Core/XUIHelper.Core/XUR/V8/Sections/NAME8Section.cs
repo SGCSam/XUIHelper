@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,10 +41,14 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Reading named frames from offset {0:X8}.", entry.Offset);
                 reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
+                int keyframeIndex = 0;
                 for (int bytesRead = 0; bytesRead < entry.Length;)
                 {
+                    xur.Logger?.Here().Verbose("Reading keyframe index {0}.", keyframeIndex);
+
                     byte readStringIndexBytes;
                     int stringIndex = (int)reader.ReadPackedULong(out readStringIndexBytes);
+                    xur.Logger?.Here().Verbose("Read a string index {0} using {1:X8} bytes.", stringIndex, readStringIndexBytes);
                     if (stringIndex < 0 || stringIndex >= strnSection.Strings.Count)
                     {
                         xur.Logger?.Here().Error("Read an invalid string index of {0}, it must be between 0 and {1}, returning false.", stringIndex, strnSection.Strings.Count);
@@ -50,9 +56,11 @@ namespace XUIHelper.Core
                     }
                     string name = strnSection.Strings[stringIndex];
                     bytesRead += readStringIndexBytes;
+                    xur.Logger?.Here().Verbose("Got a keyframe name of {0}.", name);
 
                     byte readKeyframeBytes;
                     int keyframe = (int)reader.ReadPackedULong(out readKeyframeBytes);
+                    xur.Logger?.Here().Verbose("Read a keyframe of {0} using {1:X8} bytes.", keyframe, readKeyframeBytes);
                     bytesRead += readKeyframeBytes;
 
                     byte namedFrameCommandByte = reader.ReadByte();
@@ -64,12 +72,15 @@ namespace XUIHelper.Core
                     bytesRead++;
 
                     XUNamedFrameCommandTypes commandType = (XUNamedFrameCommandTypes)namedFrameCommandByte;
+                    xur.Logger?.Here().Verbose("Read a command type of {0}.", commandType);
+
                     if(commandType == XUNamedFrameCommandTypes.GoTo 
                         || commandType == XUNamedFrameCommandTypes.GoToAndPlay 
                         || commandType == XUNamedFrameCommandTypes.GoToAndStop)
                     {
                         byte readTargetStringIndexBytes;
                         int targetStringIndex = (int)reader.ReadPackedULong(out readTargetStringIndexBytes);
+                        xur.Logger?.Here().Verbose("Read a target string index {0} using {1:X8} bytes.", targetStringIndex, readTargetStringIndexBytes);
                         if (targetStringIndex < 0 || targetStringIndex >= strnSection.Strings.Count)
                         {
                             xur.Logger?.Here().Error("Read an invalid target string index of {0}, it must be between 0 and {1}, returning false.", targetStringIndex, strnSection.Strings.Count);
@@ -78,12 +89,15 @@ namespace XUIHelper.Core
 
                         string target = strnSection.Strings[targetStringIndex];
                         bytesRead += readTargetStringIndexBytes;
+                        xur.Logger?.Here().Verbose("Got a target name of {0}.", target);
                         NamedFrames.Add(new XUNamedFrame(name, (int)keyframe, commandType, target));
                     }
                     else
                     {
                         NamedFrames.Add(new XUNamedFrame(name, (int)keyframe, commandType));
                     }
+
+                    keyframeIndex++;
                 }
 
                 xur.Logger?.Here().Verbose("Read named frames successfully, read a total of {0} named frames", NamedFrames.Count);

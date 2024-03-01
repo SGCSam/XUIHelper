@@ -32,10 +32,14 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Reading keyframe property indexes from offset {0:X8}.", entry.Offset);
                 reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
+                int index = 0;
                 for (int bytesRead = 0; bytesRead < entry.Length;)
                 {
                     byte packedBytesRead = 0;
-                    PropertyIndexes.Add(reader.ReadPackedULong(out packedBytesRead));
+                    ulong readIndex = reader.ReadPackedULong(out packedBytesRead);
+                    PropertyIndexes.Add(readIndex);
+                    xur.Logger?.Here().Verbose("Read keyframe property index {0} as {1}.", index, readIndex);
+                    index++;
                     bytesRead += packedBytesRead;
                 }
 

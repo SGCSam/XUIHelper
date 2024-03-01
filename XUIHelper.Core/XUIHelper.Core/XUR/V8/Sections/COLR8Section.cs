@@ -32,6 +32,7 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Reading colours from offset {0:X8}.", entry.Offset);
                 reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
+                int colIndex = 0;
                 for (int bytesRead = 0; bytesRead < entry.Length;)
                 {
                     byte a = reader.ReadByte();
@@ -39,7 +40,10 @@ namespace XUIHelper.Core
                     byte g = reader.ReadByte();
                     byte b = reader.ReadByte();
 
-                    Colours.Add(new XUColour(a, r, g, b));
+                    XUColour readColour = new XUColour(a, r, g, b);
+                    Colours.Add(readColour);
+                    xur.Logger?.Here().Verbose("Read colour index {0} as {1}.", colIndex, readColour);
+                    colIndex++;
                     bytesRead += 0x4;
                 }
 

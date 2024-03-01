@@ -31,10 +31,13 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Reading floats from offset {0:X8}.", entry.Offset);
                 reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
+                int floatIndex = 0;
                 for(int bytesRead = 0; bytesRead < entry.Length;)
                 {
                     float thisFloat = reader.ReadSingleBE();
                     Floats.Add(thisFloat);
+                    xur.Logger?.Here().Verbose("Read float index {0} as {1}.", floatIndex, thisFloat);
+                    floatIndex++;
                     bytesRead += 0x4;
                 }
 
