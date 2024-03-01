@@ -30,12 +30,12 @@ namespace XUIHelper.Core
                         Logger?.Here().Verbose("Returning STRN8 section.");
                         return new STRN8Section();
                     }
-                    /*case IVECTSection.ExpectedMagic:
+                    case IVECTSection.ExpectedMagic:
                     {
                         Logger?.Here().Verbose("Returning VECT8 section.");
-                        return new VECT5Section();
+                        return new VECT8Section();
                     }
-                    case IQUATSection.ExpectedMagic:
+                    /*case IQUATSection.ExpectedMagic:
                     {
                         Logger?.Here().Verbose("Returning QUAT8 section.");
                         return new QUAT5Section();
