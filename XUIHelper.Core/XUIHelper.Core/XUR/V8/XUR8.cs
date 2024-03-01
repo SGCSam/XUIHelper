@@ -55,6 +55,11 @@ namespace XUIHelper.Core
                         Logger?.Here().Verbose("Returning COLR8 section.");
                         return new COLR8Section();
                     }
+                    case IKEYPSection.ExpectedMagic:
+                    {
+                        Logger?.Here().Verbose("Returning KEYP8 section.");
+                        return new KEYP8Section();
+                    }
                     /*case IDATASection.ExpectedMagic:
                     {
                         Logger?.Here().Verbose("Returning DATA8 section.");

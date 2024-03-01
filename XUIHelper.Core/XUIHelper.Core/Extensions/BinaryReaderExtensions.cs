@@ -178,9 +178,10 @@ namespace XUIHelper.Core.Extensions
         #endregion
 
         #region PackedULong
-        public static ulong ReadPackedULong(this BinaryReader reader)
+        public static ulong ReadPackedULong(this BinaryReader reader, out byte bytesRead)
         {
             byte firstByte = reader.ReadByte();
+            bytesRead = 1;
 
             ulong ret = 0;
 
@@ -194,6 +195,7 @@ namespace XUIHelper.Core.Extensions
                 else
                 {
                     byte secondByte = reader.ReadByte();
+                    bytesRead = 2;
                     ulong highPart = ((ulong)firstByte << 8) & 0xF00;
                     ret = highPart | (ulong)secondByte;
                 }
@@ -205,6 +207,12 @@ namespace XUIHelper.Core.Extensions
             }
 
             return ret;
+        }
+
+        public static ulong ReadPackedULong(this BinaryReader reader)
+        {
+            byte bytesRead;
+            return ReadPackedULong(reader, out bytesRead);
         }
         #endregion
     }
