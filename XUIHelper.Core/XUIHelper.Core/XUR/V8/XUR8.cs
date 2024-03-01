@@ -50,6 +50,11 @@ namespace XUIHelper.Core
                         Logger?.Here().Verbose("Returning FLOT8 section.");
                         return new FLOT8Section();
                     }
+                    case ICOLRSection.ExpectedMagic:
+                    {
+                        Logger?.Here().Verbose("Returning COLR8 section.");
+                        return new COLR8Section();
+                    }
                     /*case IDATASection.ExpectedMagic:
                     {
                         Logger?.Here().Verbose("Returning DATA8 section.");
