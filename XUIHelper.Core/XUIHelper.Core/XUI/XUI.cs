@@ -147,7 +147,8 @@ namespace XUIHelper.Core
                             return null;
                         }
 
-                        readProperty = new XUProperty(propertyDefinition, new XUFigure(new XUPoint((float)widthProperty.Value, (float)heightProperty.Value), oldFigure.Points));
+                        XUFigure newFigure = new XUFigure(new XUPoint((float)widthProperty.Value, (float)heightProperty.Value), oldFigure.Points);
+                        readProperty = new XUProperty(propertyDefinition, newFigure);
                     }
 
                     thisObject.Properties.Add(readProperty);

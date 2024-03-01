@@ -416,6 +416,12 @@ namespace XUIHelper.Core
                     bezierPoints.Add(new XUBezierPoint(bezierReferencePoint, controlPointOne, controlPointTwo));
                 }
 
+                if(bezierPoints.Count != bezierPointsCount)
+                {
+                    xui.Logger?.Here().Error("Mismatch of bezier points count, returning null. Expected: {0}, Actual: {1}", bezierPointsCount, bezierPoints.Count);
+                    return null;
+                }
+
                 return new XUFigure(new XUPoint(), bezierPoints);
             }
             catch (Exception ex)
