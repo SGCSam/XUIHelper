@@ -43,7 +43,7 @@ namespace XUIHelper.Core
                     bytesRead += (2 + (stringLength * 2));
                 }
 
-                xur.Logger?.Here().Verbose("Read  strings successfully, read a total of {0} strings, {1:X8} bytes.", Strings.Count, bytesRead);
+                xur.Logger?.Here().Verbose("Read strings successfully, read a total of {0} strings, {1:X8} bytes.", Strings.Count, bytesRead);
                 return true;
             }
             catch(Exception ex) 

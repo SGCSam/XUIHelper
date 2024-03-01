@@ -1,0 +1,292 @@
+<XUIClassExtension version="0001">
+ <XUIClass Name="XuiElement" BaseClassName="(null)" Icon="Images/blank.bmp" Description="XuiElement">
+  <PropDef Id="0" Name="Id" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="Width" Type="float"><DefaultVal>60.000000</DefaultVal></PropDef>
+  <PropDef Id="2" Name="Height" Type="float"><DefaultVal>30.000000</DefaultVal></PropDef>
+  <PropDef Id="3" Name="Position" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Id="4" Name="Scale" Type="vector"><DefaultVal>1.000000,1.000000,1.000000</DefaultVal></PropDef>
+  <PropDef Id="5" Name="Rotation" Type="quaternion"><DefaultVal>0.000000,0.000000,0.000000,1.000000</DefaultVal></PropDef>
+  <PropDef Id="6" Name="Opacity" Type="float"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="7" Name="Anchor" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="8" Name="Pivot" Type="vector"><DefaultVal>0, 0, 0</DefaultVal></PropDef>
+  <PropDef Id="9" Name="Show" Type="bool"><DefaultVal>true</DefaultVal></PropDef>
+  <PropDef Id="10" Name="BlendMode" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="11" Name="DisableTimelineRecursion" Type="bool"></PropDef>
+  <PropDef Id="12" Name="DesignTime" Type="bool"></PropDef>
+  <PropDef Id="13" Name="ColorWriteFlags" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="14" Name="ClipChildren" Type="bool"></PropDef>
+  <PropDef Id="15" Name="EnableEffects" Type="bool"></PropDef>
+  <PropDef Id="16" Name="DisableFocusRecursion" Type="bool"></PropDef>
+  <PropDef Id="17" Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Id="18" Name="Hittable" Type="bool"></PropDef>
+  <PropDef Id="19" Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Id="20" Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="21" Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="22" Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="23" Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Id="24" Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Id="25" Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Id="26" Name="CenterPivot" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiFigure" BaseClassName="XuiElement">
+  <PropDef Id="27" Name="Stroke" Type="object"></PropDef>
+  <PropDef Id="28" Name="Fill" Type="object"></PropDef>
+  <PropDef Id="29" Name="Closed" Type="bool"></PropDef>
+  <PropDef Id="30" Name="Points" Type="custom"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiControl" BaseClassName="XuiElement" Icon="Images/XuiControl.bmp" Description="XuiControl">
+  <PropDef Id="31" Name="ClassOverride" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="32" Editor="VisualNameEditor" Name="Visual" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="33" Name="Enabled" Type="bool"></PropDef>
+  <PropDef Id="34" Name="UnfocusedInput" Type="bool"></PropDef>
+  <PropDef Id="35" Editor="ElementIdPickerEditor(1)" Name="NavLeft" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="36" Editor="ElementIdPickerEditor(1)" Name="NavRight" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="37" Editor="ElementIdPickerEditor(1)" Name="NavUp" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="38" Editor="ElementIdPickerEditor(1)" Name="NavDown" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="39" Editor="ElementIdPickerEditor(1)" Name="NavTabForward" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="40" Editor="ElementIdPickerEditor(1)" Name="NavTabBackward" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="41" Editor="TextEditor" Name="Text" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="42" Name="PointSize" Type="float"><DefaultVal>-1.000000</DefaultVal></PropDef>
+  <PropDef Id="43" Editor="FilePathEditor(0)" Name="ImagePath" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="44" Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Id="45" Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Id="46" Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Id="47" Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="48" Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Id="49" Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiScene" BaseClassName="XuiControl" Icon="Images/XuiScene.bmp" Description="XuiScene">
+  <PropDef Id="50" Editor="ElementIdPickerEditor(0)" Name="DefaultFocus" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="51" Editor="VisualNameEditor" Name="TransFrom" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="52" Editor="VisualNameEditor" Name="TransTo" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="53" Editor="VisualNameEditor" Name="TransBackFrom" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="54" Editor="VisualNameEditor" Name="TransBackTo" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="55" Editor="InterruptTransitionsEditor" Name="InterruptTransitions" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="56" Name="IgnorePresses" Type="bool"></PropDef>
+  <PropDef Id="57" Name="RecurseTransitions" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiButton" BaseClassName="XuiControl" Icon="Images/XuiButton.bmp" Description="XuiButton">
+  <PropDef Id="58" Editor="PressKeyEditor" Name="PressKey" Type="unsigned"><DefaultVal>22592</DefaultVal></PropDef>
+  <PropDef Id="59" Name="PressAnimObject" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="60" Name="PressAnimStartFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="61" Name="PressAnimEndFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="62" Name="FocusAnimObject" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="63" Name="FocusAnimStartFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="64" Name="FocusAnimEndFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiNavButton" BaseClassName="XuiButton" Icon="Images/XuiNavButton.bmp" Description="XuiNavButton">
+  <PropDef Id="65" Editor="FilePathEditor(1)" Name="PressPath" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="66" Name="StayVisible" Type="bool"></PropDef>
+  <PropDef Id="67" Name="SrcTransIndex" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="68" Name="DestTransIndex" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiCheckbox" BaseClassName="XuiControl" Icon="Images/XuiCheckbox.bmp" Description="XuiCheckbox">
+  <PropDef Id="69" Name="PressKey" Type="unsigned"><DefaultVal>22592</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiRadioButton" BaseClassName="XuiControl" Icon="Images/XuiRadioButton.bmp" Description="XuiRadioButton">
+  <PropDef Id="70" Name="PressKey" Type="unsigned"><DefaultVal>22592</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiText" BaseClassName="XuiElement" Icon="Images/XuiText.bmp" Description="XuiText">
+  <PropDef Id="71" Name="Text" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="72" Name="TextColor" Type="color"><DefaultVal>0xff000000</DefaultVal></PropDef>
+  <PropDef Id="73" Name="DropShadowColor" Type="color"><DefaultVal>0x80000000</DefaultVal></PropDef>
+  <PropDef Id="74" Name="PointSize" Type="float"><DefaultVal>14.000000</DefaultVal></PropDef>
+  <PropDef Id="75" Name="Font" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="76" Editor="TextStyleFlagsEditor" Name="TextStyle" Type="unsigned"><DefaultVal>16</DefaultVal></PropDef>
+  <PropDef Id="77" Name="LineSpacingAdjust" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="78" Name="TextScale" Type="float"><DefaultVal>0.0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiTextPresenter" BaseClassName="XuiElement" Icon="Images/XuiTextPresenter.bmp" Description="XuiTextPresenter">
+  <PropDef Id="79" Name="TextColor" Type="color"><DefaultVal>0xff000000</DefaultVal></PropDef>
+  <PropDef Id="80" Name="DropShadowColor" Type="color"><DefaultVal>0x80000000</DefaultVal></PropDef>
+  <PropDef Id="81" Name="PointSize" Type="float"><DefaultVal>14.000000</DefaultVal></PropDef>
+  <PropDef Id="82" Name="Font" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="83" Editor="TextStyleFlagsEditor" Name="TextStyle" Type="unsigned"><DefaultVal>16</DefaultVal></PropDef>
+  <PropDef Id="84" Name="LineSpacingAdjust" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="85" Name="DataAssociation" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="86" Name="TextScale" Type="float"><DefaultVal>1.000000</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiSound" BaseClassName="XuiElement" Icon="Images/XuiSound.bmp" Description="XuiSound">
+  <PropDef Id="87" Name="State" Type="unsigned"><DefaultVal>2</DefaultVal></PropDef>
+  <PropDef Id="88" Name="Loop" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="89" Name="Finish" Type="bool"></PropDef>
+  <PropDef Id="90" Name="Volume" Type="float"><DefaultVal>-12.000000</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiListItem" BaseClassName="XuiCheckbox">
+  <PropDef Id="91" Name="Layout" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="92" Name="Checkable" Type="bool"></PropDef>
+  <PropDef Id="93" Name="SelectedSize" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Id="94" Name="KeepSizeUnfocused" Type="bool"></PropDef>
+  <PropDef Id="95" Name="InterItemSpacing" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Id="96" Name="SmoothScroll" Type="bool"></PropDef>
+  <PropDef Id="97" Name="SmoothScrollBaseSpeed" Type="float"><DefaultVal>180.000000</DefaultVal></PropDef>
+  <PropDef Id="98" Name="SmoothScrollMaxSpeed" Type="float"><DefaultVal>1080.000000</DefaultVal></PropDef>
+  <PropDef Id="99" Name="SmoothScrollAcceleration" Type="float"><DefaultVal>3.000000</DefaultVal></PropDef>
+ </XUIClass> 
+ <XUIClass Name="XuiScrollEnd" BaseClassName="XuiControl" Icon="Images/XuiScrollEnd.bmp" Description="XuiScrollEnd">
+  <PropDef Id="100" Editor="ScrollendDirectionEditor" Name="Direction" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiScrollBar" BaseClassName="XuiElement" Icon="Images/XuiScene.bmp" Description="XuiScene">
+  <PropDef Id="101" Name="Direction" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="102" Name="MinThumbSize" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiList" BaseClassName="XuiControl" Icon="Images/XuiList.bmp" Description="XuiList">
+  <PropDef Id="103" Name="Wrap" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="104" Name="WrapBump" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiCommonList" BaseClassName="XuiList" Icon="Images/XuiCommonList.bmp" Description="XuiCommonList">
+  <PropDef Id="105" Editor="ListItemsEditor" Name="ItemsText" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="106" Editor="ListItemsEditor" Name="ItemsImage" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="107" Editor="ListItemsEditor" Name="ItemsNavPath" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiProgressBar" BaseClassName="XuiControl" Icon="Images/XuiProgressBar.bmp" Description="XuiProgressBar">
+  <PropDef Id="108" Name="RangeMin" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="109" Name="RangeMax" Type="integer"><DefaultVal>100</DefaultVal></PropDef>
+  <PropDef Id="110" Name="Value" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiSlider" BaseClassName="XuiControl" Icon="Images/XuiSlider.bmp" Description="XuiSlider">
+  <PropDef Id="111" Name="RangeMin" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="112" Name="RangeMax" Type="integer"><DefaultVal>100</DefaultVal></PropDef>
+  <PropDef Id="113" Name="Value" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="114" Name="Step" Type="integer"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Id="115" Name="Vertical" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="116" Name="AccelInc" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="117" Name="AccelTime" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>   
+ </XUIClass>
+ <XUIClass Name="XuiEdit" BaseClassName="XuiControl" Icon="Images/XuiEdit.bmp" Description="XuiEdit">
+  <PropDef Id="118" Name="TextLimit" Type="integer"><DefaultVal>65534</DefaultVal></PropDef>
+  <PropDef Id="119" Name="AllowedChars" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="120" Name="PasswordChar" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="121" Name="ReadOnly" Type="bool"></PropDef>
+  <PropDef Id="122" Name="Multiline" Type="bool"></PropDef>
+  <PropDef Id="123" Name="SmoothScroll" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiImagePresenter" BaseClassName="XuiElement" Icon="Images/XuiImagePresenter.bmp" Description="XuiImagePresenter">
+  <PropDef Id="124" Editor="SizeModeEditor" Name="SizeMode" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="125" Name="DataAssociation" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="126" Editor="BrushFlagsEditor" Name="BrushFlags" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="127" Name="LoadType" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiImage" BaseClassName="XuiElement" Icon="Images/XuiImage.bmp" Description="XuiImage">
+  <PropDef Id="128" Editor="SizeModeEditor" Name="SizeMode" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="129" Editor="FilePathEditor(0)" Name="ImagePath" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="130" Editor="BrushFlagsEditor" Name="BrushFlags" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="131" Editor="ElementIdPickerEditor(1)" Name="TextureSurfaceElement" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="132" Name="LoadType" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiLabel" BaseClassName="XuiControl" Icon="Images/XuiLabel.bmp" Description="XuiLabel">
+  <PropDef Id="133" Name="MaxFlowLines" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiTabScene" BaseClassName="XuiScene" Icon="Images/XuiTabScene.bmp" Description="XuiTabScene">
+  <PropDef Id="134" Name="TabCount" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Id="135" Name="Wrap" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="136" Name="UserInterrupt" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="137" Name="VerticalTabs" Type="bool"></PropDef>
+  <PropDef Id="138" Name="NoAutoHide" Type="bool"></PropDef>
+  <PropDef Id="139" Name="DefaultTab" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiPerspectiveScene" BaseClassName="XuiScene" Icon="Images/XuiPerspectiveScene.bmp" Description="XuiPerspectiveScene">
+  <PropDef Id="140" Name="ProjectionScale" Type="float"><DefaultVal>1.000000</DefaultVal></PropDef>
+  <PropDef Id="141" Name="ProjectionCenterU" Type="float"><DefaultVal>0.500000</DefaultVal></PropDef>
+  <PropDef Id="142" Name="ProjectionCenterV" Type="float"><DefaultVal>0.500000</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiNineGrid" BaseClassName="XuiElement" Icon="Images/XuiNineGrid.bmp" Description="XuiNineGrid">
+  <PropDef Id="143" Editor="FilePathEditor(0)" Name="TextureFileName" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="144" Name="LeftOffset" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="145" Name="TopOffset" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="146" Name="RightOffset" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="147" Name="BottomOffset" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="148" Name="NoCenter" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiShader" BaseClassName="XuiElement" Icon="Images/XuiShader.bmp" Description="XuiShader">
+  <PropDef Id="149" Name="Id" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="150" Editor="FilePathEditor(0)" Name="ShaderFile" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="151" Editor="FilePathEditor(0)" Name="TextureFileName" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="152" Editor="ElementIdPickerEditor(1)" Name="TextureSurfaceElement" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="153" Name="WrapX" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="154" Name="WrapY" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="155" Name="BrushFlags" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="156" Name="CompositeEdge" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Id="157" Name="ForceComposite" Type="bool"></PropDef>
+  <PropDef Id="158" Editor="Vec3Editor(2)" Name="EffectParams1" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Id="159" Editor="Vec3Editor(2)" Name="EffectParams2" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Id="160" Editor="Vec3Editor(2)" Name="EffectParams3" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Id="161" Editor="Vec3Editor(2)" Name="EffectParams4" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Id="162" Editor="Vec3Editor(2)" Name="EffectParams5" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiTextureSurface" BaseClassName="XuiGroup" Icon="Images/XuiTextureSurface.bmp" Description="XuiTextureSurface">
+  <PropDef Id="163" Name="Offscreen" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="164" Name="DepthStencil" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="165" Name="PreRender" Type="bool"></PropDef>
+  <PropDef Id="166" Name="Buffered" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiVariable" BaseClassName="XuiElement" Icon="Images/XuiVariable.bmp" Description="XuiVariable">
+  <PropDef Id="167" Name="Id" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="168" Editor="Vec3Editor(2)" Name="VectorVariable" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Id="169" Name="FloatVariable" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Id="170" Name="IntegerVariable" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiGridPanel" BaseClassName="XuiElement" Icon="Images/XuiGridPanel.bmp" Description="XuiGridPanel">
+  <PropDef Id="171" Name="Columns" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="172" Name="Rows" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="173" Name="CellSpacing" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Id="174" Name="Param0" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Id="175" Name="Param1" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Id="176" Name="Param2" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Id="177" Name="Param3" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiSoundXAudio" BaseClassName="XuiSound" Icon="Images/XuiSoundXAudio.bmp" Description="XuiSoundXAudio">
+  <PropDef Id="178" Editor="FilePathEditor(2)" Name="File" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ 
+ <XUIClass Name="XuiCanvas" BaseClassName="XuiElement" Icon="Images/XuiCanvas.bmp" Description="XuiCanvas">
+ </XUIClass>
+ <XUIClass Name="XuiGroup" BaseClassName="XuiElement" Icon="Images/XuiGroup.bmp" Description="XuiGroup">
+ </XUIClass>
+ <XUIClass Name="XuiVisual" BaseClassName="XuiElement" Icon="Images/XuiVisual.bmp" Description="XuiVisual">
+ </XUIClass>
+ <XUIClass Name="XuiRadioGroup" BaseClassName="XuiControl" Icon="Images/XuiRadioGroup.bmp" Description="XuiRadioGroup">
+ </XUIClass>
+ <XUIClass Name="XuiCaret" BaseClassName="XuiControl" Icon="Images/XuiCaret.bmp" Description="XuiCaret">
+ </XUIClass>
+ <XUIClass Name="XuiBackButton" BaseClassName="XuiButton" Icon="Images/XuiBackButton.bmp" Description="XuiBackButton">
+ </XUIClass>
+ <XUIClass Name="XuiFigureFill" BaseClassName="(null)">
+  <PropDef Id="1" Name="FillType" Type="unsigned"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="FillColor" Type="color"><DefaultVal>0xFF0F0F80</DefaultVal></PropDef>
+  <PropDef Id="1" Name="TextureFileName" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="Gradient" Type="object"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="Translation" Type="vector"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="Scale" Type="vector"><DefaultVal>1.0,1.0,1.0</DefaultVal></PropDef>
+  <PropDef Id="1" Name="Rotation" Type="float"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="WrapX" Type="unsigned"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="WrapY" Type="unsigned"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="BrushFlags" Type="unsigned"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="TransformVersion" Type="unsigned"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiFigureFillGradient" BaseClassName="(null)">
+  <PropDef Id="1" Name="Radial" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="1" Name="NumStops" Type="integer"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Flags="indexed" Name="StopColor" Type="color"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Flags="indexed" Name="StopPos" Type="float"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiFigureStroke" BaseClassName="(null)">
+  <PropDef Id="1" Name="StrokeWidth" Type="float"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="1" Name="StrokeColor" Type="color"><DefaultVal>0xFF0F0FEB</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="IgnoredProps" BaseClassName="(null)">
+  <PropDef Id="17" Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Id="18" Name="Hittable" Type="bool"></PropDef>
+  <PropDef Id="19" Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Id="20" Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Id="21" Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="22" Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="23" Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Id="24" Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Id="25" Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Id="26" Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Id="152" Name="TextureSurfaceElement" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="132" Name="LoadType" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="86" Name="TextScale" Type="float"><DefaultVal>0.0</DefaultVal></PropDef>  
+ </XUIClass>
+</XUIClassExtension>
