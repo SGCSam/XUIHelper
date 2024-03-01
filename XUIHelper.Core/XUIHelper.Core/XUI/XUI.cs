@@ -95,17 +95,18 @@ namespace XUIHelper.Core
                 return null;
             }
 
-            XElement? parentPropertiesElement = objectElement.Descendants("Properties").FirstOrDefault();
+            XElement? parentPropertiesElement = objectElement.Element("Properties");
             if(parentPropertiesElement == null) 
             {
                 Logger?.Here().Error("Failed to find properties element, returning null.");
                 return null;
             }
 
+            XUObject thisObject = new XUObject(elementClass.Name);
+
             IEnumerable<XElement> childPropertyElements = parentPropertiesElement.Elements();
             Logger?.Here().Verbose("Class {0} has {1} properties.", elementClass.Name, childPropertyElements.Count());
 
-            List<XUProperty> properties = new List<XUProperty>();
             foreach(XElement propertyElement in childPropertyElements)
             {
                 string propertyName = propertyElement.Name.ToString();
@@ -132,14 +133,14 @@ namespace XUIHelper.Core
                     {
                         Logger?.Here().Verbose("Property definition {0} was custom, updating bounding box...", propertyDefinition.Name);
                         XUFigure oldFigure = (XUFigure)readProperty.Value;
-                        XUProperty? widthProperty = properties.Where(x => x.PropertyDefinition.Name == "Width").FirstOrDefault();
+                        XUProperty? widthProperty = thisObject.Properties.Where(x => x.PropertyDefinition.Name == "Width").FirstOrDefault();
                         if(widthProperty == null)
                         {
                             Logger?.Here().Error("Width property was null, returning null.");
                             return null;
                         }
 
-                        XUProperty? heightProperty = properties.Where(x => x.PropertyDefinition.Name == "Height").FirstOrDefault();
+                        XUProperty? heightProperty = thisObject.Properties.Where(x => x.PropertyDefinition.Name == "Height").FirstOrDefault();
                         if(heightProperty == null)
                         {
                             Logger?.Here().Error("Height property was null, returning null.");
@@ -149,7 +150,7 @@ namespace XUIHelper.Core
                         readProperty = new XUProperty(propertyDefinition, new XUFigure(new XUPoint((float)widthProperty.Value, (float)heightProperty.Value), oldFigure.Points));
                     }
 
-                    properties.Add(readProperty);
+                    thisObject.Properties.Add(readProperty);
                     found = true;
                     break;
                 }
@@ -161,10 +162,23 @@ namespace XUIHelper.Core
                 }
             }
 
-            List<XUNamedFrame> namedFrames = new List<XUNamedFrame>();
-            List<XUTimeline> timelines = new List<XUTimeline>();
+            foreach (XElement childObjectElement in objectElement.Elements())
+            {
+                if (childObjectElement.Name != "Properties" && childObjectElement.Name != "Timelines")
+                {
+                    Logger?.Here().Verbose("Reading child object {0}", childObjectElement.Name);
+                    XUObject? thisChildObject = TryReadObject(childObjectElement, ref thisObject);
+                    if (thisChildObject == null)
+                    {
+                        Logger?.Here().Error("Read child object was null, an error must have occurred, returning null.");
+                        return null;
+                    }
 
-            XElement? parentTimelinesElement = objectElement.Descendants("Timelines").FirstOrDefault();
+                    thisObject.Children.Add(thisChildObject);
+                }
+            }
+
+            XElement? parentTimelinesElement = objectElement.Element("Timelines");
             if (parentTimelinesElement != null)
             {
                 XElement? parentNamedFramesElement = parentTimelinesElement.Element("NamedFrames");
@@ -181,15 +195,15 @@ namespace XUIHelper.Core
                             return null;
                         }
 
-                        namedFrames.Add(thisChildNamedFrame);
+                        thisObject.NamedFrames.Add(thisChildNamedFrame);
                     }
                 }
 
-                /*IEnumerable<XElement> childTimelineElements = parentTimelinesElement.Elements("Timeline");
+                IEnumerable<XElement> childTimelineElements = parentTimelinesElement.Elements("Timeline");
                 Logger?.Here().Verbose("Class {0} has {1} timelines.", elementClass.Name, childTimelineElements.Count());
                 foreach(XElement childTimelineElement in childTimelineElements)
                 {
-                    XUTimeline? thisChildTimeline = TryReadTimeline(childTimelineElement, ref thisObject);
+                    XUTimeline? thisChildTimeline = this.TryReadTimeline(childTimelineElement, thisObject);
                     if (thisChildTimeline == null)
                     {
                         Logger?.Here().Error("Read timeline object was null, an error must have occurred, returning null.");
@@ -197,28 +211,6 @@ namespace XUIHelper.Core
                     }
 
                     thisObject.Timelines.Add(thisChildTimeline);
-                }*/
-            }
-
-            //TODO: Continue here. See "Timelines - Formatted.txt" - add support for named frame and timeline reads
-
-            XUObject thisObject = new XUObject(elementClass.Name);
-            thisObject.Properties = properties;
-            thisObject.NamedFrames = namedFrames;
-            thisObject.Timelines = timelines;
-            foreach(XElement childObjectElement in objectElement.Elements())
-            {
-                if(childObjectElement.Name != "Properties" && childObjectElement.Name != "Timelines")
-                {
-                    Logger?.Here().Verbose("Reading child object {0}", childObjectElement.Name);
-                    XUObject? thisChildObject = TryReadObject(childObjectElement, ref thisObject);
-                    if(thisChildObject == null)
-                    {
-                        Logger?.Here().Error("Read child object was null, an error must have occurred, returning null.");
-                        return null;
-                    }
-
-                    thisObject.Children.Add(thisChildObject);
                 }
             }
 

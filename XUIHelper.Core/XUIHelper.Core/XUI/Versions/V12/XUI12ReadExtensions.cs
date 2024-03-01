@@ -1,6 +1,7 @@
 ﻿using Serilog;
 using Serilog.Core;
 using System;
+using System.Collections;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Reflection.PortableExecutable;
@@ -315,8 +316,23 @@ namespace XUIHelper.Core
                         xui.Logger?.Here().Error("Read property was null, an error must have occurred, returning null.");
                         return null;
                     }
-
-                    properties.Add(readProperty);
+                    else if(compoundPropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        XUProperty? foundProperty = properties.Where(x => x.PropertyDefinition == compoundPropertyDefinition).FirstOrDefault();
+                        if (foundProperty != null)
+                        {
+                            ((IList)foundProperty.Value).Add(readProperty.Value);
+                        }
+                        else
+                        {
+                            XUProperty indexedProperty = new XUProperty(compoundPropertyDefinition, new List<object>() { readProperty.Value });
+                            properties.Add(indexedProperty);
+                        }
+                    }
+                    else
+                    {
+                        properties.Add(readProperty);
+                    }
                 }
 
                 return properties;
@@ -521,6 +537,245 @@ namespace XUIHelper.Core
                 xui.Logger?.Here().Error("Caught an exception when reading named frame, returning null. The exception is: {0}", ex);
                 return null;
             }
+        }
+
+        public static XUTimeline? TryReadTimeline(this XUI12 xui, XElement element, XUObject obj)
+        {
+            try
+            {
+                if (xui.ExtensionsManager == null)
+                {
+                    xui.Logger?.Here().Error("Failed to get extensions manager, returning null.");
+                    return null;
+                }
+
+                string? id = element.Element("Id")?.Value;
+                if (id == null)
+                {
+                    xui.Logger?.Here().Error("Failed to ID property, returning null.");
+                    return null;
+                }
+
+                XUObject? animatedObject = obj.TryFindChildById(id);
+                if (animatedObject == null)
+                {
+                    xui.Logger?.Here().Error("Failed to find animated object {0}, returning null.", id);
+                    return null;
+                }
+
+                XUClass? animatedObjectClass = xui.ExtensionsManager.TryGetClassByName(animatedObject.ClassName);
+                if (animatedObjectClass == null)
+                {
+                    xui.Logger?.Here().Error("Failed to find animated object class {0}, returning null.", animatedObject.ClassName);
+                    return null;
+                }
+
+                List<XUPropertyDefinition> animatedPropertyDefinitions = new List<XUPropertyDefinition>();
+                IEnumerable<XElement> timelinePropertyElements = element.Elements("TimelineProp");
+                foreach (XElement timelinePropertyElement in timelinePropertyElements)
+                {
+                    string propertyHierarchy = timelinePropertyElement.Value;
+                    List<string> propertyNames = propertyHierarchy.Split('.').ToList();
+
+                    Tuple<XUClass, XUPropertyDefinition?>? classPropertyTuple = new Tuple<XUClass, XUPropertyDefinition?>(animatedObjectClass, null);
+                    XUClass propertyClass = animatedObjectClass;
+
+                    int propertyNameIndex = 0;
+                    foreach(string propertyName in propertyNames)
+                    {
+                        classPropertyTuple = GetPropertyDefinitionFromClass(xui, propertyName, propertyClass);
+                        propertyNameIndex++;
+                        if (classPropertyTuple == null)
+                        {
+                            xui.Logger?.Here().Error("Failed to get property definition for {0} from {1}, returning null.", propertyName, animatedObjectClass.Name);
+                            return null;
+                        }
+
+                        if (classPropertyTuple.Item2 == null)
+                        {
+                            xui.Logger?.Here().Error("Property definition was null from {0}, returning null.", classPropertyTuple.Item1.Name);
+                            return null;
+                        }
+
+                        //Bail here since we've found it and we don't go into the compound classes again
+                        if(propertyNameIndex == propertyNames.Count)
+                        {
+                            break;
+                        }
+
+                        if(propertyNames.Count > 1)
+                        {
+                            XUClass? compoundClass = null;
+                            switch (classPropertyTuple.Item2.Name)
+                            {
+                                case "Fill":
+                                {
+                                    xui.Logger?.Here().Verbose("Property {0} is compound, handling {1}, treating as fill.", propertyHierarchy, propertyName);
+                                    compoundClass = xui.ExtensionsManager.TryGetClassByName("XuiFigureFill");
+                                    break;
+                                }
+
+                                case "Gradient":
+                                {
+                                    xui.Logger?.Here().Verbose("Property {0} is compound, handling {1}, treating as gradient.", propertyHierarchy, propertyName);
+                                    compoundClass = xui.ExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
+                                    break;
+                                }
+
+                                case "Stroke":
+                                {
+                                    xui.Logger?.Here().Verbose("Property {0} is compound, handling {1}, treating as stroke.", propertyHierarchy, propertyName);
+                                    compoundClass = xui.ExtensionsManager.TryGetClassByName("XuiFigureStroke");
+                                    break;
+                                }
+                            }
+
+                            if (compoundClass == null)
+                            {
+                                xui.Logger?.Here().Error("Compound class is null, returning null.");
+                                return null;
+                            }
+
+                            propertyClass = compoundClass;
+                        }
+                    }
+
+                    if (classPropertyTuple.Item2 == null)
+                    {
+                        xui.Logger?.Here().Error("Property definition was null from {0}, returning null.", classPropertyTuple.Item1.Name);
+                        return null;
+                    }
+
+                    animatedPropertyDefinitions.Add(classPropertyTuple.Item2);
+                }
+
+                if(timelinePropertyElements.Count() != animatedPropertyDefinitions.Count)
+                {
+                    xui.Logger?.Here().Error("Mismatch between property elements and definitions, returning null. Expected: {0}, Actual: {1}", timelinePropertyElements.Count(), animatedPropertyDefinitions.Count);
+                    return null;
+                }
+
+                List<XUKeyframe> keyframes = new List<XUKeyframe>();
+                IEnumerable<XElement> keyframeElements = element.Elements("KeyFrame");
+                foreach (XElement keyframeElement in keyframeElements)
+                {
+                    string? keyframeString = keyframeElement.Element("Time")?.Value;
+                    if (keyframeString == null)
+                    {
+                        xui.Logger?.Here().Error("Failed to find keyframe, returning null.");
+                        return null;
+                    }
+                    xui.Logger?.Here().Verbose("Got a keyframe of {0}.", keyframeString);
+                    int keyframe = Convert.ToInt32(keyframeString);
+
+                    string? interpolationString = keyframeElement.Element("Interpolation")?.Value;
+                    if (interpolationString == null)
+                    {
+                        xui.Logger?.Here().Error("Failed to find interpolation, returning null.");
+                        return null;
+                    }
+                    xui.Logger?.Here().Verbose("Got interpolation of {0}.", interpolationString);
+                    XUKeyframeInterpolationTypes interpolationType = (XUKeyframeInterpolationTypes)(Convert.ToInt32(interpolationString));
+
+                    byte easeIn = 0;
+                    byte easeOut = 0;
+                    byte easeScale = 50;
+
+                    if(interpolationType == XUKeyframeInterpolationTypes.Ease)
+                    {
+                        string? easeInString = keyframeElement.Element("EaseIn")?.Value;
+                        if (easeInString == null)
+                        {
+                            xui.Logger?.Here().Error("Failed to find ease in, returning null.");
+                            return null;
+                        }
+                        xui.Logger?.Here().Verbose("Got ease in of {0}.", easeInString);
+
+                        string? easeOutString = keyframeElement.Element("EaseOut")?.Value;
+                        if (easeOutString == null)
+                        {
+                            xui.Logger?.Here().Error("Failed to find ease out, returning null.");
+                            return null;
+                        }
+                        xui.Logger?.Here().Verbose("Got ease out of {0}.", easeOutString);
+
+                        string? easeScaleString = keyframeElement.Element("EaseScale")?.Value;
+                        if (easeScaleString == null)
+                        {
+                            xui.Logger?.Here().Error("Failed to find ease scale, returning null.");
+                            return null;
+                        }
+                        xui.Logger?.Here().Verbose("Got ease scale of {0}.", easeScaleString);
+
+                        easeIn = (byte)Convert.ToInt32(easeInString);
+                        easeOut = (byte)Convert.ToInt32(easeOutString);
+                        easeScale = (byte)Convert.ToInt32(easeScaleString);
+                    }
+
+                    List<XElement> animatedPropertyValueElements = keyframeElement.Elements("Prop").ToList();
+                    if (animatedPropertyValueElements.Count != animatedPropertyDefinitions.Count)
+                    {
+                        xui.Logger?.Here().Error("Mismatch between property value elements and definitions, returning null. Expected: {0}, Actual: {1}", animatedPropertyValueElements.Count, animatedPropertyDefinitions.Count);
+                        return null;
+                    }
+
+                    List<XUProperty> animatedProperties = new List<XUProperty>();
+                    for(int propertyIndex = 0; propertyIndex < animatedPropertyDefinitions.Count; propertyIndex++) 
+                    { 
+                        XUPropertyDefinition thisAnimatedPropertyDefinition = animatedPropertyDefinitions[propertyIndex];
+                        XElement thisAnimatedPropertyValueElement = animatedPropertyValueElements[propertyIndex];
+
+                        xui.Logger?.Here().Verbose("Reading animated property {0}.", thisAnimatedPropertyDefinition.Name);
+                        XUProperty? animatedProperty = TryReadProperty(xui, thisAnimatedPropertyDefinition, thisAnimatedPropertyValueElement);
+                        if (animatedProperty == null)
+                        {
+                            xui.Logger?.Here().Error("Read animated property was null, an error must have occurred, returning null.");
+                            return null;
+                        }
+
+                        animatedProperties.Add(animatedProperty);
+                    }
+
+                    keyframes.Add(new XUKeyframe(keyframe, interpolationType, easeIn, easeOut, easeScale, animatedProperties));
+                }
+
+                return new XUTimeline(id, keyframes);
+            }
+            catch (Exception ex)
+            {
+                xui.Logger?.Here().Error("Caught an exception when reading timeline, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
+
+        private static Tuple<XUClass, XUPropertyDefinition?>? GetPropertyDefinitionFromClass(XUI12 xui, string propertyName, XUClass propertyClass)
+        {
+            xui.Logger?.Here().Verbose("Attempting to find property definition for {0}", propertyName);
+            if (xui.ExtensionsManager == null)
+            {
+                xui.Logger?.Here().Error("Failed to get extensions manager, returning null.");
+                return null;
+            }
+
+            List<XUClass>? classHierarchy = xui.ExtensionsManager.TryGetClassHierarchy(propertyClass.Name);
+            if (classHierarchy == null)
+            {
+                xui.Logger?.Here().Error("Failed to get class hierarchy for {0}, returning null.", propertyClass.Name);
+                return null;
+            }
+
+            foreach (XUClass hierarchyClass in classHierarchy)
+            {
+                foreach (XUPropertyDefinition propertyDefinition in hierarchyClass.PropertyDefinitions)
+                {
+                    if (propertyDefinition.Name == propertyName)
+                    {
+                        return new Tuple<XUClass, XUPropertyDefinition>(hierarchyClass, propertyDefinition);
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

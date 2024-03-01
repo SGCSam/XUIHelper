@@ -50,5 +50,25 @@ namespace XUIHelper.Core
                 return null;
             }
         }
+
+        public static XUTimeline? TryReadTimeline(this IXUI xui, XElement element, XUObject obj)
+        {
+            try
+            {
+                if (xui is XUI12 xui12)
+                {
+                    xui.Logger?.Here().Verbose("Trying to read XUI12 timeline.");
+                    return xui12.TryReadTimeline(element, obj);
+                }
+
+                xui.Logger?.Here().Error("Unhandled IXUI for timeline, returning null.");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                xui.Logger?.Here().Error("Caught an exception when trying to read timline, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
     }
 }
