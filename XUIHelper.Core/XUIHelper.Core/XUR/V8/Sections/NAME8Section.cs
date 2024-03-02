@@ -47,7 +47,7 @@ namespace XUIHelper.Core
                     xur.Logger?.Here().Verbose("Reading keyframe index {0}.", keyframeIndex);
 
                     byte readStringIndexBytes;
-                    int stringIndex = (int)reader.ReadPackedUInt(out readStringIndexBytes);
+                    int stringIndex = (int)reader.ReadPackedUInt(out readStringIndexBytes) - 1;
                     xur.Logger?.Here().Verbose("Read a string index {0} using {1:X8} bytes.", stringIndex, readStringIndexBytes);
                     if (stringIndex < 0 || stringIndex >= strnSection.Strings.Count)
                     {

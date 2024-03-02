@@ -37,5 +37,17 @@ namespace XUIHelper.Core
             CommandType = commandType;
             TargetParameter = targetParam;
         }
+
+        public override string ToString()
+        {
+            if(TargetParameter == string.Empty)
+            {
+                return string.Format("Name: {0}, Keyframe: {1}, Command: {2}", Name, Keyframe, CommandType);
+            }
+            else
+            {
+                return string.Format("Name: {0}, Keyframe: {1}, Command: {2}, Target: {3}", Name, Keyframe, CommandType, TargetParameter);
+            }
+        }
     }
 }

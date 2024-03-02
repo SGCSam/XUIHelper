@@ -137,7 +137,59 @@ namespace XUIHelper.Core
 
                 if ((flags & 0x4) == 0x4)
                 {
-                    throw new NotImplementedException();
+                    xur.Logger?.Here().Verbose("Class has timeline data, reading named frames count.");
+
+                    uint namedFramesCount = reader.ReadPackedUInt();
+                    xur.Logger?.Here().Verbose("Class has {0} named frames.", namedFramesCount);
+
+                    if(namedFramesCount > 0) 
+                    {
+                        int namedFrameBaseIndex = (int)reader.ReadPackedUInt();
+                        xur.Logger?.Here().Verbose("Read named frame base index of {0:X8}.", namedFrameBaseIndex);
+
+                        for (int namedFrameIndex = 0; namedFrameIndex < namedFramesCount; namedFrameIndex++)
+                        {
+                            int targetIndex = namedFrameBaseIndex + namedFrameIndex;
+                            xur.Logger?.Here().Verbose("Reading named frame index {0}.", targetIndex);
+                            XUNamedFrame? thisNamedFrame = ((XUR8)xur).TryReadNamedFrame(targetIndex);
+                            if (thisNamedFrame == null)
+                            {
+                                xur.Logger?.Here().Error("Failed to read named frame index {0}, returning false.", targetIndex);
+                                return null;
+                            }
+
+                            thisObject.NamedFrames.Add(thisNamedFrame);
+                        }
+                    }
+
+                    if (thisObject.Children.Count == 0)
+                    {
+                        xur.Logger?.Here().Verbose("The parent object had no children, no need to load timeline data.");
+                        return thisObject;
+                    }
+
+                    xur.Logger?.Here().Verbose("Reading timelines count.");
+                    uint timelinesCount = reader.ReadPackedUInt();
+                    xur.Logger?.Here().Verbose("Class has {0:X8} timelines.", timelinesCount);
+
+                    if (timelinesCount == 0)
+                    {
+                        xur.Logger?.Here().Verbose("There are no timelines, no need to load timeline data, returning true.");
+                        return thisObject;
+                    }
+
+                    for (int timelineIndex = 0; timelineIndex < timelinesCount; timelineIndex++)
+                    {
+                        xur.Logger?.Here().Verbose("Reading timeline index {0}.", timelineIndex);
+                        XUTimeline? thisTimeline = xur.TryReadTimeline(reader, thisObject);
+                        if (thisTimeline == null)
+                        {
+                            xur.Logger?.Here().Error("Failed to read timeline index {0}, returning false.", timelineIndex);
+                            return null;
+                        }
+
+                        thisObject.Timelines.Add(thisTimeline);
+                    }
                 }
 
                 return thisObject;

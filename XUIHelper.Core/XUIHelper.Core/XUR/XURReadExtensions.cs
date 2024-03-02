@@ -37,26 +37,6 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUNamedFrame? TryReadNamedFrame(this IXUR xur, BinaryReader reader)
-        {
-            try
-            {
-                if (xur is XUR5 xur5)
-                {
-                    xur.Logger?.Here().Verbose("Trying to read XUR5 named frame.");
-                    return xur5.TryReadNamedFrame(reader);
-                }
-
-                xur.Logger?.Here().Error("Unhandled IXUR for named frame, returning null.");
-                return null;
-            }
-            catch (Exception ex)
-            {
-                xur.Logger?.Here().Error("Caught an exception when trying to read named frame, returning null. The exception is: {0}", ex);
-                return null;
-            }
-        }
-
         public static XUTimeline? TryReadTimeline(this IXUR xur, BinaryReader reader, XUObject obj)
         {
             try

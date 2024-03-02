@@ -141,7 +141,7 @@ namespace XUIHelper.Core
                     for (int namedFrameIndex = 0; namedFrameIndex < namedFramesCount; namedFrameIndex++)
                     {
                         xur.Logger?.Here().Verbose("Reading named frame index {0}.", namedFrameIndex);
-                        XUNamedFrame? thisNamedFrame = xur.TryReadNamedFrame(reader);
+                        XUNamedFrame? thisNamedFrame = ((XUR5)xur).TryReadNamedFrame(reader);
                         if (thisNamedFrame == null)
                         {
                             xur.Logger?.Here().Error("Failed to read named frame index {0}, returning false.", namedFrameIndex);

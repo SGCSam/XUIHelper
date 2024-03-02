@@ -362,11 +362,26 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUNamedFrame? TryReadNamedFrame(this XUR8 xur, BinaryReader reader)
+        public static XUNamedFrame? TryReadNamedFrame(this XUR8 xur, int index)
         {
             try
             {
-                throw new NotImplementedException();
+                INAMESection? nameSection = ((IXUR)xur).TryFindXURSectionByMagic<INAMESection>(INAMESection.ExpectedMagic);
+                if (nameSection == null)
+                {
+                    xur.Logger?.Here().Error("NAME section was null, returning null.");
+                    return null;
+                }
+
+                if (nameSection.NamedFrames.Count == 0 || nameSection.NamedFrames.Count <= index)
+                {
+                    xur.Logger?.Here().Error("Failed to read named frame as we got an invalid index of {0}. The named frames length is {1}. Returning null.", index, nameSection.NamedFrames.Count);
+                    return null;
+                }
+
+                XUNamedFrame val = nameSection.NamedFrames[index];
+                xur.Logger?.Here().Verbose("Read named frame value of {0}.", val);
+                return val;
             }
             catch (Exception ex)
             {
