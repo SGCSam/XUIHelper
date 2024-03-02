@@ -31,5 +31,15 @@ namespace XUIHelper.Core
             EaseScale = easeScale;
             Properties = properties;
         }
+
+        public XUKeyframe(XURKeyframe xurKeyframe, List<XUProperty> properties) 
+        {
+            Keyframe = xurKeyframe.Keyframe;
+            InterpolationType = xurKeyframe.InterpolationType;
+            EaseIn = xurKeyframe.EaseIn;
+            EaseOut = xurKeyframe.EaseOut;
+            EaseScale *= xurKeyframe.EaseScale;
+            Properties = properties;
+        }
     }
 }

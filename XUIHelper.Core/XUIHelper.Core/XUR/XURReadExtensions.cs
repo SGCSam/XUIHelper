@@ -46,6 +46,11 @@ namespace XUIHelper.Core
                     xur.Logger?.Here().Verbose("Trying to read XUR5 timeline.");
                     return xur5.TryReadTimeline(reader, obj);
                 }
+                else if (xur is XUR8 xur8)
+                {
+                    xur.Logger?.Here().Verbose("Trying to read XUR8 timeline.");
+                    return xur8.TryReadTimeline(reader, obj);
+                }
 
                 xur.Logger?.Here().Error("Unhandled IXUR for timeline, returning null.");
                 return null;

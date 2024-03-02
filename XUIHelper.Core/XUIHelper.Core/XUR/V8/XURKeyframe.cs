@@ -8,21 +8,22 @@ namespace XUIHelper.Core
 {
     public class XURKeyframe
     {
-        public ulong Keyframe { get; private set; }
+        public int Keyframe { get; private set; }
         public XUKeyframeInterpolationTypes InterpolationType { get; private set; }
         public byte EaseIn { get; private set; }
         public byte EaseOut { get; private set; }
         public byte EaseScale { get; private set; }
-        public ulong VectorIndex { get; private set; }
-        public ulong PropertyIndex { get; private set; } 
+        public int VectorIndex { get; private set; }
+        public int PropertyIndex { get; private set; } 
 
-        public XURKeyframe(ulong keyframe, XUKeyframeInterpolationTypes interpolationType, byte easeIn, byte easeOut, byte easeScale, ulong vectIndex, ulong propIndex)
+        public XURKeyframe(int keyframe, XUKeyframeInterpolationTypes interpolationType, byte easeIn, byte easeOut, byte easeScale, int vectIndex, int propIndex)
         {
             Keyframe = keyframe;
             InterpolationType = interpolationType;
             EaseIn = easeIn;
             EaseOut = easeOut;
             EaseScale = easeScale;
+            VectorIndex = vectIndex;
             PropertyIndex = propIndex;
         }
 
