@@ -70,11 +70,11 @@ namespace XUIHelper.Core
                         Logger?.Here().Verbose("Returning NAME8 section.");
                         return new NAME8Section();
                     }
-                    /*case IDATASection.ExpectedMagic:
+                    case IDATASection.ExpectedMagic:
                     {
                         Logger?.Here().Verbose("Returning DATA8 section.");
-                        return new DATA5Section();
-                    }*/
+                        return new DATA8Section();
+                    }
                     default:
                     {
                         Logger?.Here().Error("Hit default case, unhandled magic.");

@@ -36,7 +36,7 @@ namespace XUIHelper.Core
                 for (int bytesRead = 0; bytesRead < entry.Length;)
                 {
                     byte readFrameBytes;
-                    ulong frame = reader.ReadPackedULong(out readFrameBytes);
+                    ulong frame = reader.ReadPackedUInt(out readFrameBytes);
                     bytesRead += readFrameBytes;
 
                     byte flagByte = reader.ReadByte();
@@ -65,12 +65,12 @@ namespace XUIHelper.Core
                     else if (flagByte == 0xA)
                     {
                         byte readVectorIndexBytes;
-                        vectorIndex = reader.ReadPackedULong(out readVectorIndexBytes);
+                        vectorIndex = reader.ReadPackedUInt(out readVectorIndexBytes);
                         bytesRead += readVectorIndexBytes;
                     }
 
                     byte readPropertyIndexBytes;
-                    ulong propertyIndex = reader.ReadPackedULong(out readPropertyIndexBytes);
+                    ulong propertyIndex = reader.ReadPackedUInt(out readPropertyIndexBytes);
                     bytesRead += readPropertyIndexBytes;
 
                     XURKeyframe readKeyframe = new XURKeyframe(frame, interpolationType, easeIn, easeOut, easeScale, vectorIndex, propertyIndex);

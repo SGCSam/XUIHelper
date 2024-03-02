@@ -178,41 +178,36 @@ namespace XUIHelper.Core.Extensions
         #endregion
 
         #region PackedULong
-        public static ulong ReadPackedULong(this BinaryReader reader, out byte bytesRead)
+        public static uint ReadPackedUInt(this BinaryReader reader, out byte bytesRead)
         {
             byte firstByte = reader.ReadByte();
             bytesRead = 1;
-
-            ulong ret = 0;
 
             if (firstByte != 0xFF)
             {
                 if (firstByte < 0xF0)
                 {
-                    ret = (ulong)firstByte;
+                    return (uint)firstByte;
                 }
-
                 else
                 {
                     byte secondByte = reader.ReadByte();
                     bytesRead = 2;
-                    ulong highPart = ((ulong)firstByte << 8) & 0xF00;
-                    ret = highPart | (ulong)secondByte;
+
+                    uint highPart = ((uint)firstByte << 8) & 0xF00;
+                    return (highPart | secondByte);
                 }
             }
-
             else
             {
-                ret = (ulong)reader.ReadInt32BE();
+                return reader.ReadUInt32BE();
             }
-
-            return ret;
         }
 
-        public static ulong ReadPackedULong(this BinaryReader reader)
+        public static uint ReadPackedUInt(this BinaryReader reader)
         {
             byte bytesRead;
-            return ReadPackedULong(reader, out bytesRead);
+            return ReadPackedUInt(reader, out bytesRead);
         }
         #endregion
     }

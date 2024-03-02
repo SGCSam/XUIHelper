@@ -18,6 +18,7 @@ namespace XUIHelper.Core
                 xur.Logger = xur.Logger?.ForContext(typeof(XUR8CountHeader));
                 xur.Logger?.Here().Verbose("Reading XUR8 count header.");
 
+                //TODO: ...
                 reader.ReadBytes(0xE);
 
                 xur.Logger?.Here().Verbose("XUR8 count header read successful!");
@@ -36,6 +37,7 @@ namespace XUIHelper.Core
             try
             {
                 xur.Logger?.Here().Verbose("XUR8 count header verified successfully!");
+                //TODO: ...
                 return true;
             }
             catch (Exception ex)

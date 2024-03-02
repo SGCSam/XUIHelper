@@ -21,6 +21,11 @@ namespace XUIHelper.Core
                     xur.Logger?.Here().Verbose("Trying to read XUR5 property {0}", propertyDefinition.Name);
                     return xur5.TryReadProperty(reader, propertyDefinition);
                 }
+                else if(xur is XUR8 xur8)
+                {
+                    xur.Logger?.Here().Verbose("Trying to read XUR8 property {0}", propertyDefinition.Name);
+                    return xur8.TryReadProperty(reader, propertyDefinition);
+                }
 
                 xur.Logger?.Here().Error("Unhandled IXUR for property {0}, returning null.", propertyDefinition.Name);
                 return null;

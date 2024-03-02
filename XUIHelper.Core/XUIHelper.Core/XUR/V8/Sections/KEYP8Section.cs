@@ -36,7 +36,7 @@ namespace XUIHelper.Core
                 for (int bytesRead = 0; bytesRead < entry.Length;)
                 {
                     byte packedBytesRead = 0;
-                    ulong readIndex = reader.ReadPackedULong(out packedBytesRead);
+                    ulong readIndex = reader.ReadPackedUInt(out packedBytesRead);
                     PropertyIndexes.Add(readIndex);
                     xur.Logger?.Here().Verbose("Read keyframe property index {0} as {1}.", index, readIndex);
                     index++;
