@@ -338,5 +338,31 @@ namespace XUIHelper.Core
 
             return null;
         }
+
+        public int GetTotalTimelinePropertyDefinitionsClassDepth()
+        {
+            int retDepth = 0;
+            foreach (XUTimeline timeline in Timelines)
+            {
+                foreach (XUProperty property in timeline.Keyframes[0].Properties)
+                {
+                    if (property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        retDepth += ((IList)property.Value).Count;
+                    }
+                    else
+                    {
+                        retDepth++;
+                    }
+                }
+            }
+
+            foreach (XUObject childObject in Children)
+            {
+                retDepth += childObject.GetTotalTimelinePropertyDefinitionsClassDepth();
+            }
+
+            return retDepth;
+        }
     }
 }

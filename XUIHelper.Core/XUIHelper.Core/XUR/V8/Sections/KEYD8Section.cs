@@ -42,6 +42,12 @@ namespace XUIHelper.Core
                     byte flagByte = reader.ReadByte();
                     byte flags = (byte)(flagByte & 0x3F);
                     byte unknown = (byte)(flagByte >> 6);
+                    if(unknown != 0)
+                    {
+                        xur.Logger?.Here().Error("The unknown upper bits of the flag byte was non-zero, returning false.");
+                        return false;
+                    }
+
                     bytesRead++;
 
                     byte easeIn = 0;
