@@ -124,7 +124,9 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                bool val = reader.ReadByte() > 0 ? true : false;
+                xur.Logger?.Here().Verbose("Read boolean property value of {0}.", val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -162,7 +164,9 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                uint val = reader.ReadPackedUInt();
+                xur.Logger?.Here().Verbose("Read unsigned property value of {0}.", val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -255,7 +259,25 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                int vectIndex = (int)reader.ReadPackedUInt();
+                xur.Logger?.Here()?.Verbose("Reading vector, got vector index of {0}", vectIndex);
+
+                IVECTSection? vectSection = ((IXUR)xur).TryFindXURSectionByMagic<IVECTSection>(IVECTSection.ExpectedMagic);
+                if (vectSection == null)
+                {
+                    xur.Logger?.Here().Error("VECT section was null, returning null.");
+                    return null;
+                }
+
+                if (vectSection.Vectors.Count == 0 || vectSection.Vectors.Count <= vectIndex)
+                {
+                    xur.Logger?.Here().Error("Failed to read vector as we got an invalid index of {0}. The vectors length is {1}. Returning null.", vectIndex, vectSection.Vectors.Count);
+                    return null;
+                }
+
+                XUVector val = vectSection.Vectors[vectIndex];
+                xur.Logger?.Here().Verbose("Read vector value of {0}.", val);
+                return val;
             }
             catch (Exception ex)
             {
