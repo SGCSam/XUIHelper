@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using Serilog.Context;
 using Serilog.Core;
 using System;
 using System.Collections.Generic;
@@ -108,10 +109,22 @@ namespace XUIHelper.Core
                     }
 
                     thisObject.Properties = readProperties;
+                    ((XUR8)xur).ReadPropertiesLists.Add(readProperties);
                 }
                 else if ((flags & 0x8) == 0x8)
                 {
-                    throw new NotImplementedException();
+                    xur.Logger?.Here().Verbose("Class has shared properties.");
+                    int propertyArrayIndex = (int)reader.ReadPackedUInt();
+                    xur.Logger?.Here().Verbose("Got a shared properties index of {0}", propertyArrayIndex);
+
+                    XUR8 xur8 = (XUR8)xur;
+                    if(propertyArrayIndex < 0 || propertyArrayIndex >= xur8.ReadPropertiesLists.Count)
+                    {
+                        xur.Logger?.Here().Error("Failed to read shared properties as we got an invalid index of {0}. The shared properties length is {1}. Returning null.", propertyArrayIndex, xur8.ReadPropertiesLists.Count);
+                        return null;
+                    }
+
+                    thisObject.Properties = new List<XUProperty>(xur8.ReadPropertiesLists[propertyArrayIndex]);
                 }
 
                 if ((flags & 0x2) == 0x2)

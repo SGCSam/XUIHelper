@@ -10,6 +10,9 @@ namespace XUIHelper.Core
 {
     public class XUR8 : XUR
     {
+        public List<XURCompoundPropertyData> CompoundPropertyDatas { get; set; } = new List<XURCompoundPropertyData>();
+        public List<List<XUProperty>> ReadPropertiesLists { get; set; } = new List<List<XUProperty>>();
+
         public XUR8(string filePath, ILogger? logger = null) : base(filePath, new XUR8Header(), new XUR8SectionsTable(), logger)
         {
 

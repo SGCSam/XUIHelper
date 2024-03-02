@@ -146,7 +146,9 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                int val = (int)reader.ReadPackedUInt();
+                xur.Logger?.Here().Verbose("Read integer property value of {0}.", val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -358,9 +360,19 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                int compoundPropertyIndex = (int)reader.ReadPackedUInt();
-                xur.Logger?.Here()?.Verbose("Got a compound property index of {0}.", compoundPropertyIndex);
+                int compoundDataIndex = (int)reader.ReadPackedUInt();
+                xur.Logger?.Here()?.Verbose("Got a compound data index of {0}.", compoundDataIndex);
 
+                foreach(XURCompoundPropertyData data in xur.CompoundPropertyDatas)
+                {
+                    if(data.Index == compoundDataIndex)
+                    {
+                        xur.Logger?.Here()?.Verbose("Found with the index, returning {0} properties.", data.Properties);
+                        return new List<XUProperty>(data.Properties);
+                    }
+                }
+
+                xur.Logger?.Here()?.Verbose("Didn't find data with the index, creating new.");
                 XUClass? compoundClass = null;
                 switch (propertyDefinition.Name)
                 {
@@ -426,6 +438,7 @@ namespace XUIHelper.Core
                     propertyIndex++;
                 }
 
+                xur.CompoundPropertyDatas.Add(new XURCompoundPropertyData(compoundDataIndex, compoundProperties));
                 return compoundProperties;
             }
             catch (Exception ex)
@@ -445,7 +458,9 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                int colourIndex = (int)reader.ReadPackedUInt();
+                xur.Logger?.Here()?.Verbose("Reading colour, got colour index of {0}", colourIndex);
+                return TryReadColourProperty(xur, reader, propertyDefinition, colourIndex);
             }
             catch (Exception ex)
             {
@@ -454,7 +469,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUColour? TryReadColourProperty(this XUR8 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition, int index)
+        public static XUColour? TryReadColourProperty(this XUR8 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition, int colourIndex)
         {
             try
             {
@@ -464,7 +479,22 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                ICOLRSection? colrSection = ((IXUR)xur).TryFindXURSectionByMagic<ICOLRSection>(ICOLRSection.ExpectedMagic);
+                if (colrSection == null)
+                {
+                    xur.Logger?.Here().Error("COLR section was null, returning null.");
+                    return null;
+                }
+
+                if (colrSection.Colours.Count == 0 || colrSection.Colours.Count <= colourIndex)
+                {
+                    xur.Logger?.Here().Error("Failed to read colour as we got an invalid index of {0}. The colours length is {1}. Returning null.", colourIndex, colrSection.Colours.Count);
+                    return null;
+                }
+
+                XUColour val = colrSection.Colours[colourIndex];
+                xur.Logger?.Here().Verbose("Read colour value of {0}.", val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -483,7 +513,49 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                int custOffset = (int)reader.ReadPackedUInt();
+                xur.Logger?.Here()?.Verbose("Reading custom, got offset index of {0:X8}", custOffset);
+
+                ICUSTSection? custSection = ((IXUR)xur).TryFindXURSectionByMagic<ICUSTSection>(ICUSTSection.ExpectedMagic);
+                if (custSection == null)
+                {
+                    xur.Logger?.Here().Error("CUST section was null, returning null.");
+                    return null;
+                }
+
+                if (custSection.Figures.Count <= 0)
+                {
+                    xur.Logger?.Here().Error("Failed to read custom as we have no figures, returning null.");
+                    return null;
+                }
+
+                if (custOffset == 0)
+                {
+                    xur.Logger?.Here().Verbose("Custom offset is 0, returning first figure.");
+                    return custSection.Figures[0];
+                }
+                else
+                {
+                    int calculatedOffset = 0;
+                    for (int i = 0; i < custSection.Figures.Count; i++)
+                    {
+                        XUFigure thisFigure = custSection.Figures[i];
+                        calculatedOffset += 0x10 + (thisFigure.Points.Count * 0x18);
+
+                        if (calculatedOffset == custOffset)
+                        {
+                            xur.Logger?.Here().Verbose("Custom offset is {0:X8}, returning figure at index {1}.", custOffset, i);
+                            return custSection.Figures[i];
+                        }
+                        else if (calculatedOffset > custOffset)
+                        {
+                            break;
+                        }
+                    }
+
+                    xur.Logger?.Here().Error("Failed to find figured with custom offset {0:X8}, returning null.", custOffset);
+                    return null;
+                }
             }
             catch (Exception ex)
             {
@@ -852,6 +924,8 @@ namespace XUIHelper.Core
                         xur.Logger?.Here().Verbose("Animated property {0} has a value of {1} at keyframe {2}.", animatedPropertyDefinition.Name, xuProperty.Value, keyframeIndex);
                         if (animatedPropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
                         {
+                            xuProperty = new XUProperty(xuProperty.PropertyDefinition, new List<object>() { xuProperty.Value });
+
                             if (handledIndexedProperties < 0 || handledIndexedProperties >= indexedPropertyIndexes.Count)
                             {
                                 xur.Logger?.Here().Error("Indexed properties index of {0:X8} is invalid, must be between 0 and {1}, returning null.", handledIndexedProperties, indexedPropertyIndexes.Count);
@@ -891,6 +965,7 @@ namespace XUIHelper.Core
                             if (found)
                             {
                                 //Don't re-add the XUProperty again if we've just updated the existing one
+                                animatedPropertyDefinitionIndex++;
                                 continue;
                             }
                         }
