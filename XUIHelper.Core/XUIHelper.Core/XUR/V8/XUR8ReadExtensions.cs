@@ -181,7 +181,25 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                int stringIndex = (int)reader.ReadPackedUInt() - 1;
+                xur.Logger?.Here()?.Verbose("Reading string, got string index of {0}", stringIndex);
+
+                ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
+                {
+                    xur.Logger?.Here().Error("STRN section was null, returning null.");
+                    return null;
+                }
+
+                if (strnSection.Strings.Count == 0 || strnSection.Strings.Count <= stringIndex)
+                {
+                    xur.Logger?.Here().Error("Failed to read string as we got an invalid index of {0}. The string length is {1}. Returning null.", stringIndex, strnSection.Strings.Count);
+                    return null;
+                }
+
+                string val = strnSection.Strings[stringIndex];
+                xur.Logger?.Here().Verbose("Read string value of {0}.", val);
+                return val;
             }
             catch (Exception ex)
             {
@@ -200,7 +218,25 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                int floatIndex = (int)reader.ReadPackedUInt();
+                xur.Logger?.Here()?.Verbose("Reading float, got float index of {0}", floatIndex);
+
+                IFLOTSection? flotSection = ((IXUR)xur).TryFindXURSectionByMagic<IFLOTSection>(IFLOTSection.ExpectedMagic);
+                if (flotSection == null)
+                {
+                    xur.Logger?.Here().Error("FLOT section was null, returning null.");
+                    return null;
+                }
+
+                if (flotSection.Floats.Count == 0 || flotSection.Floats.Count <= floatIndex)
+                {
+                    xur.Logger?.Here().Error("Failed to read float as we got an invalid index of {0}. The floats length is {1}. Returning null.", floatIndex, flotSection.Floats.Count);
+                    return null;
+                }
+
+                float val = flotSection.Floats[floatIndex];
+                xur.Logger?.Here().Verbose("Read float value of {0}.", val);
+                return val;
             }
             catch (Exception ex)
             {

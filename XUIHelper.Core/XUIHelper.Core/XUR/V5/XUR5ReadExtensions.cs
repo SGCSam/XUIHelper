@@ -269,7 +269,7 @@ namespace XUIHelper.Core
 
                 if (vectSection.Vectors.Count == 0 || vectSection.Vectors.Count <= vectIndex)
                 {
-                    xur.Logger?.Here().Error("Failed to read vector as we got an invalid index of {0}. The vectors length is {1}. Returning null.", vectSection, vectSection.Vectors.Count);
+                    xur.Logger?.Here().Error("Failed to read vector as we got an invalid index of {0}. The vectors length is {1}. Returning null.", vectIndex, vectSection.Vectors.Count);
                     return null;
                 }
 

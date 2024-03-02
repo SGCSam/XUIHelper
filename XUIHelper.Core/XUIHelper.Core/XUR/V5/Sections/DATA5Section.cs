@@ -265,6 +265,12 @@ namespace XUIHelper.Core
                     }
                 }
 
+                if (retProperties.Count != propertiesCount)
+                {
+                    xur.Logger?.Here().Error("Mismatch of properties count, returning null. Expected: {0}, Actual: {1}", propertiesCount, retProperties.Count);
+                    return null;
+                }
+
                 return retProperties;
             }
             catch (Exception ex)

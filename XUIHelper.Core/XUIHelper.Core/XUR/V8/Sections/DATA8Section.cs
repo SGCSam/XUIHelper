@@ -116,8 +116,6 @@ namespace XUIHelper.Core
 
                 if ((flags & 0x2) == 0x2)
                 {
-                    throw new NotImplementedException();
-
                     xur.Logger?.Here().Verbose("Class has children, reading count.");
 
                     uint childrenCount = reader.ReadPackedUInt();
@@ -164,6 +162,9 @@ namespace XUIHelper.Core
                     return null;
                 }
 
+                uint propertiesCount = reader.ReadPackedUInt();
+                xur.Logger?.Here().Verbose("Class {0} has {1:X8} properties.", className, propertiesCount);
+
                 List<XUProperty> retProperties = new List<XUProperty>();
                 foreach (XUClass xuClass in classList)
                 {
@@ -192,6 +193,12 @@ namespace XUIHelper.Core
 
                         propertyIndex++;
                     }
+                }
+
+                if(retProperties.Count != propertiesCount)
+                {
+                    xur.Logger?.Here().Error("Mismatch of properties count, returning null. Expected: {0}, Actual: {1}", propertiesCount, retProperties.Count);
+                    return null;
                 }
 
                 return retProperties;
