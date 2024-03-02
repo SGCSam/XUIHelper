@@ -574,7 +574,9 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                int quatIndex = (int)reader.ReadPackedUInt();
+                xur.Logger?.Here()?.Verbose("Reading quaternion, got quaternion index of {0}", quatIndex);
+                return TryReadQuaternionProperty(xur, reader, propertyDefinition, quatIndex);
             }
             catch (Exception ex)
             {
@@ -583,7 +585,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public static XUQuaternion? TryReadQuaternionProperty(this XUR8 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition, int index)
+        public static XUQuaternion? TryReadQuaternionProperty(this XUR8 xur, BinaryReader reader, XUPropertyDefinition propertyDefinition, int quatIndex)
         {
             try
             {
@@ -593,7 +595,22 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                IQUATSection? quatSection = ((IXUR)xur).TryFindXURSectionByMagic<IQUATSection>(IQUATSection.ExpectedMagic);
+                if (quatSection == null)
+                {
+                    xur.Logger?.Here().Error("QUAT section was null, returning null.");
+                    return null;
+                }
+
+                if (quatSection.Quaternions.Count == 0 || quatSection.Quaternions.Count <= quatIndex)
+                {
+                    xur.Logger?.Here().Error("Failed to read quaternion as we got an invalid index of {0}. The quaternions length is {1}. Returning null.", quatIndex, quatSection.Quaternions.Count);
+                    return null;
+                }
+
+                XUQuaternion val = quatSection.Quaternions[quatIndex];
+                xur.Logger?.Here().Verbose("Read quaternion value of {0}.", val);
+                return val;
             }
             catch (Exception ex)
             {
