@@ -351,7 +351,37 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                XElement retElement = new XElement(propertyDefinition.Name);
+
+                xui.Logger?.Here().Verbose("Writing custom property {0} with value {1}", propertyDefinition.Name, val);
+                XUFigure? figure = val as XUFigure;
+                if (figure == null)
+                {
+                    xui.Logger?.Here().Error("Property value was not a figure, returning null.");
+                    return null;
+                }
+
+                retElement.Value += figure.Points.Count;
+                retElement.Value += ",";
+                foreach(XUBezierPoint bezierPoint in figure.Points) 
+                {
+                    retElement.Value += bezierPoint.Point.X.ToString("0.000000");
+                    retElement.Value += ",";
+                    retElement.Value += bezierPoint.Point.Y.ToString("0.000000");
+                    retElement.Value += ",";
+                    retElement.Value += bezierPoint.ControlPointOne.X.ToString("0.000000");
+                    retElement.Value += ",";
+                    retElement.Value += bezierPoint.ControlPointOne.Y.ToString("0.000000");
+                    retElement.Value += ",";
+                    retElement.Value += bezierPoint.ControlPointTwo.X.ToString("0.000000");
+                    retElement.Value += ",";
+                    retElement.Value += bezierPoint.ControlPointTwo.Y.ToString("0.000000");
+                    retElement.Value += ",";
+                    retElement.Value += "0";
+                    retElement.Value += ",";
+                }
+
+                return retElement;
             }
             catch (Exception ex)
             {
