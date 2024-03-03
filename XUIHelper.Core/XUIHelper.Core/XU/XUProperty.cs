@@ -54,21 +54,5 @@ namespace XUIHelper.Core
 
             return retCount;
         }
-
-        public int GetCompoundPropertyValuesCount()
-        {
-            if (PropertyDefinition.Type != XUPropertyDefinitionTypes.Object)
-            {
-                return 0;
-            }
-
-            int retCount = ((List<XUProperty>)Value).Count + 1;
-            foreach (XUProperty childProperty in (List<XUProperty>)Value)
-            {
-                retCount += childProperty.GetCompoundPropertyValuesCount();
-            }
-
-            return retCount;
-        }
     }
 }

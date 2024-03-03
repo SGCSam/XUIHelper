@@ -420,5 +420,60 @@ namespace XUIHelper.Core
 
             return retCount;
         }
+
+        public int GetTotalUnsharedPropertiesArrayCount()
+        {
+            List<List<XUProperty>> initialEmptyList = new List<List<XUProperty>>();
+            return GetTotalUnsharedPropertiesArrayCount(ref initialEmptyList);
+        }
+
+        private int GetTotalUnsharedPropertiesArrayCount(ref List<List<XUProperty>> readPropertiesLists)
+        {
+            int retCount = 0;
+
+            bool contains = false;
+            foreach (List<XUProperty> readList in readPropertiesLists)
+            {
+                if (readList.Count != Properties.Count)
+                {
+                    continue;
+                }
+
+                bool found = true;
+                for (int propertyIndex = 0; propertyIndex < Properties.Count; propertyIndex++)
+                {
+                    if (readList[propertyIndex].PropertyDefinition.Name != Properties[propertyIndex].PropertyDefinition.Name)
+                    {
+                        found = false;
+                        break;
+                    }
+
+                    if (readList[propertyIndex].Value != Properties[propertyIndex].Value)
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+
+                contains = found;
+                if (contains)
+                {
+                    break;
+                }
+            }
+
+            if (!contains)
+            {
+                readPropertiesLists.Add(Properties);
+                retCount++;
+            }
+
+            foreach (XUObject childObject in Children)
+            {
+                retCount += childObject.GetTotalUnsharedPropertiesCount(ref readPropertiesLists);
+            }
+
+            return retCount;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,31 @@ namespace XUIHelper.Core
         public XUR8(string filePath, ILogger? logger = null) : base(filePath, new XUR8Header(), new XUR8SectionsTable(), logger)
         {
 
+        }
+
+        public int GetSharedCompoundPropertiesCount()
+        {
+            int retCount = 0;
+            foreach (XURCompoundPropertyData item in CompoundPropertyDatas)
+            {
+                retCount += item.Properties.Count;
+                foreach(XUProperty property in item.Properties)
+                {
+                    if(property.PropertyDefinition.Type == XUPropertyDefinitionTypes.Object)
+                    {
+                        if(property.Value is IList list)
+                        {
+                            retCount += list.Count + 1;
+                        }
+                        else
+                        {
+                            retCount++;
+                        }
+                    }
+                }
+            }
+
+            return retCount;
         }
 
         protected override IXURSection? TryCreateXURSectionForMagic(int Magic)

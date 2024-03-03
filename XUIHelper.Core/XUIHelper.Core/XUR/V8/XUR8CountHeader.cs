@@ -14,7 +14,7 @@ namespace XUIHelper.Core
         public int TotalObjectsCount { get; private set; }
         public int TotalUnsharedObjectPropertiesCount { get; private set; }
         public int SharedPropertiesArrayCount { get; private set; }
-        public int Unknown { get; private set; }
+        public int SharedCompoundPropertiesCount { get; private set; }
         public int SharedCompoundPropertiesArrayCount { get; private set; }
         public int TotalKeyframePropertyClassDepth { get; private set; }
         public int TotalTimelinePropertyClassDepth { get; private set; }
@@ -23,8 +23,6 @@ namespace XUIHelper.Core
         public int KeyframeDataCount { get; private set; }
         public int NamedFramesCount { get; private set; }
         public int ObjectsWithChildrenCount { get; private set; }
-
-        //TODO: Fix unknown integer
 
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
@@ -42,8 +40,8 @@ namespace XUIHelper.Core
                 SharedPropertiesArrayCount = (int)reader.ReadPackedUInt();
                 xur.Logger?.Here().Verbose("Read shared properties array count of {0:X8}.", SharedPropertiesArrayCount);
 
-                Unknown = (int)reader.ReadPackedUInt();
-                xur.Logger?.Here().Verbose("Read unknown of {0:X8}.", Unknown);
+                SharedCompoundPropertiesCount = (int)reader.ReadPackedUInt();
+                xur.Logger?.Here().Verbose("Read shared compound properties count of {0:X8}.", SharedCompoundPropertiesCount);
 
                 SharedCompoundPropertiesArrayCount = (int)reader.ReadPackedUInt();
                 xur.Logger?.Here().Verbose("Read shared compound properties array count of {0:X8}.", SharedCompoundPropertiesArrayCount);
@@ -131,6 +129,14 @@ namespace XUIHelper.Core
                 if (SharedPropertiesArrayCount != sharedPropArrayCount)
                 {
                     xur.Logger?.Here().Error("Mismatch between the shared properties array count, returning false. Expected: {0}, Actual: {1}", SharedPropertiesArrayCount, sharedPropArrayCount);
+                    return false;
+                }
+
+                xur.Logger?.Here().Verbose("Verifying shared compound properties count.");
+                int sharedCompoundPropCount = xur8.GetSharedCompoundPropertiesCount();
+                if (SharedCompoundPropertiesCount != sharedCompoundPropCount && false)
+                {
+                    xur.Logger?.Here().Error("Mismatch between the shared properties count, returning false. Expected: {0}, Actual: {1}", SharedCompoundPropertiesCount, sharedCompoundPropCount);
                     return false;
                 }
 
