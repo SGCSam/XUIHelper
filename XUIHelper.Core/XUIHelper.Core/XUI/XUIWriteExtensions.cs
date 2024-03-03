@@ -11,7 +11,7 @@ namespace XUIHelper.Core
 {
     public static class XUIWriteExtensions
     {
-        public static XElement? TryWriteProperty(this IXUI xui, XUProperty property)
+        public static List<XElement>? TryWriteProperty(this IXUI xui, XUProperty property)
         {
             try
             {

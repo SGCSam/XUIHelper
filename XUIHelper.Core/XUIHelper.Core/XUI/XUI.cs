@@ -303,15 +303,19 @@ namespace XUIHelper.Core
                     foreach(XUProperty childProperty in xuObject.Properties) 
                     {
                         Logger?.Here().Verbose("Writing property {0}.", childProperty.PropertyDefinition.Name);
-                        XElement? thisPropertyElement = this.TryWriteProperty(childProperty);
-                        if (thisPropertyElement == null)
+                        List<XElement>? thisPropertyElements = this.TryWriteProperty(childProperty);
+                        if (thisPropertyElements == null)
                         {
                             Logger?.Here().Error("Failed to write property {0}, an error must have occurred, returning null.", childProperty.PropertyDefinition.Name);
                             return null;
                         }
 
-                        Logger?.Here().Verbose("Wrote property {0} as {1}.", childProperty.PropertyDefinition.Name, thisPropertyElement);
-                        parentPropertiesElement.Add(thisPropertyElement);
+                        Logger?.Here().Verbose("Wrote property {0} as {1}.", childProperty.PropertyDefinition.Name, string.Join("\n", thisPropertyElements));
+
+                        foreach(XElement propertyElement in thisPropertyElements)
+                        {
+                            parentPropertiesElement.Add(propertyElement);
+                        }
                     }
 
                     thisObjectElement.Add(parentPropertiesElement);
