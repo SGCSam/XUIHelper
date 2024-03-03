@@ -102,7 +102,11 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                XElement retElement = new XElement(property.PropertyDefinition.Name);
+
+                xui.Logger?.Here().Verbose("Writing bool property {0} with value {1}", property.PropertyDefinition.Name, property.Value);
+                retElement.Value = (bool)property.Value ? "true" : "false";
+                return retElement;
             }
             catch (Exception ex)
             {
@@ -140,7 +144,10 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                XElement retElement = new XElement(property.PropertyDefinition.Name);
+                xui.Logger?.Here().Verbose("Writing bool property {0} with value {1}", property.PropertyDefinition.Name, property.Value);
+                retElement.Value = ((uint)property.Value).ToString();
+                return retElement;
             }
             catch (Exception ex)
             {
@@ -298,7 +305,25 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                throw new NotImplementedException();
+                XElement retElement = new XElement(property.PropertyDefinition.Name);
+
+                xui.Logger?.Here().Verbose("Writing quaternion property {0} with value {1}", property.PropertyDefinition.Name, property.Value);
+                XUQuaternion? quat = property.Value as XUQuaternion;
+                if (quat == null)
+                {
+                    xui.Logger?.Here().Error("Property value was not a quaternion, returning null.");
+                    return null;
+                }
+
+                retElement.Value = string.Join(",", new List<string>()
+                {
+                    quat.X.ToString("0.000000"),
+                    quat.Y.ToString("0.000000"),
+                    quat.Z.ToString("0.000000"),
+                    quat.W.ToString("0.000000")
+                }).TrimEnd();
+
+                return retElement;
             }
             catch (Exception ex)
             {

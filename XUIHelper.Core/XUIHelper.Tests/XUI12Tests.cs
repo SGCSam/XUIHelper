@@ -87,5 +87,25 @@ namespace XUIHelper.Tests
             XUI12 writeXUI = new XUI12(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui", log);
             Assert.True(await writeXUI.TryWriteAsync(0x5, xui.RootObject));
         }
+
+        [Test]
+        public async Task CheckGamerCardWriteSuccessful()
+        {
+            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
+            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
+            ILogger log = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.FromLogContext()
+            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
+            .CreateLogger();
+
+            RegisterExtensions(log);
+
+            XUI? xui = await GetReadXUI(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XUIs\9199Gamercard.xui");
+            Assert.NotNull(xui);
+
+            XUI12 writeXUI = new XUI12(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui", log);
+            Assert.True(await writeXUI.TryWriteAsync(0x5, xui.RootObject));
+        }
     }
 }
