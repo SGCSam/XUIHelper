@@ -12,6 +12,8 @@ namespace XUIHelper.Core
         IXURSectionsTable SectionsTable { get; }
         List<IXURSection> Sections { get; }
 
+        public Task<bool> TryReadAsync();
+
         public XURSectionTableEntry? TryGetXURSectionTableEntryForMagic(int Magic)
         {
             try

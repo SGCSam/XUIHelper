@@ -9,6 +9,8 @@ using static System.Collections.Specialized.BitVector32;
 using XUIHelper.Core.Extensions;
 using System.Xml.Serialization;
 using System.Xml.Linq;
+using System.Reflection.Metadata;
+using System.Xml;
 
 namespace XUIHelper.Core
 {
@@ -72,7 +74,7 @@ namespace XUIHelper.Core
             }
         }
 
-        public XUObject? TryReadObject(XElement objectElement, ref XUObject parent)
+        private XUObject? TryReadObject(XElement objectElement, ref XUObject parent)
         {
             if(ExtensionsManager == null) 
             {
@@ -216,6 +218,132 @@ namespace XUIHelper.Core
             }
 
             return thisObject;
+        }
+
+        public async Task<bool> TryWriteAsync(int extensionVersion, XUObject rootObject)
+        {
+            try
+            {
+                if (!XUIHelperCoreConstants.VersionedExtensions.ContainsKey(extensionVersion))
+                {
+                    Logger?.Here().Error("Failed to find extensions with version {0}, returning false.", extensionVersion);
+                    return false;
+                }
+
+                ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
+
+                if(rootObject.ClassName != "XuiCanvas")
+                {
+                    Logger?.Here().Error("The object to write wasn't the root XuiCanvas, returning false.");
+                    return false;
+                }
+
+                Logger?.Here().Information("Writing XUI file at {0}", FilePath);
+
+                XElement dummyParent = new XElement("dummy");
+                XElement? rootElement = TryWriteObject(ref dummyParent, rootObject);
+                if (rootElement == null)
+                {
+                    Logger?.Here().Error("Failed to write root object, an error must have occurred, returning false.");
+                    return false;
+                }
+
+                if(this is XUI12)
+                {
+                    rootElement.SetAttributeValue("version", "000c");
+                }
+                else
+                {
+                    Logger?.Here().Error("Unhandled XUI for version attribute, returning false.");
+                    return false;
+                }
+
+                if (!File.Exists(FilePath))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
+                }
+
+                XDocument document = new XDocument(rootElement);
+                XmlWriterSettings writerSettings = new XmlWriterSettings();
+                writerSettings.Async = true;
+                writerSettings.OmitXmlDeclaration = true;
+                writerSettings.Indent = true;
+                writerSettings.IndentChars = "";
+                writerSettings.NewLineChars = "\r\n";
+                writerSettings.NewLineHandling = NewLineHandling.Replace;
+
+                using (XmlWriter xw = XmlWriter.Create(FilePath, writerSettings))
+                {
+                    await document.SaveAsync(xw, CancellationToken.None);
+                }
+
+                Logger?.Here().Information("Write successful!");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger?.Here().Error("Caught an exception when trying to read XUI file at {0}, returning false. The exception is: {1}", FilePath, ex);
+                return false;
+            }
+        }
+
+        private XElement? TryWriteObject(ref XElement parentElement, XUObject xuObject)
+        {
+            try
+            {
+                XElement thisObjectElement = new XElement(xuObject.ClassName);
+                Logger?.Here().Verbose("Writing {0}", xuObject.ClassName);
+
+                if (xuObject.Properties.Count > 0)
+                {
+                    Logger?.Here().Verbose("{0} has {1} properties.", xuObject.ClassName, xuObject.Properties.Count);
+
+                    XElement parentPropertiesElement = new XElement("Properties");
+
+                    foreach(XUProperty childProperty in xuObject.Properties) 
+                    {
+                        Logger?.Here().Verbose("Writing property {0}.", childProperty.PropertyDefinition.Name);
+                        XElement? thisPropertyElement = this.TryWriteProperty(childProperty);
+                        if (thisPropertyElement == null)
+                        {
+                            Logger?.Here().Error("Failed to write property {0}, an error must have occurred, returning null.", childProperty.PropertyDefinition.Name);
+                            return null;
+                        }
+
+                        Logger?.Here().Verbose("Wrote property {0} as {1}.", childProperty.PropertyDefinition.Name, thisPropertyElement);
+                        parentPropertiesElement.Add(thisPropertyElement);
+                    }
+
+                    thisObjectElement.Add(parentPropertiesElement);
+                }
+
+                if (xuObject.Children.Count > 0)
+                {
+                    Logger?.Here().Verbose("{0} has {1} children.", xuObject.ClassName, xuObject.Children.Count);
+
+                    XElement parentPropertiesElement = new XElement("Properties");
+
+                    foreach (XUObject childObject in xuObject.Children)
+                    {
+                        XElement? thisChildElement = TryWriteObject(ref thisObjectElement, childObject);
+                        if (thisChildElement == null)
+                        {
+                            Logger?.Here().Error("Failed to write child object {0}, an error must have occurred, returning null.", childObject.ClassName);
+                            return null;
+                        }
+
+                        Logger?.Here().Verbose("Wrote child object {0} successfully!.", childObject.ClassName);
+                        thisObjectElement.Add(thisChildElement);
+                    }
+                }
+
+                return thisObjectElement;
+            }
+            catch (Exception ex)
+            {
+                Logger?.Here().Error("Caught an exception when writing object {0}, returning null. The exception is: {1}", xuObject.ClassName, ex);
+                return null;
+            }
         }
     }
 }
