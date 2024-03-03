@@ -57,5 +57,72 @@ namespace XUIHelper.Tests
 
             Assert.True(await CheckReadSuccessful(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\17559dashSysCslSetClockTime.xur", log));
         }
+
+        [Test]
+        public async Task CheckAllReadsSuccessful()
+        {
+            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
+            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
+            ILogger log = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.FromLogContext()
+            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
+            .CreateLogger();
+
+            RegisterExtensions(log);
+
+            string workingPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\17559 All\Working";
+            string notWorkingPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\17559 All\Not Working";
+
+            foreach (string filePath in Directory.GetFiles(workingPath, "*.xur", SearchOption.TopDirectoryOnly))
+            {
+                File.Delete(filePath);
+            }
+
+            foreach (string filePath in Directory.GetFiles(notWorkingPath, "*.xur", SearchOption.TopDirectoryOnly))
+            {
+                File.Delete(filePath);
+            }
+
+            bool anyFailed = false;
+            foreach (string xurFilePath in Directory.GetFiles(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\17559 All", "*.xur"))
+            {
+                string fileName = Path.GetFileName(xurFilePath);
+                if (!await CheckReadSuccessful(xurFilePath, log))
+                {
+                    anyFailed = true;
+                    string destPath = Path.Combine(notWorkingPath, fileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(destPath));
+                    File.Copy(xurFilePath, destPath);
+                }
+                else
+                {
+                    string destPath = Path.Combine(workingPath, fileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(destPath));
+                    File.Copy(xurFilePath, destPath);
+                }
+            }
+
+            Assert.False(anyFailed);
+        }
+
+        [Test]
+        public async Task CheckNonWorkingSuccessful()
+        {
+            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
+            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
+            ILogger log = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.FromLogContext()
+            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
+            .CreateLogger();
+
+            RegisterExtensions(log);
+
+            string rootPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\17559 All\Not Working";
+            string filePath = Path.Combine(rootPath, "ThermalPostScene.xur");
+
+            Assert.True(await CheckReadSuccessful(filePath, log));
+        }
     }
 }

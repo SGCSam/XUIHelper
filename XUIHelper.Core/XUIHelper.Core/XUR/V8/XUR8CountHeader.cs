@@ -174,13 +174,12 @@ namespace XUIHelper.Core
 
                 xur.Logger?.Here().Verbose("Verifying keyframe properties count.");
                 IKEYPSection? keypSection = ((IXUR)xur).TryFindXURSectionByMagic<IKEYPSection>(IKEYPSection.ExpectedMagic);
-                if (keypSection == null)
+                int keyframePropertiesCount = 0;
+                if (keypSection != null)
                 {
-                    xur.Logger?.Here().Error("Failed to find IKEYP section, returning false.");
-                    return false;
+                    keyframePropertiesCount = keypSection.PropertyIndexes.Count;
                 }
-
-                int keyframePropertiesCount = keypSection.PropertyIndexes.Count;
+                
                 if (KeyframePropertiesCount != keyframePropertiesCount)
                 {
                     xur.Logger?.Here().Error("Mismatch between the keyframe properties count, returning false. Expected: {0}, Actual: {1}", KeyframePropertiesCount, keyframePropertiesCount);
@@ -189,13 +188,12 @@ namespace XUIHelper.Core
 
                 xur.Logger?.Here().Verbose("Verifying keyframe data count.");
                 IKEYDSection? keydSection = ((IXUR)xur).TryFindXURSectionByMagic<IKEYDSection>(IKEYDSection.ExpectedMagic);
-                if (keydSection == null)
+                int keyframeDataCount = 0;
+                if (keydSection != null)
                 {
-                    xur.Logger?.Here().Error("Failed to find IKEYD section, returning false.");
-                    return false;
+                    keyframeDataCount = keydSection.Keyframes.Count;
                 }
 
-                int keyframeDataCount = keydSection.Keyframes.Count;
                 if (KeyframeDataCount != keyframeDataCount)
                 {
                     xur.Logger?.Here().Error("Mismatch between the keyframe data count, returning false. Expected: {0}, Actual: {1}", KeyframeDataCount, keyframeDataCount);

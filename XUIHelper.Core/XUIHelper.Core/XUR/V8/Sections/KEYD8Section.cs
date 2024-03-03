@@ -40,15 +40,14 @@ namespace XUIHelper.Core
                     bytesRead += readFrameBytes;
 
                     byte flagByte = reader.ReadByte();
+                    bytesRead++;
+
                     byte flags = (byte)(flagByte & 0x3F);
-                    byte unknown = (byte)(flagByte >> 6);
+                    int unknown = ((byte)(flagByte >> 6));
                     if(unknown != 0)
                     {
-                        xur.Logger?.Here().Error("The unknown upper bits of the flag byte was non-zero, returning false.");
-                        return false;
+                        xur.Logger?.Here().Verbose("Read an unknown of {0}", unknown);
                     }
-
-                    bytesRead++;
 
                     byte easeIn = 0;
                     byte easeOut = 0;
@@ -56,23 +55,30 @@ namespace XUIHelper.Core
                     XUKeyframeInterpolationTypes interpolationType = XUKeyframeInterpolationTypes.Linear;
                     int vectorIndex = 0;
 
-                    if(flagByte == 0x1)
+                    if(flags != 0x0)
                     {
-                        interpolationType = XUKeyframeInterpolationTypes.None;
-                    }
-                    else if(flagByte == 0x2)
-                    {
-                        easeIn = reader.ReadByte();
-                        easeOut = reader.ReadByte();
-                        easeScale = reader.ReadByte();
-                        interpolationType = XUKeyframeInterpolationTypes.Ease;
-                        bytesRead += 3;
-                    }
-                    else if (flagByte == 0xA)
-                    {
-                        byte readVectorIndexBytes;
-                        vectorIndex = (int)reader.ReadPackedUInt(out readVectorIndexBytes);
-                        bytesRead += readVectorIndexBytes;
+                        if (flags == 0x1)
+                        {
+                            interpolationType = XUKeyframeInterpolationTypes.None;
+                        }
+                        else if (flags == 0x2)
+                        {
+                            easeIn = reader.ReadByte();
+                            easeOut = reader.ReadByte();
+                            easeScale = reader.ReadByte();
+                            interpolationType = XUKeyframeInterpolationTypes.Ease;
+                            bytesRead += 3;
+                        }
+                        else if (flags == 0xA)
+                        {
+                            byte readVectorIndexBytes;
+                            vectorIndex = (int)reader.ReadPackedUInt(out readVectorIndexBytes);
+                            bytesRead += readVectorIndexBytes;
+                        }
+                        else
+                        {
+                            xur.Logger?.Here().Error("Unknown flag of {0:X8}.", flags);
+                        }
                     }
 
                     byte readPropertyIndexBytes;
