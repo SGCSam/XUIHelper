@@ -14,7 +14,8 @@ namespace XUIHelper.Tests
         public async Task<bool> CheckReadSuccessful(string filePath, ILogger? logger = null)
         {
             XUR8 xur = new XUR8(filePath, logger);
-            return await xur.TryReadAsync();
+            bool successful = await xur.TryReadAsync();
+            return successful;
         }
 
         public void RegisterExtensions(ILogger? logger = null)

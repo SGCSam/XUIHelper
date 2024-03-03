@@ -12,7 +12,7 @@ namespace XUIHelper.Core
     {
 
         public int TotalObjectsCount { get; private set; }
-        public int TotalPropertiesCount { get; private set; }
+        public int TotalUnsharedObjectPropertiesCount { get; private set; }
         public int SharedPropertiesArrayCount { get; private set; }
         public int Unknown { get; private set; }
         public int SharedCompoundPropertiesArrayCount { get; private set; }
@@ -24,6 +24,8 @@ namespace XUIHelper.Core
         public int NamedFramesCount { get; private set; }
         public int ObjectsWithChildrenCount { get; private set; }
 
+        //TODO: Fix unknown integer
+
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
             try
@@ -34,8 +36,8 @@ namespace XUIHelper.Core
                 TotalObjectsCount = (int)reader.ReadPackedUInt();
                 xur.Logger?.Here().Verbose("Read a total objects count of {0:X8}.", TotalObjectsCount);
 
-                TotalPropertiesCount = (int)reader.ReadPackedUInt();
-                xur.Logger?.Here().Verbose("Read total properties count of {0:X8}.", TotalPropertiesCount);
+                TotalUnsharedObjectPropertiesCount = (int)reader.ReadPackedUInt();
+                xur.Logger?.Here().Verbose("Read total unshared properties count of {0:X8}.", TotalUnsharedObjectPropertiesCount);
 
                 SharedPropertiesArrayCount = (int)reader.ReadPackedUInt();
                 xur.Logger?.Here().Verbose("Read shared properties array count of {0:X8}.", SharedPropertiesArrayCount);
@@ -116,11 +118,11 @@ namespace XUIHelper.Core
                     return false;
                 }
 
-                xur.Logger?.Here().Verbose("Verifying total properties count.");
-                int totalPropertiesCount = rootObject.GetTotalPropertiesCount();
-                if (TotalPropertiesCount != totalPropertiesCount)
+                xur.Logger?.Here().Verbose("Verifying total unshared properties count.");
+                int totalUnsharedObjectPropertiesCount = rootObject.GetTotalUnsharedPropertiesCount();
+                if (TotalUnsharedObjectPropertiesCount != totalUnsharedObjectPropertiesCount)
                 {
-                    xur.Logger?.Here().Error("Mismatch between the total properties count, returning false. Expected: {0}, Actual: {1}", TotalPropertiesCount, totalPropertiesCount);
+                    xur.Logger?.Here().Error("Mismatch between the total unshared object properties count, returning false. Expected: {0}, Actual: {1}", TotalUnsharedObjectPropertiesCount, totalUnsharedObjectPropertiesCount);
                     return false;
                 }
 
