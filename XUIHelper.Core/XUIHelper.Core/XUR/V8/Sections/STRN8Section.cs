@@ -43,10 +43,10 @@ namespace XUIHelper.Core
                     debugLength += readStr.Length;
                 }
 
+                //We add + 2 to our checks too, since a empty string "" is still included in the totalStringsLength even though it may not be in the table...
                 int expectedOffset = entry.Offset + totalStringsLength + 6;
-                if(reader.BaseStream.Position != expectedOffset)
+                if(reader.BaseStream.Position != expectedOffset && reader.BaseStream.Position != expectedOffset + 2)
                 {
-                    //TODO: This check fails with ThermalPostScene, "TotalStringsLength" must not be exactly correct?
                     xur.Logger?.Here().Error("Mismatch of offsets when reading STRN8 section, returning false. Expected: {0:X8}, Actual: {1:X8}", expectedOffset, reader.BaseStream.Position);
                     return true;
                 }
