@@ -21,6 +21,8 @@ namespace XUIHelper.Core
 
         protected BinaryReader Reader { get; private set; }
 
+        public XMLExtensionsManager? ExtensionsManager { get; private set; }
+
         public XUR(string filePath, IXURHeader header, IXURSectionsTable sectionsTable, ILogger? logger = null)
         {
             FilePath = filePath;
@@ -126,10 +128,63 @@ namespace XUIHelper.Core
             }
         }
 
+        public async Task<bool> TryWriteAsync(XUObject rootObject)
+        {
+            try
+            {
+                Logger?.Here().Information("Writing XUR file to {0}", FilePath);
+                if (rootObject.ClassName != "XuiCanvas")
+                {
+                    Logger?.Here().Error("The object to write wasn't the root XuiCanvas, returning false.");
+                    return false;
+                }
+
+                int extensionVersion = -1;
+                if(this is XUR5)
+                {
+                    extensionVersion = 0x5;
+                }
+                else if(this is XUR8)
+                {
+                    extensionVersion = 0x8;
+                }
+                else
+                {
+                    Logger?.Here().Error("Unhandled XUR type for extension version, returning false.");
+                    return false;
+                }
+
+                if (!XUIHelperCoreConstants.VersionedExtensions.ContainsKey(extensionVersion))
+                {
+                    Logger?.Here().Error("Failed to find extensions with version {0}, returning false.", extensionVersion);
+                    return false;
+                }
+
+                ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
+                
+
+                List<IXURSection>? sections = await TryBuildSectionsFromObjectAsync(rootObject);
+                if(sections == null)
+                {
+                    Logger?.Here().Error("Failed to build sections, returning false.");
+                    return false;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Logger?.Here().Error("Caught an exception when trying to write XUR file to {0}, returning false. The exception is: {1}", FilePath, ex);
+                return false;
+            }
+        }
+
         protected abstract IXURSection? TryCreateXURSectionForMagic(int Magic);
 
         protected abstract bool HasCountHeader();
 
         protected abstract IXURCountHeader GetCountHeader();
+
+        protected abstract Task<List<IXURSection>?> TryBuildSectionsFromObjectAsync(XUObject xuObject);
     }
 }

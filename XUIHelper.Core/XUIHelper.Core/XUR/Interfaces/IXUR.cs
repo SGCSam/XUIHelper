@@ -13,6 +13,7 @@ namespace XUIHelper.Core
         List<IXURSection> Sections { get; }
 
         public Task<bool> TryReadAsync();
+        public Task<bool> TryWriteAsync(XUObject rootObject);
 
         public XURSectionTableEntry? TryGetXURSectionTableEntryForMagic(int Magic)
         {

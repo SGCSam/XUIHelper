@@ -66,5 +66,10 @@ namespace XUIHelper.Core
                 return false;
             }
         }
+
+        public async Task<bool> TryBuildAsync(IXUR xur, XUObject xuObject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -275,6 +275,11 @@ namespace XUIHelper.Core
             }
         }
 
+        public async Task<bool> TryBuildAsync(IXUR xur, XUObject xuObject)
+        {
+            throw new NotImplementedException();
+        }
+
         public DATA8Section()
         {
             ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x8);

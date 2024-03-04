@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using XUIHelper.Core.Extensions;
@@ -72,6 +73,18 @@ namespace XUIHelper.Core
         protected override bool HasCountHeader()
         {
             return (((XUR5Header)Header).Flags & 0x1) == 0x1;
+        }
+
+        protected override async Task<List<IXURSection>?> TryBuildSectionsFromObjectAsync(XUObject rootObject)
+        {
+            STRN5Section strnSection = new STRN5Section();
+            if(!await strnSection.TryBuildAsync(this, rootObject))
+            {
+                Logger?.Here().Error("Failed to build STRN5 section, returning null.");
+                return null;
+            }
+
+            return null;
         }
     }
 }

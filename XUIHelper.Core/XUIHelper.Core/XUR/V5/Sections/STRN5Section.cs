@@ -52,5 +52,101 @@ namespace XUIHelper.Core
                 return false;
             }
         }
+
+        public async Task<bool> TryBuildAsync(IXUR xur, XUObject xuObject)
+        {
+            xur.Logger?.Here().Verbose("Building STRN5 strings.");
+
+            HashSet<string> builtStrings = new HashSet<string>();
+            if(!TryBuildStringsFromObject(xur, xuObject, ref builtStrings))
+            {
+                xur.Logger?.Here().Error("Failed to build strings, returning null.");
+                return false;
+            }
+
+            Strings = builtStrings.ToList();
+            xur.Logger?.Here().Verbose("Built a total of {0} STRN5 strings successfully!", Strings.Count);
+            return true;
+        }
+
+        private bool TryBuildStringsFromObject(IXUR xur, XUObject xuObject, ref HashSet<string> builtStrings)
+        {
+            try
+            {
+                if(builtStrings.Add(xuObject.ClassName))
+                {
+                    xur.Logger?.Here().Verbose("Added class name string {0}.", xuObject.ClassName);
+                }
+
+                foreach (XUProperty childProperty in xuObject.Properties)
+                {
+                    if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.String)
+                    {
+                        if (childProperty.Value is not string valueString)
+                        {
+                            xur.Logger?.Here().Error("Child property {0} marked as string had a non-string value of {1}, returning false.", childProperty.PropertyDefinition.Name, childProperty.Value);
+                            return false;
+                        }
+
+                        if(builtStrings.Add(valueString))
+                        {
+                            xur.Logger?.Here().Verbose("Added {0} property value string {1}.", childProperty.PropertyDefinition.Name, valueString);
+                        }
+                    }
+                }
+
+                foreach (XUObject childObject in xuObject.Children)
+                {
+                    if (!TryBuildStringsFromObject(xur, childObject, ref builtStrings))
+                    {
+                        xur.Logger?.Here().Error("Failed to get strings for child {0}, returning false.", childObject.ClassName);
+                        return false;
+                    }
+                }
+
+                foreach (XUTimeline childTimeline in xuObject.Timelines)
+                {
+                    if(builtStrings.Add(childTimeline.ElementName))
+                    {
+                        xur.Logger?.Here().Verbose("Added timeline string {0}.", childTimeline.ElementName);
+                    }
+
+                    foreach(XUKeyframe childKeyframe in childTimeline.Keyframes)
+                    {
+                        foreach(XUProperty animatedProperty in childKeyframe.Properties)
+                        {
+                            if (animatedProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.String)
+                            {
+                                if (animatedProperty.Value is not string valueString)
+                                {
+                                    xur.Logger?.Here().Error("Animated property {0} marked as string had a non-string value of {1}, returning false.", animatedProperty.PropertyDefinition.Name, animatedProperty.Value);
+                                    return false;
+                                }
+
+                                if (builtStrings.Add(valueString))
+                                {
+                                    xur.Logger?.Here().Verbose("Added {0} animated property value string {1}.", animatedProperty.PropertyDefinition.Name, valueString);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                foreach (XUNamedFrame childNamedFrame in xuObject.NamedFrames)
+                {
+                    if (builtStrings.Add(childNamedFrame.Name))
+                    {
+                        xur.Logger?.Here().Verbose("Added named frame string {0}.", childNamedFrame.Name);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when trying to build STRN5 strings for object {0}, returning false. The exception is: {1}", xuObject.ClassName, ex);
+                return false;
+            }
+        }
     }
 }

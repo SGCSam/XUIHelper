@@ -17,6 +17,17 @@ namespace XUIHelper.Tests
             return await xur.TryReadAsync();
         }
 
+        public async Task<XUR5?> GetReadXUR(string filePath, ILogger? logger = null)
+        {
+            XUR5 xur = new XUR5(filePath, logger);
+            if (await xur.TryReadAsync())
+            {
+                return xur;
+            }
+
+            return null;
+        }
+
         public void RegisterExtensions(ILogger? logger = null)
         {
             XMLExtensionsManager v5Extensions = new XMLExtensionsManager(logger);
@@ -98,6 +109,32 @@ namespace XUIHelper.Tests
             }
 
             Assert.False(anyFailed);
+        }
+
+        [Test]
+        public async Task CheckGamerCardWriteSuccessful()
+        {
+            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
+            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
+            ILogger log = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.FromLogContext()
+            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
+            .CreateLogger();
+
+            RegisterExtensions(log);
+
+            XUR5? xur = await GetReadXUR(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199Gamercard.xur");
+            Assert.NotNull(xur);
+
+            IDATASection? data = ((IXUR)xur).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
+            Assert.NotNull(data);
+
+            ISTRNSection? strn = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+            Assert.NotNull(strn);
+
+            XUR5 writeXUR = new XUR5(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xur", log);
+            Assert.True(await writeXUR.TryWriteAsync(data.RootObject));
         }
     }
 }

@@ -127,5 +127,10 @@ namespace XUIHelper.Core
         {
             return true;
         }
+
+        protected override async Task<List<IXURSection>?> TryBuildSectionsFromObjectAsync(XUObject xuObject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

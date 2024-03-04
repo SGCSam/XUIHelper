@@ -280,6 +280,11 @@ namespace XUIHelper.Core
             }
         }
 
+        public async Task<bool> TryBuildAsync(IXUR xur, XUObject xuObject)
+        {
+            throw new NotImplementedException();
+        }
+
         public DATA5Section()
         {
             ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x5);
