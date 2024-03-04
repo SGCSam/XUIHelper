@@ -739,7 +739,28 @@ namespace XUIHelper.Core
                             return null;
                         }
 
-                        animatedProperties.Add(animatedProperty);
+                        if(thisAnimatedPropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                        {
+                            bool found = false;
+                            foreach(XUProperty addedAnimatedProperty in animatedProperties)
+                            {
+                                if(addedAnimatedProperty.PropertyDefinition.Name == thisAnimatedPropertyDefinition.Name)
+                                {
+                                    (addedAnimatedProperty.Value as List<object>).Add(animatedProperty.Value);
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if(!found)
+                            {
+                                animatedProperties.Add(new XUProperty(animatedProperty.PropertyDefinition, new List<object>() { animatedProperty.Value }));
+                            }
+                        }
+                        else
+                        {
+                            animatedProperties.Add(animatedProperty);
+                        }
                     }
 
                     keyframes.Add(new XUKeyframe(keyframe, interpolationType, easeIn, easeOut, easeScale, animatedProperties));

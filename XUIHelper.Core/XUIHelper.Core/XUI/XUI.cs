@@ -326,7 +326,6 @@ namespace XUIHelper.Core
                     Logger?.Here().Verbose("{0} has {1} children.", xuObject.ClassName, xuObject.Children.Count);
 
                     XElement parentPropertiesElement = new XElement("Properties");
-
                     foreach (XUObject childObject in xuObject.Children)
                     {
                         XElement? thisChildElement = TryWriteObject(ref thisObjectElement, childObject);
@@ -339,6 +338,48 @@ namespace XUIHelper.Core
                         Logger?.Here().Verbose("Wrote child object {0} successfully!.", childObject.ClassName);
                         thisObjectElement.Add(thisChildElement);
                     }
+                }
+
+                if(xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0)
+                {
+                    Logger?.Here().Verbose("{0} has {1} timelines.", xuObject.ClassName, xuObject.Timelines.Count);
+
+                    XElement parentTimelinesElement = new XElement("Timelines");
+                    if(xuObject.NamedFrames.Count > 0)
+                    {
+                        Logger?.Here().Verbose("{0} has {1} named frames.", xuObject.ClassName, xuObject.NamedFrames.Count);
+                        XElement parentNamedFramesElement = new XElement("NamedFrames");
+
+                        foreach(XUNamedFrame namedFrame in xuObject.NamedFrames)
+                        {
+                            XElement? thisNamedFrameElement = this.TryWriteNamedFrame(namedFrame);
+                            if (thisNamedFrameElement == null)
+                            {
+                                Logger?.Here().Error("Failed to write named frame {0} for object {1}, an error must have occurred, returning null.", namedFrame.Name, xuObject.ClassName);
+                                return null;
+                            }
+
+                            Logger?.Here().Verbose("Wrote named frame {0} as {1}", namedFrame.Name, thisNamedFrameElement);
+                            parentNamedFramesElement.Add(thisNamedFrameElement);
+                        }
+
+                        parentTimelinesElement.Add(parentNamedFramesElement);
+                    }
+
+                    foreach (XUTimeline timeline in xuObject.Timelines)
+                    {
+                        XElement? thisTimelineElement = this.TryWriteTimeline(timeline);
+                        if (thisTimelineElement == null)
+                        {
+                            Logger?.Here().Error("Failed to write timeline, an error must have occurred, returning null.");
+                            return null;
+                        }
+
+                        Logger?.Here().Verbose("Wrote timeline as {0}", thisTimelineElement);
+                        parentTimelinesElement.Add(thisTimelineElement);
+                    }
+
+                    thisObjectElement.Add(parentTimelinesElement);
                 }
 
                 return thisObjectElement;

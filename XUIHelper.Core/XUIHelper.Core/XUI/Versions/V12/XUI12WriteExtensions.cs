@@ -226,7 +226,7 @@ namespace XUIHelper.Core
                 XElement retElement = new XElement(propertyDefinition.Name);
 
                 xui.Logger?.Here().Verbose("Writing float property {0} with value {1}", propertyDefinition.Name, val);
-                retElement.Value = ((float)val).ToString("0.000000");
+                retElement.Value = Convert.ToDouble(val).ToString("0.000000");
                 return retElement;
             }
             catch (Exception ex)
@@ -258,9 +258,9 @@ namespace XUIHelper.Core
 
                 retElement.Value = string.Join(",", new List<string>()
                 {
-                    vect.X.ToString("0.000000"),
-                    vect.Y.ToString("0.000000"),
-                    vect.Z.ToString("0.000000")
+                    ((double)vect.X).ToString("0.000000"),
+                    ((double)vect.Y).ToString("0.000000"),
+                    ((double)vect.Z).ToString("0.000000")
                 }).TrimEnd();
 
                 return retElement;
@@ -365,17 +365,17 @@ namespace XUIHelper.Core
                 retElement.Value += ",";
                 foreach(XUBezierPoint bezierPoint in figure.Points) 
                 {
-                    retElement.Value += bezierPoint.Point.X.ToString("0.000000");
+                    retElement.Value += ((double)bezierPoint.Point.X).ToString("0.000000");
                     retElement.Value += ",";
-                    retElement.Value += bezierPoint.Point.Y.ToString("0.000000");
+                    retElement.Value += ((double)bezierPoint.Point.Y).ToString("0.000000");
                     retElement.Value += ",";
-                    retElement.Value += bezierPoint.ControlPointOne.X.ToString("0.000000");
+                    retElement.Value += ((double)bezierPoint.ControlPointOne.X).ToString("0.000000");
                     retElement.Value += ",";
-                    retElement.Value += bezierPoint.ControlPointOne.Y.ToString("0.000000");
+                    retElement.Value += ((double)bezierPoint.ControlPointOne.Y).ToString("0.000000");
                     retElement.Value += ",";
-                    retElement.Value += bezierPoint.ControlPointTwo.X.ToString("0.000000");
+                    retElement.Value += ((double)bezierPoint.ControlPointTwo.X).ToString("0.000000");
                     retElement.Value += ",";
-                    retElement.Value += bezierPoint.ControlPointTwo.Y.ToString("0.000000");
+                    retElement.Value += ((double)bezierPoint.ControlPointTwo.Y).ToString("0.000000");
                     retElement.Value += ",";
                     retElement.Value += "0";
                     retElement.Value += ",";
@@ -423,6 +423,129 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xui.Logger?.Here().Error("Caught an exception when writing quaternion property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static XElement? TryWriteNamedFrame(this XUI12 xui, XUNamedFrame namedFrame)
+        {
+            try
+            {
+                xui.Logger?.Here().Verbose("Writing named frame with value {0}", namedFrame);
+
+                XElement retElement = new XElement("NamedFrame");
+                retElement.Add(new XElement("Name", namedFrame.Name));
+                retElement.Add(new XElement("Time", namedFrame.Keyframe));
+
+                if(namedFrame.CommandType == XUNamedFrameCommandTypes.Play)
+                {
+                    xui.Logger?.Here().Verbose("Command type is play, returning.");
+                    return retElement;
+                }
+                else
+                {
+                    retElement.Add(new XElement("Command", namedFrame.CommandType.ToString().ToLower()));
+                    if(namedFrame.CommandType == XUNamedFrameCommandTypes.Stop)
+                    {
+                        xui.Logger?.Here().Verbose("Command type is stop, returning.");
+                        return retElement;
+                    }
+
+                    xui.Logger?.Here().Verbose("Command type is {0}, setting params as {1}.", namedFrame.CommandType, namedFrame.TargetParameter);
+                    retElement.Add(new XElement("CommandParams", namedFrame.TargetParameter));
+                    return retElement;
+                }
+            }
+            catch (Exception ex)
+            {
+                xui.Logger?.Here().Error("Caught an exception when writing named frame {0}, returning null. The exception is: {1}", namedFrame.Name, ex);
+                return null;
+            }
+        }
+
+        public static XElement? TryWriteTimeline(this XUI12 xui, XUTimeline timeline)
+        {
+            try
+            {
+                xui.Logger?.Here().Verbose("Writing timeline.");
+                XElement retElement = new XElement("Timeline");
+                retElement.Add(new XElement("Id", timeline.ElementName));
+
+                foreach(XUProperty animatedProperty in timeline.Keyframes[0].Properties) 
+                {
+                    string elementPropertyDefinitionName = animatedProperty.PropertyDefinition.Name;
+                    if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFill")
+                    {
+                        elementPropertyDefinitionName = string.Format("Fill.{0}", animatedProperty.PropertyDefinition.Name);
+                    }
+                    else if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFillGradient")
+                    {
+                        elementPropertyDefinitionName = string.Format("Fill.Gradient.{0}", animatedProperty.PropertyDefinition.Name);
+                    }
+                    else if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureStroke")
+                    {
+                        elementPropertyDefinitionName = string.Format("Stroke.{0}", animatedProperty.PropertyDefinition.Name);
+                    }
+
+                    if (!animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        retElement.Add(new XElement("TimelineProp", elementPropertyDefinitionName));
+                    }
+                    else
+                    {
+                        int valueIndex = 0;
+                        foreach(object val in animatedProperty.Value as List<object>)
+                        {
+                            XElement thisTimelinePropElement = new XElement("TimelineProp", elementPropertyDefinitionName);
+                            thisTimelinePropElement.SetAttributeValue("index", valueIndex);
+                            retElement.Add(thisTimelinePropElement);
+                            valueIndex++;
+                        }
+                    }
+                }
+                
+                foreach(XUKeyframe keyframe in timeline.Keyframes)
+                {
+                    XElement thisKeyframeElement = new XElement("KeyFrame");
+                    thisKeyframeElement.Add(new XElement("Time", keyframe.Keyframe));
+                    thisKeyframeElement.Add(new XElement("Interpolation", (int)keyframe.InterpolationType));
+
+                    foreach(XUProperty animatedProperty in  keyframe.Properties)
+                    {
+                        List<XElement>? propertyElements = TryWriteProperty(xui, animatedProperty);
+                        if (propertyElements == null)
+                        {
+                            xui.Logger?.Here().Verbose("Property elements was null when trying to write animated property {0} for keyframe {1} of timeline {2}, returning null.", animatedProperty.PropertyDefinition.Name, keyframe.Keyframe, timeline.ElementName);
+                            return null;
+                        }
+                        else if (!animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed) && propertyElements.Count != 1)
+                        {
+                            xui.Logger?.Here().Verbose("Property elements had an unexpected count when trying to write animated property {0} for keyframe {1} of timeline {2}, returning null. Expected: 1, Actual: {3}", animatedProperty.PropertyDefinition.Name, keyframe.Keyframe, timeline.ElementName, propertyElements.Count);
+                            return null;
+                        }
+                        else if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                        {
+                            int valueIndex = 0;
+                            foreach (object val in animatedProperty.Value as List<object>)
+                            {
+                                thisKeyframeElement.Add(new XElement("Prop", propertyElements[valueIndex].Value));
+                                valueIndex++;
+                            }
+                        }
+                        else
+                        {
+                            thisKeyframeElement.Add(new XElement("Prop", propertyElements[0].Value));
+                        }
+                    }
+
+                    retElement.Add(thisKeyframeElement);
+                }
+
+                return retElement;
+            }
+            catch (Exception ex)
+            {
+                xui.Logger?.Here().Error("Caught an exception when writing timeline, returning null. The exception is: {0}", ex);
                 return null;
             }
         }

@@ -53,6 +53,14 @@ namespace XUIHelper.Core
                         }
                     }
 
+                    foreach (XUClass deserializedClass in deserializedExtension.Classes)
+                    {
+                        foreach (XUPropertyDefinition propertyDefinition in deserializedClass.PropertyDefinitions)
+                        {
+                            propertyDefinition.ParentClassName = deserializedClass.Name;
+                        }
+                    }
+
                     _Classes.AddRange(deserializedExtension.Classes);
                     return true;
                 }

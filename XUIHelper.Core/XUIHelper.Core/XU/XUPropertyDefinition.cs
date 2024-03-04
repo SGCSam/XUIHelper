@@ -67,6 +67,9 @@ namespace XUIHelper.Core
     {
         private string _FlagsString;
 
+        [XmlIgnore]
+        public string ParentClassName { get; set; }
+
         [XmlAttribute("Id")]
         public int ID { get; set; }
 
