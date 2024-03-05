@@ -84,7 +84,15 @@ namespace XUIHelper.Core
                 return null;
             }
 
-            return null;
+            VECT5Section vectSection = new VECT5Section();
+            if (!await vectSection.TryBuildAsync(this, rootObject))
+            {
+                Logger?.Here().Error("Failed to build VECT5 section, returning null.");
+                return null;
+            }
+
+            //TODO: Only add the sections if they've got values in them
+            return new List<IXURSection>() { strnSection, vectSection };
         }
     }
 }

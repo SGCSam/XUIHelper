@@ -55,18 +55,26 @@ namespace XUIHelper.Core
 
         public async Task<bool> TryBuildAsync(IXUR xur, XUObject xuObject)
         {
-            xur.Logger?.Here().Verbose("Building STRN5 strings.");
-
-            HashSet<string> builtStrings = new HashSet<string>();
-            if(!TryBuildStringsFromObject(xur, xuObject, ref builtStrings))
+            try
             {
-                xur.Logger?.Here().Error("Failed to build strings, returning null.");
+                xur.Logger?.Here().Verbose("Building STRN5 strings.");
+
+                HashSet<string> builtStrings = new HashSet<string>();
+                if (!TryBuildStringsFromObject(xur, xuObject, ref builtStrings))
+                {
+                    xur.Logger?.Here().Error("Failed to build strings, returning null.");
+                    return false;
+                }
+
+                Strings = builtStrings.ToList();
+                xur.Logger?.Here().Verbose("Built a total of {0} STRN5 strings successfully!", Strings.Count);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when trying to build STRN5 strings, returning false. The exception is: {0}", ex);
                 return false;
             }
-
-            Strings = builtStrings.ToList();
-            xur.Logger?.Here().Verbose("Built a total of {0} STRN5 strings successfully!", Strings.Count);
-            return true;
         }
 
         private bool TryBuildStringsFromObject(IXUR xur, XUObject xuObject, ref HashSet<string> builtStrings)

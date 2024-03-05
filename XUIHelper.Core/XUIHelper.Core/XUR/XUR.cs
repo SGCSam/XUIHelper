@@ -170,6 +170,8 @@ namespace XUIHelper.Core
                     return false;
                 }
 
+                Sections = sections;
+
                 return false;
             }
             catch (Exception ex)

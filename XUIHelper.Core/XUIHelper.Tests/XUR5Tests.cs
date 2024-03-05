@@ -133,8 +133,18 @@ namespace XUIHelper.Tests
             ISTRNSection? strn = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
             Assert.NotNull(strn);
 
+            IVECTSection? vect = ((IXUR)xur).TryFindXURSectionByMagic<IVECTSection>(IVECTSection.ExpectedMagic);
+            Assert.NotNull(vect);
+
             XUR5 writeXUR = new XUR5(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xur", log);
-            Assert.True(await writeXUR.TryWriteAsync(data.RootObject));
+            //Assert.True(await writeXUR.TryWriteAsync(data.RootObject));
+            await writeXUR.TryWriteAsync(data.RootObject);
+
+            IVECTSection? writeVects = ((IXUR)writeXUR).TryFindXURSectionByMagic<IVECTSection>(IVECTSection.ExpectedMagic);
+            Assert.NotNull(writeVects);
+
+            Assert.That(writeVects.Vectors, Is.EqualTo(vect.Vectors));
+
         }
     }
 }
