@@ -77,11 +77,22 @@ namespace XUIHelper.Core
 
         protected override async Task<List<IXURSection>?> TryBuildSectionsFromObjectAsync(XUObject rootObject)
         {
+            List<IXURSection> retList = new List<IXURSection>();
+
             STRN5Section strnSection = new STRN5Section();
             if(!await strnSection.TryBuildAsync(this, rootObject))
             {
                 Logger?.Here().Error("Failed to build STRN5 section, returning null.");
                 return null;
+            }
+            else if(strnSection.Strings.Count > 0)
+            {
+                Logger?.Here().Verbose("Adding STRN5 section.");
+                retList.Add(strnSection);
+            }
+            else
+            {
+                Logger?.Here().Verbose("STRN5 section had no strings, not adding.");
             }
 
             VECT5Section vectSection = new VECT5Section();
@@ -90,6 +101,15 @@ namespace XUIHelper.Core
                 Logger?.Here().Error("Failed to build VECT5 section, returning null.");
                 return null;
             }
+            else if (vectSection.Vectors.Count > 0)
+            {
+                Logger?.Here().Verbose("Adding VECT5 section.");
+                retList.Add(vectSection);
+            }
+            else
+            {
+                Logger?.Here().Verbose("VECT5 section had no vectors, not adding.");
+            }
 
             QUAT5Section quatSection = new QUAT5Section();
             if (!await quatSection.TryBuildAsync(this, rootObject))
@@ -97,9 +117,33 @@ namespace XUIHelper.Core
                 Logger?.Here().Error("Failed to build QUAT5 section, returning null.");
                 return null;
             }
+            else if (quatSection.Quaternions.Count > 0)
+            {
+                Logger?.Here().Verbose("Adding QUAT5 section.");
+                retList.Add(quatSection);
+            }
+            else
+            {
+                Logger?.Here().Verbose("QUAT5 section had no quaternions, not adding.");
+            }
 
-            //TODO: Only add the sections if they've got values in them
-            return new List<IXURSection>() { strnSection, vectSection, quatSection };
+            CUST5Section custSection = new CUST5Section();
+            if (!await custSection.TryBuildAsync(this, rootObject))
+            {
+                Logger?.Here().Error("Failed to build CUST5 section, returning null.");
+                return null;
+            }
+            else if (custSection.Figures.Count > 0)
+            {
+                Logger?.Here().Verbose("Adding CUST5 section.");
+                retList.Add(custSection);
+            }
+            else
+            {
+                Logger?.Here().Verbose("CUST5 section had no figures, not adding.");
+            }
+
+            return retList;
         }
     }
 }

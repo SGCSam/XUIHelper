@@ -139,9 +139,11 @@ namespace XUIHelper.Tests
             IQUATSection? quat = ((IXUR)xur).TryFindXURSectionByMagic<IQUATSection>(IQUATSection.ExpectedMagic);
             Assert.NotNull(quat);
 
+            ICUSTSection? cust = ((IXUR)xur).TryFindXURSectionByMagic<ICUSTSection>(ICUSTSection.ExpectedMagic);
+            Assert.NotNull(cust);
+
             XUR5 writeXUR = new XUR5(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xur", log);
-            //Assert.True(await writeXUR.TryWriteAsync(data.RootObject));
-            await writeXUR.TryWriteAsync(data.RootObject);
+            Assert.True(await writeXUR.TryWriteAsync(data.RootObject));
 
             IVECTSection? writeVects = ((IXUR)writeXUR).TryFindXURSectionByMagic<IVECTSection>(IVECTSection.ExpectedMagic);
             Assert.NotNull(writeVects);
@@ -150,6 +152,10 @@ namespace XUIHelper.Tests
             IQUATSection? writeQuats = ((IXUR)writeXUR).TryFindXURSectionByMagic<IQUATSection>(IQUATSection.ExpectedMagic);
             Assert.NotNull(writeQuats);
             Assert.That(writeQuats.Quaternions, Is.EqualTo(quat.Quaternions));
+
+            ICUSTSection? writeCust = ((IXUR)writeXUR).TryFindXURSectionByMagic<ICUSTSection>(ICUSTSection.ExpectedMagic);
+            Assert.NotNull(writeCust);
+            Assert.That(writeCust.Figures, Is.EqualTo(cust.Figures));
         }
     }
 }

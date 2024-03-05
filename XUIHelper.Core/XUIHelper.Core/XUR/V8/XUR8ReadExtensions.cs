@@ -537,15 +537,15 @@ namespace XUIHelper.Core
                 else
                 {
                     int calculatedOffset = 0;
-                    for (int i = 0; i < custSection.Figures.Count; i++)
+                    for (int i = 0; i < custSection.Figures.Count - 1; i++)
                     {
                         XUFigure thisFigure = custSection.Figures[i];
                         calculatedOffset += 0x10 + (thisFigure.Points.Count * 0x18);
 
                         if (calculatedOffset == custOffset)
                         {
-                            xur.Logger?.Here().Verbose("Custom offset is {0:X8}, returning figure at index {1}.", custOffset, i);
-                            return custSection.Figures[i];
+                            xur.Logger?.Here().Verbose("Custom offset is {0:X8}, returning figure at index {1}.", custOffset, i + 1);
+                            return custSection.Figures[i + 1];
                         }
                         else if (calculatedOffset > custOffset)
                         {
