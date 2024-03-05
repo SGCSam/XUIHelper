@@ -91,8 +91,15 @@ namespace XUIHelper.Core
                 return null;
             }
 
+            QUAT5Section quatSection = new QUAT5Section();
+            if (!await quatSection.TryBuildAsync(this, rootObject))
+            {
+                Logger?.Here().Error("Failed to build QUAT5 section, returning null.");
+                return null;
+            }
+
             //TODO: Only add the sections if they've got values in them
-            return new List<IXURSection>() { strnSection, vectSection };
+            return new List<IXURSection>() { strnSection, vectSection, quatSection };
         }
     }
 }

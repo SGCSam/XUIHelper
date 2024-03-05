@@ -152,7 +152,6 @@ namespace XUIHelper.Core
                     }
                     else if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Object)
                     {
-                        xur.Logger?.Here().Verbose("Building vectors for compound property {0} of {1}.", childProperty.PropertyDefinition.Name, childProperty.PropertyDefinition.ParentClassName);
                         if(!TryBuildVectorsFromProperties(xur, childProperty.Value as List<XUProperty>, ref builtVectors))
                         {
                             xur.Logger?.Here().Error("Failed to build vectors for child compound properties, returning false.");
