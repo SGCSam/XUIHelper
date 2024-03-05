@@ -70,9 +70,16 @@ namespace XUIHelper.Core
             return new XUR5CountHeader();
         }
 
-        protected override bool HasCountHeader()
+        protected override bool HasReadableCountHeader()
         {
             return (((XUR5Header)Header).Flags & 0x1) == 0x1;
+        }
+
+        protected override bool ShouldWriteCountHeader(XUObject rootObject)
+        {
+            return rootObject.GetTotalObjectsCount() > 0x8D
+                || rootObject.GetTotalPropertiesCount() > 0x235
+                || rootObject.GetPropertiesArrayCount() > 0xC9;
         }
 
         protected override async Task<List<IXURSection>?> TryBuildSectionsFromObjectAsync(XUObject rootObject)

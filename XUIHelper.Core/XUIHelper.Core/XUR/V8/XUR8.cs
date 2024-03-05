@@ -123,7 +123,12 @@ namespace XUIHelper.Core
             return new XUR8CountHeader();
         }
 
-        protected override bool HasCountHeader()
+        protected override bool HasReadableCountHeader()
+        {
+            return true;
+        }
+
+        protected override bool ShouldWriteCountHeader(XUObject rootObject)
         {
             return true;
         }

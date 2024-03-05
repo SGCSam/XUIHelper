@@ -50,7 +50,7 @@ namespace XUIHelper.Core
                         return false;
                     }
 
-                    if (HasCountHeader())
+                    if (HasReadableCountHeader())
                     {
                         Logger?.Here().Verbose("Reading count header...");
                         CountHeader = GetCountHeader();
@@ -183,7 +183,9 @@ namespace XUIHelper.Core
 
         protected abstract IXURSection? TryCreateXURSectionForMagic(int Magic);
 
-        protected abstract bool HasCountHeader();
+        protected abstract bool HasReadableCountHeader();
+
+        protected abstract bool ShouldWriteCountHeader(XUObject rootObject);
 
         protected abstract IXURCountHeader GetCountHeader();
 
