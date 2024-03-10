@@ -172,7 +172,32 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(QUAT5Section));
+                xur.Logger?.Here().Verbose("Writing QUAT5 section.");
+
+                int bytesWritten = 0;
+                int vectsWritten = 0;
+                foreach (XUQuaternion quat in Quaternions)
+                {
+                    writer.WriteSingleBE(quat.X);
+                    writer.WriteSingleBE(quat.Y);
+                    writer.WriteSingleBE(quat.Z);
+                    writer.WriteSingleBE(quat.W);
+                    bytesWritten += 16;
+                    xur.Logger?.Here().Verbose("Wrote quaternion index {0}: {1}.", vectsWritten, quat);
+                    vectsWritten++;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} QUAT5 quaternions as {1:X8} bytes successfully!", Quaternions.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing QUAT5 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }
