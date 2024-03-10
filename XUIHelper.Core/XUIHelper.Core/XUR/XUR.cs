@@ -20,6 +20,7 @@ namespace XUIHelper.Core
         public List<IXURSection> Sections { get; protected set; } = new List<IXURSection>();
 
         protected BinaryReader Reader { get; private set; }
+        protected BinaryWriter Writer { get; private set; }
 
         public XMLExtensionsManager? ExtensionsManager { get; private set; }
 
@@ -161,7 +162,6 @@ namespace XUIHelper.Core
                 }
 
                 ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
-                
 
                 List<IXURSection>? sections = await TryBuildSectionsFromObjectAsync(rootObject);
                 if(sections == null)
@@ -171,6 +171,26 @@ namespace XUIHelper.Core
                 }
 
                 Sections = sections;
+
+                //TODO: Verify file path here!
+                Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
+                File.Delete(FilePath);
+                using (Writer = new BinaryWriter(File.OpenWrite(FilePath)))
+                {
+                    foreach (IXURSection section in Sections)
+                    {
+                        int? bytesWritten = await section.TryWriteAsync(this, rootObject, Writer);
+                        if (bytesWritten == null)
+                        {
+                            Logger?.Here().Error("Failed to write section {0:X8}, returning false.", section.Magic);
+                            return false;
+                        }
+                    }
+                }
+
+                //TODO: Continue here. Add section write support, then write each section keeping track of the amount of data written and the offset
+                //Once they've been written, the DATA section can then be written
+                //Make sure to take into account the size of the header and, optionally the count header when it comes time to the final write
 
                 return true;
             }

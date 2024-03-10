@@ -86,21 +86,10 @@ namespace XUIHelper.Core
                     xur.Logger?.Here().Verbose("Added class name string {0}.", xuObject.ClassName);
                 }
 
-                foreach (XUProperty childProperty in xuObject.Properties)
+                if (!TryBuildStringsFromProperties(xur, xuObject.Properties, ref builtStrings))
                 {
-                    if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.String)
-                    {
-                        if (childProperty.Value is not string valueString)
-                        {
-                            xur.Logger?.Here().Error("Child property {0} marked as string had a non-string value of {1}, returning false.", childProperty.PropertyDefinition.Name, childProperty.Value);
-                            return false;
-                        }
-
-                        if(builtStrings.Add(valueString))
-                        {
-                            xur.Logger?.Here().Verbose("Added {0} property value string {1}.", childProperty.PropertyDefinition.Name, valueString);
-                        }
-                    }
+                    xur.Logger?.Here().Error("Failed to build strings from properties for {0}, returning false.", xuObject.ClassName);
+                    return false;
                 }
 
                 foreach (XUObject childObject in xuObject.Children)
@@ -154,6 +143,77 @@ namespace XUIHelper.Core
             {
                 xur.Logger?.Here().Error("Caught an exception when trying to build STRN5 strings for object {0}, returning false. The exception is: {1}", xuObject.ClassName, ex);
                 return false;
+            }
+        }
+
+        private bool TryBuildStringsFromProperties(IXUR xur, List<XUProperty> properties, ref HashSet<string> builtStrings)
+        {
+            try
+            {
+                foreach (XUProperty childProperty in properties)
+                {
+                    if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.String)
+                    {
+                        if (childProperty.Value is not string valueString)
+                        {
+                            xur.Logger?.Here().Error("Child property {0} marked as string had a non-string value of {1}, returning false.", childProperty.PropertyDefinition.Name, childProperty.Value);
+                            return false;
+                        }
+
+                        if (builtStrings.Add(valueString))
+                        {
+                            xur.Logger?.Here().Verbose("Added {0} property value string {1}.", childProperty.PropertyDefinition.Name, valueString);
+                        }
+                    }
+                    else if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Object)
+                    {
+                        if (!TryBuildStringsFromProperties(xur, childProperty.Value as List<XUProperty>, ref builtStrings))
+                        {
+                            xur.Logger?.Here().Error("Failed to build strings for child compound properties, returning false.");
+                            return false;
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when trying to build STRN5 strings from properties, returning false. The exception is: {0}", ex);
+                return false;
+            }
+        }
+
+        public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
+        {
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(STRN5Section));
+                xur.Logger?.Here().Verbose("Writing STRN5 section.");
+
+                int bytesWritten = 0;
+                foreach(string str in Strings)
+                {
+                    //This is NOT an error, the empty string doesn't get written to the STRN section
+                    if(string.IsNullOrEmpty(str))
+                    {
+                        continue;
+                    }
+
+                    short strLength = (short)str.Length;
+                    writer.WriteInt16BE(strLength);
+                    writer.WriteUTF8String(str);
+                    bytesWritten += (str.Length * 2) + 2;
+                    xur.Logger?.Here().Verbose("Wrote string {0} with a length of {1}.", str, str.Length);
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} STRN5 strings as {1:X8} bytes successfully!", Strings.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing STRN5 section, returning null. The exception is: {0}", ex);
+                return null;
             }
         }
     }

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace XUIHelper.Core.Extensions
 {
+    public enum Endianness
+    {
+        Little,
+        Big,
+    }
+
     internal static class BinaryReaderExtensions
     {
-        public enum Endianness
-        {
-            Little,
-            Big,
-        }
-
         #region UInt16
         public static ushort ReadUInt16(this BinaryReader reader, Endianness endianness)
         {

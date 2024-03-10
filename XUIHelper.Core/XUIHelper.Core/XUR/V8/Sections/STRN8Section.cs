@@ -71,5 +71,10 @@ namespace XUIHelper.Core
         {
             throw new NotImplementedException();
         }
+
+        public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

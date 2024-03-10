@@ -11,5 +11,7 @@ namespace XUIHelper.Core
         int Magic { get; }
 
         Task<bool> TryBuildAsync(IXUR xur, XUObject xuObject);
+
+        Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer);
     }
 }
