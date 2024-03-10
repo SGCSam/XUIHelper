@@ -12,7 +12,7 @@ namespace XUIHelper.Core.Extensions
         #region Int16
         public static void WriteInt16(this BinaryWriter writer, Endianness endianness, short val)
         {
-            byte[] bytes = new byte[2];
+            byte[] bytes = new byte[sizeof(short)];
             if(endianness == Endianness.Little)
             {
                 BinaryPrimitives.WriteInt16LittleEndian(bytes, val);
@@ -27,6 +27,26 @@ namespace XUIHelper.Core.Extensions
 
         public static void WriteInt16LE(this BinaryWriter writer, short val) { WriteInt16(writer, Endianness.Little, val); }
         public static void WriteInt16BE(this BinaryWriter writer, short val) { WriteInt16(writer, Endianness.Big, val); }
+        #endregion
+
+        #region Single
+        public static void WriteSingle(this BinaryWriter writer, Endianness endianness, float val)
+        {
+            byte[] bytes = new byte[sizeof(float)];
+            if (endianness == Endianness.Little)
+            {
+                BinaryPrimitives.WriteSingleLittleEndian(bytes, val);
+            }
+            else
+            {
+                BinaryPrimitives.WriteSingleBigEndian(bytes, val);
+            }
+
+            writer.Write(bytes);
+        }
+
+        public static void WriteSingleLE(this BinaryWriter writer, float val) { WriteSingle(writer, Endianness.Little, val); }
+        public static void WriteSingleBE(this BinaryWriter writer, float val) { WriteSingle(writer, Endianness.Big, val); }
         #endregion
 
         #region String
