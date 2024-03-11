@@ -150,6 +150,9 @@ namespace XUIHelper.Core
                 Logger?.Here().Verbose("CUST5 section had no figures, not adding.");
             }
 
+            DATA5Section dataSection = new DATA5Section(rootObject);
+            retList.Add(dataSection);
+
             return retList;
         }
     }

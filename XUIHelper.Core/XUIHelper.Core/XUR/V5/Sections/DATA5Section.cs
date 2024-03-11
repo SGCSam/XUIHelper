@@ -17,7 +17,6 @@ namespace XUIHelper.Core
         public int Magic { get { return IDATASection.ExpectedMagic; } }
 
         public XMLExtensionsManager? ExtensionsManager { get; private set; }
-        public ISTRNSection? STRNSection { get; private set; }
 
         public XUObject? RootObject { get; private set; }
 
@@ -31,13 +30,6 @@ namespace XUIHelper.Core
                 if(ExtensionsManager == null)
                 {
                     xur.Logger?.Here().Error("Extensions manager was null, returning false.");
-                    return false;
-                }
-
-                STRNSection = xur.TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
-                if (STRNSection == null)
-                {
-                    xur.Logger?.Here().Error("STRN section was null, returning false.");
                     return false;
                 }
 
@@ -74,7 +66,8 @@ namespace XUIHelper.Core
             {
                 xur.Logger?.Here().Verbose("Reading object.");
 
-                if (STRNSection == null)
+                ISTRNSection? strnSection = xur.TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
                 {
                     xur.Logger?.Here().Error("STRN section was null, returning null.");
                     return null;
@@ -86,13 +79,13 @@ namespace XUIHelper.Core
                 byte flags = reader.ReadByte();
                 xur.Logger?.Here().Verbose("Read flags of {0:X8}.", flags);
 
-                if (stringIndex < 0 || stringIndex > STRNSection.Strings.Count - 1)
+                if (stringIndex < 0 || stringIndex > strnSection.Strings.Count - 1)
                 {
-                    xur.Logger?.Here().Error("String index of {0:X8} is invalid, must be between 0 and {1}, returning null.", stringIndex, STRNSection.Strings.Count - 1);
+                    xur.Logger?.Here().Error("String index of {0:X8} is invalid, must be between 0 and {1}, returning null.", stringIndex, strnSection.Strings.Count - 1);
                     return null;
                 }
 
-                string className = STRNSection.Strings[stringIndex];
+                string className = strnSection.Strings[stringIndex];
 
                 XUObject thisObject = new XUObject(className);
                 xur.Logger?.Here().Verbose("Reading class {0}.", className);
@@ -287,11 +280,145 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(DATA5Section));
+                xur.Logger?.Here().Verbose("Writing DATA5 section.");
+
+                if (ExtensionsManager == null)
+                {
+                    xur.Logger?.Here().Error("Extensions manager was null, returning null.");
+                    return null;
+                }
+
+                if (RootObject == null)
+                {
+                    xur.Logger?.Here().Error("Root object was null, returning null.");
+                    return null;
+                }
+
+                int? bytesWritten = TryWriteObject(xur, writer, RootObject);
+                if (bytesWritten == null)
+                {
+                    xur.Logger?.Here().Error("Bytes written was null, write must have failed, returning null.");
+                    return null;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote DATA5 section as {0:X8} bytes successfully!", bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing DATA5 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
+
+        private int? TryWriteObject(IXUR xur, BinaryWriter writer, XUObject xuObject)
+        {
+            try
+            {
+                xur.Logger?.Here().Verbose("Writing object.");
+                int bytesWritten = 0;
+
+                ISTRNSection? strnSection = xur.TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
+                {
+                    xur.Logger?.Here().Error("STRN section was null, returning null.");
+                    return null;
+                }
+
+                short classNameIndex = (short)strnSection.Strings.IndexOf(xuObject.ClassName);
+                if(classNameIndex == -1)
+                {
+                    xur.Logger?.Here().Error("Failed to find valid string index for class name {0}, returning null.", xuObject.ClassName);
+                    return null;
+                }
+
+                classNameIndex++;   //Class name indexes are 1-based :/
+                xur.Logger?.Here().Verbose("Writing object class name index of {0} for class name {1}.", classNameIndex, xuObject.ClassName);
+                writer.WriteInt16BE(classNameIndex);
+                bytesWritten += 2;
+
+                byte flags = 0x00;
+                if (xuObject.Properties.Count > 0)
+                {
+                    flags |= 0x1;
+                    xur.Logger?.Here().Verbose("Object has properties, flags is now {0:X8}", flags);
+                }
+
+                if (xuObject.Children.Count > 0)
+                {
+                    flags |= 0x2;
+                    xur.Logger?.Here().Verbose("Object has children, flags is now {0:X8}", flags);
+                }
+
+                if (xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0)
+                {
+                    flags |= 0x4;
+                    xur.Logger?.Here().Verbose("Object has timline data, flags is now {0:X8}", flags);
+                }
+
+                xur.Logger?.Here().Verbose("Writing flags of {0:X8}.", (byte)flags);
+                writer.Write((byte)flags);
+                bytesWritten++;
+
+                if(xuObject.Properties.Count > 0)
+                {
+                    int? propertyBytesWritten = TryWriteProperties(xur, writer, xuObject.Properties);
+                    if (propertyBytesWritten == null)
+                    {
+                        xur.Logger?.Here().Error("Property bytes written was null for {0}, an error must have occurred, returning null.", xuObject.ClassName);
+                        return null;
+                    }
+
+                    bytesWritten += propertyBytesWritten.Value;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing object, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
+
+        private int? TryWriteProperties(IXUR xur, BinaryWriter writer, List<XUProperty> properties)
+        {
+            try
+            {
+                xur.Logger?.Here().Verbose("Writing object properties.");
+
+                if (properties.Count == 0)
+                {
+                    xur.Logger?.Here().Verbose("There were no properties, returning 0.");
+                    return 0;
+                }
+
+                int bytesWritten = 0;
+
+                xur.Logger?.Here().Verbose("Writing object properties count of {0:X8}.", properties.Count);
+                writer.WriteInt16BE((short)properties.Count);
+                bytesWritten += 2;
+
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing object properties, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
 
         public DATA5Section()
         {
+            ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x5);
+        }
+
+        public DATA5Section(XUObject rootObject)
+        {
+            RootObject = rootObject;
             ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x5);
         }
     }

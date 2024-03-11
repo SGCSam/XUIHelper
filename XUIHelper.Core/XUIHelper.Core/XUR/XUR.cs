@@ -179,6 +179,11 @@ namespace XUIHelper.Core
                 {
                     foreach (IXURSection section in Sections)
                     {
+                        if(section is not IDATASection)
+                        {
+                            continue;
+                        }
+
                         int? bytesWritten = await section.TryWriteAsync(this, rootObject, Writer);
                         if (bytesWritten == null)
                         {
