@@ -365,7 +365,7 @@ namespace XUIHelper.Core
 
                 if(xuObject.Properties.Count > 0)
                 {
-                    int? propertyBytesWritten = TryWriteProperties(xur, writer, xuObject.Properties);
+                    int? propertyBytesWritten = TryWriteProperties(xur, writer, xuObject);
                     if (propertyBytesWritten == null)
                     {
                         xur.Logger?.Here().Error("Property bytes written was null for {0}, an error must have occurred, returning null.", xuObject.ClassName);
@@ -384,13 +384,13 @@ namespace XUIHelper.Core
             }
         }
 
-        private int? TryWriteProperties(IXUR xur, BinaryWriter writer, List<XUProperty> properties)
+        private int? TryWriteProperties(IXUR xur, BinaryWriter writer, XUObject xuObject)
         {
             try
             {
                 xur.Logger?.Here().Verbose("Writing object properties.");
 
-                if (properties.Count == 0)
+                if (xuObject.Properties.Count == 0)
                 {
                     xur.Logger?.Here().Verbose("There were no properties, returning 0.");
                     return 0;
@@ -398,9 +398,107 @@ namespace XUIHelper.Core
 
                 int bytesWritten = 0;
 
-                xur.Logger?.Here().Verbose("Writing object properties count of {0:X8}.", properties.Count);
-                writer.WriteInt16BE((short)properties.Count);
+                xur.Logger?.Here().Verbose("Writing object properties count of {0:X8}.", xuObject.Properties.Count);
+                writer.WriteInt16BE((short)xuObject.Properties.Count);
                 bytesWritten += 2;
+
+                List<XUClass>? classList = ExtensionsManager?.TryGetClassHierarchy(xuObject.ClassName);
+                if (classList == null)
+                {
+                    xur.Logger?.Here().Error("Failed to get class hierarchy for class {0}, returning null.", xuObject.ClassName);
+                    return null;
+                }
+
+                Dictionary<XUClass, List<XUProperty>> classProperties = new Dictionary<XUClass, List<XUProperty>>();
+                foreach(XUProperty property in xuObject.Properties)
+                {
+                    bool found = false;
+                    foreach(XUClass xuClass in classList)
+                    {
+                        if(property.PropertyDefinition.ParentClassName == xuClass.Name)
+                        {
+                            if(!classProperties.ContainsKey(xuClass))
+                            {
+                                classProperties[xuClass] = new List<XUProperty>();
+                            }
+
+                            classProperties[xuClass].Add(property);
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if(!found)
+                    {
+                        xur.Logger?.Here().Error("Failed to find parent class in hierarchy for property {0}, returning null.", property.PropertyDefinition.Name);
+                        return null;
+                    }
+                }
+
+                int totalPropertyDepth = 0;
+                foreach(XUClass xuClass in classList)
+                {
+                    xur.Logger?.Here().Verbose("Handling class {0}.", xuClass.Name);
+
+                    totalPropertyDepth += (int)(Math.Ceiling(xuClass.PropertyDefinitions.Count / 8.0f));
+                    if (!classProperties.ContainsKey(xuClass) || classProperties[xuClass].Count == 0)
+                    {
+                        xur.Logger?.Here().Verbose("Class doesn't have any properties set, writing 0 for hierarchical properties count.");
+                        writer.Write((byte)0x00);
+                        bytesWritten++;
+                        continue;
+                    }
+
+                    int hierarchicalPropertiesCount = (classProperties[xuClass].Count * 8) - totalPropertyDepth;
+                    xur.Logger?.Here().Verbose("Writing hierarchical properties count of {0:X8} for class {1}.", hierarchicalPropertiesCount, xuClass.Name);
+                    writer.Write((byte)hierarchicalPropertiesCount);
+                    bytesWritten++;
+
+                    int propertyMasksCount = Math.Max((int)Math.Ceiling(xuClass.PropertyDefinitions.Count / 8.0f), 1);
+                    xur.Logger?.Here().Verbose("Class has {0:X8} property definitions, will have {1:X8} mask(s).", xuClass.PropertyDefinitions.Count, propertyMasksCount);
+
+                    byte[] propertyMasks = new byte[propertyMasksCount];
+                    for(int i = 0; i < propertyMasksCount; i++)
+                    {
+                        byte thisPropertyMask = 0x00;
+                        List<XUPropertyDefinition> thisMaskPropertyDefinitions = xuClass.PropertyDefinitions.Skip(i * 8).Take(8).ToList();
+
+                        int propertyDefinitionIndex = 0;
+                        foreach(XUPropertyDefinition propertyDefinition in thisMaskPropertyDefinitions)
+                        {
+                            foreach(XUProperty property in classProperties[xuClass])
+                            {
+                                if(propertyDefinition == property.PropertyDefinition)
+                                {
+                                    thisPropertyMask |= (byte)(1 << propertyDefinitionIndex);
+                                    break;
+                                }
+                            }
+
+                            propertyDefinitionIndex++;
+                        }
+
+                        xur.Logger?.Here().Verbose("Got a property mask of {0:X8} for mask index {1}.", thisPropertyMask, i);
+                        propertyMasks[i] = thisPropertyMask;
+                    }
+
+                    Array.Reverse(propertyMasks);
+                    writer.Write(propertyMasks);
+                    bytesWritten += propertyMasks.Length;
+
+                    foreach (XUProperty property in classProperties[xuClass])
+                    {
+                        xur.Logger?.Here().Verbose("Writing {0} property.", property.PropertyDefinition.Name);
+                        int? propertyBytesWritten = xur.TryWriteProperty(writer, property);
+                        if(propertyBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Property bytes written was null for property {0}, returning null.", property.PropertyDefinition.Name);
+                            return null;
+                        }
+
+                        bytesWritten += propertyBytesWritten.Value;
+                    }
+                }
 
                 return bytesWritten;
             }

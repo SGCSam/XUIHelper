@@ -36,6 +36,7 @@
   </XUIClass>
   
   <XUIClass Name="XuiHtmlElement" BaseClassName="XuiElement" DefaultWidth="60" DefaultHeight="30" Description="HTML Element">
+    <PropDef Name="Text" Type="string" />
     <PropDef Name="TeletypeCount" Type="integer">
       <DefaultVal>-1</DefaultVal>
     </PropDef>
@@ -46,7 +47,7 @@
       <DefaultVal>0</DefaultVal>
     </PropDef>
   </XUIClass>
-
+  
   <XUIClass Name="MobyRootScene" BaseClassName="XuiPerspectiveScene" DefaultWidth="1280"  DefaultHeight="720" Description="Moby Root Scene" />
   <XUIClass Name="RomeRootScene" BaseClassName="XuiPerspectiveScene" DefaultWidth="1280" DefaultHeight="720" Description="Rome Root Scene" />
 

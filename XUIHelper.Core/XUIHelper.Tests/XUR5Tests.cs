@@ -97,14 +97,35 @@ namespace XUIHelper.Tests
 
             RegisterExtensions(log);
 
+            string workingPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199 All\Working";
+            string notWorkingPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199 All\Not Working";
+
+            foreach (string filePath in Directory.GetFiles(workingPath, "*.xur", SearchOption.TopDirectoryOnly))
+            {
+                File.Delete(filePath);
+            }
+
+            foreach (string filePath in Directory.GetFiles(notWorkingPath, "*.xur", SearchOption.TopDirectoryOnly))
+            {
+                File.Delete(filePath);
+            }
+
             bool anyFailed = false;
-            foreach(string xurFilePath in Directory.GetFiles(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199 All\Working", "*.xur"))
+            foreach (string xurFilePath in Directory.GetFiles(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199 All", "*.xur"))
             {
                 string fileName = Path.GetFileName(xurFilePath);
-                if(!await CheckReadSuccessful(xurFilePath, log))
+                if (!await CheckReadSuccessful(xurFilePath, log))
                 {
                     anyFailed = true;
-                    File.Move(xurFilePath, Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199 All\Not Working", fileName));
+                    string destPath = Path.Combine(notWorkingPath, fileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(destPath));
+                    File.Copy(xurFilePath, destPath);
+                }
+                else
+                {
+                    string destPath = Path.Combine(workingPath, fileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(destPath));
+                    File.Copy(xurFilePath, destPath);
                 }
             }
 
