@@ -468,6 +468,17 @@ namespace XUIHelper.Core
                         continue;
                     }
 
+                    int compoundPropertiesCount = 0;
+                    foreach (XUProperty xuProperty in classProperties[xuClass])
+                    {
+                        compoundPropertiesCount += xuProperty.GetCompoundPropertiesCount();
+                    }
+
+                    //TODO: This COULD be wrong, we might want to do
+                    //int hierarchicalPropertiesCount = (classProperties[xuClass].Count * 8) - totalPropertyDepth - compoundPropertiesDepth;
+                    //If the hierarchical properties count causes problems in the future, 
+                    totalPropertyDepth += compoundPropertiesCount;  
+
                     int hierarchicalPropertiesCount = (classProperties[xuClass].Count * 8) - totalPropertyDepth;
                     xur.Logger?.Here().Verbose("Writing hierarchical properties count of {0:X8} for class {1}.", hierarchicalPropertiesCount, xuClass.Name);
                     writer.Write((byte)hierarchicalPropertiesCount);

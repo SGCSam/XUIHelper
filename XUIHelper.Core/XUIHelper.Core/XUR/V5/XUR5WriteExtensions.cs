@@ -28,7 +28,8 @@ namespace XUIHelper.Core
                     }
                     case XUPropertyDefinitionTypes.Unsigned:
                     {
-                        throw new NotImplementedException();
+                        bytesWritten = TryWriteUnsignedProperty(xur, writer, property.PropertyDefinition, property.Value);
+                        break;
                     }
                     case XUPropertyDefinitionTypes.String:
                     {
@@ -107,6 +108,33 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when writing boolean property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static int? TryWriteUnsignedProperty(this XUR5 xur, BinaryWriter writer, XUPropertyDefinition propertyDefinition, object val)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Unsigned)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not unsigned, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not uint unsignedVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as unsigned had a non-unsigned value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                writer.WriteUInt32BE(unsignedVal);
+                xur.Logger?.Here().Verbose("Written {0} unsigned property value of {1}.", propertyDefinition.Name, unsignedVal);
+                return 4;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing unsigned property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
                 return null;
             }
         }

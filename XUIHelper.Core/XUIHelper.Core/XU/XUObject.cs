@@ -268,7 +268,12 @@ namespace XUIHelper.Core
             return retDepth;
         }
 
-        public int? TryGetDepthOfPropertyDefinition(XUPropertyDefinition propertyDefinition, string className, int extensionVersion, int depth, ILogger? logger = null)
+        public int? TryGetDepthOfPropertyDefinition(XUPropertyDefinition propertyDefinition, string className, int extensionVersion, ILogger? logger = null)
+        {
+            return TryGetDepthOfPropertyDefinition(propertyDefinition, className, extensionVersion, 1, logger);
+        }
+
+        private int? TryGetDepthOfPropertyDefinition(XUPropertyDefinition propertyDefinition, string className, int extensionVersion, int depth, ILogger? logger = null)
         {
             if(!XUIHelperCoreConstants.VersionedExtensions.ContainsKey(extensionVersion))
             {

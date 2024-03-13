@@ -29,6 +29,26 @@ namespace XUIHelper.Core.Extensions
         public static void WriteInt16BE(this BinaryWriter writer, short val) { WriteInt16(writer, Endianness.Big, val); }
         #endregion
 
+        #region UInt32
+        public static void WriteUInt32(this BinaryWriter writer, Endianness endianness, uint val)
+        {
+            byte[] bytes = new byte[sizeof(uint)];
+            if (endianness == Endianness.Little)
+            {
+                BinaryPrimitives.WriteUInt32LittleEndian(bytes, val);
+            }
+            else
+            {
+                BinaryPrimitives.WriteUInt32BigEndian(bytes, val);
+            }
+
+            writer.Write(bytes);
+        }
+
+        public static void WriteUInt32LE(this BinaryWriter writer, uint val) { WriteUInt32(writer, Endianness.Little, val); }
+        public static void WriteUInt32BE(this BinaryWriter writer, uint val) { WriteUInt32(writer, Endianness.Big, val); }
+        #endregion
+
         #region Int32
         public static void WriteInt32(this BinaryWriter writer, Endianness endianness, int val)
         {
