@@ -318,7 +318,7 @@ namespace XUIHelper.Core
         {
             try
             {
-                xur.Logger?.Here().Verbose("Writing object.");
+                xur.Logger?.Here().Verbose("Writing object {0}.", xuObject.ClassName);
                 int bytesWritten = 0;
 
                 ISTRNSection? strnSection = xur.TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
@@ -365,6 +365,7 @@ namespace XUIHelper.Core
 
                 if(xuObject.Properties.Count > 0)
                 {
+                    xur.Logger?.Here().Verbose("Writing {0:X8} object properties.", xuObject.Properties.Count);
                     int? propertyBytesWritten = TryWriteProperties(xur, writer, xuObject);
                     if (propertyBytesWritten == null)
                     {
@@ -375,7 +376,25 @@ namespace XUIHelper.Core
                     bytesWritten += propertyBytesWritten.Value;
                 }
 
-                return null;
+                if(xuObject.Children.Count > 0)
+                {
+                    xur.Logger?.Here().Verbose("Writing {0:X8} object children.", xuObject.Children.Count);
+                    writer.WriteInt32BE(xuObject.Children.Count);
+
+                    foreach(XUObject childObject in xuObject.Children)
+                    {
+                        int? childBytesWritten = TryWriteObject(xur, writer, childObject);
+                        if (childBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Child bytes written was null for child object {0}, an error must have occurred, returning null.", childObject.ClassName);
+                            return null;
+                        }
+
+                        bytesWritten += childBytesWritten.Value;
+                    }
+                }
+
+                return bytesWritten;
             }
             catch (Exception ex)
             {
