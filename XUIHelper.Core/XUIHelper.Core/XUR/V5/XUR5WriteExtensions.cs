@@ -19,7 +19,8 @@ namespace XUIHelper.Core
                 {
                     case XUPropertyDefinitionTypes.Bool:
                     {
-                        throw new NotImplementedException();
+                        bytesWritten = TryWriteBoolProperty(xur, writer, property.PropertyDefinition, property.Value);
+                        break;
                     }
                     case XUPropertyDefinitionTypes.Integer:
                     {
@@ -58,7 +59,8 @@ namespace XUIHelper.Core
                     }
                     case XUPropertyDefinitionTypes.Quaternion:
                     {
-                        throw new NotImplementedException(); ;
+                        bytesWritten = TryWriteQuaternionProperty(xur, writer, property.PropertyDefinition, property.Value);
+                        break;
                     }
                     default:
                     {
@@ -78,6 +80,33 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when writing property {0}, returning null. The exception is: {1}", property.PropertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static int? TryWriteBoolProperty(this XUR5 xur, BinaryWriter writer, XUPropertyDefinition propertyDefinition, object val)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Bool)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not boolean, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not bool boolVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as boolean had a non-boolean value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                writer.Write(boolVal ? (byte)0x1 : (byte)0x0);
+                xur.Logger?.Here().Verbose("Written {0} boolean property value of {1}.", propertyDefinition.Name, boolVal);
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing boolean property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
                 return null;
             }
         }
@@ -114,7 +143,7 @@ namespace XUIHelper.Core
 
                 writer.WriteInt16BE(stringIndex);
                 xur.Logger?.Here().Verbose("Written {0} string property value of {1} as index {2}.", propertyDefinition.Name, stringVal, stringIndex);
-                return 4;
+                return 2;
             }
             catch (Exception ex)
             {
@@ -187,6 +216,47 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when writing vector property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static int? TryWriteQuaternionProperty(this XUR5 xur, BinaryWriter writer, XUPropertyDefinition propertyDefinition, object val)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Quaternion)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not quaternion, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not XUQuaternion quatVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as quaternion had a non-quaternion value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                IQUATSection? quatSection = ((IXUR)xur).TryFindXURSectionByMagic<IQUATSection>(IQUATSection.ExpectedMagic);
+                if (quatSection == null)
+                {
+                    xur.Logger?.Here().Error("QUAT section was null, returning null.");
+                    return null;
+                }
+
+                int quatIndex = quatSection.Quaternions.IndexOf(quatVal);
+                if (quatIndex == -1)
+                {
+                    xur.Logger?.Here().Error("Failed to get quaternion index for property {0} value {1}, returning null.", propertyDefinition.Name, quatVal);
+                    return null;
+                }
+
+                writer.WriteInt32BE(quatIndex);
+                xur.Logger?.Here().Verbose("Written {0} quaternion property value of {1} as index {2}.", propertyDefinition.Name, quatVal, quatIndex);
+                return 4;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing quaternion property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
                 return null;
             }
         }
