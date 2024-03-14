@@ -12,14 +12,14 @@ namespace XUIHelper.Core
 {
     public static class XURWriteExtensions
     {
-        public static int? TryWriteProperty(this IXUR xur, BinaryWriter writer, XUProperty property)
+        public static int? TryWriteProperty(this IXUR xur, BinaryWriter writer, XUProperty property, object val)
         {
             try
             {
                 if (xur is XUR5 xur5)
                 {
                     xur.Logger?.Here().Verbose("Trying to write XUR5 property {0}", property.PropertyDefinition.Name);
-                    return xur5.TryWriteProperty(writer, property);
+                    return xur5.TryWriteProperty(writer, property, val);
                 }
 
                 xur.Logger?.Here().Error("Unhandled IXUR for property {0}, returning null.", property.PropertyDefinition.Name);

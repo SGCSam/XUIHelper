@@ -340,8 +340,8 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                byte propertiesCount = reader.ReadByte();
-                xur.Logger?.Here()?.Verbose("Compound class has {0:X8} properties.", propertiesCount);
+                byte hierarchicalPropertiesDepth = reader.ReadByte();
+                xur.Logger?.Here()?.Verbose("Compound class has a hierarchical properties depth of {0:X8}.", hierarchicalPropertiesDepth);
 
                 int propertyMasksCount = Math.Max((int)Math.Ceiling(compoundClass.PropertyDefinitions.Count / 8.0f), 1);
                 xur.Logger?.Here().Verbose("Compound class has {0:X8} property definitions, will have {1:X8} mask(s).", compoundClass.PropertyDefinitions.Count, propertyMasksCount);

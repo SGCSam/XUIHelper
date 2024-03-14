@@ -1,16 +1,18 @@
 ﻿using Serilog;
 using Serilog.Core;
 using System;
+using System.Collections;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Reflection.PortableExecutable;
 using XUIHelper.Core.Extensions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace XUIHelper.Core
 {
     public static class XUR5WriteExtensions
     {
-        public static int? TryWriteProperty(this XUR5 xur, BinaryWriter writer, XUProperty property)
+        public static int? TryWriteProperty(this XUR5 xur, BinaryWriter writer, XUProperty property, object val)
         {
             try
             {
@@ -19,40 +21,43 @@ namespace XUIHelper.Core
                 {
                     case XUPropertyDefinitionTypes.Bool:
                     {
-                        bytesWritten = TryWriteBoolProperty(xur, writer, property.PropertyDefinition, property.Value);
+                        bytesWritten = TryWriteBoolProperty(xur, writer, property.PropertyDefinition, val);
                         break;
                     }
                     case XUPropertyDefinitionTypes.Integer:
                     {
-                        throw new NotImplementedException();
+                        bytesWritten = TryWriteIntegerProperty(xur, writer, property.PropertyDefinition, val);
+                        break;
                     }
                     case XUPropertyDefinitionTypes.Unsigned:
                     {
-                        bytesWritten = TryWriteUnsignedProperty(xur, writer, property.PropertyDefinition, property.Value);
+                        bytesWritten = TryWriteUnsignedProperty(xur, writer, property.PropertyDefinition, val);
                         break;
                     }
                     case XUPropertyDefinitionTypes.String:
                     {
-                        bytesWritten = TryWriteStringProperty(xur, writer, property.PropertyDefinition, property.Value);
+                        bytesWritten = TryWriteStringProperty(xur, writer, property.PropertyDefinition, val);
                         break;
                     }
                     case XUPropertyDefinitionTypes.Float:
                     {
-                        bytesWritten = TryWriteFloatProperty(xur, writer, property.PropertyDefinition, property.Value);
+                        bytesWritten = TryWriteFloatProperty(xur, writer, property.PropertyDefinition, val);
                         break;
                     }
                     case XUPropertyDefinitionTypes.Vector:
                     {
-                        bytesWritten = TryWriteVectorProperty(xur, writer, property.PropertyDefinition, property.Value);
+                        bytesWritten = TryWriteVectorProperty(xur, writer, property.PropertyDefinition, val);
                         break;
                     }
                     case XUPropertyDefinitionTypes.Object:
                     {
-                        throw new NotImplementedException();
+                        bytesWritten = TryWriteObjectProperty(xur, writer, property.PropertyDefinition, val);
+                        break;
                     }
                     case XUPropertyDefinitionTypes.Colour:
                     {
-                        throw new NotImplementedException();
+                        bytesWritten = TryWriteColourProperty(xur, writer, property.PropertyDefinition, val);
+                        break;
                     }
                     case XUPropertyDefinitionTypes.Custom:
                     {
@@ -60,7 +65,7 @@ namespace XUIHelper.Core
                     }
                     case XUPropertyDefinitionTypes.Quaternion:
                     {
-                        bytesWritten = TryWriteQuaternionProperty(xur, writer, property.PropertyDefinition, property.Value);
+                        bytesWritten = TryWriteQuaternionProperty(xur, writer, property.PropertyDefinition, val);
                         break;
                     }
                     default:
@@ -108,6 +113,33 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when writing boolean property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static int? TryWriteIntegerProperty(this XUR5 xur, BinaryWriter writer, XUPropertyDefinition propertyDefinition, object val)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Integer)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not integer, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not int intVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as integer had a non-integer value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                writer.WriteInt32BE(intVal);
+                xur.Logger?.Here().Verbose("Written {0} integer property value of {1}.", propertyDefinition.Name, intVal);
+                return 4;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing integer property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
                 return null;
             }
         }
@@ -244,6 +276,229 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when writing vector property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static int? TryWriteObjectProperty(this XUR5 xur, BinaryWriter writer, XUPropertyDefinition propertyDefinition, object val)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Object)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not object, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not List<XUProperty> objectProperties)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as object had a non-object value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                XMLExtensionsManager? ext = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x5);
+                if (ext == null)
+                {
+                    xur.Logger?.Here().Error("Failed to get extensions manager, returning null.");
+                    return null;
+                }
+
+                int parentClassPropertyDepth = 0;
+                XUClass? compoundClass = null;
+                switch (propertyDefinition.Name)
+                {
+                    case "Fill":
+                    {
+                        xur.Logger?.Here()?.Verbose("Writing fill object.");
+                        compoundClass = ext.TryGetClassByName("XuiFigureFill");
+                        parentClassPropertyDepth = 5;   //4 for XuiElement, 1 for XuiFigure
+                        break;
+                    }
+
+                    case "Gradient":
+                    {
+                        xur.Logger?.Here()?.Verbose("Writing gradient object.");
+                        compoundClass = ext.TryGetClassByName("XuiFigureFillGradient");
+                        parentClassPropertyDepth = 6;   //4 for XuiElement, 1 for XuiFigure, 1 for XuiFigureFill (XuiFigureFill is 1, not 2, since gradient is within the first 8 properties)
+                        break;
+                    }
+
+                    case "Stroke":
+                    {
+                        xur.Logger?.Here()?.Verbose("Writing stroke object.");
+                        compoundClass = ext.TryGetClassByName("XuiFigureStroke");
+                        parentClassPropertyDepth = 5;   //4 for XuiElement, 1 for XuiFigure
+                        break;
+                    }
+                    default:
+                    {
+                        xur.Logger?.Here().Error("Unhandled compound class of {0}, returning null.", propertyDefinition.Name);
+                        return null;
+                    }
+                }
+
+                if (compoundClass == null)
+                {
+                    xur.Logger?.Here()?.Error("Compound class was null, the class lookup must have failed, returning null.");
+                    return null;
+                }
+
+                int bytesWritten = 0;
+
+                short objectPropertiesCount = 0;
+                foreach(XUProperty property in objectProperties)
+                {
+                    if(property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        short indexedPropertiesCount = (short)(property.Value as IList).Count;
+                        xur.Logger?.Here().Verbose("Property {0} is indexed, incrementing count by list count of {1}.", property.PropertyDefinition.Name, indexedPropertiesCount);
+                        objectPropertiesCount += indexedPropertiesCount;
+                    }
+                    else
+                    {
+                        xur.Logger?.Here().Verbose("Property {0} is not indexed, incrementing count by 1.", property.PropertyDefinition.Name);
+                        objectPropertiesCount++;
+                    }
+                }
+
+                xur.Logger?.Here().Verbose("Writing compound properties count of {0} for compound class {1}.", objectPropertiesCount, compoundClass.Name);
+                writer.WriteInt16BE(objectPropertiesCount);
+                bytesWritten += 2;
+
+                int maxCompoundPropertyDepth = 0;
+                int compoundPropertyDefinitionIndex = 0;
+                foreach(XUPropertyDefinition compoundPropertyDefinition in compoundClass.PropertyDefinitions)
+                {
+                    foreach (XUProperty compoundProperty in objectProperties)
+                    {
+                        if(compoundPropertyDefinition == compoundProperty.PropertyDefinition)
+                        {
+                            maxCompoundPropertyDepth = compoundPropertyDefinitionIndex + 1;
+                            break;
+                        }
+                    }
+
+                    compoundPropertyDefinitionIndex++;
+                }
+
+                int hierarchicalPropertiesDepth = (8 * objectProperties.Count) - parentClassPropertyDepth - Math.Max((int)Math.Ceiling(maxCompoundPropertyDepth / 8.0f), 1);
+                xur.Logger?.Here().Verbose("Wrote hierarchical compound properties depth of {0:X8}.", hierarchicalPropertiesDepth);
+                writer.Write((byte)hierarchicalPropertiesDepth);
+                bytesWritten++;
+
+                int propertyMasksCount = Math.Max((int)Math.Ceiling(compoundClass.PropertyDefinitions.Count / 8.0f), 1);
+                xur.Logger?.Here().Verbose("Compound class has {0:X8} property definitions, will have {1:X8} mask(s).", compoundClass.PropertyDefinitions.Count, propertyMasksCount);
+
+                byte[] propertyMasks = new byte[propertyMasksCount];
+                for (int i = 0; i < propertyMasksCount; i++)
+                {
+                    byte thisPropertyMask = 0x00;
+                    List<XUPropertyDefinition> thisMaskPropertyDefinitions = compoundClass.PropertyDefinitions.Skip(i * 8).Take(8).ToList();
+
+                    int propertyDefinitionIndex = 0;
+                    foreach (XUPropertyDefinition compoundPropertyDefinition in thisMaskPropertyDefinitions)
+                    {
+                        foreach (XUProperty property in objectProperties)
+                        {
+                            if (compoundPropertyDefinition == property.PropertyDefinition)
+                            {
+                                thisPropertyMask |= (byte)(1 << propertyDefinitionIndex);
+                                break;
+                            }
+                        }
+
+                        propertyDefinitionIndex++;
+                    }
+
+                    xur.Logger?.Here().Verbose("Got a property mask of {0:X8} for mask index {1}.", thisPropertyMask, i);
+                    propertyMasks[i] = thisPropertyMask;
+                }
+
+                Array.Reverse(propertyMasks);
+                writer.Write(propertyMasks);
+                bytesWritten += propertyMasks.Length;
+
+                foreach (XUProperty property in objectProperties)
+                {
+                    xur.Logger?.Here().Verbose("Writing {0} compound property.", property.PropertyDefinition.Name);
+                    if (property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        xur.Logger?.Here().Verbose("Compound property is indexed.");
+                        List<object>? indexedPropertyValues = property.Value as List<object>;
+                        if(indexedPropertyValues == null) 
+                        {
+                            xur.Logger?.Here()?.Error("Indexed compound property value was not a list, returning null.");
+                            return null;
+                        }
+
+                        writer.Write((byte)indexedPropertyValues.Count);
+                        xur.Logger?.Here().Verbose("Wrote indexed property values count of {0:X8}.", indexedPropertyValues.Count);
+                        bytesWritten++;
+
+                        int indexCount = 0;
+                        foreach(object indexedPropertyValue in indexedPropertyValues)
+                        {
+                            xur.Logger?.Here().Verbose("Writing {0} indexed compound property index {1}.", property.PropertyDefinition.Name, indexCount);
+                            int? propertyBytesWritten = xur.TryWriteProperty(writer, property, indexedPropertyValue);
+                            if (propertyBytesWritten == null)
+                            {
+                                xur.Logger?.Here().Error("Property bytes written was null for indexed compound property {0} at index {1}, returning null.", property.PropertyDefinition.Name, indexCount);
+                                return null;
+                            }
+
+                            bytesWritten += propertyBytesWritten.Value;
+                            indexCount++;
+                        }
+                    }
+                    else
+                    {
+                        xur.Logger?.Here().Verbose("Compound property is not indexed.");
+                        int? propertyBytesWritten = xur.TryWriteProperty(writer, property, property.Value);
+                        if (propertyBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Property bytes written was null for compound property {0}, returning null.", property.PropertyDefinition.Name);
+                            return null;
+                        }
+
+                        bytesWritten += propertyBytesWritten.Value;
+                    }
+                }
+
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing object property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static int? TryWriteColourProperty(this XUR5 xur, BinaryWriter writer, XUPropertyDefinition propertyDefinition, object val)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Colour)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not colour, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not XUColour colourVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as colour had a non-colour value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                writer.Write(colourVal.A);
+                writer.Write(colourVal.R);
+                writer.Write(colourVal.G);
+                writer.Write(colourVal.B);
+                xur.Logger?.Here().Verbose("Written {0} colour property value of {1}.", propertyDefinition.Name, colourVal);
+                return 4;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing colour property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
                 return null;
             }
         }

@@ -519,7 +519,7 @@ namespace XUIHelper.Core
                     foreach (XUProperty property in classProperties[xuClass])
                     {
                         xur.Logger?.Here().Verbose("Writing {0} property.", property.PropertyDefinition.Name);
-                        int? propertyBytesWritten = xur.TryWriteProperty(writer, property);
+                        int? propertyBytesWritten = xur.TryWriteProperty(writer, property, property.Value);
                         if(propertyBytesWritten == null)
                         {
                             xur.Logger?.Here().Error("Property bytes written was null for property {0}, returning null.", property.PropertyDefinition.Name);
