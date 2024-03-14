@@ -592,5 +592,66 @@ namespace XUIHelper.Core
                 return null;
             }
         }
+
+        public static int? TryWriteNamedFrame(this XUR5 xur, BinaryWriter writer, XUNamedFrame namedFrame)
+        {
+            try
+            {
+                int bytesWritten = 0;
+
+                ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
+                {
+                    xur.Logger?.Here().Error("STRN section was null, returning null.");
+                    return null;
+                }
+
+                short nameIndex = (short)(strnSection.Strings.IndexOf(namedFrame.Name) + 1);
+                if (nameIndex == 0)
+                {
+                    xur.Logger?.Here().Error("Failed to get string index for named frame name {0}, returning null.", namedFrame.Name);
+                    return null;
+                }
+
+                writer.WriteInt16BE(nameIndex);
+                xur.Logger?.Here().Verbose("Written named frame name {0} as index {1}.", namedFrame.Name, nameIndex);
+                bytesWritten += 2;
+
+                writer.WriteInt32BE(namedFrame.Keyframe);
+                xur.Logger?.Here().Verbose("Written named frame keyframe {0}.", namedFrame.Keyframe);
+                bytesWritten += 4;
+
+                writer.Write((byte)namedFrame.CommandType);
+                xur.Logger?.Here().Verbose("Written named frame command type {0:X8}.", namedFrame.CommandType);
+                bytesWritten++;
+
+                if(string.IsNullOrEmpty(namedFrame.TargetParameter))
+                {
+                    writer.WriteInt16BE((short)0);
+                    xur.Logger?.Here().Verbose("Target parameter isn't set, written index 0.");
+                    bytesWritten += 2;
+                    return bytesWritten;
+                }
+                else
+                {
+                    short parameterIndex = (short)(strnSection.Strings.IndexOf(namedFrame.TargetParameter) + 1);
+                    if (parameterIndex == 0)
+                    {
+                        xur.Logger?.Here().Error("Failed to get string index for named frame parameter {0}, returning null.", namedFrame.TargetParameter);
+                        return null;
+                    }
+
+                    writer.WriteInt16BE(parameterIndex);
+                    xur.Logger?.Here().Verbose("Written named frame target parameter {0} as index {1}.", namedFrame.TargetParameter, parameterIndex);
+                    bytesWritten += 2;
+                    return bytesWritten;
+                }
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing named frame, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
     }
 }

@@ -81,7 +81,7 @@ namespace XUIHelper.Core
         {
             try
             {
-                if(builtStrings.Add(xuObject.ClassName))
+                if(!string.IsNullOrEmpty(xuObject.ClassName) && builtStrings.Add(xuObject.ClassName))
                 {
                     xur.Logger?.Here().Verbose("Added class name string {0}.", xuObject.ClassName);
                 }
@@ -103,7 +103,7 @@ namespace XUIHelper.Core
 
                 foreach (XUTimeline childTimeline in xuObject.Timelines)
                 {
-                    if(builtStrings.Add(childTimeline.ElementName))
+                    if(!string.IsNullOrEmpty(childTimeline.ElementName) && builtStrings.Add(childTimeline.ElementName))
                     {
                         xur.Logger?.Here().Verbose("Added timeline string {0}.", childTimeline.ElementName);
                     }
@@ -120,7 +120,7 @@ namespace XUIHelper.Core
                                     return false;
                                 }
 
-                                if (builtStrings.Add(valueString))
+                                if (!string.IsNullOrEmpty(valueString) && builtStrings.Add(valueString))
                                 {
                                     xur.Logger?.Here().Verbose("Added {0} animated property value string {1}.", animatedProperty.PropertyDefinition.Name, valueString);
                                 }
@@ -131,7 +131,7 @@ namespace XUIHelper.Core
 
                 foreach (XUNamedFrame childNamedFrame in xuObject.NamedFrames)
                 {
-                    if (builtStrings.Add(childNamedFrame.Name))
+                    if (!string.IsNullOrEmpty(childNamedFrame.Name) && builtStrings.Add(childNamedFrame.Name))
                     {
                         xur.Logger?.Here().Verbose("Added named frame string {0}.", childNamedFrame.Name);
                     }
@@ -160,7 +160,7 @@ namespace XUIHelper.Core
                             return false;
                         }
 
-                        if (builtStrings.Add(valueString))
+                        if (!string.IsNullOrEmpty(valueString) && builtStrings.Add(valueString))
                         {
                             xur.Logger?.Here().Verbose("Added {0} property value string {1}.", childProperty.PropertyDefinition.Name, valueString);
                         }

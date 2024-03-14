@@ -54,6 +54,9 @@ namespace XUIHelper.Tests
 
             IDATASection? data = ((IXUR)xur).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
             Assert.NotNull(data);
+
+            ISTRNSection? strn = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+            Assert.NotNull(strn);
         }
 
         [Test]

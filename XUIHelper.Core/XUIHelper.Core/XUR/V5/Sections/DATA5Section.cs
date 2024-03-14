@@ -394,8 +394,26 @@ namespace XUIHelper.Core
                     }
                 }
 
-                if(xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0) 
+                if (xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0)
                 {
+                    xur.Logger?.Here().Verbose("Writing timeline data.");
+
+                    xur.Logger?.Here().Verbose("Object has {0:X8} named frames.", xuObject.NamedFrames.Count);
+                    writer.WriteInt32BE(xuObject.NamedFrames.Count);
+
+                    for (int namedFrameIndex = 0; namedFrameIndex < xuObject.NamedFrames.Count; namedFrameIndex++)
+                    {
+                        xur.Logger?.Here().Verbose("Writing named frame index {0}.", namedFrameIndex);
+                        int? namedFrameBytesWritten = ((XUR5)xur).TryWriteNamedFrame(writer, xuObject.NamedFrames[namedFrameIndex]);
+                        if (namedFrameBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Named frame bytes written was null for named frame index {0}, an error must have occurred, returning null.", namedFrameIndex);
+                            return null;
+                        }
+
+                        bytesWritten += namedFrameBytesWritten.Value;
+                    }
+
                     throw new NotImplementedException();
                 }
 
