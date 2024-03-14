@@ -380,6 +380,7 @@ namespace XUIHelper.Core
                 {
                     xur.Logger?.Here().Verbose("Writing {0:X8} object children.", xuObject.Children.Count);
                     writer.WriteInt32BE(xuObject.Children.Count);
+                    bytesWritten += 4;
 
                     foreach(XUObject childObject in xuObject.Children)
                     {
@@ -400,6 +401,7 @@ namespace XUIHelper.Core
 
                     xur.Logger?.Here().Verbose("Object has {0:X8} named frames.", xuObject.NamedFrames.Count);
                     writer.WriteInt32BE(xuObject.NamedFrames.Count);
+                    bytesWritten += 4;
 
                     for (int namedFrameIndex = 0; namedFrameIndex < xuObject.NamedFrames.Count; namedFrameIndex++)
                     {
@@ -414,7 +416,28 @@ namespace XUIHelper.Core
                         bytesWritten += namedFrameBytesWritten.Value;
                     }
 
-                    throw new NotImplementedException();
+                    if (xuObject.Children.Count == 0)
+                    {
+                        xur.Logger?.Here().Verbose("The object had no children, no need to load timeline data.");
+                        return bytesWritten;
+                    }
+
+                    xur.Logger?.Here().Verbose("Object has {0:X8} timelines.", xuObject.Timelines.Count);
+                    writer.WriteInt32BE(xuObject.Timelines.Count);
+                    bytesWritten += 4;
+
+                    for (int timelineIndex = 0; timelineIndex < xuObject.Timelines.Count; timelineIndex++)
+                    {
+                        xur.Logger?.Here().Verbose("Writing timeline index {0}.", timelineIndex);
+                        int? timelineBytesWritten = ((XUR5)xur).TryWriteTimeline(writer, xuObject, xuObject.Timelines[timelineIndex]);
+                        if (timelineBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Timeline bytes written was null for timeline index {0}, an error must have occurred, returning null.", timelineIndex);
+                            return null;
+                        }
+
+                        bytesWritten += timelineBytesWritten.Value;
+                    }
                 }
 
                 return bytesWritten;
@@ -566,6 +589,7 @@ namespace XUIHelper.Core
                 case "XuiControl":
                     return 6;
 
+                case "XuiText":
                 case "XuiFigure":
                 case "XuiScene":
                 case "XuiImage":

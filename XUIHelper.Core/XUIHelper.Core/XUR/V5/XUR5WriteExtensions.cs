@@ -2,11 +2,7 @@
 using Serilog.Core;
 using System;
 using System.Collections;
-using System.Reflection.Metadata;
-using System.Reflection.Metadata.Ecma335;
-using System.Reflection.PortableExecutable;
 using XUIHelper.Core.Extensions;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace XUIHelper.Core
 {
@@ -189,22 +185,31 @@ namespace XUIHelper.Core
                 }
 
                 ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
-                if(strnSection == null)
+                if (strnSection == null)
                 {
                     xur.Logger?.Here().Error("STRN section was null, returning null.");
                     return null;
                 }
 
-                short stringIndex = (short)(strnSection.Strings.IndexOf(stringVal) + 1);
-                if(stringIndex == 0)
+                if (string.IsNullOrEmpty(stringVal))
                 {
-                    xur.Logger?.Here().Error("Failed to get string index for property {0} value {1}, returning null.", propertyDefinition.Name, stringVal);
-                    return null;
+                    writer.WriteInt16BE(0x0);
+                    xur.Logger?.Here().Verbose("Written {0} string property as index 0 as it was empty.", propertyDefinition.Name);
+                    return 2;
                 }
+                else
+                {
+                    short stringIndex = (short)(strnSection.Strings.IndexOf(stringVal) + 1);
+                    if (stringIndex == 0)
+                    {
+                        xur.Logger?.Here().Error("Failed to get string index for property {0} value {1}, returning null.", propertyDefinition.Name, stringVal);
+                        return null;
+                    }
 
-                writer.WriteInt16BE(stringIndex);
-                xur.Logger?.Here().Verbose("Written {0} string property value of {1} as index {2}.", propertyDefinition.Name, stringVal, stringIndex);
-                return 2;
+                    writer.WriteInt16BE(stringIndex);
+                    xur.Logger?.Here().Verbose("Written {0} string property value of {1} as index {2}.", propertyDefinition.Name, stringVal, stringIndex);
+                    return 2;
+                }
             }
             catch (Exception ex)
             {
@@ -223,7 +228,7 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                if(val is not float floatVal)
+                if (val is not float floatVal)
                 {
                     xur.Logger?.Here().Error("Property {0} marked as float had a non-float value of {1}, returning null.", propertyDefinition.Name, val);
                     return null;
@@ -347,9 +352,9 @@ namespace XUIHelper.Core
                 int bytesWritten = 0;
 
                 short objectPropertiesCount = 0;
-                foreach(XUProperty property in objectProperties)
+                foreach (XUProperty property in objectProperties)
                 {
-                    if(property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    if (property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
                     {
                         short indexedPropertiesCount = (short)(property.Value as IList).Count;
                         xur.Logger?.Here().Verbose("Property {0} is indexed, incrementing count by list count of {1}.", property.PropertyDefinition.Name, indexedPropertiesCount);
@@ -368,11 +373,11 @@ namespace XUIHelper.Core
 
                 int maxCompoundPropertyDepth = 0;
                 int compoundPropertyDefinitionIndex = 0;
-                foreach(XUPropertyDefinition compoundPropertyDefinition in compoundClass.PropertyDefinitions)
+                foreach (XUPropertyDefinition compoundPropertyDefinition in compoundClass.PropertyDefinitions)
                 {
                     foreach (XUProperty compoundProperty in objectProperties)
                     {
-                        if(compoundPropertyDefinition == compoundProperty.PropertyDefinition)
+                        if (compoundPropertyDefinition == compoundProperty.PropertyDefinition)
                         {
                             maxCompoundPropertyDepth = compoundPropertyDefinitionIndex + 1;
                             break;
@@ -426,7 +431,7 @@ namespace XUIHelper.Core
                     {
                         xur.Logger?.Here().Verbose("Compound property is indexed.");
                         List<object>? indexedPropertyValues = property.Value as List<object>;
-                        if(indexedPropertyValues == null) 
+                        if (indexedPropertyValues == null)
                         {
                             xur.Logger?.Here()?.Error("Indexed compound property value was not a list, returning null.");
                             return null;
@@ -437,7 +442,7 @@ namespace XUIHelper.Core
                         bytesWritten++;
 
                         int indexCount = 0;
-                        foreach(object indexedPropertyValue in indexedPropertyValues)
+                        foreach (object indexedPropertyValue in indexedPropertyValues)
                         {
                             xur.Logger?.Here().Verbose("Writing {0} indexed compound property index {1}.", property.PropertyDefinition.Name, indexCount);
                             int? propertyBytesWritten = xur.TryWriteProperty(writer, property, indexedPropertyValue);
@@ -528,9 +533,9 @@ namespace XUIHelper.Core
                 }
 
                 int custOffset = 0x00;
-                foreach(XUFigure figure in custSection.Figures)
+                foreach (XUFigure figure in custSection.Figures)
                 {
-                    if(figure == figureVal)
+                    if (figure == figureVal)
                     {
                         writer.WriteInt32BE(custOffset);
                         xur.Logger?.Here().Verbose("Written {0} custom property value of {1} as offset {2}.", propertyDefinition.Name, figureVal, custOffset);
@@ -625,7 +630,7 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Written named frame command type {0:X8}.", namedFrame.CommandType);
                 bytesWritten++;
 
-                if(string.IsNullOrEmpty(namedFrame.TargetParameter))
+                if (string.IsNullOrEmpty(namedFrame.TargetParameter))
                 {
                     writer.WriteInt16BE((short)0);
                     xur.Logger?.Here().Verbose("Target parameter isn't set, written index 0.");
@@ -650,6 +655,283 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when writing named frame, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
+
+        public static int? TryWriteTimeline(this XUR5 xur, BinaryWriter writer, XUObject parentObject, XUTimeline timeline)
+        {
+            try
+            {
+                int bytesWritten = 0;
+
+                ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
+                {
+                    xur.Logger?.Here().Error("STRN section was null, returning null.");
+                    return null;
+                }
+
+                short objectNameIndex = (short)(strnSection.Strings.IndexOf(timeline.ElementName) + 1);
+                if (objectNameIndex == 0)
+                {
+                    xur.Logger?.Here().Error("Failed to get string index for timeline object name {0}, returning null.", timeline.ElementName);
+                    return null;
+                }
+
+                writer.WriteInt16BE(objectNameIndex);
+                xur.Logger?.Here().Verbose("Written timeline object name {0} as index {1}.", timeline.ElementName, objectNameIndex);
+                bytesWritten += 2;
+
+                List<XUProperty> animatedProperties = timeline.Keyframes[0].Properties;
+                short animatedPropertiesCount = 0;
+                foreach (XUProperty property in animatedProperties)
+                {
+                    if (property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        short count = (short)(property.Value as IList).Count;
+                        xur.Logger?.Here().Verbose("Animated roperty {0} is indexed, incrementing count by list count of {1}.", property.PropertyDefinition.Name, count);
+                        animatedPropertiesCount += count;
+                    }
+                    else
+                    {
+                        xur.Logger?.Here().Verbose("Property {0} is not indexed, incrementing count by 1.", property.PropertyDefinition.Name);
+                        animatedPropertiesCount++;
+                    }
+                }
+
+                writer.WriteInt32BE(animatedPropertiesCount);
+                xur.Logger?.Here().Verbose("Timeline has {0:X8} animated properties.", animatedPropertiesCount);
+                bytesWritten += 4;
+
+                XUObject? elementObject = parentObject.TryFindChildById(timeline.ElementName);
+                if (elementObject == null)
+                {
+                    xur.Logger?.Here().Error("Failed to find object {0}, returning null.", timeline.ElementName);
+                    return null;
+                }
+
+                List<XUClass>? classList = xur.ExtensionsManager?.TryGetClassHierarchy(elementObject.ClassName);
+                if (classList == null)
+                {
+                    xur.Logger?.Here().Error(string.Format("Failed to get {0} class hierarchy, returning null.", elementObject.ClassName));
+                    return null;
+                }
+                classList.Reverse();
+
+                foreach (XUProperty animatedProperty in animatedProperties)
+                {
+                    int indexes = 1;
+                    if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        List<object>? indexedPropertyValues = animatedProperty.Value as List<object>;
+                        if (indexedPropertyValues == null)
+                        {
+                            xur.Logger?.Here()?.Error("Indexed property values for animated property {0} was not a list, returning null.", animatedProperty.PropertyDefinition.Name);
+                            return null;
+                        }
+
+                        indexes = indexedPropertyValues.Count;
+                    }
+
+                    for(int i = 0; i < indexes; i++)
+                    {
+                        byte packedByte = 0x00;
+                        byte classDepth = 0;
+                        if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFillGradient")
+                        {
+                            xur.Logger?.Here().Verbose("Property {0} was part of gradient, setting class depth to 3.", animatedProperty.PropertyDefinition.Name);
+                            classDepth = 0x03;
+                        }
+                        else if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFill" || animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureStroke")
+                        {
+                            xur.Logger?.Here().Verbose("Property {0} was part of fill or stroke, setting class depth to 2.", animatedProperty.PropertyDefinition.Name);
+                            classDepth = 0x02;
+                        }
+                        else
+                        {
+                            xur.Logger?.Here().Verbose("Property {0} was part of {1}, setting class depth to 1.", animatedProperty.PropertyDefinition.Name, animatedProperty.PropertyDefinition.ParentClassName);
+                            classDepth = 0x01;
+                        }
+
+                        packedByte = classDepth;
+                        if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                        {
+                            xur.Logger?.Here().Verbose("Property {0} is indexed, setting upper bit.", animatedProperty.PropertyDefinition.Name);
+                            packedByte |= 1 << 7;
+                        }
+
+                        xur.Logger?.Here().Verbose("Writing packed byte of {0:X8}.", packedByte);
+                        writer.Write(packedByte);
+                        bytesWritten++;
+
+                        XUClass? foundClass = null;
+                        if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFill")
+                        {
+                            writer.Write((byte)0x00);
+                            writer.Write((byte)0x01);
+                            bytesWritten += 2;
+                            foundClass = xur.ExtensionsManager?.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
+                        }
+                        else if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureStroke")
+                        {
+                            writer.Write((byte)0x00);
+                            writer.Write((byte)0x01);
+                            bytesWritten += 2;
+                            foundClass = xur.ExtensionsManager?.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
+                        }
+                        else if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFillGradient")
+                        {
+                            writer.Write((byte)0x00);
+                            writer.Write((byte)0x01);
+                            writer.Write((byte)0x03);
+                            bytesWritten += 3;
+                            foundClass = xur.ExtensionsManager?.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
+                        }
+                        else
+                        {
+                            int? foundClassIndex = null;
+                            int classIndex = 0;
+                            foreach (XUClass xuClass in classList)
+                            {
+                                if (xuClass.Name == animatedProperty.PropertyDefinition.ParentClassName)
+                                {
+                                    foundClass = xuClass;
+                                    foundClassIndex = classIndex;
+                                    break;
+                                }
+
+                                classIndex++;
+                            }
+
+                            if (foundClassIndex == null)
+                            {
+                                xur.Logger?.Here().Error(string.Format("Failed to get class index for {0}, returning null.", animatedProperty.PropertyDefinition.ParentClassName));
+                                return null;
+                            }
+
+                            xur.Logger?.Here().Verbose("Writing class index of {0:X8}.", foundClassIndex);
+                            writer.Write((byte)foundClassIndex);
+                            bytesWritten++;
+                        }
+
+                        if (foundClass == null)
+                        {
+                            xur.Logger?.Here().Error(string.Format("Failed to get class for {0}, returning null.", animatedProperty.PropertyDefinition.ParentClassName));
+                            return null;
+                        }
+
+                        int? foundPropertyDefinitionIndex = null;
+                        int propertyDefinitionIndex = 0;
+                        foreach (XUPropertyDefinition propertyDefinition in foundClass.PropertyDefinitions)
+                        {
+                            if (propertyDefinition == animatedProperty.PropertyDefinition)
+                            {
+                                foundPropertyDefinitionIndex = propertyDefinitionIndex;
+                                break;
+                            }
+
+                            propertyDefinitionIndex++;
+                        }
+
+                        if (foundPropertyDefinitionIndex == null)
+                        {
+                            xur.Logger?.Here().Error(string.Format("Failed to get property definition index for {0}, returning null.", animatedProperty.PropertyDefinition.Name));
+                            return null;
+                        }
+
+                        xur.Logger?.Here().Verbose("Writing property definition index of {0:X8}.", foundPropertyDefinitionIndex);
+                        writer.Write((byte)foundPropertyDefinitionIndex);
+                        bytesWritten++;
+
+                        if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                        {
+                            xur.Logger?.Here().Verbose("Property {0} is indexed, writing index count of {0:X8}", i);
+                            writer.WriteInt32BE(i);
+                            bytesWritten += 4;
+                        }
+                    }
+                }
+
+                writer.WriteInt32BE(timeline.Keyframes.Count);
+                xur.Logger?.Here().Verbose("Timeline has {0:X8} keyframes.", timeline.Keyframes.Count);
+                bytesWritten += 4;
+
+                int keyframeIndex = 0;
+                foreach (XUKeyframe keyframe in timeline.Keyframes)
+                {
+                    xur.Logger?.Here().Verbose("Writing keyframe index {0}.", keyframeIndex);
+
+                    writer.WriteInt32BE(keyframe.Keyframe);
+                    bytesWritten += 4;
+                    xur.Logger?.Here().Verbose("Wrote keyframe {0}.", keyframe.Keyframe);
+
+                    writer.Write((byte)keyframe.InterpolationType);
+                    bytesWritten++;
+                    xur.Logger?.Here().Verbose("Wrote interpolation type {0}.", keyframe.InterpolationType);
+
+                    writer.Write((byte)keyframe.EaseIn);
+                    bytesWritten++;
+                    xur.Logger?.Here().Verbose("Wrote ease in of {0}.", keyframe.EaseIn);
+
+                    writer.Write((byte)keyframe.EaseOut);
+                    bytesWritten++;
+                    xur.Logger?.Here().Verbose("Wrote ease out of {0}.", keyframe.EaseOut);
+
+                    writer.Write((byte)keyframe.EaseScale);
+                    bytesWritten++;
+                    xur.Logger?.Here().Verbose("Wrote ease scale of {0}.", keyframe.EaseScale);
+
+                    foreach (XUProperty animatedProperty in keyframe.Properties)
+                    {
+                        xur.Logger?.Here().Verbose("Writing {0} animated property.", animatedProperty.PropertyDefinition.Name);
+                        if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                        {
+                            xur.Logger?.Here().Verbose("Animated property is indexed.");
+                            List<object>? indexedPropertyValues = animatedProperty.Value as List<object>;
+                            if (indexedPropertyValues == null)
+                            {
+                                xur.Logger?.Here()?.Error("Indexed animated property value was not a list, returning null.");
+                                return null;
+                            }
+
+                            int indexCount = 0;
+                            foreach (object indexedPropertyValue in indexedPropertyValues)
+                            {
+                                xur.Logger?.Here().Verbose("Writing {0} indexed animated property index {1}.", animatedProperty.PropertyDefinition.Name, indexCount);
+                                int? propertyBytesWritten = xur.TryWriteProperty(writer, animatedProperty, indexedPropertyValue);
+                                if (propertyBytesWritten == null)
+                                {
+                                    xur.Logger?.Here().Error("Property bytes written was null for indexed animated property {0} at index {1}, returning null.", animatedProperty.PropertyDefinition.Name, indexCount);
+                                    return null;
+                                }
+
+                                bytesWritten += propertyBytesWritten.Value;
+                                indexCount++;
+                            }
+                        }
+                        else
+                        {
+                            xur.Logger?.Here().Verbose("Animated property is not indexed.");
+                            int? propertyBytesWritten = xur.TryWriteProperty(writer, animatedProperty, animatedProperty.Value);
+                            if (propertyBytesWritten == null)
+                            {
+                                xur.Logger?.Here().Error("Property bytes written was null for animated property {0}, returning null.", animatedProperty.PropertyDefinition.Name);
+                                return null;
+                            }
+
+                            bytesWritten += propertyBytesWritten.Value;
+                        }
+                    }
+
+                    keyframeIndex++;
+                }
+
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing timeline, returning null. The exception is: {0}", ex);
                 return null;
             }
         }
