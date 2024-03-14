@@ -49,7 +49,11 @@ namespace XUIHelper.Tests
 
             RegisterExtensions(log);
 
-            Assert.True(await CheckReadSuccessful(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199GamerCard.xur", log));
+            XUR5? xur = await GetReadXUR(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199Gamercard.xur", log);
+            Assert.NotNull(xur);
+
+            IDATASection? data = ((IXUR)xur).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
+            Assert.NotNull(data);
         }
 
         [Test]

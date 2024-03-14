@@ -394,6 +394,11 @@ namespace XUIHelper.Core
                     }
                 }
 
+                if(xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0) 
+                {
+                    throw new NotImplementedException();
+                }
+
                 return bytesWritten;
             }
             catch (Exception ex)
@@ -454,12 +459,10 @@ namespace XUIHelper.Core
                     }
                 }
 
-                int totalPropertyDepth = 0;
                 foreach(XUClass xuClass in classList)
                 {
                     xur.Logger?.Here().Verbose("Handling class {0}.", xuClass.Name);
 
-                    totalPropertyDepth += (int)(Math.Ceiling(xuClass.PropertyDefinitions.Count / 8.0f));
                     if (!classProperties.ContainsKey(xuClass) || classProperties[xuClass].Count == 0)
                     {
                         xur.Logger?.Here().Verbose("Class doesn't have any properties set, writing 0 for hierarchical properties count.");
@@ -474,12 +477,7 @@ namespace XUIHelper.Core
                         compoundPropertiesCount += xuProperty.GetCompoundPropertiesCount();
                     }
 
-                    //TODO: This COULD be wrong, we might want to do
-                    //int hierarchicalPropertiesCount = (classProperties[xuClass].Count * 8) - totalPropertyDepth - compoundPropertiesDepth;
-                    //If the hierarchical properties count causes problems in the future, 
-                    totalPropertyDepth += compoundPropertiesCount;  
-
-                    int hierarchicalPropertiesCount = (classProperties[xuClass].Count * 8) - totalPropertyDepth;
+                    int hierarchicalPropertiesCount = (classProperties[xuClass].Count * 8) - DebugGetUnknownForClassName(xuClass.Name);
                     xur.Logger?.Here().Verbose("Writing hierarchical properties count of {0:X8} for class {1}.", hierarchicalPropertiesCount, xuClass.Name);
                     writer.Write((byte)hierarchicalPropertiesCount);
                     bytesWritten++;
@@ -536,6 +534,27 @@ namespace XUIHelper.Core
             {
                 xur.Logger?.Here().Error("Caught an exception when writing object properties, returning null. The exception is: {0}", ex);
                 return null;
+            }
+        }
+
+        private int DebugGetUnknownForClassName(string className)
+        {
+            switch(className)
+            {
+                case "XuiCanvas":
+                case "XuiElement":
+                    return 4;
+
+                case "XuiControl":
+                    return 6;
+
+                case "XuiFigure":
+                case "XuiScene":
+                case "XuiImage":
+                    return 7;
+
+                default:
+                    throw new NotImplementedException();
             }
         }
 

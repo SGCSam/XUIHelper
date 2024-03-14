@@ -61,7 +61,8 @@ namespace XUIHelper.Core
                     }
                     case XUPropertyDefinitionTypes.Custom:
                     {
-                        throw new NotImplementedException();
+                        bytesWritten = TryWriteCustomProperty(xur, writer, property.PropertyDefinition, val);
+                        break;
                     }
                     case XUPropertyDefinitionTypes.Quaternion:
                     {
@@ -327,7 +328,7 @@ namespace XUIHelper.Core
                     {
                         xur.Logger?.Here()?.Verbose("Writing stroke object.");
                         compoundClass = ext.TryGetClassByName("XuiFigureStroke");
-                        parentClassPropertyDepth = 5;   //4 for XuiElement, 1 for XuiFigure
+                        parentClassPropertyDepth = 6;   //4 for XuiElement, 1 for XuiFigure
                         break;
                     }
                     default:
@@ -499,6 +500,54 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when writing colour property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
+        public static int? TryWriteCustomProperty(this XUR5 xur, BinaryWriter writer, XUPropertyDefinition propertyDefinition, object val)
+        {
+            try
+            {
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Custom)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not custom, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not XUFigure figureVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as custom had a non-custom value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                ICUSTSection? custSection = ((IXUR)xur).TryFindXURSectionByMagic<ICUSTSection>(ICUSTSection.ExpectedMagic);
+                if (custSection == null)
+                {
+                    xur.Logger?.Here().Error("CUST section was null, returning null.");
+                    return null;
+                }
+
+                int custOffset = 0x00;
+                foreach(XUFigure figure in custSection.Figures)
+                {
+                    if(figure == figureVal)
+                    {
+                        writer.WriteInt32BE(custOffset);
+                        xur.Logger?.Here().Verbose("Written {0} custom property value of {1} as offset {2}.", propertyDefinition.Name, figureVal, custOffset);
+                        return 4;
+                    }
+                    else
+                    {
+                        custOffset += (0x10 + (figure.Points.Count * 0x18));
+                    }
+                }
+
+                xur.Logger?.Here().Error("Failed to find figure offset for writing custom property {0} with value {1}, returning null.", propertyDefinition.Name, figureVal);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing custom property {0}, returning null. The exception is: {1}", propertyDefinition.Name, ex);
                 return null;
             }
         }
