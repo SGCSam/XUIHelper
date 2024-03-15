@@ -9,5 +9,7 @@ namespace XUIHelper.Core
     public interface IXURSectionsTable : IXURReadable
     {
         List<XURSectionTableEntry> Entries { get; }
+
+        Task<int?> TryWriteAsync(IXUR xur, BinaryWriter writer, List<XURSectionTableEntry> entries);
     }
 }

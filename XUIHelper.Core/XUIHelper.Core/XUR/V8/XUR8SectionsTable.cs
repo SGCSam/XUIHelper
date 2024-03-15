@@ -48,5 +48,10 @@ namespace XUIHelper.Core
                 return false;
             }
         }
+
+        public Task<int?> TryWriteAsync(IXUR xur, BinaryWriter writer, List<XURSectionTableEntry> entries)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

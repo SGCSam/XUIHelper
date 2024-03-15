@@ -66,5 +66,25 @@ namespace XUIHelper.Core
                 return false;
             }
         }
+
+        public async Task<int?> TryWriteAsync(IXUR xur, BinaryWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public XUR8Header()
+        {
+
+        }
+
+        public XUR8Header(int flags, int fileSize, short sectionsCount)
+        {
+            Magic = IXURHeader.ExpectedMagic;
+            Version = 0x8;
+            Flags = flags;
+            ToolVersion = 0x0E;
+            FileSize = fileSize;
+            SectionsCount = sectionsCount;
+        }
     }
 }

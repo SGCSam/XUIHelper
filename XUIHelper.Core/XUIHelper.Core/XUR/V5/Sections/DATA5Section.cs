@@ -578,6 +578,7 @@ namespace XUIHelper.Core
             }
         }
 
+        //TODO: Figure out how this is supposed to work
         private int DebugGetUnknownForClassName(string className)
         {
             switch(className)

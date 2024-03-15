@@ -225,5 +225,10 @@ namespace XUIHelper.Core
                 return false;
             }
         }
+
+        public async Task<int?> TryWriteAsync(IXUR xur, BinaryWriter writer, XUObject rootObject)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

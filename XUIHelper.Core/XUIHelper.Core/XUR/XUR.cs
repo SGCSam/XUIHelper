@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XUIHelper.Core.Extensions;
+using static System.Collections.Specialized.BitVector32;
 
 namespace XUIHelper.Core
 {
@@ -20,7 +21,6 @@ namespace XUIHelper.Core
         public List<IXURSection> Sections { get; protected set; } = new List<IXURSection>();
 
         protected BinaryReader Reader { get; private set; }
-        protected BinaryWriter Writer { get; private set; }
 
         public XMLExtensionsManager? ExtensionsManager { get; private set; }
 
@@ -106,7 +106,7 @@ namespace XUIHelper.Core
 
                     Logger?.Here().Verbose("All sections read successfully!");
 
-                    if(CountHeader != null) 
+                    if (CountHeader != null)
                     {
                         Logger?.Here().Verbose("Verifying count header...");
                         if (!CountHeader.TryVerify(this))
@@ -122,7 +122,7 @@ namespace XUIHelper.Core
                     return true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger?.Here().Error("Caught an exception when trying to read XUR file at {0}, returning false. The exception is: {1}", FilePath, ex);
                 return false;
@@ -141,11 +141,11 @@ namespace XUIHelper.Core
                 }
 
                 int extensionVersion = -1;
-                if(this is XUR5)
+                if (this is XUR5)
                 {
                     extensionVersion = 0x5;
                 }
-                else if(this is XUR8)
+                else if (this is XUR8)
                 {
                     extensionVersion = 0x8;
                 }
@@ -164,7 +164,7 @@ namespace XUIHelper.Core
                 ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
 
                 List<IXURSection>? sections = await TryBuildSectionsFromObjectAsync(rootObject);
-                if(sections == null)
+                if (sections == null)
                 {
                     Logger?.Here().Error("Failed to build sections, returning false.");
                     return false;
@@ -175,28 +175,161 @@ namespace XUIHelper.Core
                 //TODO: Verify file path here!
                 Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
                 File.Delete(FilePath);
-                using (Writer = new BinaryWriter(File.OpenWrite(FilePath)))
+
+                int writtenFileSize = 0;
+                Dictionary<int, int> sectionsLengths = new Dictionary<int, int>();
+                string sectionsFilePath = Path.GetTempFileName();
+                Logger?.Here().Verbose("Writing sections to {0}", sectionsFilePath);
+                using (BinaryWriter sectionsWriter = new BinaryWriter(File.OpenWrite(sectionsFilePath)))
                 {
                     foreach (IXURSection section in Sections)
                     {
-                        if(section is not IDATASection)
+                        if (sectionsLengths.ContainsKey(section.Magic))
                         {
-                            continue;
+                            Logger?.Here().Error("Sections lengths already contained a duplicate magic of {0}, returning false.", section.Magic);
+                            return false;
                         }
 
-                        int? bytesWritten = await section.TryWriteAsync(this, rootObject, Writer);
+                        int? bytesWritten = await section.TryWriteAsync(this, rootObject, sectionsWriter);
                         if (bytesWritten == null)
                         {
                             Logger?.Here().Error("Failed to write section {0:X8}, returning false.", section.Magic);
                             return false;
                         }
+
+                        sectionsLengths[section.Magic] = bytesWritten.Value;
+                        writtenFileSize += bytesWritten.Value;
                     }
                 }
 
-                //TODO: Continue here. Add section write support, then write each section keeping track of the amount of data written and the offset
-                //Once they've been written, the DATA section can then be written
-                //Make sure to take into account the size of the header and, optionally the count header when it comes time to the final write
+                int countHeaderBytesWritten = 0;
+                string countHeaderFilePath = string.Empty;
+                if (ShouldWriteCountHeader(rootObject))
+                {
+                    Logger?.Here().Verbose("The count header should be written.");
 
+                    CountHeader = GetCountHeader();
+                    if (CountHeader == null)
+                    {
+                        Logger?.Here().Error("Count header was null, returning false.");
+                        return false;
+                    }
+
+                    countHeaderFilePath = Path.GetTempFileName();
+                    Logger?.Here().Verbose("Writing count header to {0}", countHeaderFilePath);
+                    using (BinaryWriter countHeaderWriter = new BinaryWriter(File.OpenWrite(countHeaderFilePath)))
+                    {
+                        int? bytesWritten = await CountHeader.TryWriteAsync(this, countHeaderWriter, rootObject);
+                        if (bytesWritten == null)
+                        {
+                            Logger?.Here().Error("Failed to write count header, returning false.");
+                            return false;
+                        }
+
+                        countHeaderBytesWritten = bytesWritten.Value;
+                        writtenFileSize += countHeaderBytesWritten;
+                    }
+                }
+                else
+                {
+                    Logger?.Here().Verbose("The count header should not be written.");
+                }
+
+                int expectedSectionTableBytesWritten = Sections.Count * 12;
+                int headerBytesWritten = 20;
+                writtenFileSize += expectedSectionTableBytesWritten;
+                writtenFileSize += headerBytesWritten;
+
+                List<XURSectionTableEntry> sectionTableEntries = new List<XURSectionTableEntry>();
+                int thisSectionOffset = headerBytesWritten + countHeaderBytesWritten + expectedSectionTableBytesWritten;
+                foreach (var sectionLength in sectionsLengths)
+                {
+                    XURSectionTableEntry sectionTableEntry = new XURSectionTableEntry(sectionLength.Key, thisSectionOffset, sectionLength.Value);
+                    sectionTableEntries.Add(sectionTableEntry);
+                    thisSectionOffset += sectionLength.Value;
+                    Logger?.Here().Verbose("Added section table entry: {0}", sectionTableEntry);
+                }
+
+                if (sectionTableEntries.Count != Sections.Count)
+                {
+                    Logger?.Here().Error("There was a mismatch between the sections and the table entries, returning false. Expected: {0}, Actual: {1}", Sections.Count, sectionTableEntries.Count);
+                    return false;
+                }
+
+                string sectionTableFilePath = Path.GetTempFileName();
+                Logger?.Here().Verbose("Writing sections table to {0}", sectionTableFilePath);
+                using (BinaryWriter sectionTableWriter = new BinaryWriter(File.OpenWrite(sectionTableFilePath)))
+                {
+                    int? actualSectionTableBytesWritten = await SectionsTable.TryWriteAsync(this, sectionTableWriter, sectionTableEntries);
+                    if (actualSectionTableBytesWritten == null)
+                    {
+                        Logger?.Here().Error("Section table bytes written was null, returning false.");
+                        return false;
+                    }
+
+                    if (expectedSectionTableBytesWritten != actualSectionTableBytesWritten)
+                    {
+                        Logger?.Here().Error("There was a mismatch between the section table bytes written, returning false. Expected: {0}, Actual: {1}", expectedSectionTableBytesWritten, actualSectionTableBytesWritten);
+                        return false;
+                    }
+                }
+
+                if(this is XUR5)
+                {
+                    Header = new XUR5Header(string.IsNullOrEmpty(countHeaderFilePath) ? 0x0 : 0x1, writtenFileSize, (short)Sections.Count);
+                }
+                else if(this is XUR8)
+                {
+                    Header = new XUR8Header(string.IsNullOrEmpty(countHeaderFilePath) ? 0x0 : 0x1, writtenFileSize, (short)Sections.Count);
+                }
+                else
+                {
+                    Logger?.Here().Error("Unhandled XUR for writing header, returning false.");
+                    return false;
+                }
+
+                Logger?.Here().Verbose("Writing XUR to {0}", FilePath);
+                using (BinaryWriter xurWriter = new BinaryWriter(File.OpenWrite(FilePath)))
+                {
+                    Logger?.Here().Verbose("Writing header.");
+                    if (await Header.TryWriteAsync(this, xurWriter) == null)
+                    {
+                        Logger?.Here().Error("Failed to write header, returning false.");
+                        return false;
+                    }
+
+                    if(!string.IsNullOrEmpty(countHeaderFilePath))
+                    {
+                        Logger?.Here().Verbose("Copying count header from {0}", countHeaderFilePath);
+                        using (BinaryReader countHeaderReader = new BinaryReader(File.OpenRead(countHeaderFilePath)))
+                        {
+                            await countHeaderReader.BaseStream.CopyToAsync(xurWriter.BaseStream);
+                        }
+                        File.Delete(countHeaderFilePath);
+                    }
+
+                    Logger?.Here().Verbose("Copying sections table from {0}", sectionTableFilePath);
+                    using (BinaryReader sectionTableReader = new BinaryReader(File.OpenRead(sectionTableFilePath)))
+                    {
+                        await sectionTableReader.BaseStream.CopyToAsync(xurWriter.BaseStream);
+                    }
+                    File.Delete(sectionTableFilePath);
+
+                    Logger?.Here().Verbose("Copying sections from {0}", sectionsFilePath);
+                    using (BinaryReader sectionsReader = new BinaryReader(File.OpenRead(sectionsFilePath)))
+                    {
+                        await sectionsReader.BaseStream.CopyToAsync(xurWriter.BaseStream);
+                    }
+                    File.Delete(sectionsFilePath);
+
+                    if(xurWriter.BaseStream.Length != writtenFileSize)
+                    {
+                        Logger?.Here().Error("Mismatch of written length, returning false. Expected: {0}, Actual: {1}", writtenFileSize, xurWriter.BaseStream.Length);
+                        return false;
+                    }
+                }
+
+                Logger?.Here().Information("Wrote XUR file to {0} successfully!", FilePath);
                 return true;
             }
             catch (Exception ex)

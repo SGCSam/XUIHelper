@@ -18,7 +18,6 @@ namespace XUIHelper.Core
             try
             {
                 xur.Logger = xur.Logger?.ForContext(typeof(XUR5SectionsTable));
-
                 xur.Logger?.Here().Verbose("Reading XUR5 sections table.");
 
                 if(xur.Header is not XUR5Header xur5Header)
@@ -46,6 +45,39 @@ namespace XUIHelper.Core
             {
                 xur.Logger?.Here().Error("Caught an exception when reading XUR5 sections table, returning false. The exception is: {0}", ex);
                 return false;
+            }
+        }
+
+        public async Task<int?> TryWriteAsync(IXUR xur, BinaryWriter writer, List<XURSectionTableEntry> entries)
+        {
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(XUR5SectionsTable));
+                xur.Logger?.Here().Verbose("Writing XUR5 sections table.");
+
+                Entries = entries;
+                int bytesWritten = 0;
+
+                int entryIndex = 0;
+                foreach (XURSectionTableEntry entry in Entries)
+                {
+                    int? entryBytesWritten = await entry.TryWriteAsync(xur, writer);
+                    if (entryBytesWritten == null)
+                    {
+                        xur.Logger?.Here().Error("Failed to write entry index {0}, returning null.", entryIndex);
+                        return null;
+                    }
+
+                    bytesWritten += entryBytesWritten.Value;
+                    entryIndex++;
+                }
+
+                return bytesWritten;
+            }
+            catch(Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing XUR5 sections table, returning null. The exception is: {0}", ex);
+                return null;
             }
         }
     }

@@ -187,5 +187,80 @@ namespace XUIHelper.Core
                 return false;
             }
         }
+
+        public async Task<int?> TryWriteAsync(IXUR xur, BinaryWriter writer, XUObject rootObject)
+        {
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(XUR5CountHeader));
+                xur.Logger?.Here().Verbose("Writing XUR5 count header.");
+
+                int bytesWritten = 0;
+
+                int objCount = rootObject.GetTotalObjectsCount();
+                xur.Logger?.Here().Verbose("Writing total objects count of {0:X8}.", objCount);
+                writer.WriteInt32BE(objCount);
+                bytesWritten += 4;
+
+                int totalPropertiesCount = rootObject.GetTotalPropertiesCount();
+                xur.Logger?.Here().Verbose("Writing total properties count of {0:X8}.", totalPropertiesCount);
+                writer.WriteInt32BE(totalPropertiesCount);
+                bytesWritten += 4;
+
+                int propArrayCount = rootObject.GetPropertiesArrayCount();
+                xur.Logger?.Here().Verbose("Writing properties array count of {0:X8}.", propArrayCount);
+                writer.WriteInt32BE(propArrayCount);
+                bytesWritten += 4;
+
+                int keyframePropertiesCount = rootObject.GetTotalKeyframePropertiesCount();
+                xur.Logger?.Here().Verbose("Writing keyframe properties count of {0:X8}.", keyframePropertiesCount);
+                writer.WriteInt32BE(keyframePropertiesCount);
+                bytesWritten += 4;
+
+                int? totalKeyframePropertiesClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth(0x5);
+                if(totalKeyframePropertiesClassDepth == null)
+                {
+                    xur.Logger?.Here().Error("Failed to get total keyframe property definitions class depth, returning null.");
+                    return null;
+                }
+
+                xur.Logger?.Here().Verbose("Writing total keyframe properties class depth of {0:X8}.", totalKeyframePropertiesClassDepth);
+                writer.WriteInt32BE(totalKeyframePropertiesClassDepth.Value);
+                bytesWritten += 4;
+
+                int keyframePropertyDefinitionsCount = rootObject.GetKeyframePropertyDefinitionsCount();
+                xur.Logger?.Here().Verbose("Writing keyframe property definitions count of {0:X8}.", keyframePropertyDefinitionsCount);
+                writer.WriteInt32BE(keyframePropertyDefinitionsCount);
+                bytesWritten += 4;
+
+                int keyframesCount = rootObject.GetKeyframesCount();
+                xur.Logger?.Here().Verbose("Writing keyframes count of {0:X8}.", keyframesCount);
+                writer.WriteInt32BE(keyframesCount);
+                bytesWritten += 4;
+
+                int timelinesCount = rootObject.GetTimelinesCount();
+                xur.Logger?.Here().Verbose("Writing timelines count of {0:X8}.", timelinesCount);
+                writer.WriteInt32BE(timelinesCount);
+                bytesWritten += 4;
+
+                int namedFramesCount = rootObject.GetNamedFramesCount();
+                xur.Logger?.Here().Verbose("Writing named frames count of {0:X8}.", namedFramesCount);
+                writer.WriteInt32BE(namedFramesCount);
+                bytesWritten += 4;
+
+                int objWithChildrenCount = rootObject.GetObjectsWithChildrenCount();
+                xur.Logger?.Here().Verbose("Writing objects with children count of {0:X8}.", objWithChildrenCount);
+                writer.WriteInt32BE(objWithChildrenCount);
+                bytesWritten += 4;
+
+                xur.Logger?.Here().Verbose("Wrote XUR5 count header with a total of {0:X8} bytes successfully!", bytesWritten);
+                return bytesWritten;
+            }
+            catch(Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing XUR5 count header, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
     }
 }
