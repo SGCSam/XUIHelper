@@ -21,4 +21,8 @@
     <ProjectReference Include="..\XUIHelper.Core\XUIHelper.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Test Data\XUR\9199\" />
+  </ItemGroup>
+
 </Project>
