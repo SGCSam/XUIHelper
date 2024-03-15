@@ -506,25 +506,17 @@ namespace XUIHelper.Core
 
                     if (!classProperties.ContainsKey(xuClass) || classProperties[xuClass].Count == 0)
                     {
-                        xur.Logger?.Here().Verbose("Class doesn't have any properties set, writing 0 for hierarchical properties count.");
+                        xur.Logger?.Here().Verbose("Class doesn't have any properties set, writing 0 for packed byte.");
                         writer.Write((byte)0x00);
                         bytesWritten++;
                         continue;
                     }
 
-                    int compoundPropertiesCount = 0;
-                    foreach (XUProperty xuProperty in classProperties[xuClass])
-                    {
-                        compoundPropertiesCount += xuProperty.GetCompoundPropertiesCount();
-                    }
-
-                    int hierarchicalPropertiesCount = (classProperties[xuClass].Count * 8) - DebugGetUnknownForClassName(xuClass.Name);
-                    xur.Logger?.Here().Verbose("Writing hierarchical properties count of {0:X8} for class {1}.", hierarchicalPropertiesCount, xuClass.Name);
-                    writer.Write((byte)hierarchicalPropertiesCount);
-                    bytesWritten++;
-
                     int propertyMasksCount = Math.Max((int)Math.Ceiling(xuClass.PropertyDefinitions.Count / 8.0f), 1);
                     xur.Logger?.Here().Verbose("Class has {0:X8} property definitions, will have {1:X8} mask(s).", xuClass.PropertyDefinitions.Count, propertyMasksCount);
+
+                    byte packedByte = 0x0;
+                    packedByte |= (byte)propertyMasksCount;
 
                     byte[] propertyMasks = new byte[propertyMasksCount];
                     for(int i = 0; i < propertyMasksCount; i++)
@@ -550,6 +542,11 @@ namespace XUIHelper.Core
                         xur.Logger?.Here().Verbose("Got a property mask of {0:X8} for mask index {1}.", thisPropertyMask, i);
                         propertyMasks[i] = thisPropertyMask;
                     }
+                    packedByte |= (byte)(classProperties[xuClass].Count - 1 << 3);
+
+                    xur.Logger?.Here().Verbose("Writing packed byte of {0:X8} for class {1}.", packedByte, xuClass.Name);
+                    writer.Write((byte)packedByte);
+                    bytesWritten++;
 
                     Array.Reverse(propertyMasks);
                     writer.Write(propertyMasks);
@@ -575,29 +572,6 @@ namespace XUIHelper.Core
             {
                 xur.Logger?.Here().Error("Caught an exception when writing object properties, returning null. The exception is: {0}", ex);
                 return null;
-            }
-        }
-
-        //TODO: Figure out how this is supposed to work
-        private int DebugGetUnknownForClassName(string className)
-        {
-            switch(className)
-            {
-                case "XuiCanvas":
-                case "XuiElement":
-                    return 4;
-
-                case "XuiControl":
-                    return 6;
-
-                case "XuiText":
-                case "XuiFigure":
-                case "XuiScene":
-                case "XuiImage":
-                    return 7;
-
-                default:
-                    throw new NotImplementedException();
             }
         }
 

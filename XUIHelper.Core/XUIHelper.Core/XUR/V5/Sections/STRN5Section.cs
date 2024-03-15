@@ -107,10 +107,26 @@ namespace XUIHelper.Core
                     {
                         xur.Logger?.Here().Verbose("Added timeline string {0}.", childTimeline.ElementName);
                     }
+                }
 
-                    foreach(XUKeyframe childKeyframe in childTimeline.Keyframes)
+                foreach (XUNamedFrame childNamedFrame in xuObject.NamedFrames)
+                {
+                    if (!string.IsNullOrEmpty(childNamedFrame.Name) && builtStrings.Add(childNamedFrame.Name))
                     {
-                        foreach(XUProperty animatedProperty in childKeyframe.Properties)
+                        xur.Logger?.Here().Verbose("Added named frame string {0}.", childNamedFrame.Name);
+                    }
+
+                    if (!string.IsNullOrEmpty(childNamedFrame.TargetParameter) && builtStrings.Add(childNamedFrame.TargetParameter))
+                    {
+                        xur.Logger?.Here().Verbose("Added named frame target parameter {0}.", childNamedFrame.TargetParameter);
+                    }
+                }
+
+                foreach (XUTimeline childTimeline in xuObject.Timelines)
+                {
+                    foreach (XUKeyframe childKeyframe in childTimeline.Keyframes)
+                    {
+                        foreach (XUProperty animatedProperty in childKeyframe.Properties)
                         {
                             if (animatedProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.String)
                             {
@@ -126,14 +142,6 @@ namespace XUIHelper.Core
                                 }
                             }
                         }
-                    }
-                }
-
-                foreach (XUNamedFrame childNamedFrame in xuObject.NamedFrames)
-                {
-                    if (!string.IsNullOrEmpty(childNamedFrame.Name) && builtStrings.Add(childNamedFrame.Name))
-                    {
-                        xur.Logger?.Here().Verbose("Added named frame string {0}.", childNamedFrame.Name);
                     }
                 }
 
