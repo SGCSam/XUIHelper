@@ -203,16 +203,16 @@ namespace XUIHelper.Core
                 {
                     xur.Logger?.Here().Verbose("Reading property data for hierarchy class {0}.", xuClass.Name);
 
-                    byte hierarchicalPropertiesCount = reader.ReadByte();
-                    xur.Logger?.Here().Verbose("Class {0} has a hierarchical properties count of {1:X8}.", className, hierarchicalPropertiesCount);
-                    if(hierarchicalPropertiesCount == 0x00)
+                    byte packedByte = reader.ReadByte();
+                    xur.Logger?.Here().Verbose("Class {0} has a packed byte of {1:X8}.", className, packedByte);
+                    if(packedByte == 0x00)
                     {
-                        xur.Logger?.Here().Verbose("No hierarchical properties, continuing to next class...");
+                        xur.Logger?.Here().Verbose("Packed byte continuing to next class...");
                         continue;
                     }
 
-                    int propertyMasksCount = Math.Max((int)Math.Ceiling(xuClass.PropertyDefinitions.Count / 8.0f), 1);
-                    xur.Logger?.Here().Verbose("Class has {0:X8} property definitions, will have {1:X8} mask(s).", xuClass.PropertyDefinitions.Count, propertyMasksCount);
+                    int propertyMasksCount = (packedByte & 0x7);
+                    xur.Logger?.Here().Verbose("Class has {0} property masks.", propertyMasksCount);
 
                     byte[] propertyMasks = new byte[propertyMasksCount];
                     for (int i = 0; i < propertyMasksCount; i++)

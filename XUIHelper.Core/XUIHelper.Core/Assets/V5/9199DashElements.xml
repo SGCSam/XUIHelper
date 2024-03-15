@@ -22,6 +22,11 @@
       <DefaultVal></DefaultVal>
     </PropDef>
   </XUIClass>
+  
+  <!--<XUIClass Name="LiveData" BaseClassName="XuiElement" DefaultWidth="1280" DefaultHeight="720" Description="Live Data" />
+  <XUIClass Name="MediaData" BaseClassName="XuiControl" DefaultWidth="1280" DefaultHeight="720" Description="Media Data">
+	<PropDef Name="UnkString" Type="string" />
+  </XUIClass>-->
 
   <XUIClass Name="AuraControl" BaseClassName="XuiElement" DefaultWidth="64" DefaultHeight="64" Description="Aura Control">
     <PropDef Name="ThemeImageIndex" Type="unsigned">
@@ -50,6 +55,8 @@
   
   <XUIClass Name="MobyRootScene" BaseClassName="XuiPerspectiveScene" DefaultWidth="1280"  DefaultHeight="720" Description="Moby Root Scene" />
   <XUIClass Name="RomeRootScene" BaseClassName="XuiPerspectiveScene" DefaultWidth="1280" DefaultHeight="720" Description="Rome Root Scene" />
+  <XUIClass Name="MPSlotScene" BaseClassName="ScriptScene" DefaultWidth="1280" DefaultHeight="720" Description="MP Slot Scene" />
+  <XUIClass Name="MediaImageHttp" BaseClassName="XuiImage" DefaultWidth="1280" DefaultHeight="720" Description="Media Image Http" />
 
   <XUIClass
       Name="XuiAvatar"
@@ -133,5 +140,15 @@
         Flags="noanim">
       <DefaultVal>true</DefaultVal>
     </PropDef>
+  </XUIClass>
+  
+  <XUIClass
+      Name="XuiGamerCard"
+      BaseClassName="XuiControl"
+      DefaultWidth="256"
+      DefaultHeight="256"
+      Description="XuiGamerCard">
+	<PropDef Name="PlaceHolder" Type="string" />
+    <PropDef Name="BoolOne" Type="bool" />
   </XUIClass>
 </XUIClassExtension>
