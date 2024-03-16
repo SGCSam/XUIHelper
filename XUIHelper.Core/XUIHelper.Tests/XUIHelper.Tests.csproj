@@ -10,6 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Test Data\XUI\9199\AuraScene.xui" />
+    <None Remove="Test Data\XUI\9199\community.xui" />
+    <None Remove="Test Data\XUI\9199\Controller_Full.xui" />
+    <None Remove="Test Data\XUI\9199\dashSysCslSetBackgroundDownloads.xui" />
+    <None Remove="Test Data\XUI\9199\EditorSkin.xui" />
+    <None Remove="Test Data\XUI\9199\GamerCard.xui" />
+    <None Remove="Test Data\XUI\9199\GuideMain.xui" />
+    <None Remove="Test Data\XUI\9199\RomeRootScene.xui" />
     <None Remove="Test Data\XUR\9199\1003_IndividualDevice.xur" />
     <None Remove="Test Data\XUR\9199\1003_MediaContainerList.xur" />
     <None Remove="Test Data\XUR\9199\1003_SongList.xur" />
@@ -614,6 +622,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Test Data\XUI\9199\AuraScene.xui">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUI\9199\community.xui">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUI\9199\Controller_Full.xui">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUI\9199\dashSysCslSetBackgroundDownloads.xui">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUI\9199\EditorSkin.xui">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUI\9199\GamerCard.xui">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUI\9199\GuideMain.xui">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUI\9199\RomeRootScene.xui">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\9199\1003_IndividualDevice.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

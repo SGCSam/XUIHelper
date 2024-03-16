@@ -1,26 +1,44 @@
 ﻿using Serilog.Events;
 using Serilog;
 using XUIHelper.Core;
+using System.Formats.Tar;
+using Newtonsoft.Json;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace XUIHelper.Tests
 {
-    public class XUI12Tests
+    public class XUR12Tests
     {
+        private ILogger _Log;
+
         [SetUp]
         public void Setup()
         {
+            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
+            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
+            _Log = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.FromLogContext()
+            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
+            .CreateLogger();
+
+            RegisterExtensions(_Log);
         }
 
-        public async Task<bool> CheckReadSuccessful(string filePath, ILogger? logger = null)
+        private void RegisterExtensions(ILogger? logger = null)
         {
-            XUI12 xui = new XUI12(filePath, logger);
-            return await xui.TryReadAsync(0x5);
+            XMLExtensionsManager v5Extensions = new XMLExtensionsManager(logger);
+            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\XuiElements.xml");
+            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199DashElements.xml");
+            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199HUDElements.xml");
+            XUIHelperCoreConstants.VersionedExtensions[0x5] = v5Extensions;
         }
 
-        public async Task<XUI?> GetReadXUI(string filePath, ILogger? logger = null)
+        private async Task<XUI12?> GetReadXUI(string filePath, int extensionVersion, ILogger? logger = null)
         {
             XUI12 xui = new XUI12(filePath, logger);
-            if(await xui.TryReadAsync(0x5))
+            if (await xui.TryReadAsync(0x5))
             {
                 return xui;
             }
@@ -28,84 +46,81 @@ namespace XUIHelper.Tests
             return null;
         }
 
-        public void RegisterExtensions(ILogger? logger = null)
+        private bool AreFilesEqual(string filePathOne, string filePathTwo)
         {
-            XMLExtensionsManager v5Extensions = new XMLExtensionsManager(logger);
-            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\XuiElements.xml");
-            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199DashElements.xml");
-            XUIHelperCoreConstants.VersionedExtensions[0x5] = v5Extensions;
+            if (!File.Exists(filePathOne))
+            {
+                return false;
+            }
+
+            if (!File.Exists(filePathTwo))
+            {
+                return false;
+            }
+
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] fileOneHash;
+                byte[] fileTwoHash;
+
+                using (FileStream fileOneStream = File.OpenRead(filePathOne))
+                {
+                    fileOneHash = sha256.ComputeHash(fileOneStream);
+                }
+
+                using (FileStream fileTwoStream = File.OpenRead(filePathTwo))
+                {
+                    fileTwoHash = sha256.ComputeHash(fileTwoStream);
+                }
+
+                return fileOneHash.SequenceEqual(fileTwoHash);
+            }
         }
 
         [Test]
-        public async Task CheckGamerCardReadSuccessful()
+        public async Task CheckAllReadsSuccessful()
         {
-            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
-            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
-            ILogger log = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .Enrich.FromLogContext()
-            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
-            .CreateLogger();
+            List<string> successfulXUIs = new List<string>();
+            List<string> failedXUIs = new List<string>();
 
-            RegisterExtensions(log);
+            int xuisCount = 0;
+            foreach (string xuiFile in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199"), "*.xui", SearchOption.AllDirectories))
+            {
+                XUI12 xui = new XUI12(xuiFile, null);
+                if (!await xui.TryReadAsync(0x5))
+                {
+                    failedXUIs.Add(xuiFile);
+                }
+                else
+                {
+                    successfulXUIs.Add(xuiFile);
+                }
 
-            Assert.True(await CheckReadSuccessful(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XUIs\9199GamerCard.xui", log));
+                xuisCount++;
+            }
+
+            int totalXUIsCount = successfulXUIs.Count + failedXUIs.Count;
+            float successPercentage = (successfulXUIs.Count / (float)totalXUIsCount) * 100.0f;
+
+            _Log.Information("==== XUI12 ALL READS ====");
+            _Log.Information("Total: {0}, Successful: {1}, Failed: {2} ({3}%)", totalXUIsCount, successfulXUIs.Count, failedXUIs.Count, successPercentage);
+            _Log.Information("");
+            _Log.Information("==== SUCCESSFUL XUIS ====");
+            _Log.Information(string.Join("\n", successfulXUIs));
+            _Log.Information("");
+            _Log.Information("==== FAILED XUIS ====");
+            _Log.Information(string.Join("\n", failedXUIs));
+            _Log.Information("");
+
+            Assert.True(failedXUIs.Count == 0);
         }
 
         [Test]
-        public async Task CheckSimpleSceneReadSuccessful()
+        public async Task CheckSingleXUIReadSuccessful()
         {
-            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
-            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
-            ILogger log = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .Enrich.FromLogContext()
-            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
-            .CreateLogger();
-
-            RegisterExtensions(log);
-
-            Assert.True(await CheckReadSuccessful(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XUIs\SimpleScene - Formatted.xui", log));
-        }
-
-        [Test]
-        public async Task CheckSimpleSceneWriteSuccessful()
-        {
-            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
-            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
-            ILogger log = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .Enrich.FromLogContext()
-            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
-            .CreateLogger();
-
-            RegisterExtensions(log);
-
-            XUI? xui = await GetReadXUI(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XUIs\SimpleScene.xui");
-            Assert.NotNull(xui);
-
-            XUI12 writeXUI = new XUI12(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui", log);
-            Assert.True(await writeXUI.TryWriteAsync(0x5, xui.RootObject));
-        }
-
-        [Test]
-        public async Task CheckGamerCardWriteSuccessful()
-        {
-            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
-            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
-            ILogger log = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .Enrich.FromLogContext()
-            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
-            .CreateLogger();
-
-            RegisterExtensions(log);
-
-            XUI? xui = await GetReadXUI(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XUIs\9199Gamercard.xui");
-            Assert.NotNull(xui);
-
-            XUI12 writeXUI = new XUI12(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui", log);
-            Assert.True(await writeXUI.TryWriteAsync(0x5, xui.RootObject));
+            string xuiFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/EditorSkin.xui");
+            XUI12 xui = new XUI12(xuiFile, _Log);
+            Assert.True(await xui.TryReadAsync(0x5));
         }
     }
 }

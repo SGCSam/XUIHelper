@@ -1,0 +1,13 @@
+<XuiCanvas version="000c">
+<Properties>
+<Width>1280.000000</Width>
+<Height>720.000000</Height>
+</Properties>
+<RomeRootScene>
+<Properties>
+<Id>RomeRootScene1</Id>
+<Width>1280.000000</Width>
+<Height>720.000000</Height>
+</Properties>
+</RomeRootScene>
+</XuiCanvas>

@@ -135,21 +135,30 @@ namespace XUIHelper.Core
                     {
                         Logger?.Here().Verbose("Property definition {0} was custom, updating bounding box...", propertyDefinition.Name);
                         XUFigure oldFigure = (XUFigure)readProperty.Value;
+
+                        float widthValue = 60.0f;
                         XUProperty? widthProperty = thisObject.Properties.Where(x => x.PropertyDefinition.Name == "Width").FirstOrDefault();
                         if(widthProperty == null)
                         {
-                            Logger?.Here().Error("Width property was null, returning null.");
-                            return null;
+                            Logger?.Here().Error("Width property was null, using default of {0}", widthValue);
                         }
-
-                        XUProperty? heightProperty = thisObject.Properties.Where(x => x.PropertyDefinition.Name == "Height").FirstOrDefault();
-                        if(heightProperty == null)
+                        else
                         {
-                            Logger?.Here().Error("Height property was null, returning null.");
-                            return null;
+                            widthValue = (float)widthProperty.Value;
                         }
 
-                        XUFigure newFigure = new XUFigure(new XUPoint((float)widthProperty.Value, (float)heightProperty.Value), oldFigure.Points);
+                        float heightValue = 30.0f;
+                        XUProperty? heightProperty = thisObject.Properties.Where(x => x.PropertyDefinition.Name == "Height").FirstOrDefault();
+                        if (heightProperty == null)
+                        {
+                            Logger?.Here().Error("Height property was null, using default of {0}", heightValue);
+                        }
+                        else
+                        {
+                            heightValue = (float)heightProperty.Value;
+                        }
+
+                        XUFigure newFigure = new XUFigure(new XUPoint(widthValue, heightValue), oldFigure.Points);
                         readProperty = new XUProperty(propertyDefinition, newFigure);
                     }
 
