@@ -371,29 +371,11 @@ namespace XUIHelper.Core
                 writer.WriteInt16BE(objectPropertiesCount);
                 bytesWritten += 2;
 
-                int maxCompoundPropertyDepth = 0;
-                int compoundPropertyDefinitionIndex = 0;
-                foreach (XUPropertyDefinition compoundPropertyDefinition in compoundClass.PropertyDefinitions)
-                {
-                    foreach (XUProperty compoundProperty in objectProperties)
-                    {
-                        if (compoundPropertyDefinition == compoundProperty.PropertyDefinition)
-                        {
-                            maxCompoundPropertyDepth = compoundPropertyDefinitionIndex + 1;
-                            break;
-                        }
-                    }
-
-                    compoundPropertyDefinitionIndex++;
-                }
-
-                int hierarchicalPropertiesDepth = (8 * objectProperties.Count) - parentClassPropertyDepth - Math.Max((int)Math.Ceiling(maxCompoundPropertyDepth / 8.0f), 1);
-                xur.Logger?.Here().Verbose("Wrote hierarchical compound properties depth of {0:X8}.", hierarchicalPropertiesDepth);
-                writer.Write((byte)hierarchicalPropertiesDepth);
-                bytesWritten++;
-
                 int propertyMasksCount = Math.Max((int)Math.Ceiling(compoundClass.PropertyDefinitions.Count / 8.0f), 1);
                 xur.Logger?.Here().Verbose("Compound class has {0:X8} property definitions, will have {1:X8} mask(s).", compoundClass.PropertyDefinitions.Count, propertyMasksCount);
+
+                int packedByte = 0x0;
+                packedByte |= (byte)propertyMasksCount;
 
                 byte[] propertyMasks = new byte[propertyMasksCount];
                 for (int i = 0; i < propertyMasksCount; i++)
@@ -419,6 +401,11 @@ namespace XUIHelper.Core
                     xur.Logger?.Here().Verbose("Got a property mask of {0:X8} for mask index {1}.", thisPropertyMask, i);
                     propertyMasks[i] = thisPropertyMask;
                 }
+
+                packedByte |= (byte)(objectProperties.Count - 1 << 3);
+                xur.Logger?.Here().Verbose("Writing packed byte of {0:X8} for class {1}.", packedByte, compoundClass.Name);
+                writer.Write((byte)packedByte);
+                bytesWritten++;
 
                 Array.Reverse(propertyMasks);
                 writer.Write(propertyMasks);
@@ -690,7 +677,7 @@ namespace XUIHelper.Core
                     if (property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
                     {
                         short count = (short)(property.Value as IList).Count;
-                        xur.Logger?.Here().Verbose("Animated roperty {0} is indexed, incrementing count by list count of {1}.", property.PropertyDefinition.Name, count);
+                        xur.Logger?.Here().Verbose("Animated property {0} is indexed, incrementing count by list count of {1}.", property.PropertyDefinition.Name, count);
                         animatedPropertiesCount += count;
                     }
                     else

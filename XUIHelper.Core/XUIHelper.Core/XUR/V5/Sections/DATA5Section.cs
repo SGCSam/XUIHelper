@@ -542,8 +542,8 @@ namespace XUIHelper.Core
                         xur.Logger?.Here().Verbose("Got a property mask of {0:X8} for mask index {1}.", thisPropertyMask, i);
                         propertyMasks[i] = thisPropertyMask;
                     }
-                    packedByte |= (byte)(classProperties[xuClass].Count - 1 << 3);
 
+                    packedByte |= (byte)(classProperties[xuClass].Count - 1 << 3);
                     xur.Logger?.Here().Verbose("Writing packed byte of {0:X8} for class {1}.", packedByte, xuClass.Name);
                     writer.Write((byte)packedByte);
                     bytesWritten++;

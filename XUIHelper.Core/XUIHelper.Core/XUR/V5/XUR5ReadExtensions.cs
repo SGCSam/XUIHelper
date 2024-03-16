@@ -670,6 +670,7 @@ namespace XUIHelper.Core
                 int propertyDefinitionsCount = reader.ReadInt32BE();
                 xur.Logger?.Here().Verbose("Got a count of {0} property definitions.", propertyDefinitionsCount);
 
+                int maxIndex = 0;
                 List<XUPropertyDefinition> animatedPropertyDefinitions = new List<XUPropertyDefinition>();
                 List<int> indexedPropertyIndexes = new List<int>();
                 for (int i = 0; i < propertyDefinitionsCount; i++)
@@ -759,6 +760,11 @@ namespace XUIHelper.Core
                         int index = reader.ReadInt32BE();
                         xur.Logger?.Here()?.Verbose("Read a timeline compound index value of {0}", index);
                         indexedPropertyIndexes.Add(index);
+
+                        if(index > maxIndex)
+                        {
+                            maxIndex = index;
+                        }
                     }
                 }
 
@@ -786,7 +792,7 @@ namespace XUIHelper.Core
                     XUKeyframeInterpolationTypes interpolationType = (XUKeyframeInterpolationTypes)interpolationTypeByte;
                     xur.Logger?.Here().Verbose("Keyframe {0}: Interpolation Type {1}, Ease In: {2}, Ease Out: {3}, Scale {4}.", keyframe, interpolationTypeByte, easeIn, easeOut, easeScale);
 
-                    foreach(XUPropertyDefinition animatedPropertyDefinition in animatedPropertyDefinitions)
+                    foreach (XUPropertyDefinition animatedPropertyDefinition in animatedPropertyDefinitions)
                     {
                         xur.Logger?.Here().Verbose("Reading animated property {0}.", animatedPropertyDefinition.Name);
                         XUProperty? xuProperty = xur.TryReadProperty(reader, animatedPropertyDefinition, false);
@@ -805,7 +811,8 @@ namespace XUIHelper.Core
                                 return null;
                             }
 
-                            xur.Logger?.Here().Verbose("The property {0} is indexed, using index of {1}.", animatedPropertyDefinition.Name, indexedPropertyIndexes[handledIndexedProperties]);
+                            int indexToUse = indexedPropertyIndexes[handledIndexedProperties];
+                            xur.Logger?.Here().Verbose("The property {0} is indexed, using index of {1}.", animatedPropertyDefinition.Name, indexToUse);
 
                             bool found = false;
                             foreach(XUProperty addedAnimatedProperty in animatedProperties)
@@ -816,7 +823,7 @@ namespace XUIHelper.Core
                                     {
                                         if (xuProperty.Value is List<object> readList)
                                         {
-                                            addedList.AddRange(readList);
+                                            addedList[indexToUse] = readList[0];
                                             handledIndexedProperties++;
                                             found = true;
                                             break;
@@ -840,9 +847,21 @@ namespace XUIHelper.Core
                                 //Don't re-add the XUProperty again if we've just updated the existing one
                                 continue;
                             }
-                        }
 
-                        animatedProperties.Add(xuProperty);
+                            List<object> values = new List<object>();
+                            for(int j = 0; j <= maxIndex; j++)
+                            {
+                                values.Add(new object());
+                            }
+
+                            values[indexToUse] = (xuProperty.Value as List<object>)[0];
+                            animatedProperties.Add(new XUProperty(xuProperty.PropertyDefinition, values));
+                            handledIndexedProperties++;
+                        }
+                        else
+                        {
+                            animatedProperties.Add(xuProperty);
+                        }
                     }
 
                     XUKeyframe thisKeyframe = new XUKeyframe(keyframe, interpolationType, easeIn, easeOut, easeScale, animatedProperties);

@@ -3,6 +3,8 @@ using Serilog;
 using XUIHelper.Core;
 using System.Formats.Tar;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace XUIHelper.Tests
 {
@@ -24,7 +26,7 @@ namespace XUIHelper.Tests
             RegisterExtensions(_Log);
         }
 
-        public void RegisterExtensions(ILogger? logger = null)
+        private void RegisterExtensions(ILogger? logger = null)
         {
             XMLExtensionsManager v5Extensions = new XMLExtensionsManager(logger);
             _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\XuiElements.xml");
@@ -33,7 +35,7 @@ namespace XUIHelper.Tests
             XUIHelperCoreConstants.VersionedExtensions[0x5] = v5Extensions;
         }
 
-        public async Task<XUR5?> GetReadXUR(string filePath, ILogger? logger = null)
+        private async Task<XUR5?> GetReadXUR(string filePath, ILogger? logger = null)
         {
             XUR5 xur = new XUR5(filePath, logger);
             if (await xur.TryReadAsync())
@@ -43,6 +45,38 @@ namespace XUIHelper.Tests
 
             return null;
         }
+
+        private bool AreFilesEqual(string filePathOne, string filePathTwo)
+        {
+            if(!File.Exists(filePathOne))
+            {
+                return false;
+            }
+
+            if (!File.Exists(filePathTwo))
+            {
+                return false;
+            }
+
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] fileOneHash;
+                byte[] fileTwoHash;
+
+                using (FileStream fileOneStream = File.OpenRead(filePathOne))
+                {
+                    fileOneHash = sha256.ComputeHash(fileOneStream);
+                }
+
+                using (FileStream fileTwoStream = File.OpenRead(filePathTwo))
+                {
+                    fileTwoHash = sha256.ComputeHash(fileTwoStream);
+                }
+
+                return fileOneHash.SequenceEqual(fileTwoHash);
+            }
+        }
+
 
         [Test]
         public async Task CheckAllReadsSuccessful()
@@ -85,7 +119,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURReadSuccessful()
         {
-            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/MarketplaceTab.xur");
+            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/dashSysCslSetStartupShutdown.xur");
             XUR5 xur = new XUR5(xurFile, _Log);
             Assert.True(await xur.TryReadAsync());
         }
@@ -107,6 +141,7 @@ namespace XUIHelper.Tests
             }
 
             List<string> successfulXURs = new List<string>();
+            List<string> warningXURs = new List<string>();
             List<string> failedXURs = new List<string>();
             foreach (XUR5 readXUR in readXURs)
             {
@@ -167,8 +202,16 @@ namespace XUIHelper.Tests
                         }
                         else if (JsonConvert.SerializeObject(readData.RootObject) != JsonConvert.SerializeObject(readBackData.RootObject))
                         {
-                            _Log.Information("Failure: Non-equal root objects.");
+                            _Log.Information("Failure: Non-equal root objects for {0}.", readXUR.FilePath);
                             failedXURs.Add(readXUR.FilePath);
+                        }
+                        else if (!AreFilesEqual(readXUR.FilePath, thisWriteXURPath))
+                        {
+                            _Log.Information("Warning: Non-equal files for {0}.", readXUR.FilePath);
+                            warningXURs.Add(readXUR.FilePath);
+
+                            string filePath = Path.Combine(@"C:\Users\sgcsa\Desktop\Warning XURs", Path.GetFileName(readXUR.FilePath));
+                            File.Copy(thisWriteXURPath, filePath, true);
                         }
                         else
                         {
@@ -180,10 +223,10 @@ namespace XUIHelper.Tests
                 File.Delete(thisWriteXURPath);
             }
 
-            float successPercentage = (successfulXURs.Count / (float)readXURs.Count) * 100.0f;
+            float successPercentage = ((successfulXURs.Count + warningXURs.Count) / (float)readXURs.Count) * 100.0f;
 
             _Log.Information("==== XUR5 ALL WRITES ====");
-            _Log.Information("Total: {0}, Successful: {1}, Failed: {2} ({3}%)", readXURs.Count, successfulXURs.Count, failedXURs.Count, successPercentage);
+            _Log.Information("Total: {0}, Successful: {1}, Failed: {2}, Warning: {3} ({4}%)", readXURs.Count, successfulXURs.Count, failedXURs.Count, warningXURs.Count, successPercentage);
             _Log.Information("");
             _Log.Information("==== SUCCESSFUL XURS ====");
             _Log.Information(string.Join("\n", successfulXURs));
@@ -198,7 +241,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURWriteSuccessful()
         {
-            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/EditorSkin.xur");
+            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/hudbkgnd.xur");
             XUR5 readXUR = new XUR5(xurFile, null);
             Assert.True(await readXUR.TryReadAsync());
 

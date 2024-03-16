@@ -79,7 +79,8 @@ namespace XUIHelper.Core
         {
             return rootObject.GetTotalObjectsCount() > 0x8D
                 || rootObject.GetTotalPropertiesCount() > 0x235
-                || rootObject.GetPropertiesArrayCount() > 0xC9;
+                || rootObject.GetPropertiesArrayCount() > 0xC9
+                || rootObject.GetNamedFramesCount() >= 0x19;    //Not sure if named frames is but this allows community.xur and hudbkgnd.xur to write
         }
 
         protected override async Task<List<IXURSection>?> TryBuildSectionsFromObjectAsync(XUObject rootObject)
