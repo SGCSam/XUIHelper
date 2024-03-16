@@ -6,6 +6,13 @@ namespace XUIHelper.Tests
 {
     public class XUR8Tests
     {
+        //TODO: XUR8 write support
+        //TODO: XUR8 unit tests
+        //TODO: Support for ignore properties (ones that aren't supported in XuiTool)
+        //TODO: Function library API
+        //TODO: Console app
+        //TODO: GUI app
+
         [SetUp]
         public void Setup()
         {

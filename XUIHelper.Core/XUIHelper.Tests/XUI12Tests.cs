@@ -8,7 +8,7 @@ using System.IO;
 
 namespace XUIHelper.Tests
 {
-    public class XUR12Tests
+    public class XUI12Tests
     {
         private ILogger _Log;
 
