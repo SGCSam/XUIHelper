@@ -185,5 +185,22 @@ namespace XUIHelper.Tests
             Assert.True(await writeXUI.TryWriteAsync(0x5, readXUI.RootObject));
             Assert.True(AreFilesEqual(readXUI.FilePath, writeXUI.FilePath));
         }
+
+        [Test]
+        public async Task CheckPhotoCaptureWriteSuccessful()
+        {
+            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/PhotoCapture.xur");
+            XUR5 readXUR = new XUR5(xurFile, null);
+            Assert.True(await readXUR.TryReadAsync());
+            IDATASection? data = ((IXUR)readXUR).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
+            Assert.NotNull(data);
+            Assert.NotNull(data.RootObject);
+            string thisWriteXUIPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui";
+            string photoCaptureXUIPath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/PhotoCapture.xui");
+
+            XUI12 writeXUI = new XUI12(thisWriteXUIPath, _Log);
+            Assert.True(await writeXUI.TryWriteAsync(0x5, data.RootObject));
+            Assert.True(AreFilesEqual(photoCaptureXUIPath, writeXUI.FilePath));
+        }
     }
 }

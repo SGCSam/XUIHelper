@@ -494,8 +494,15 @@ namespace XUIHelper.Core
                     else
                     {
                         int valueIndex = 0;
-                        foreach(object val in animatedProperty.Value as List<object>)
+                        foreach(object? val in animatedProperty.Value as List<object?>)
                         {
+                            if(val == null)
+                            {
+                                //This index isn't animated
+                                valueIndex++;
+                                continue;
+                            }
+
                             XElement thisTimelinePropElement = new XElement("TimelineProp", elementPropertyDefinitionName);
                             thisTimelinePropElement.SetAttributeValue("index", valueIndex);
                             retElement.Add(thisTimelinePropElement);
@@ -516,7 +523,7 @@ namespace XUIHelper.Core
                         thisKeyframeElement.Add(new XElement("EaseScale", keyframe.EaseScale));
                     }
 
-                    foreach(XUProperty animatedProperty in  keyframe.Properties)
+                    foreach(XUProperty animatedProperty in keyframe.Properties)
                     {
                         List<XElement>? propertyElements = TryWriteProperty(xui, animatedProperty);
                         if (propertyElements == null)
@@ -532,8 +539,15 @@ namespace XUIHelper.Core
                         else if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
                         {
                             int valueIndex = 0;
-                            foreach (object val in animatedProperty.Value as List<object>)
+                            foreach (object? val in animatedProperty.Value as List<object>)
                             {
+                                if (val == null)
+                                {
+                                    //This index isn't animated
+                                    valueIndex++;
+                                    continue;
+                                }
+
                                 thisKeyframeElement.Add(new XElement("Prop", propertyElements[valueIndex].Value));
                                 valueIndex++;
                             }
