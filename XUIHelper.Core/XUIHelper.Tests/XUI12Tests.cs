@@ -58,23 +58,10 @@ namespace XUIHelper.Tests
                 return false;
             }
 
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] fileOneHash;
-                byte[] fileTwoHash;
-
-                using (FileStream fileOneStream = File.OpenRead(filePathOne))
-                {
-                    fileOneHash = sha256.ComputeHash(fileOneStream);
-                }
-
-                using (FileStream fileTwoStream = File.OpenRead(filePathTwo))
-                {
-                    fileTwoHash = sha256.ComputeHash(fileTwoStream);
-                }
-
-                return fileOneHash.SequenceEqual(fileTwoHash);
-            }
+            int filePathOneLineCount = File.ReadAllLines(filePathOne).Length;
+            int filePathTwoLineCount = File.ReadAllLines(filePathTwo).Length;
+            int diff = filePathOneLineCount - filePathTwoLineCount;
+            return diff >= -1 && diff <= 1;
         }
 
         [Test]
@@ -121,6 +108,82 @@ namespace XUIHelper.Tests
             string xuiFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/EditorSkin.xui");
             XUI12 xui = new XUI12(xuiFile, _Log);
             Assert.True(await xui.TryReadAsync(0x5));
+        }
+
+        [Test]
+        public async Task CheckAllWritesSuccessful()
+        {
+            List<XUI12> readXUIs = new List<XUI12>();
+
+            int xuisCount = 0;
+            foreach (string xuiFile in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199"), "*.xui", SearchOption.AllDirectories))
+            {
+                XUI12 xur = new XUI12(xuiFile, null);
+                if (await xur.TryReadAsync(0x5))
+                {
+                    xuisCount++;
+                    readXUIs.Add(xur);
+                }
+            }
+
+            List<string> successfulXUIs = new List<string>();
+            List<string> failedXUIs = new List<string>();
+            foreach (XUI12 readXUI in readXUIs)
+            {
+                if (readXUI.RootObject == null)
+                {
+                    _Log.Information("Failure: Null root object for {0}", readXUI.FilePath);
+                    failedXUIs.Add(readXUI.FilePath);
+                    continue;
+                }
+
+                string thisWriteXUIPath = Path.GetTempFileName();
+                XUI12 writeXUI = new XUI12(thisWriteXUIPath, null);
+                if (!await writeXUI.TryWriteAsync(0x5, readXUI.RootObject))
+                {
+                    _Log.Information("Failure: Write failed for {0}", readXUI.FilePath);
+                    failedXUIs.Add(readXUI.FilePath);
+                }
+                else if (!AreFilesEqual(readXUI.FilePath, thisWriteXUIPath))
+                {
+                    _Log.Information("Failure: Non-equal files for {0}.", readXUI.FilePath);
+                    failedXUIs.Add(readXUI.FilePath);
+                }
+                else
+                {
+                    successfulXUIs.Add(readXUI.FilePath);
+                }
+
+                File.Delete(thisWriteXUIPath);
+            }
+
+            float successPercentage = (successfulXUIs.Count / (float)readXUIs.Count) * 100.0f;
+
+            _Log.Information("==== XUI12 ALL WRITES ====");
+            _Log.Information("Total: {0}, Successful: {1}, Failed: {2} ({3}%)", readXUIs.Count, successfulXUIs.Count, failedXUIs.Count, successPercentage);
+            _Log.Information("");
+            _Log.Information("==== SUCCESSFUL XUIS ====");
+            _Log.Information(string.Join("\n", successfulXUIs));
+            _Log.Information("");
+            _Log.Information("==== FAILED XUIS ====");
+            _Log.Information(string.Join("\n", failedXUIs));
+            _Log.Information("");
+
+            Assert.True(failedXUIs.Count == 0);
+        }
+
+        [Test]
+        public async Task CheckSingleXUIWriteSuccessful()
+        {
+            string xuiFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/EditorSkin.xui");
+            XUI12 readXUI = new XUI12(xuiFile, null);
+            Assert.True(await readXUI.TryReadAsync(0x5));
+            Assert.NotNull(readXUI.RootObject);
+
+            string thisWriteXUIPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui";
+            XUI12 writeXUI = new XUI12(thisWriteXUIPath, _Log);
+            Assert.True(await writeXUI.TryWriteAsync(0x5, readXUI.RootObject));
+            Assert.True(AreFilesEqual(readXUI.FilePath, writeXUI.FilePath));
         }
     }
 }

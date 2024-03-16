@@ -509,6 +509,12 @@ namespace XUIHelper.Core
                     XElement thisKeyframeElement = new XElement("KeyFrame");
                     thisKeyframeElement.Add(new XElement("Time", keyframe.Keyframe));
                     thisKeyframeElement.Add(new XElement("Interpolation", (int)keyframe.InterpolationType));
+                    if(keyframe.EaseIn != 0 || keyframe.EaseOut != 0 || keyframe.EaseScale != 50)
+                    {
+                        thisKeyframeElement.Add(new XElement("EaseIn", keyframe.EaseIn));
+                        thisKeyframeElement.Add(new XElement("EaseOut", keyframe.EaseOut));
+                        thisKeyframeElement.Add(new XElement("EaseScale", keyframe.EaseScale));
+                    }
 
                     foreach(XUProperty animatedProperty in  keyframe.Properties)
                     {
