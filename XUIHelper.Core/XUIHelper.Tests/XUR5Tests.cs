@@ -77,7 +77,6 @@ namespace XUIHelper.Tests
             }
         }
 
-
         [Test]
         public async Task CheckAllReadsSuccessful()
         {
@@ -209,9 +208,6 @@ namespace XUIHelper.Tests
                         {
                             _Log.Information("Warning: Non-equal files for {0}.", readXUR.FilePath);
                             warningXURs.Add(readXUR.FilePath);
-
-                            //string filePath = Path.Combine(@"C:\Users\sgcsa\Desktop\Warning XURs", Path.GetFileName(readXUR.FilePath));
-                            //File.Copy(thisWriteXURPath, filePath, true);
                         }
                         else
                         {
@@ -260,53 +256,6 @@ namespace XUIHelper.Tests
             Assert.NotNull(readBackData);
             Assert.NotNull(readBackData.RootObject);
             Assert.That(JsonConvert.SerializeObject(readData.RootObject), Is.EqualTo(JsonConvert.SerializeObject(readBackData.RootObject)));
-        }
-
-        [Test]
-        public async Task CheckGamerCardWriteSuccessful()
-        {
-            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
-            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
-            ILogger log = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .Enrich.FromLogContext()
-            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
-            .CreateLogger();
-
-            RegisterExtensions(log);
-
-            XUR5? xur = await GetReadXUR(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\Example XURs\9199Gamercard.xur");
-            Assert.NotNull(xur);
-
-            IDATASection? data = ((IXUR)xur).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
-            Assert.NotNull(data);
-
-            ISTRNSection? strn = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
-            Assert.NotNull(strn);
-
-            IVECTSection? vect = ((IXUR)xur).TryFindXURSectionByMagic<IVECTSection>(IVECTSection.ExpectedMagic);
-            Assert.NotNull(vect);
-
-            IQUATSection? quat = ((IXUR)xur).TryFindXURSectionByMagic<IQUATSection>(IQUATSection.ExpectedMagic);
-            Assert.NotNull(quat);
-
-            ICUSTSection? cust = ((IXUR)xur).TryFindXURSectionByMagic<ICUSTSection>(ICUSTSection.ExpectedMagic);
-            Assert.NotNull(cust);
-
-            XUR5 writeXUR = new XUR5(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xur", log);
-            Assert.True(await writeXUR.TryWriteAsync(data.RootObject));
-
-            IVECTSection? writeVects = ((IXUR)writeXUR).TryFindXURSectionByMagic<IVECTSection>(IVECTSection.ExpectedMagic);
-            Assert.NotNull(writeVects);
-            Assert.That(writeVects.Vectors, Is.EqualTo(vect.Vectors));
-
-            IQUATSection? writeQuats = ((IXUR)writeXUR).TryFindXURSectionByMagic<IQUATSection>(IQUATSection.ExpectedMagic);
-            Assert.NotNull(writeQuats);
-            Assert.That(writeQuats.Quaternions, Is.EqualTo(quat.Quaternions));
-
-            ICUSTSection? writeCust = ((IXUR)writeXUR).TryFindXURSectionByMagic<ICUSTSection>(ICUSTSection.ExpectedMagic);
-            Assert.NotNull(writeCust);
-            Assert.That(writeCust.Figures, Is.EqualTo(cust.Figures));
         }
     }
 }
