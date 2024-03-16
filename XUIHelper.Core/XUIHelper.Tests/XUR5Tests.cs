@@ -119,7 +119,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURReadSuccessful()
         {
-            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/dashSysCslSetStartupShutdown.xur");
+            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/PhotoCapture.xur");
             XUR5 xur = new XUR5(xurFile, _Log);
             Assert.True(await xur.TryReadAsync());
         }
@@ -210,8 +210,8 @@ namespace XUIHelper.Tests
                             _Log.Information("Warning: Non-equal files for {0}.", readXUR.FilePath);
                             warningXURs.Add(readXUR.FilePath);
 
-                            string filePath = Path.Combine(@"C:\Users\sgcsa\Desktop\Warning XURs", Path.GetFileName(readXUR.FilePath));
-                            File.Copy(thisWriteXURPath, filePath, true);
+                            //string filePath = Path.Combine(@"C:\Users\sgcsa\Desktop\Warning XURs", Path.GetFileName(readXUR.FilePath));
+                            //File.Copy(thisWriteXURPath, filePath, true);
                         }
                         else
                         {
@@ -241,7 +241,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURWriteSuccessful()
         {
-            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/hudbkgnd.xur");
+            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/PhotoCapture.xur");
             XUR5 readXUR = new XUR5(xurFile, null);
             Assert.True(await readXUR.TryReadAsync());
 

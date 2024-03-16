@@ -676,7 +676,17 @@ namespace XUIHelper.Core
                 {
                     if (property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
                     {
-                        short count = (short)(property.Value as IList).Count;
+                        short count = 0;
+                        foreach (object? obj in property.Value as List<object?>)
+                        { 
+                            if(obj == null)
+                            {
+                                continue;
+                            }
+
+                            count++;
+                        }
+
                         xur.Logger?.Here().Verbose("Animated property {0} is indexed, incrementing count by list count of {1}.", property.PropertyDefinition.Name, count);
                         animatedPropertiesCount += count;
                     }
@@ -723,6 +733,22 @@ namespace XUIHelper.Core
 
                     for(int i = 0; i < indexes; i++)
                     {
+                        if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                        {
+                            List<object?>? indexedPropertyValues = animatedProperty.Value as List<object?>;
+                            if (indexedPropertyValues == null)
+                            {
+                                xur.Logger?.Here()?.Error("Indexed property values for animated property {0} was not a list, returning null.", animatedProperty.PropertyDefinition.Name);
+                                return null;
+                            }
+
+                            if (indexedPropertyValues[i] == null)
+                            {
+                                //This index isn't animated
+                                continue;
+                            }
+                        }
+
                         byte packedByte = 0x00;
                         byte classDepth = 0;
                         if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFillGradient")
@@ -875,7 +901,7 @@ namespace XUIHelper.Core
                         if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
                         {
                             xur.Logger?.Here().Verbose("Animated property is indexed.");
-                            List<object>? indexedPropertyValues = animatedProperty.Value as List<object>;
+                            List<object?>? indexedPropertyValues = animatedProperty.Value as List<object?>;
                             if (indexedPropertyValues == null)
                             {
                                 xur.Logger?.Here()?.Error("Indexed animated property value was not a list, returning null.");
@@ -883,8 +909,14 @@ namespace XUIHelper.Core
                             }
 
                             int indexCount = 0;
-                            foreach (object indexedPropertyValue in indexedPropertyValues)
+                            foreach (object? indexedPropertyValue in indexedPropertyValues)
                             {
+                                if(indexedPropertyValue == null)
+                                {
+                                    //This index isn't animated
+                                    continue;
+                                }
+
                                 xur.Logger?.Here().Verbose("Writing {0} indexed animated property index {1}.", animatedProperty.PropertyDefinition.Name, indexCount);
                                 int? propertyBytesWritten = xur.TryWriteProperty(writer, animatedProperty, indexedPropertyValue);
                                 if (propertyBytesWritten == null)

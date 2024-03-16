@@ -848,10 +848,10 @@ namespace XUIHelper.Core
                                 continue;
                             }
 
-                            List<object> values = new List<object>();
+                            List<object?> values = new List<object?>();
                             for(int j = 0; j <= maxIndex; j++)
                             {
-                                values.Add(new object());
+                                values.Add(null);
                             }
 
                             values[indexToUse] = (xuProperty.Value as List<object>)[0];
