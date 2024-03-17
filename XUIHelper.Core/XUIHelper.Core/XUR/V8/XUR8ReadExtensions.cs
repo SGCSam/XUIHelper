@@ -188,7 +188,7 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                int stringIndex = (int)reader.ReadPackedUInt() - 1;
+                int stringIndex = (int)reader.ReadPackedUInt();
                 xur.Logger?.Here()?.Verbose("Reading string, got string index of {0}", stringIndex);
                 return TryReadStringProperty(xur, reader, propertyDefinition, stringIndex);
             }
@@ -651,7 +651,7 @@ namespace XUIHelper.Core
         {
             try
             {
-                int objectNameStringIndex = (int)(reader.ReadPackedUInt()) - 1;
+                int objectNameStringIndex = (int)(reader.ReadPackedUInt());
                 xur.Logger?.Here().Verbose("Read object name string index of {0:X8}.", objectNameStringIndex);
 
                 ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);

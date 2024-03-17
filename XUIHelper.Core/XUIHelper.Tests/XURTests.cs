@@ -245,6 +245,8 @@ namespace XUIHelper.Tests
                 return false;
             }
 
+
+
             return JsonConvert.SerializeObject(readData.RootObject) == JsonConvert.SerializeObject(readBackData.RootObject);
         }
     }

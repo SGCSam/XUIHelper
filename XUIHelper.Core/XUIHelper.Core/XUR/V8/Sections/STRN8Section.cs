@@ -34,13 +34,14 @@ namespace XUIHelper.Core
                 int totalStringsLength = reader.ReadInt32BE();
                 short stringsCount = reader.ReadInt16BE();
 
-                int debugLength = 0;
+                //TODO: This *might* be wrong, do all XUR8s include an empty string?
+                Strings.Add("");
+
                 for(int stringIndex = 0; stringIndex < stringsCount; stringIndex++)
                 {
                     string readStr = reader.ReadNullTerminatedString();
                     xur.Logger?.Here().Verbose("Read a string {0}", readStr);
                     Strings.Add(readStr);
-                    debugLength += readStr.Length;
                 }
 
                 //We add + 2 to our checks too, since a empty string "" is still included in the totalStringsLength even though it may not be in the table...
@@ -51,7 +52,7 @@ namespace XUIHelper.Core
                     return true;
                 }
 
-                if(stringsCount != Strings.Count)
+                if(stringsCount != Strings.Count - 1)
                 {
                     xur.Logger?.Here().Error("Mismatch of strings count when reading STRN8 section, returning false. Expected: {0:X8}, Actual: {1:X8}", stringsCount, Strings.Count);
                     return false;
@@ -69,7 +70,145 @@ namespace XUIHelper.Core
 
         public async Task<bool> TryBuildAsync(IXUR xur, XUObject xuObject)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger?.Here().Verbose("Building STRN8 strings.");
+
+                //TODO: This *might* be wrong, do all XUR8s include an empty string?
+                Strings.Add("");
+
+                HashSet<string> builtStrings = new HashSet<string>();
+                if (!TryBuildStringsFromObject(xur, xuObject, ref builtStrings))
+                {
+                    xur.Logger?.Here().Error("Failed to build strings, returning null.");
+                    return false;
+                }
+
+                Strings.AddRange(builtStrings.ToList());
+                xur.Logger?.Here().Verbose("Built a total of {0} STRN8 strings successfully!", Strings.Count);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when trying to build STRN8 strings, returning false. The exception is: {0}", ex);
+                return false;
+            }
+        }
+
+        private bool TryBuildStringsFromObject(IXUR xur, XUObject xuObject, ref HashSet<string> builtStrings)
+        {
+            try
+            {
+                if (!TryBuildStringsFromProperties(xur, xuObject.Properties, ref builtStrings))
+                {
+                    xur.Logger?.Here().Error("Failed to build strings from properties for {0}, returning false.", xuObject.ClassName);
+                    return false;
+                }
+
+                foreach (XUObject childObject in xuObject.Children)
+                {
+                    if (!TryBuildStringsFromObject(xur, childObject, ref builtStrings))
+                    {
+                        xur.Logger?.Here().Error("Failed to get strings for child {0}, returning false.", childObject.ClassName);
+                        return false;
+                    }
+                }
+
+                foreach (XUTimeline childTimeline in xuObject.Timelines)
+                {
+                    if (!string.IsNullOrEmpty(childTimeline.ElementName) && builtStrings.Add(childTimeline.ElementName))
+                    {
+                        xur.Logger?.Here().Verbose("Added timeline string {0}.", childTimeline.ElementName);
+                    }
+                }
+
+                foreach (XUNamedFrame childNamedFrame in xuObject.NamedFrames)
+                {
+                    if (!string.IsNullOrEmpty(childNamedFrame.Name) && builtStrings.Add(childNamedFrame.Name))
+                    {
+                        xur.Logger?.Here().Verbose("Added named frame string {0}.", childNamedFrame.Name);
+                    }
+
+                    if (!string.IsNullOrEmpty(childNamedFrame.TargetParameter) && builtStrings.Add(childNamedFrame.TargetParameter))
+                    {
+                        xur.Logger?.Here().Verbose("Added named frame target parameter {0}.", childNamedFrame.TargetParameter);
+                    }
+                }
+
+                foreach (XUTimeline childTimeline in xuObject.Timelines)
+                {
+                    foreach (XUKeyframe childKeyframe in childTimeline.Keyframes)
+                    {
+                        foreach (XUProperty animatedProperty in childKeyframe.Properties)
+                        {
+                            if (animatedProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.String)
+                            {
+                                if (animatedProperty.Value is not string valueString)
+                                {
+                                    xur.Logger?.Here().Error("Animated property {0} marked as string had a non-string value of {1}, returning false.", animatedProperty.PropertyDefinition.Name, animatedProperty.Value);
+                                    return false;
+                                }
+
+                                if (!string.IsNullOrEmpty(valueString) && builtStrings.Add(valueString))
+                                {
+                                    xur.Logger?.Here().Verbose("Added {0} animated property value string {1}.", animatedProperty.PropertyDefinition.Name, valueString);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(xuObject.ClassName) && builtStrings.Add(xuObject.ClassName))
+                {
+                    xur.Logger?.Here().Verbose("Added class name string {0}.", xuObject.ClassName);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when trying to build STRN5 strings for object {0}, returning false. The exception is: {1}", xuObject.ClassName, ex);
+                return false;
+            }
+        }
+
+        private bool TryBuildStringsFromProperties(IXUR xur, List<XUProperty> properties, ref HashSet<string> builtStrings)
+        {
+            try
+            {
+                foreach (XUProperty childProperty in properties)
+                {
+                    if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.String)
+                    {
+                        if (childProperty.Value is not string valueString)
+                        {
+                            xur.Logger?.Here().Error("Child property {0} marked as string had a non-string value of {1}, returning false.", childProperty.PropertyDefinition.Name, childProperty.Value);
+                            return false;
+                        }
+
+                        if (!string.IsNullOrEmpty(valueString) && builtStrings.Add(valueString))
+                        {
+                            xur.Logger?.Here().Verbose("Added {0} property value string {1}.", childProperty.PropertyDefinition.Name, valueString);
+                        }
+                    }
+                    else if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Object)
+                    {
+                        if (!TryBuildStringsFromProperties(xur, childProperty.Value as List<XUProperty>, ref builtStrings))
+                        {
+                            xur.Logger?.Here().Error("Failed to build strings for child compound properties, returning false.");
+                            return false;
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when trying to build STRN5 strings from properties, returning false. The exception is: {0}", ex);
+                return false;
+            }
         }
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)

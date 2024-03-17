@@ -81,7 +81,7 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                int stringIndex = (int)(reader.ReadPackedUInt()) - 1;
+                int stringIndex = (int)(reader.ReadPackedUInt());
                 xur.Logger?.Here().Verbose("Read string index of {0:X8}.", stringIndex);
 
                 byte flags = reader.ReadByte();
