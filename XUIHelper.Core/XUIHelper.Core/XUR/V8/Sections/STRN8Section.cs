@@ -86,7 +86,6 @@ namespace XUIHelper.Core
 
                 Strings.AddRange(builtStrings.ToList());
                 xur.Logger?.Here().Verbose("Built a total of {0} STRN8 strings successfully!", Strings.Count);
-
                 return true;
             }
             catch (Exception ex)
