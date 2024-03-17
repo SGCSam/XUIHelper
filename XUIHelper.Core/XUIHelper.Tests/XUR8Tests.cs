@@ -14,6 +14,21 @@ namespace XUIHelper.Tests
         //TODO: Console app
         //TODO: GUI app
 
+        [SetUp]
+        public void Setup()
+        {
+            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
+            var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
+
+            _Log = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.FromLogContext()
+            .WriteTo.File(logPath, LogEventLevel.Verbose, outputTemplate)
+            .CreateLogger();
+
+            RegisterExtensions(_Log);
+        }
+
         protected override void RegisterExtensions(ILogger? logger = null)
         {
             XMLExtensionsManager v8Extensions = new XMLExtensionsManager(logger);
@@ -28,9 +43,27 @@ namespace XUIHelper.Tests
         }
 
         [Test]
-        public void DebugTest()
+        public async Task CheckAllReadsSuccessful()
         {
-            Assert.True(true);
+            Assert.True(await CheckAllReadsSuccessfulAsync(@"Test Data/XUR/17559"));
+        }
+
+        [Test]
+        public async Task CheckSingleXURReadSuccessful()
+        {
+            Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/17559/gamercard.xur"));
+        }
+
+        [Test]
+        public async Task CheckAllWritesSuccessful()
+        {
+            Assert.True(await CheckAllWritesSuccessfulAsync(@"Test Data/XUR/17559"));
+        }
+
+        [Test]
+        public async Task CheckSingleXURWriteSuccessful()
+        {
+            Assert.True(await CheckSingleXURWriteSuccessfulAsync(@"Test Data/XUR/17559/gamercard.xur"));
         }
     }
 }
