@@ -237,7 +237,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURWriteSuccessful()
         {
-            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/PhotoCapture.xur");
+            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/JKeyboard.xur");
             XUR5 readXUR = new XUR5(xurFile, null);
             Assert.True(await readXUR.TryReadAsync());
 

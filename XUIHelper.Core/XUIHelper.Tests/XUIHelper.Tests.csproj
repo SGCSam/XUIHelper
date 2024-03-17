@@ -19,6 +19,837 @@
     <None Remove="Test Data\XUI\9199\GuideMain.xui" />
     <None Remove="Test Data\XUI\9199\PhotoCapture.xui" />
     <None Remove="Test Data\XUI\9199\RomeRootScene.xui" />
+    <None Remove="Test Data\XUR\17559\1003_IndividualDevice.xur" />
+    <None Remove="Test Data\XUR\17559\1003_MediaContainerList.xur" />
+    <None Remove="Test Data\XUR\17559\1003_SongList.xur" />
+    <None Remove="Test Data\XUR\17559\1004_DeviceNotBrowseable.xur" />
+    <None Remove="Test Data\XUR\17559\1005_MediaContainerOptions.xur" />
+    <None Remove="Test Data\XUR\17559\1006_IndividualArtistMain.xur" />
+    <None Remove="Test Data\XUR\17559\1016_IndividualSongMain.xur" />
+    <None Remove="Test Data\XUR\17559\1020_ripCDlist.xur" />
+    <None Remove="Test Data\XUR\17559\1021_RipProgress.xur" />
+    <None Remove="Test Data\XUR\17559\1023_TroubleshootConnectionAlert.xur" />
+    <None Remove="Test Data\XUR\17559\1024_DownloadInfoAlert.xur" />
+    <None Remove="Test Data\XUR\17559\1025_EditAlbumInfo.xur" />
+    <None Remove="Test Data\XUR\17559\1026_EditSongInfo.xur" />
+    <None Remove="Test Data\XUR\17559\1028_NowPlaying.xur" />
+    <None Remove="Test Data\XUR\17559\1030_EditPlaylist.xur" />
+    <None Remove="Test Data\XUR\17559\1031_SaveChangesAlert.xur" />
+    <None Remove="Test Data\XUR\17559\1048_IndividualDeviceMain.xur" />
+    <None Remove="Test Data\XUR\17559\1123_Congratulations.xur" />
+    <None Remove="Test Data\XUR\17559\2000_NetworkConfigList.xur" />
+    <None Remove="Test Data\XUR\17559\2004_NetworkDetails.xur" />
+    <None Remove="Test Data\XUR\17559\2015_WirelessInformation.xur" />
+    <None Remove="Test Data\XUR\17559\2016_EditIPSettings.xur" />
+    <None Remove="Test Data\XUR\17559\2018_IPSettings.xur" />
+    <None Remove="Test Data\XUR\17559\2020_AvailableWirelessNetworks.xur" />
+    <None Remove="Test Data\XUR\17559\2022_WirelessSecuritySettings.xur" />
+    <None Remove="Test Data\XUR\17559\2024_EnterSettings.xur" />
+    <None Remove="Test Data\XUR\17559\2026_ChannelList.xur" />
+    <None Remove="Test Data\XUR\17559\2028_WirelessModes.xur" />
+    <None Remove="Test Data\XUR\17559\2033_DNSConfig.xur" />
+    <None Remove="Test Data\XUR\17559\2034_DNSSettings.xur" />
+    <None Remove="Test Data\XUR\17559\2036_PPoESettings.xur" />
+    <None Remove="Test Data\XUR\17559\2038_ConsoleInformation.xur" />
+    <None Remove="Test Data\XUR\17559\2040_Ad-HocWirelessSecurity.xur" />
+    <None Remove="Test Data\XUR\17559\2400_WindowsMediaCenter.xur" />
+    <None Remove="Test Data\XUR\17559\2403_SlowWiredConnection.xur" />
+    <None Remove="Test Data\XUR\17559\2404_802bgWirelessNetwork.xur" />
+    <None Remove="Test Data\XUR\17559\2405_PCSoftwarePack.xur" />
+    <None Remove="Test Data\XUR\17559\2406_WelcomeSetupKey.xur" />
+    <None Remove="Test Data\XUR\17559\2407_WaitingScreen.xur" />
+    <None Remove="Test Data\XUR\17559\2410_AttemptingOldSoftware.xur" />
+    <None Remove="Test Data\XUR\17559\2413_UnableToConnect.xur" />
+    <None Remove="Test Data\XUR\17559\742_metaByDevice %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\742_metaByDevice.xur" />
+    <None Remove="Test Data\XUR\17559\742_SelectNetworkDevice %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\742_SelectNetworkDevice.xur" />
+    <None Remove="Test Data\XUR\17559\744_ManageAffiliation %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\744_ManageAffiliation.xur" />
+    <None Remove="Test Data\XUR\17559\905_IndividualDeviceMain.xur" />
+    <None Remove="Test Data\XUR\17559\aboutme.xur" />
+    <None Remove="Test Data\XUR\17559\AccountManagementGridMetadataPanel.xur" />
+    <None Remove="Test Data\XUR\17559\AccountManagementGridMetadataPanelWide.xur" />
+    <None Remove="Test Data\XUR\17559\achievementsbutton.xur" />
+    <None Remove="Test Data\XUR\17559\AcquiringNetworkSettings.xur" />
+    <None Remove="Test Data\XUR\17559\ActivityAlertSlot.xur" />
+    <None Remove="Test Data\XUR\17559\ActivityDetailsChannelLayout.xur" />
+    <None Remove="Test Data\XUR\17559\ActivityDetailsChannelLayout2.xur" />
+    <None Remove="Test Data\XUR\17559\ActivityDetailsPreviewSlot.xur" />
+    <None Remove="Test Data\XUR\17559\ActivityDetailsUserSlot.xur" />
+    <None Remove="Test Data\XUR\17559\ActivitySlot.xur" />
+    <None Remove="Test Data\XUR\17559\AdSlot.xur" />
+    <None Remove="Test Data\XUR\17559\AdSlotScene.xur" />
+    <None Remove="Test Data\XUR\17559\AlbumDetails.xur" />
+    <None Remove="Test Data\XUR\17559\AnimCenterBuild.xur" />
+    <None Remove="Test Data\XUR\17559\AnimCornerBuild.xur" />
+    <None Remove="Test Data\XUR\17559\AnimEdgeBuild.xur" />
+    <None Remove="Test Data\XUR\17559\AnimEmpty.xur" />
+    <None Remove="Test Data\XUR\17559\AnimLayoutsCenter.xur" />
+    <None Remove="Test Data\XUR\17559\AnimLayoutsCorners.xur" />
+    <None Remove="Test Data\XUR\17559\AnimLayoutsEdges.xur" />
+    <None Remove="Test Data\XUR\17559\AnimPerimiterCent.xur" />
+    <None Remove="Test Data\XUR\17559\AnimPerimiterCorn.xur" />
+    <None Remove="Test Data\XUR\17559\AnimPerimiterEdge.xur" />
+    <None Remove="Test Data\XUR\17559\AnimRandom3Center.xur" />
+    <None Remove="Test Data\XUR\17559\AnimRandom3Corner.xur" />
+    <None Remove="Test Data\XUR\17559\AnimRandom3Edge.xur" />
+    <None Remove="Test Data\XUR\17559\AnimRandom3EdgeReflect.xur" />
+    <None Remove="Test Data\XUR\17559\AnimSpawnLineHoriz.xur" />
+    <None Remove="Test Data\XUR\17559\AnimSpawnLineHorizCent.xur" />
+    <None Remove="Test Data\XUR\17559\AnimSpawnLineHorizCorn.xur" />
+    <None Remove="Test Data\XUR\17559\AnimSpawnLineParHoriz.xur" />
+    <None Remove="Test Data\XUR\17559\AnimSpawnLineParVert.xur" />
+    <None Remove="Test Data\XUR\17559\AnimSpawnLineVert.xur" />
+    <None Remove="Test Data\XUR\17559\AnimSpawnLineVertCorn.xur" />
+    <None Remove="Test Data\XUR\17559\ArtistBioPanel.xur" />
+    <None Remove="Test Data\XUR\17559\ArtistDetailsPanel.xur" />
+    <None Remove="Test Data\XUR\17559\AssetRefresh.xur" />
+    <None Remove="Test Data\XUR\17559\AuraScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\AuraScene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\AuraScene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\AuraScene.xur" />
+    <None Remove="Test Data\XUR\17559\AvatarMiniCreator.xur" />
+    <None Remove="Test Data\XUR\17559\AvatarRotateHandle.xur" />
+    <None Remove="Test Data\XUR\17559\avatarslotscene.xur" />
+    <None Remove="Test Data\XUR\17559\Background.xur" />
+    <None Remove="Test Data\XUR\17559\BackHandle %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\BackHandle %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\BackHandle %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\BackHandle.xur" />
+    <None Remove="Test Data\XUR\17559\BGMask.xur" />
+    <None Remove="Test Data\XUR\17559\BoxArtContainerScene.xur" />
+    <None Remove="Test Data\XUR\17559\busychannel.xur" />
+    <None Remove="Test Data\XUR\17559\buttonslotcornerscene.xur" />
+    <None Remove="Test Data\XUR\17559\buttonslotscene.xur" />
+    <None Remove="Test Data\XUR\17559\CameraLocation.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselArtistImagesTile.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselHeroTile-Album.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselHeroTile-Movie.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselHeroTile-MusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselHeroTile-UserPlaylist.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselSlotScene.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselTile-Album.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselTile-Hub.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselTile-HubNoText.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselTile-Movie.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselTile-Recommended.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselTile-Static.xur" />
+    <None Remove="Test Data\XUR\17559\CarouselTile.xur" />
+    <None Remove="Test Data\XUR\17559\CastChannelTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\CastListScene.xur" />
+    <None Remove="Test Data\XUR\17559\CastListTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\CastSlotScene.xur" />
+    <None Remove="Test Data\XUR\17559\Categories.xur" />
+    <None Remove="Test Data\XUR\17559\ChannelListScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\ChannelListScene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\ChannelListScene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\ChannelListScene.xur" />
+    <None Remove="Test Data\XUR\17559\CloudCollectionHelperPanel.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlClearScene.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlFirstTimeUser.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlGenderInput.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlHeightInput.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlHwag.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlIntroScene.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlManageExerciseInfoScene.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlMoreInfoScene.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlPrivacyWarnScene.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlSyncingScene.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlTransitionCompleteScene.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlTransitioningScene.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlWeightInput.xur" />
+    <None Remove="Test Data\XUR\17559\cntrlYearOfBirthInput.xur" />
+    <None Remove="Test Data\XUR\17559\CollectionGalleryTile-Movie.xur" />
+    <None Remove="Test Data\XUR\17559\CollectionGalleryTile-MusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\CollectionGalleryTile.xur" />
+    <None Remove="Test Data\XUR\17559\CollectionSlot_1x1.xur" />
+    <None Remove="Test Data\XUR\17559\completedgames.xur" />
+    <None Remove="Test Data\XUR\17559\completedgameslot.xur" />
+    <None Remove="Test Data\XUR\17559\completedgameslotlayout.xur" />
+    <None Remove="Test Data\XUR\17559\completedgamesummaryslot.xur" />
+    <None Remove="Test Data\XUR\17559\CongratsScene.xur" />
+    <None Remove="Test Data\XUR\17559\ContributorsPanel.xur" />
+    <None Remove="Test Data\XUR\17559\CurPasswordErrorScene.xur" />
+    <None Remove="Test Data\XUR\17559\DashAppContainerPanel.xur" />
+    <None Remove="Test Data\XUR\17559\DashAppHost.xur" />
+    <None Remove="Test Data\XUR\17559\DashBkgnd.xur" />
+    <None Remove="Test Data\XUR\17559\dashcursorscene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\dashcursorscene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\dashcursorscene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\dashcursorscene.xur" />
+    <None Remove="Test Data\XUR\17559\DashLoading.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSet.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSet3D.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetAudio.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetAudioDigital.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetAudioNielsen.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetAudioSoundEffects.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetAutoDownloads.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetAutoOff.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetBackgroundDownloads.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetClock.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetClockDaylightSavings.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetClockFormat.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetClockTime.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetClockTimeZone.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetClosedCaption.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetClosedCaptionSettings.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetClosedCaptionSettingValues.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetColorSpace.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetConsoleDiscoverable.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetConsoleName.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetCountry %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetCountry.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetDisplay.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetDisplayDiscovery.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetDisplayFormat.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetDisplayHiDef.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetDisplayPal.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetLangLocale.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetLanguage.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetMediaAutoLaunch.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetOutputLevels.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControl.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlContentSettings.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlFamilyTimer.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlGame.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlGameExemptions.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlLiveA.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlLiveC.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlPasscode.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlPasscodeHint.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlVideo.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlVideoExplicit.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlVideoMovie.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlVideoTV.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPControlVideoUnrated.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetPolicyInfo_System.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetRemoteC.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetScreensaver.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetStartUp.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetStartupShutdown.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysCslSetTVScreenSize.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysIPTVSet.xur" />
+    <None Remove="Test Data\XUR\17559\dashSysLiveVision.xur" />
+    <None Remove="Test Data\XUR\17559\DaylightSavingsScene.xur" />
+    <None Remove="Test Data\XUR\17559\Daylightscene.xur" />
+    <None Remove="Test Data\XUR\17559\DecoratorSlotScene.xur" />
+    <None Remove="Test Data\XUR\17559\DeleteMusic.xur" />
+    <None Remove="Test Data\XUR\17559\DescriptionPanel.xur" />
+    <None Remove="Test Data\XUR\17559\DescriptionPanelButton.xur" />
+    <None Remove="Test Data\XUR\17559\Details.xur" />
+    <None Remove="Test Data\XUR\17559\DetailsActions.xur" />
+    <None Remove="Test Data\XUR\17559\DetailsDescription.xur" />
+    <None Remove="Test Data\XUR\17559\DetailsMovie.xur" />
+    <None Remove="Test Data\XUR\17559\DetailsOverviewPanel.xur" />
+    <None Remove="Test Data\XUR\17559\DetailsPageScene.xur" />
+    <None Remove="Test Data\XUR\17559\DetailsRoot.xur" />
+    <None Remove="Test Data\XUR\17559\DeviceConfigureAdvancedScene.xur" />
+    <None Remove="Test Data\XUR\17559\DeviceConfigureScene.xur" />
+    <None Remove="Test Data\XUR\17559\DeviceDetails.xur" />
+    <None Remove="Test Data\XUR\17559\DeviceSelector.xur" />
+    <None Remove="Test Data\XUR\17559\Dialog.xur" />
+    <None Remove="Test Data\XUR\17559\DialogNatalDeleteApplyOutfit.xur" />
+    <None Remove="Test Data\XUR\17559\DialogPhotobooth.xur" />
+    <None Remove="Test Data\XUR\17559\diorama.xur" />
+    <None Remove="Test Data\XUR\17559\DLCOverviewchannelLayout.xur" />
+    <None Remove="Test Data\XUR\17559\DoubleTallBrowseTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\DownloadLiveSignup.xur" />
+    <None Remove="Test Data\XUR\17559\DvdAction.xur" />
+    <None Remove="Test Data\XUR\17559\DvdAlert.xur" />
+    <None Remove="Test Data\XUR\17559\DvdInfo.xur" />
+    <None Remove="Test Data\XUR\17559\DvdPadDisplay.xur" />
+    <None Remove="Test Data\XUR\17559\DvdPadPlayback.xur" />
+    <None Remove="Test Data\XUR\17559\DvdRcDisplay.xur" />
+    <None Remove="Test Data\XUR\17559\DvdSplash169.xur" />
+    <None Remove="Test Data\XUR\17559\DvdSplash43.xur" />
+    <None Remove="Test Data\XUR\17559\DvdTraySlotScene.xur" />
+    <None Remove="Test Data\XUR\17559\edit.xur" />
+    <None Remove="Test Data\XUR\17559\EditorBG.xur" />
+    <None Remove="Test Data\XUR\17559\EditorHandleBack.xur" />
+    <None Remove="Test Data\XUR\17559\EditorHandleLeft.xur" />
+    <None Remove="Test Data\XUR\17559\EditorHandleLeftTall.xur" />
+    <None Remove="Test Data\XUR\17559\EditorHandleRight.xur" />
+    <None Remove="Test Data\XUR\17559\EditorHandleRightTall.xur" />
+    <None Remove="Test Data\XUR\17559\EditorMain.xur" />
+    <None Remove="Test Data\XUR\17559\EditorMarketplace.xur" />
+    <None Remove="Test Data\XUR\17559\EditorSkin.xur" />
+    <None Remove="Test Data\XUR\17559\EditorSplash.xur" />
+    <None Remove="Test Data\XUR\17559\EditorStart.xur" />
+    <None Remove="Test Data\XUR\17559\EditorStart_43.xur" />
+    <None Remove="Test Data\XUR\17559\EmailInfoScene.xur" />
+    <None Remove="Test Data\XUR\17559\Empty %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\Empty.xur" />
+    <None Remove="Test Data\XUR\17559\emptychannel.xur" />
+    <None Remove="Test Data\XUR\17559\EmptyProfileSlotScene.xur" />
+    <None Remove="Test Data\XUR\17559\EndGameScreen.xur" />
+    <None Remove="Test Data\XUR\17559\EnumeratingContent.xur" />
+    <None Remove="Test Data\XUR\17559\EpisodeResultSlot.xur" />
+    <None Remove="Test Data\XUR\17559\EpisodesChannelTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\Equalizer.xur" />
+    <None Remove="Test Data\XUR\17559\errplaceholderscene.xur" />
+    <None Remove="Test Data\XUR\17559\FamilyScene.xur" />
+    <None Remove="Test Data\XUR\17559\FeedbackScene.xur" />
+    <None Remove="Test Data\XUR\17559\FilterActionSlot.xur" />
+    <None Remove="Test Data\XUR\17559\FilterChannelLayout.xur" />
+    <None Remove="Test Data\XUR\17559\FilterScene.xur" />
+    <None Remove="Test Data\XUR\17559\FiltersCollections.xur" />
+    <None Remove="Test Data\XUR\17559\FilterSlot.xur" />
+    <None Remove="Test Data\XUR\17559\FiltersRecent.xur" />
+    <None Remove="Test Data\XUR\17559\FiltersRoot.xur" />
+    <None Remove="Test Data\XUR\17559\FormatHD.xur" />
+    <None Remove="Test Data\XUR\17559\friendslayout1.xur" />
+    <None Remove="Test Data\XUR\17559\friendslayout2.xur" />
+    <None Remove="Test Data\XUR\17559\FullscreenVideo %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\FullscreenVideo.xur" />
+    <None Remove="Test Data\XUR\17559\FullscreenVisualizer.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Album.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Artist.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-ArtistImage.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-CloudPlaylist.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Episode.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-EpisodeLarge.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-FlexHub.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-FreeTvEpisode.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-GameVideo.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Movie.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MovieIcon.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MoviePicks.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MovieTrailer.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MusicFeatured-Album.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MusicFeatured-Artist.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MusicFeatured-MusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MusicFeatured-Playlist.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MusicFeatured-Track.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MusicNewReleases.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MusicNews.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-MyMusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-NowPlaying-MusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-NowPlaying-Track.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-NowPlaying.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Pins-Album.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Pins-Artist.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Pins-MusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Pins-Playlist.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Pins-Track.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Playlist.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Search-Album.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Search-Artist.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-Track.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-TrackPick.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile-TVSeries.xur" />
+    <None Remove="Test Data\XUR\17559\GalleryTile.xur" />
+    <None Remove="Test Data\XUR\17559\GameAchievementsChannelLayout.xur" />
+    <None Remove="Test Data\XUR\17559\GameAchievementSlot.xur" />
+    <None Remove="Test Data\XUR\17559\GameAchievementsSeeAllSlot.xur" />
+    <None Remove="Test Data\XUR\17559\GameActionSlot.xur" />
+    <None Remove="Test Data\XUR\17559\GameMetadataSlot.xur" />
+    <None Remove="Test Data\XUR\17559\GameOverviewChannelLayout.xur" />
+    <None Remove="Test Data\XUR\17559\GamePlayScreen.xur" />
+    <None Remove="Test Data\XUR\17559\GamePreStart.xur" />
+    <None Remove="Test Data\XUR\17559\gamercard.xur" />
+    <None Remove="Test Data\XUR\17559\GamerRootScene.xur" />
+    <None Remove="Test Data\XUR\17559\GatherInputScene.xur" />
+    <None Remove="Test Data\XUR\17559\Grid.xur" />
+    <None Remove="Test Data\XUR\17559\Grid2Items.xur" />
+    <None Remove="Test Data\XUR\17559\Grid2x2Tall.xur" />
+    <None Remove="Test Data\XUR\17559\Grid2x2Tall_43.xur" />
+    <None Remove="Test Data\XUR\17559\Grid2x3.xur" />
+    <None Remove="Test Data\XUR\17559\Grid2x3_43.xur" />
+    <None Remove="Test Data\XUR\17559\GridHover2Items.xur" />
+    <None Remove="Test Data\XUR\17559\GridMain.xur" />
+    <None Remove="Test Data\XUR\17559\GridMarketplaceGameStyle.xur" />
+    <None Remove="Test Data\XUR\17559\GridMarketplaceMain.xur" />
+    <None Remove="Test Data\XUR\17559\GridMarketplaceMainNoHeroSlot.xur" />
+    <None Remove="Test Data\XUR\17559\GridMarketplaceMostPopular.xur" />
+    <None Remove="Test Data\XUR\17559\GridMarketplaceMostPopular_43.xur" />
+    <None Remove="Test Data\XUR\17559\GridMarketplaceStore.xur" />
+    <None Remove="Test Data\XUR\17559\GridMarketplace_all.xur" />
+    <None Remove="Test Data\XUR\17559\GridMetadataPanel.xur" />
+    <None Remove="Test Data\XUR\17559\GridPanel.xur" />
+    <None Remove="Test Data\XUR\17559\GridPanelShadow.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-Album.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-Artist.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-ArtistNarrow3Lines.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-DarkBG.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-DarkBGStretch.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-FeaturedSet.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-FeaturedSetSml.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-Item.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-ItemNowPlaying.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-LibrarySeries.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-MusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-myCollectionNowPlaying.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-myCollectionNPempty.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-NowPlayingLarge.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-Options.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-PassPurchaseOption.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-Points.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-Suggestion.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-SystemIcon.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-Track.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-TrackNarrow.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-TrackNarrow3Lines.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-TrackOption.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-TwoLinesItem.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-TwoLinesItemTop.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-UpcomingEpisode.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile-ZunePass.xur" />
+    <None Remove="Test Data\XUR\17559\GridTile.xur" />
+    <None Remove="Test Data\XUR\17559\Grid_43.xur" />
+    <None Remove="Test Data\XUR\17559\GuideItemScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\GuideItemScene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\GuideItemScene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\GuideItemScene.xur" />
+    <None Remove="Test Data\XUR\17559\GuideLabelScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\GuideLabelScene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\GuideLabelScene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\GuideLabelScene.xur" />
+    <None Remove="Test Data\XUR\17559\HardwareCheckErrorScene.xur" />
+    <None Remove="Test Data\XUR\17559\HardwareCheckMainScene.xur" />
+    <None Remove="Test Data\XUR\17559\HD.xur" />
+    <None Remove="Test Data\XUR\17559\HDDVDContentDetails.xur" />
+    <None Remove="Test Data\XUR\17559\HDDVDContents.xur" />
+    <None Remove="Test Data\XUR\17559\HDDVDDevice.xur" />
+    <None Remove="Test Data\XUR\17559\HealthSafetyMessageScene.xur" />
+    <None Remove="Test Data\XUR\17559\HeightAndWidth.xur" />
+    <None Remove="Test Data\XUR\17559\HeightAndWidth_43.xur" />
+    <None Remove="Test Data\XUR\17559\HeightWidthHandle.xur" />
+    <None Remove="Test Data\XUR\17559\HistoryScene.xur" />
+    <None Remove="Test Data\XUR\17559\HomeNetworkConnectivityRequired.xur" />
+    <None Remove="Test Data\XUR\17559\hubchannellayout.xur" />
+    <None Remove="Test Data\XUR\17559\hubhomepage.xur" />
+    <None Remove="Test Data\XUR\17559\HubPage-LongList.xur" />
+    <None Remove="Test Data\XUR\17559\HubPage.xur" />
+    <None Remove="Test Data\XUR\17559\HubPageLanding.xur" />
+    <None Remove="Test Data\XUR\17559\HubPageLanguageSelector.xur" />
+    <None Remove="Test Data\XUR\17559\HubPageMusicNews.xur" />
+    <None Remove="Test Data\XUR\17559\HubPageOverlay.xur" />
+    <None Remove="Test Data\XUR\17559\HubPageZunePass.xur" />
+    <None Remove="Test Data\XUR\17559\hubscene.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneHomepage %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneHomepage %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneHomepage %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneHomepage.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneKiosk %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneKiosk %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneKiosk %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneKiosk.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneLandingPage.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneLongList.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneMusicNews.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneNarrowTitle.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneNowPlaying.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneNowPlayingEdit.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneSearch.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneStandard %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneStandard %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneStandard %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneStandard.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneStudios.xur" />
+    <None Remove="Test Data\XUR\17559\HubSceneZunePass.xur" />
+    <None Remove="Test Data\XUR\17559\IconScene.xur" />
+    <None Remove="Test Data\XUR\17559\imgdest.xur" />
+    <None Remove="Test Data\XUR\17559\InputSceneSearch.xur" />
+    <None Remove="Test Data\XUR\17559\InputSceneStandard %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\InputSceneStandard %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\InputSceneStandard %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\InputSceneStandard.xur" />
+    <None Remove="Test Data\XUR\17559\InputSceneZune.xur" />
+    <None Remove="Test Data\XUR\17559\InstallTitleScene.xur" />
+    <None Remove="Test Data\XUR\17559\IptvConnecting.xur" />
+    <None Remove="Test Data\XUR\17559\ItemDetails.xur" />
+    <None Remove="Test Data\XUR\17559\ItemsGrid.xur" />
+    <None Remove="Test Data\XUR\17559\ItemsGrid2.xur" />
+    <None Remove="Test Data\XUR\17559\ItemsIcons.xur" />
+    <None Remove="Test Data\XUR\17559\KeyboardBase %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\KeyboardBase %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\KeyboardBase %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\KeyboardBase.xur" />
+    <None Remove="Test Data\XUR\17559\KeyboardMain %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\KeyboardMain.xur" />
+    <None Remove="Test Data\XUR\17559\keyboardscene.xur" />
+    <None Remove="Test Data\XUR\17559\KinectChatMicSettings.xur" />
+    <None Remove="Test Data\XUR\17559\KinectSensorSettings.xur" />
+    <None Remove="Test Data\XUR\17559\KinectSettings.xur" />
+    <None Remove="Test Data\XUR\17559\kioskhubscene.xur" />
+    <None Remove="Test Data\XUR\17559\kioskscene.xur" />
+    <None Remove="Test Data\XUR\17559\LaunchSignup.xur" />
+    <None Remove="Test Data\XUR\17559\LegendScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\LegendScene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\LegendScene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\LegendScene.xur" />
+    <None Remove="Test Data\XUR\17559\LibraryGalleryTile-Movie.xur" />
+    <None Remove="Test Data\XUR\17559\LibraryGalleryTile-TV.xur" />
+    <None Remove="Test Data\XUR\17559\LightweightContainerScene.xur" />
+    <None Remove="Test Data\XUR\17559\LimitedNetworkConnectivity.xur" />
+    <None Remove="Test Data\XUR\17559\list.xur" />
+    <None Remove="Test Data\XUR\17559\LiveTileSlot.xur" />
+    <None Remove="Test Data\XUR\17559\LiveTVSettings.xur" />
+    <None Remove="Test Data\XUR\17559\MainMenu.xur" />
+    <None Remove="Test Data\XUR\17559\mainscene.xur" />
+    <None Remove="Test Data\XUR\17559\MarketplaceSlot.xur" />
+    <None Remove="Test Data\XUR\17559\meavatarslotscene.xur" />
+    <None Remove="Test Data\XUR\17559\MediaPackage %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\MediaPackage.xur" />
+    <None Remove="Test Data\XUR\17559\MediaPackageEmbedded %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\MediaPackageEmbedded.xur" />
+    <None Remove="Test Data\XUR\17559\MediaSourceSelection %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\MediaSourceSelection.xur" />
+    <None Remove="Test Data\XUR\17559\MessageBox.xur" />
+    <None Remove="Test Data\XUR\17559\MetaCriticScene.xur" />
+    <None Remove="Test Data\XUR\17559\MetadataEpisodeOverview.xur" />
+    <None Remove="Test Data\XUR\17559\MetadataGameVideoOverview.xur" />
+    <None Remove="Test Data\XUR\17559\MetadataMovieOverview.xur" />
+    <None Remove="Test Data\XUR\17559\MetadataMusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\MetadataMusicVideoOverview.xur" />
+    <None Remove="Test Data\XUR\17559\MetadataSeasonOverview.xur" />
+    <None Remove="Test Data\XUR\17559\MetadataTrack.xur" />
+    <None Remove="Test Data\XUR\17559\MetadataTVEpisode.xur" />
+    <None Remove="Test Data\XUR\17559\metaPane_DisplayNormal.xur" />
+    <None Remove="Test Data\XUR\17559\metaPane_DisplayWidescreen.xur" />
+    <None Remove="Test Data\XUR\17559\Meta_Songs.xur" />
+    <None Remove="Test Data\XUR\17559\meviewlayout1.xur" />
+    <None Remove="Test Data\XUR\17559\meviewlayout2.xur" />
+    <None Remove="Test Data\XUR\17559\meviewscene.xur" />
+    <None Remove="Test Data\XUR\17559\meyouviewavatarslot.xur" />
+    <None Remove="Test Data\XUR\17559\MiniGamercard %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\MiniGamercard.xur" />
+    <None Remove="Test Data\XUR\17559\MiniNowPlayingOverlay.xur" />
+    <None Remove="Test Data\XUR\17559\ModalMenu2Scene.xur" />
+    <None Remove="Test Data\XUR\17559\ModalMenu3Scene.xur" />
+    <None Remove="Test Data\XUR\17559\ModuleBased %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\ModuleBased.xur" />
+    <None Remove="Test Data\XUR\17559\ModuleBasedEmbedded %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\ModuleBasedEmbedded.xur" />
+    <None Remove="Test Data\XUR\17559\MoreCastScene.xur" />
+    <None Remove="Test Data\XUR\17559\MoreInfoScene.xur" />
+    <None Remove="Test Data\XUR\17559\MoreProvidersSlot.xur" />
+    <None Remove="Test Data\XUR\17559\MoreResultsSlot.xur" />
+    <None Remove="Test Data\XUR\17559\moreslot.xur" />
+    <None Remove="Test Data\XUR\17559\MovieDetailsChannelLayout.xur" />
+    <None Remove="Test Data\XUR\17559\MovieDetailsSlot.xur" />
+    <None Remove="Test Data\XUR\17559\MoviePlayNowSceneTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\MovieSlotScene.xur" />
+    <None Remove="Test Data\XUR\17559\MPDashSkin.xur" />
+    <None Remove="Test Data\XUR\17559\MUA.xur" />
+    <None Remove="Test Data\XUR\17559\MUB.xur" />
+    <None Remove="Test Data\XUR\17559\MusicVideoDetails.xur" />
+    <None Remove="Test Data\XUR\17559\MWCategories.xur" />
+    <None Remove="Test Data\XUR\17559\MWDetailsScene.xur" />
+    <None Remove="Test Data\XUR\17559\MWSelectDevice.xur" />
+    <None Remove="Test Data\XUR\17559\MWSelectSource.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkMain.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkSelectionAdvancedWirelessSlot.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkSelectionConfiguredWirelessSlot.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkSelectionMainScene.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkSelectionNoWirelessNetworksFoundSlot.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkSelectionScanningSlot.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkSelectionWiredSlot.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkSelectionWirelessInfoSlot.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkSelectionWirelessSlot.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkSourceSelection.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkTraceroute.xur" />
+    <None Remove="Test Data\XUR\17559\NetworkTracerouteResults.xur" />
+    <None Remove="Test Data\XUR\17559\NoAwards.xur" />
+    <None Remove="Test Data\XUR\17559\NotchSubwayHandle %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\NotchSubwayHandle %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\NotchSubwayHandle %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\NotchSubwayHandle.xur" />
+    <None Remove="Test Data\XUR\17559\NowPlaying-Metadata.xur" />
+    <None Remove="Test Data\XUR\17559\NowPlayingEditPage.xur" />
+    <None Remove="Test Data\XUR\17559\NowPlayingListManagementOverlay.xur" />
+    <None Remove="Test Data\XUR\17559\NowPlayingPage.xur" />
+    <None Remove="Test Data\XUR\17559\NowPlayingSkin.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButton.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonDetails.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonDetailsTwoLine.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonFilter.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonFreePlay.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonHandle %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonHandle %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonHandle %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonHandle.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonNP.xur" />
+    <None Remove="Test Data\XUR\17559\NuiButtonSort.xur" />
+    <None Remove="Test Data\XUR\17559\NuiGlobalButtonsScene.xur" />
+    <None Remove="Test Data\XUR\17559\nuiIntroScene.xur" />
+    <None Remove="Test Data\XUR\17559\NuiLargeButton.xur" />
+    <None Remove="Test Data\XUR\17559\nuiMoreInfoScene.xur" />
+    <None Remove="Test Data\XUR\17559\NuiOneLineHoverButton.xur" />
+    <None Remove="Test Data\XUR\17559\NuiOneLineHoverButtonMid.xur" />
+    <None Remove="Test Data\XUR\17559\NuiOneLineHoverButtonMidIcon.xur" />
+    <None Remove="Test Data\XUR\17559\NuiOneLineHoverButtonWider.xur" />
+    <None Remove="Test Data\XUR\17559\NuiOneLineHoverButtonWiderIcon.xur" />
+    <None Remove="Test Data\XUR\17559\nuiplaceholderscene.xur" />
+    <None Remove="Test Data\XUR\17559\NuiSwipeNavLeft %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiSwipeNavLeft %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiSwipeNavLeft %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiSwipeNavLeft.xur" />
+    <None Remove="Test Data\XUR\17559\NuiSwipeNavRight %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiSwipeNavRight %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiSwipeNavRight %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiSwipeNavRight.xur" />
+    <None Remove="Test Data\XUR\17559\NuiTipsAndProgressScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiTipsAndProgressScene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiTipsAndProgressScene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\NuiTipsAndProgressScene.xur" />
+    <None Remove="Test Data\XUR\17559\nuiTransitionCompleteScene.xur" />
+    <None Remove="Test Data\XUR\17559\nuiTransitioningScene.xur" />
+    <None Remove="Test Data\XUR\17559\oobeBackground.xur" />
+    <None Remove="Test Data\XUR\17559\oobeCompleteLive.xur" />
+    <None Remove="Test Data\XUR\17559\oobeControllerNoLanguage.xur" />
+    <None Remove="Test Data\XUR\17559\oobeDownloadNautilusProfile.xur" />
+    <None Remove="Test Data\XUR\17559\OobeKinectAudio.xur" />
+    <None Remove="Test Data\XUR\17559\OobeLanguage.xur" />
+    <None Remove="Test Data\XUR\17559\OobeLocale.xur" />
+    <None Remove="Test Data\XUR\17559\OobeNetworkSelection.xur" />
+    <None Remove="Test Data\XUR\17559\OobeNetworkTest.xur" />
+    <None Remove="Test Data\XUR\17559\OobeNetworkTestInProgress.xur" />
+    <None Remove="Test Data\XUR\17559\oobePasscodeHint.xur" />
+    <None Remove="Test Data\XUR\17559\OobePControlEntry.xur" />
+    <None Remove="Test Data\XUR\17559\oobePrepareCompleteLive.xur" />
+    <None Remove="Test Data\XUR\17559\OobeSetPControl.xur" />
+    <None Remove="Test Data\XUR\17559\OperationProgress.xur" />
+    <None Remove="Test Data\XUR\17559\OverviewBandwidthTestAgainScene.xur" />
+    <None Remove="Test Data\XUR\17559\OverviewBandwidthTestScene.xur" />
+    <None Remove="Test Data\XUR\17559\PageContainer.xur" />
+    <None Remove="Test Data\XUR\17559\PageScrollHandleLeft.xur" />
+    <None Remove="Test Data\XUR\17559\PageScrollHandleRight.xur" />
+    <None Remove="Test Data\XUR\17559\PageTurnHandle.xur" />
+    <None Remove="Test Data\XUR\17559\PanelScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\PanelScene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\PanelScene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\PanelScene.xur" />
+    <None Remove="Test Data\XUR\17559\ParentalElevationPage.xur" />
+    <None Remove="Test Data\XUR\17559\partieslayout1.xur" />
+    <None Remove="Test Data\XUR\17559\partieslayout2.xur" />
+    <None Remove="Test Data\XUR\17559\partydetails.xur" />
+    <None Remove="Test Data\XUR\17559\partydetailsbuttons.xur" />
+    <None Remove="Test Data\XUR\17559\PcSoftwareError.xur" />
+    <None Remove="Test Data\XUR\17559\PHCountPanel.xur" />
+    <None Remove="Test Data\XUR\17559\Photobooth.xur" />
+    <None Remove="Test Data\XUR\17559\placeholderscene.xur" />
+    <None Remove="Test Data\XUR\17559\PlaylistDetailsPanel.xur" />
+    <None Remove="Test Data\XUR\17559\PlayspaceMainScene.xur" />
+    <None Remove="Test Data\XUR\17559\PlayToPage.xur" />
+    <None Remove="Test Data\XUR\17559\PlayToUpsellOverlay.xur" />
+    <None Remove="Test Data\XUR\17559\PopoutContainerScene.xur" />
+    <None Remove="Test Data\XUR\17559\pos.xur" />
+    <None Remove="Test Data\XUR\17559\PreviewBrowseMetadataMovie.xur" />
+    <None Remove="Test Data\XUR\17559\PreviewBrowseMetadataMovieTrailer.xur" />
+    <None Remove="Test Data\XUR\17559\PreviewBrowseMetadataMusicVideo.xur" />
+    <None Remove="Test Data\XUR\17559\PreviewBrowseMetadataTV.xur" />
+    <None Remove="Test Data\XUR\17559\PreviewBrowseMetadataTVEpisode.xur" />
+    <None Remove="Test Data\XUR\17559\PreviewBrowsePage.xur" />
+    <None Remove="Test Data\XUR\17559\PreviewBrowsePanel.xur" />
+    <None Remove="Test Data\XUR\17559\PreviewTexture.xur" />
+    <None Remove="Test Data\XUR\17559\PrivacyScene.xur" />
+    <None Remove="Test Data\XUR\17559\ProfileSlotScene.xur" />
+    <None Remove="Test Data\XUR\17559\profilesummary.xur" />
+    <None Remove="Test Data\XUR\17559\Progress.xur" />
+    <None Remove="Test Data\XUR\17559\ProgressScene.xur" />
+    <None Remove="Test Data\XUR\17559\ProviderListScene.xur" />
+    <None Remove="Test Data\XUR\17559\ProviderListTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\ProviderSlot.xur" />
+    <None Remove="Test Data\XUR\17559\PurchaseConfirmPanel.xur" />
+    <None Remove="Test Data\XUR\17559\PurchasedPanel.xur" />
+    <None Remove="Test Data\XUR\17559\PurchaseOptionsPanel.xur" />
+    <None Remove="Test Data\XUR\17559\Rating.xur" />
+    <None Remove="Test Data\XUR\17559\RatingSlotContainerScene.xur" />
+    <None Remove="Test Data\XUR\17559\RatingsScene.xur" />
+    <None Remove="Test Data\XUR\17559\ReconfigureWireless.xur" />
+    <None Remove="Test Data\XUR\17559\RelatedTemplate_1x1.xur" />
+    <None Remove="Test Data\XUR\17559\RelatedTemplate_Standard.xur" />
+    <None Remove="Test Data\XUR\17559\RentBuyButton.xur" />
+    <None Remove="Test Data\XUR\17559\ResultSlot_4x3.xur" />
+    <None Remove="Test Data\XUR\17559\ResultSlot_Music_1x1.xur" />
+    <None Remove="Test Data\XUR\17559\ResultSlot_Standard.xur" />
+    <None Remove="Test Data\XUR\17559\RootScene.xur" />
+    <None Remove="Test Data\XUR\17559\RottenTomatoesScene.xur" />
+    <None Remove="Test Data\XUR\17559\ScourChapterMark %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\ScourChapterMark %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\ScourChapterMark %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\ScourChapterMark.xur" />
+    <None Remove="Test Data\XUR\17559\ScourScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\ScourScene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\ScourScene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\ScourScene.xur" />
+    <None Remove="Test Data\XUR\17559\ScourSkin %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\ScourSkin %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\ScourSkin %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\ScourSkin.xur" />
+    <None Remove="Test Data\XUR\17559\ScreenshotSlot.xur" />
+    <None Remove="Test Data\XUR\17559\SearchCollectionScene.xur" />
+    <None Remove="Test Data\XUR\17559\SearchCountPanel.xur" />
+    <None Remove="Test Data\XUR\17559\SearchHubPage.xur" />
+    <None Remove="Test Data\XUR\17559\SearchInputPage.xur" />
+    <None Remove="Test Data\XUR\17559\SearchInputScene.xur" />
+    <None Remove="Test Data\XUR\17559\SearchResultsScene.xur" />
+    <None Remove="Test Data\XUR\17559\SearchTVSeriesScene.xur" />
+    <None Remove="Test Data\XUR\17559\SeasonOverviewPanel.xur" />
+    <None Remove="Test Data\XUR\17559\SeasonsTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\SelectOfflineProfileScene.xur" />
+    <None Remove="Test Data\XUR\17559\SeriesOverviewPanel.xur" />
+    <None Remove="Test Data\XUR\17559\SideHandleLeft %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\SideHandleLeft %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\SideHandleLeft %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\SideHandleLeft.xur" />
+    <None Remove="Test Data\XUR\17559\SideHandleRight %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\SideHandleRight %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\SideHandleRight %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\SideHandleRight.xur" />
+    <None Remove="Test Data\XUR\17559\SignInTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\SimpleCursorScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\SimpleCursorScene %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\SimpleCursorScene %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\SimpleCursorScene.xur" />
+    <None Remove="Test Data\XUR\17559\skin %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\skin %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\skin %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\Skin %285%29.xur" />
+    <None Remove="Test Data\XUR\17559\Skin.xur" />
+    <None Remove="Test Data\XUR\17559\skin_search.xur" />
+    <None Remove="Test Data\XUR\17559\SkipSigninSlot.xur" />
+    <None Remove="Test Data\XUR\17559\slideshowControls.xur" />
+    <None Remove="Test Data\XUR\17559\SlotContainerScene.xur" />
+    <None Remove="Test Data\XUR\17559\SmallLibrarySlot_Hub.xur" />
+    <None Remove="Test Data\XUR\17559\SmallLibrarySlot_Hub_NoTitle.xur" />
+    <None Remove="Test Data\XUR\17559\SpeechSettings.xur" />
+    <None Remove="Test Data\XUR\17559\SplashPage.xur" />
+    <None Remove="Test Data\XUR\17559\StarsCriticScene.xur" />
+    <None Remove="Test Data\XUR\17559\StudioHubPage.xur" />
+    <None Remove="Test Data\XUR\17559\SuggestionScene.xur" />
+    <None Remove="Test Data\XUR\17559\SystemScene.xur" />
+    <None Remove="Test Data\XUR\17559\TaskManagerScene.xur" />
+    <None Remove="Test Data\XUR\17559\Template1.xur" />
+    <None Remove="Test Data\XUR\17559\Template10HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template11HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template14HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template16HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template17HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template18HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template19HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template1HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template2.xur" />
+    <None Remove="Test Data\XUR\17559\Template20HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template3HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template4HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template6HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template7HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template8HD.xur" />
+    <None Remove="Test Data\XUR\17559\Template9HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateAlphabet.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateGamesMP.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateGenre.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateGenreHD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateOffline1HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateSignupLandingHD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateSports1HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateSports2HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateSports3HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore10HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore11HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore12HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore13HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore1HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore2HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore3HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore4HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore5HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore6HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore7HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore8HD.xur" />
+    <None Remove="Test Data\XUR\17559\TemplateStore9HD.xur" />
+    <None Remove="Test Data\XUR\17559\TermsOfUseScene.xur" />
+    <None Remove="Test Data\XUR\17559\TestingScene.xur" />
+    <None Remove="Test Data\XUR\17559\TFABlankScene.xur" />
+    <None Remove="Test Data\XUR\17559\TFAButtonsScene.xur" />
+    <None Remove="Test Data\XUR\17559\TFACountryCodeScene.xur" />
+    <None Remove="Test Data\XUR\17559\TFACredsInputCongratsScene.xur" />
+    <None Remove="Test Data\XUR\17559\ThemePicker.xur" />
+    <None Remove="Test Data\XUR\17559\ThemesRoot.xur" />
+    <None Remove="Test Data\XUR\17559\ThemeVisionEffects.xur" />
+    <None Remove="Test Data\XUR\17559\ThermalPostScene.xur" />
+    <None Remove="Test Data\XUR\17559\threeiconbutton.xur" />
+    <None Remove="Test Data\XUR\17559\TimeZoneScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\TimeZoneScene.xur" />
+    <None Remove="Test Data\XUR\17559\TrailerSlot.xur" />
+    <None Remove="Test Data\XUR\17559\TrailerVideoScene.xur" />
+    <None Remove="Test Data\XUR\17559\TraySlotScene.xur" />
+    <None Remove="Test Data\XUR\17559\Tutorial.xur" />
+    <None Remove="Test Data\XUR\17559\TVDetailsChannelLayout.xur" />
+    <None Remove="Test Data\XUR\17559\TVDetailsSlot.xur" />
+    <None Remove="Test Data\XUR\17559\TVPlayNowSceneTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\TVSeriesOverviewChannelLayout.xur" />
+    <None Remove="Test Data\XUR\17559\TVSeriesOverviewSlot.xur" />
+    <None Remove="Test Data\XUR\17559\TV_Template2.xur" />
+    <None Remove="Test Data\XUR\17559\TV_Template3.xur" />
+    <None Remove="Test Data\XUR\17559\TV_Template4.xur" />
+    <None Remove="Test Data\XUR\17559\TV_Template5.xur" />
+    <None Remove="Test Data\XUR\17559\TV_Template6.xur" />
+    <None Remove="Test Data\XUR\17559\uninstallIPTV.xur" />
+    <None Remove="Test Data\XUR\17559\UpdatingScene.xur" />
+    <None Remove="Test Data\XUR\17559\upsellslotscene.xur" />
+    <None Remove="Test Data\XUR\17559\Variables %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\Variables %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\Variables %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\Variables.xur" />
+    <None Remove="Test Data\XUR\17559\Video.xur" />
+    <None Remove="Test Data\XUR\17559\VideoContent.xur" />
+    <None Remove="Test Data\XUR\17559\VideoFullScreen.xur" />
+    <None Remove="Test Data\XUR\17559\VideoPlaybackPage.xur" />
+    <None Remove="Test Data\XUR\17559\VideoScene.xur" />
+    <None Remove="Test Data\XUR\17559\VideoUsageRights.xur" />
+    <None Remove="Test Data\XUR\17559\VideoWaveProgressScene.xur" />
+    <None Remove="Test Data\XUR\17559\VScrollHandle %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\VScrollHandle %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\VScrollHandle %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\VScrollHandle.xur" />
+    <None Remove="Test Data\XUR\17559\VuiBarScene %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\VuiBarScene.xur" />
+    <None Remove="Test Data\XUR\17559\VuiBarScene43 %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\VuiBarScene43.xur" />
+    <None Remove="Test Data\XUR\17559\VuiCommand %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\VuiCommand.xur" />
+    <None Remove="Test Data\XUR\17559\VuiGlobalCommand %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\VuiGlobalCommand.xur" />
+    <None Remove="Test Data\XUR\17559\VuiInstructions %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\VuiInstructions.xur" />
+    <None Remove="Test Data\XUR\17559\VuiMeter %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\VuiMeter.xur" />
+    <None Remove="Test Data\XUR\17559\VuiMic %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\VuiMic.xur" />
+    <None Remove="Test Data\XUR\17559\WebSlot.xur" />
+    <None Remove="Test Data\XUR\17559\WebVideoCollectionSlot_1x1.xur" />
+    <None Remove="Test Data\XUR\17559\WebVideoSlot.xur" />
+    <None Remove="Test Data\XUR\17559\WelcomeScreen.xur" />
+    <None Remove="Test Data\XUR\17559\XboxMusicNewsPanel.xur" />
+    <None Remove="Test Data\XUR\17559\XenonHandle %282%29.xur" />
+    <None Remove="Test Data\XUR\17559\XenonHandle %283%29.xur" />
+    <None Remove="Test Data\XUR\17559\XenonHandle %284%29.xur" />
+    <None Remove="Test Data\XUR\17559\XenonHandle.xur" />
+    <None Remove="Test Data\XUR\17559\XmfInfo.xur" />
+    <None Remove="Test Data\XUR\17559\XmfNuiScene.xur" />
+    <None Remove="Test Data\XUR\17559\XmfPadPlayback.xur" />
+    <None Remove="Test Data\XUR\17559\XmfPlayback.xur" />
+    <None Remove="Test Data\XUR\17559\XmfPrebufferingScene.xur" />
+    <None Remove="Test Data\XUR\17559\XmfSubtitleOverlay.xur" />
+    <None Remove="Test Data\XUR\17559\xuiClearScene.xur" />
+    <None Remove="Test Data\XUR\17559\xuiFirstTimeUser.xur" />
+    <None Remove="Test Data\XUR\17559\xuiGenderInput.xur" />
+    <None Remove="Test Data\XUR\17559\xuiHeightInput.xur" />
+    <None Remove="Test Data\XUR\17559\xuiHwag.xur" />
+    <None Remove="Test Data\XUR\17559\xuiPrivacyWarnScene.xur" />
+    <None Remove="Test Data\XUR\17559\xuiSettingFailure.xur" />
+    <None Remove="Test Data\XUR\17559\xuiSyncingScene.xur" />
+    <None Remove="Test Data\XUR\17559\xuiWeightInput.xur" />
+    <None Remove="Test Data\XUR\17559\xuiYearOfBirthInput.xur" />
+    <None Remove="Test Data\XUR\17559\ZunePassOfferPanel.xur" />
+    <None Remove="Test Data\XUR\17559\ZunePassPanel.xur" />
+    <None Remove="Test Data\XUR\17559\ZunePassTile.xur" />
     <None Remove="Test Data\XUR\9199\1003_IndividualDevice.xur" />
     <None Remove="Test Data\XUR\9199\1003_MediaContainerList.xur" />
     <None Remove="Test Data\XUR\9199\1003_SongList.xur" />
@@ -648,6 +1479,2499 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUI\9199\RomeRootScene.xui">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1003_IndividualDevice.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1003_MediaContainerList.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1003_SongList.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1004_DeviceNotBrowseable.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1005_MediaContainerOptions.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1006_IndividualArtistMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1016_IndividualSongMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1020_ripCDlist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1021_RipProgress.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1023_TroubleshootConnectionAlert.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1024_DownloadInfoAlert.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1025_EditAlbumInfo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1026_EditSongInfo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1028_NowPlaying.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1030_EditPlaylist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1031_SaveChangesAlert.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1048_IndividualDeviceMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\1123_Congratulations.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2000_NetworkConfigList.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2004_NetworkDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2015_WirelessInformation.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2016_EditIPSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2018_IPSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2020_AvailableWirelessNetworks.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2022_WirelessSecuritySettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2024_EnterSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2026_ChannelList.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2028_WirelessModes.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2033_DNSConfig.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2034_DNSSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2036_PPoESettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2038_ConsoleInformation.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2040_Ad-HocWirelessSecurity.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2400_WindowsMediaCenter.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2403_SlowWiredConnection.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2404_802bgWirelessNetwork.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2405_PCSoftwarePack.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2406_WelcomeSetupKey.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2407_WaitingScreen.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2410_AttemptingOldSoftware.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\2413_UnableToConnect.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\742_metaByDevice (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\742_metaByDevice.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\742_SelectNetworkDevice (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\742_SelectNetworkDevice.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\744_ManageAffiliation (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\744_ManageAffiliation.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\905_IndividualDeviceMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\aboutme.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AccountManagementGridMetadataPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AccountManagementGridMetadataPanelWide.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\achievementsbutton.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AcquiringNetworkSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ActivityAlertSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ActivityDetailsChannelLayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ActivityDetailsChannelLayout2.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ActivityDetailsPreviewSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ActivityDetailsUserSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ActivitySlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AdSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AdSlotScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AlbumDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimCenterBuild.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimCornerBuild.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimEdgeBuild.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimEmpty.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimLayoutsCenter.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimLayoutsCorners.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimLayoutsEdges.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimPerimiterCent.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimPerimiterCorn.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimPerimiterEdge.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimRandom3Center.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimRandom3Corner.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimRandom3Edge.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimRandom3EdgeReflect.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimSpawnLineHoriz.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimSpawnLineHorizCent.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimSpawnLineHorizCorn.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimSpawnLineParHoriz.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimSpawnLineParVert.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimSpawnLineVert.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AnimSpawnLineVertCorn.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ArtistBioPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ArtistDetailsPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AssetRefresh.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AuraScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AuraScene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AuraScene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AuraScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AvatarMiniCreator.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AvatarRotateHandle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\avatarslotscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Background.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\BackHandle (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\BackHandle (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\BackHandle (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\BackHandle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\BGMask.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\BoxArtContainerScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\busychannel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\buttonslotcornerscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\buttonslotscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CameraLocation.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselArtistImagesTile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselHeroTile-Album.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselHeroTile-Movie.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselHeroTile-MusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselHeroTile-UserPlaylist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselSlotScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselTile-Album.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselTile-Hub.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselTile-HubNoText.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselTile-Movie.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselTile-Recommended.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselTile-Static.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CarouselTile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CastChannelTemplate.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CastListScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CastListTemplate.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CastSlotScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Categories.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ChannelListScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ChannelListScene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ChannelListScene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ChannelListScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CloudCollectionHelperPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlClearScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlFirstTimeUser.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlGenderInput.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlHeightInput.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlHwag.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlIntroScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlManageExerciseInfoScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlMoreInfoScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlPrivacyWarnScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlSyncingScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlTransitionCompleteScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlTransitioningScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlWeightInput.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\cntrlYearOfBirthInput.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CollectionGalleryTile-Movie.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CollectionGalleryTile-MusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CollectionGalleryTile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CollectionSlot_1x1.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\completedgames.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\completedgameslot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\completedgameslotlayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\completedgamesummaryslot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CongratsScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ContributorsPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CurPasswordErrorScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DashAppContainerPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DashAppHost.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DashBkgnd.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashcursorscene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashcursorscene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashcursorscene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashcursorscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DashLoading.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSet.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSet3D.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetAudio.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetAudioDigital.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetAudioNielsen.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetAudioSoundEffects.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetAutoDownloads.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetAutoOff.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetBackgroundDownloads.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetClock.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetClockDaylightSavings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetClockFormat.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetClockTime.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetClockTimeZone.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetClosedCaption.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetClosedCaptionSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetClosedCaptionSettingValues.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetColorSpace.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetConsoleDiscoverable.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetConsoleName.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetCountry (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetCountry.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetDisplay.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetDisplayDiscovery.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetDisplayFormat.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetDisplayHiDef.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetDisplayPal.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetLangLocale.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetLanguage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetMediaAutoLaunch.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetOutputLevels.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControl.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlContentSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlFamilyTimer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlGame.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlGameExemptions.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlLiveA.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlLiveC.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlPasscode.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlPasscodeHint.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlVideoExplicit.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlVideoMovie.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlVideoTV.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPControlVideoUnrated.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetPolicyInfo_System.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetRemoteC.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetScreensaver.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetStartUp.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetStartupShutdown.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysCslSetTVScreenSize.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysIPTVSet.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\dashSysLiveVision.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DaylightSavingsScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Daylightscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DecoratorSlotScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DeleteMusic.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DescriptionPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DescriptionPanelButton.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Details.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DetailsActions.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DetailsDescription.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DetailsMovie.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DetailsOverviewPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DetailsPageScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DetailsRoot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DeviceConfigureAdvancedScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DeviceConfigureScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DeviceDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DeviceSelector.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Dialog.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DialogNatalDeleteApplyOutfit.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DialogPhotobooth.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\diorama.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DLCOverviewchannelLayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DoubleTallBrowseTemplate.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DownloadLiveSignup.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DvdAction.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DvdAlert.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DvdInfo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DvdPadDisplay.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DvdPadPlayback.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DvdRcDisplay.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DvdSplash169.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DvdSplash43.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DvdTraySlotScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\edit.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorBG.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorHandleBack.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorHandleLeft.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorHandleLeftTall.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorHandleRight.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorHandleRightTall.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorMarketplace.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorSkin.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorSplash.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorStart.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EditorStart_43.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EmailInfoScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Empty (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Empty.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\emptychannel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EmptyProfileSlotScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EndGameScreen.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EnumeratingContent.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EpisodeResultSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\EpisodesChannelTemplate.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Equalizer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\errplaceholderscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FamilyScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FeedbackScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FilterActionSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FilterChannelLayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FilterScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FiltersCollections.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FilterSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FiltersRecent.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FiltersRoot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FormatHD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\friendslayout1.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\friendslayout2.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FullscreenVideo (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FullscreenVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\FullscreenVisualizer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Album.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Artist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-ArtistImage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-CloudPlaylist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Episode.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-EpisodeLarge.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-FlexHub.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-FreeTvEpisode.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-GameVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Movie.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MovieIcon.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MoviePicks.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MovieTrailer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MusicFeatured-Album.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MusicFeatured-Artist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MusicFeatured-MusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MusicFeatured-Playlist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MusicFeatured-Track.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MusicNewReleases.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MusicNews.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-MyMusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-NowPlaying-MusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-NowPlaying-Track.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-NowPlaying.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Pins-Album.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Pins-Artist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Pins-MusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Pins-Playlist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Pins-Track.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Playlist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Search-Album.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Search-Artist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-Track.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-TrackPick.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile-TVSeries.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GalleryTile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GameAchievementsChannelLayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GameAchievementSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GameAchievementsSeeAllSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GameActionSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GameMetadataSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GameOverviewChannelLayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GamePlayScreen.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GamePreStart.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\gamercard.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GamerRootScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GatherInputScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Grid.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Grid2Items.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Grid2x2Tall.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Grid2x2Tall_43.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Grid2x3.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Grid2x3_43.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridHover2Items.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridMarketplaceGameStyle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridMarketplaceMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridMarketplaceMainNoHeroSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridMarketplaceMostPopular.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridMarketplaceMostPopular_43.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridMarketplaceStore.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridMarketplace_all.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridMetadataPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridPanelShadow.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-Album.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-Artist.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-ArtistNarrow3Lines.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-DarkBG.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-DarkBGStretch.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-FeaturedSet.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-FeaturedSetSml.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-Item.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-ItemNowPlaying.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-LibrarySeries.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-MusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-myCollectionNowPlaying.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-myCollectionNPempty.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-NowPlayingLarge.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-Options.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-PassPurchaseOption.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-Points.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-Suggestion.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-SystemIcon.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-Track.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-TrackNarrow.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-TrackNarrow3Lines.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-TrackOption.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-TwoLinesItem.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-TwoLinesItemTop.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-UpcomingEpisode.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile-ZunePass.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GridTile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Grid_43.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GuideItemScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GuideItemScene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GuideItemScene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GuideItemScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GuideLabelScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GuideLabelScene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GuideLabelScene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GuideLabelScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HardwareCheckErrorScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HardwareCheckMainScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HDDVDContentDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HDDVDContents.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HDDVDDevice.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HealthSafetyMessageScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HeightAndWidth.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HeightAndWidth_43.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HeightWidthHandle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HistoryScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HomeNetworkConnectivityRequired.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\hubchannellayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\hubhomepage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubPage-LongList.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubPageLanding.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubPageLanguageSelector.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubPageMusicNews.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubPageOverlay.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubPageZunePass.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\hubscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneHomepage (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneHomepage (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneHomepage (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneHomepage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneKiosk (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneKiosk (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneKiosk (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneKiosk.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneLandingPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneLongList.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneMusicNews.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneNarrowTitle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneNowPlaying.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneNowPlayingEdit.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneSearch.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneStandard (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneStandard (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneStandard (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneStandard.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneStudios.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HubSceneZunePass.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\IconScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\imgdest.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\InputSceneSearch.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\InputSceneStandard (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\InputSceneStandard (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\InputSceneStandard (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\InputSceneStandard.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\InputSceneZune.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\InstallTitleScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\IptvConnecting.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ItemDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ItemsGrid.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ItemsGrid2.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ItemsIcons.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\KeyboardBase (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\KeyboardBase (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\KeyboardBase (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\KeyboardBase.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\KeyboardMain (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\KeyboardMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\keyboardscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\KinectChatMicSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\KinectSensorSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\KinectSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\kioskhubscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\kioskscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LaunchSignup.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LegendScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LegendScene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LegendScene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LegendScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LibraryGalleryTile-Movie.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LibraryGalleryTile-TV.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LightweightContainerScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LimitedNetworkConnectivity.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\list.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LiveTileSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\LiveTVSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MainMenu.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\mainscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MarketplaceSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\meavatarslotscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MediaPackage (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MediaPackage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MediaPackageEmbedded (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MediaPackageEmbedded.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MediaSourceSelection (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MediaSourceSelection.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MessageBox.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MetaCriticScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MetadataEpisodeOverview.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MetadataGameVideoOverview.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MetadataMovieOverview.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MetadataMusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MetadataMusicVideoOverview.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MetadataSeasonOverview.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MetadataTrack.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MetadataTVEpisode.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\metaPane_DisplayNormal.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\metaPane_DisplayWidescreen.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Meta_Songs.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\meviewlayout1.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\meviewlayout2.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\meviewscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\meyouviewavatarslot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MiniGamercard (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MiniGamercard.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MiniNowPlayingOverlay.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ModalMenu2Scene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ModalMenu3Scene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ModuleBased (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ModuleBased.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ModuleBasedEmbedded (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ModuleBasedEmbedded.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MoreCastScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MoreInfoScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MoreProvidersSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MoreResultsSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\moreslot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MovieDetailsChannelLayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MovieDetailsSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MoviePlayNowSceneTemplate.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MovieSlotScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MPDashSkin.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MUA.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MUB.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MusicVideoDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MWCategories.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MWDetailsScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MWSelectDevice.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MWSelectSource.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkSelectionAdvancedWirelessSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkSelectionConfiguredWirelessSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkSelectionMainScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkSelectionNoWirelessNetworksFoundSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkSelectionScanningSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkSelectionWiredSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkSelectionWirelessInfoSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkSelectionWirelessSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkSourceSelection.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkTraceroute.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NetworkTracerouteResults.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NoAwards.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NotchSubwayHandle (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NotchSubwayHandle (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NotchSubwayHandle (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NotchSubwayHandle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NowPlaying-Metadata.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NowPlayingEditPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NowPlayingListManagementOverlay.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NowPlayingPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NowPlayingSkin.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButton.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonDetailsTwoLine.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonFilter.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonFreePlay.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonHandle (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonHandle (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonHandle (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonHandle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonNP.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiButtonSort.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiGlobalButtonsScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\nuiIntroScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiLargeButton.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\nuiMoreInfoScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiOneLineHoverButton.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiOneLineHoverButtonMid.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiOneLineHoverButtonMidIcon.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiOneLineHoverButtonWider.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiOneLineHoverButtonWiderIcon.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\nuiplaceholderscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiSwipeNavLeft (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiSwipeNavLeft (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiSwipeNavLeft (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiSwipeNavLeft.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiSwipeNavRight (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiSwipeNavRight (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiSwipeNavRight (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiSwipeNavRight.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiTipsAndProgressScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiTipsAndProgressScene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiTipsAndProgressScene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiTipsAndProgressScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\nuiTransitionCompleteScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\nuiTransitioningScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\oobeBackground.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\oobeCompleteLive.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\oobeControllerNoLanguage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\oobeDownloadNautilusProfile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OobeKinectAudio.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OobeLanguage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OobeLocale.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OobeNetworkSelection.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OobeNetworkTest.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OobeNetworkTestInProgress.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\oobePasscodeHint.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OobePControlEntry.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\oobePrepareCompleteLive.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OobeSetPControl.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OperationProgress.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OverviewBandwidthTestAgainScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OverviewBandwidthTestScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PageContainer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PageScrollHandleLeft.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PageScrollHandleRight.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PageTurnHandle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PanelScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PanelScene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PanelScene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PanelScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ParentalElevationPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\partieslayout1.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\partieslayout2.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\partydetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\partydetailsbuttons.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PcSoftwareError.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PHCountPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Photobooth.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\placeholderscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PlaylistDetailsPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PlayspaceMainScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PlayToPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PlayToUpsellOverlay.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PopoutContainerScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\pos.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PreviewBrowseMetadataMovie.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PreviewBrowseMetadataMovieTrailer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PreviewBrowseMetadataMusicVideo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PreviewBrowseMetadataTV.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PreviewBrowseMetadataTVEpisode.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PreviewBrowsePage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PreviewBrowsePanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PreviewTexture.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PrivacyScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ProfileSlotScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\profilesummary.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Progress.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ProgressScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ProviderListScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ProviderListTemplate.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ProviderSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PurchaseConfirmPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PurchasedPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\PurchaseOptionsPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Rating.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\RatingSlotContainerScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\RatingsScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ReconfigureWireless.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\RelatedTemplate_1x1.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\RelatedTemplate_Standard.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\RentBuyButton.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ResultSlot_4x3.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ResultSlot_Music_1x1.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ResultSlot_Standard.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\RootScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\RottenTomatoesScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourChapterMark (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourChapterMark (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourChapterMark (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourChapterMark.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourScene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourScene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourSkin (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourSkin (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourSkin (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScourSkin.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ScreenshotSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SearchCollectionScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SearchCountPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SearchHubPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SearchInputPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SearchInputScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SearchResultsScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SearchTVSeriesScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SeasonOverviewPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SeasonsTemplate.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SelectOfflineProfileScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SeriesOverviewPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SideHandleLeft (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SideHandleLeft (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SideHandleLeft (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SideHandleLeft.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SideHandleRight (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SideHandleRight (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SideHandleRight (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SideHandleRight.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SignInTemplate.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SimpleCursorScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SimpleCursorScene (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SimpleCursorScene (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SimpleCursorScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\skin (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\skin (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\skin (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Skin (5).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Skin.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\skin_search.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SkipSigninSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\slideshowControls.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SlotContainerScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SmallLibrarySlot_Hub.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SmallLibrarySlot_Hub_NoTitle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SpeechSettings.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SplashPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\StarsCriticScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\StudioHubPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SuggestionScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SystemScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TaskManagerScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template1.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template10HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template11HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template14HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template16HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template17HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template18HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template19HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template1HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template2.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template20HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template3HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template4HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template6HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template7HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template8HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Template9HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateAlphabet.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateGamesMP.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateGenre.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateGenreHD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateOffline1HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateSignupLandingHD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateSports1HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateSports2HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateSports3HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore10HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore11HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore12HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore13HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore1HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore2HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore3HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore4HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore5HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore6HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore7HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore8HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TemplateStore9HD.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TermsOfUseScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TestingScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TFABlankScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TFAButtonsScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TFACountryCodeScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TFACredsInputCongratsScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ThemePicker.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ThemesRoot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ThemeVisionEffects.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ThermalPostScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\threeiconbutton.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TimeZoneScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TimeZoneScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TrailerSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TrailerVideoScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TraySlotScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Tutorial.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TVDetailsChannelLayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TVDetailsSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TVPlayNowSceneTemplate.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TVSeriesOverviewChannelLayout.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TVSeriesOverviewSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TV_Template2.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TV_Template3.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TV_Template4.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TV_Template5.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TV_Template6.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\uninstallIPTV.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\UpdatingScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\upsellslotscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Variables (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Variables (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Variables (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Variables.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Video.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VideoContent.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VideoFullScreen.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VideoPlaybackPage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VideoScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VideoUsageRights.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VideoWaveProgressScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VScrollHandle (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VScrollHandle (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VScrollHandle (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VScrollHandle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiBarScene (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiBarScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiBarScene43 (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiBarScene43.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiCommand (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiCommand.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiGlobalCommand (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiGlobalCommand.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiInstructions (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiInstructions.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiMeter (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiMeter.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiMic (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\VuiMic.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\WebSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\WebVideoCollectionSlot_1x1.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\WebVideoSlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\WelcomeScreen.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XboxMusicNewsPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XenonHandle (2).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XenonHandle (3).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XenonHandle (4).xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XenonHandle.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XmfInfo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XmfNuiScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XmfPadPlayback.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XmfPlayback.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XmfPrebufferingScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XmfSubtitleOverlay.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiClearScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiFirstTimeUser.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiGenderInput.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiHeightInput.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiHwag.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiPrivacyWarnScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiSettingFailure.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiSyncingScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiWeightInput.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\xuiYearOfBirthInput.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ZunePassOfferPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ZunePassPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ZunePassTile.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\9199\1003_IndividualDevice.xur">
