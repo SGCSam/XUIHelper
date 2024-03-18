@@ -103,7 +103,93 @@ namespace XUIHelper.Core
 
         public async Task<bool> TryBuildAsync(IXUR xur, XUObject xuObject)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger?.Here().Verbose("Building KEYD8 keyframes.");
+                List<XURKeyframe> builtKeyframes = new List<XURKeyframe>();
+
+                if (!TryBuildKeyframesFromObject(xur, xuObject, ref builtKeyframes))
+                {
+                    xur.Logger?.Here().Error("Failed to build keyframes, returning null.");
+                    return false;
+                }
+
+                Keyframes = builtKeyframes.ToList();
+                xur.Logger?.Here().Verbose("Built a total of {0} KEYD8 keyframes successfully!", Keyframes.Count);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when building KEYD8 section, returning false. The exception is: {0}", ex);
+                return false;
+            }
+        }
+
+        private bool TryBuildKeyframesFromObject(IXUR xur, XUObject xuObject, ref List<XURKeyframe> builtKeyframes)
+        {
+            try
+            {
+                IKEYPSection? keyp = xur.TryFindXURSectionByMagic<IKEYPSection>(IKEYPSection.ExpectedMagic);
+                if(keyp == null)
+                {
+                    xur.Logger?.Here().Error("Failed to find KEYP section, returning false.");
+                    return false;
+                }
+
+                foreach (XUObject childObject in xuObject.Children)
+                {
+                    if (!TryBuildKeyframesFromObject(xur, childObject, ref builtKeyframes))
+                    {
+                        xur.Logger?.Here().Error("Failed to get keyframes for child {0}, returning false.", childObject.ClassName);
+                        return false;
+                    }
+                }
+
+                HashSet<int> foundIndexes = new HashSet<int>();
+                foreach (XUTimeline childTimeline in xuObject.Timelines)
+                {
+                    List<XURKeyframe> builtXURKeyframes = new List<XURKeyframe>();
+                    foreach (XUKeyframe childKeyframe in childTimeline.Keyframes)
+                    {
+                        List<uint>? propertyIndexes = KEYP8Section.TryGetKeyframePropertyIndexes(xur, childKeyframe);
+                        if (propertyIndexes == null)
+                        {
+                            xur.Logger?.Here().Error("Failed to get property indexes, returning false.");
+                            return false;
+                        }
+
+                        int groupIndex = 0;
+                        foreach(List<uint> groupedIndexes in keyp.GroupedPropertyIndexes)
+                        {
+                            if(groupedIndexes.SequenceEqual(propertyIndexes))
+                            {
+                                XURKeyframe xurKeyframe = new XURKeyframe(childKeyframe, 0, groupIndex);
+                                builtXURKeyframes.Add(xurKeyframe);
+                                break;
+                            }
+
+                            groupIndex += groupedIndexes.Count;
+                        }
+                    }
+
+                    int existingIndex = builtKeyframes.GetSequenceIndex(builtXURKeyframes);
+                    if (existingIndex != -1)
+                    {
+                        xur.Logger?.Here().Error("Found an existing sequence of keyframes at index {0}, won't re-add.", existingIndex);
+                        continue;
+                    }
+
+                    xur.Logger?.Here().Error("Adding a sequence of {0} keyframes for a new total of {1}. Added:\n{2}", builtXURKeyframes.Count, Keyframes.Count + builtXURKeyframes.Count, string.Join("\n", builtXURKeyframes));
+                    builtKeyframes.AddRange(builtXURKeyframes);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when trying to build KEYD8 keyframes for object {0}, returning false. The exception is: {1}", xuObject.ClassName, ex);
+                return false;
+            }
         }
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)

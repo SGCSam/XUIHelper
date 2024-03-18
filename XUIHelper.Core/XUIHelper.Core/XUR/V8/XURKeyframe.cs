@@ -27,9 +27,36 @@ namespace XUIHelper.Core
             PropertyIndex = propIndex;
         }
 
+        public XURKeyframe(XUKeyframe keyframe, int vectIndex, int propIndex)
+        {
+            Keyframe = keyframe.Keyframe;
+            InterpolationType = keyframe.InterpolationType;
+            EaseIn = keyframe.EaseIn;
+            EaseOut = keyframe.EaseOut;
+            EaseScale = keyframe.EaseScale;
+            VectorIndex = vectIndex;
+            PropertyIndex = propIndex;
+        }
+
         public override string ToString()
         {
             return string.Format("Keyframe: {0}, Interp: {1}, In: {2}, Out: {3}, Scale: {4}, Vector: {5}, Property: {6}", Keyframe, InterpolationType, EaseIn, EaseOut, EaseScale, VectorIndex, PropertyIndex);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if(obj is not XURKeyframe other)
+            {
+                return false;
+            }
+
+            return Keyframe == other.Keyframe &&
+                InterpolationType == other.InterpolationType &&
+                EaseIn == other.EaseIn &&
+                EaseOut == other.EaseOut &&
+                EaseScale == other.EaseScale &&
+                VectorIndex == other.VectorIndex &&
+                PropertyIndex == other.PropertyIndex;
         }
     }
 }

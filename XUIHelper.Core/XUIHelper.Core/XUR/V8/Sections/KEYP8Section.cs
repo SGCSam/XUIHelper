@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace XUIHelper.Core
         public int Magic { get { return IKEYPSection.ExpectedMagic; } }
 
         public List<uint> PropertyIndexes { get; private set; } = new List<uint>();
+
+        public List<List<uint>> GroupedPropertyIndexes { get; private set; } = new List<List<uint>>();
 
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
@@ -58,17 +61,19 @@ namespace XUIHelper.Core
         {
             try
             {
-                xur.Logger?.Here().Verbose("Building KEYP8 colours.");
+                xur.Logger?.Here().Verbose("Building KEYP8 indexes.");
                 List<uint> builtIndexes = new List<uint>();
-                List<List<uint>> builtPropertyIndexes = new List<List<uint>>();
+                List<List<uint>> groupedPropertyIndexes = new List<List<uint>>();
 
-                if (!TryBuildIndexesFromObject(xur, xuObject, ref builtIndexes, ref builtPropertyIndexes))
+                if (!TryBuildIndexesFromObject(xur, xuObject, ref builtIndexes, ref groupedPropertyIndexes))
                 {
-                    xur.Logger?.Here().Error("Failed to build colours, returning null.");
+                    xur.Logger?.Here().Error("Failed to build indexes, returning null.");
                     return false;
                 }
 
                 PropertyIndexes = builtIndexes.ToList();
+                GroupedPropertyIndexes = groupedPropertyIndexes;
+
                 xur.Logger?.Here().Verbose("Built a total of {0} KEYP8 indexes successfully!", PropertyIndexes.Count);
                 return true;
             }
@@ -79,13 +84,13 @@ namespace XUIHelper.Core
             }
         }
 
-        private bool TryBuildIndexesFromObject(IXUR xur, XUObject xuObject, ref List<uint> builtIndexes, ref List<List<uint>> builtPropertyIndexes)
+        private bool TryBuildIndexesFromObject(IXUR xur, XUObject xuObject, ref List<uint> builtIndexes, ref List<List<uint>> groupedPropertyIndexes)
         {
             try
             {
                 foreach (XUObject childObject in xuObject.Children)
                 {
-                    if (!TryBuildIndexesFromObject(xur, childObject, ref builtIndexes, ref builtPropertyIndexes))
+                    if (!TryBuildIndexesFromObject(xur, childObject, ref builtIndexes, ref groupedPropertyIndexes))
                     {
                         xur.Logger?.Here().Error("Failed to get indexes for child {0}, returning false.", childObject.ClassName);
                         return false;
@@ -96,49 +101,19 @@ namespace XUIHelper.Core
                 {
                     foreach (XUKeyframe childKeyframe in childTimeline.Keyframes)
                     {
-                        List<uint> propertyIndexes = new List<uint>();
-                        foreach (XUProperty animatedProperty in childKeyframe.Properties)
+                        List<uint>? propertyIndexes = TryGetKeyframePropertyIndexes(xur, childKeyframe);
+                        if (propertyIndexes == null)
                         {
-                            if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
-                            {
-                                int valueIndex = 0;
-                                foreach(object? val in animatedProperty.Value as List<object?>)
-                                {
-                                    if(val == null)
-                                    {
-                                        //This index isn't animated
-                                        valueIndex++;
-                                        continue;
-                                    }
-
-                                    uint? index = TryGetPropertyIndexForAnimatedPropertyValue(xur, animatedProperty.PropertyDefinition, val);
-                                    if (index == null)
-                                    {
-                                        xur.Logger?.Here().Error("Failed to get property index for indexed animated property {0} at index {1}, returning false.", animatedProperty.PropertyDefinition.Name, valueIndex);
-                                        return false;
-                                    }
-
-                                    propertyIndexes.Add(index.Value);
-                                }
-                            }
-                            else
-                            {
-                                uint? index = TryGetPropertyIndexForAnimatedPropertyValue(xur, animatedProperty.PropertyDefinition, animatedProperty.Value);
-                                if (index == null)
-                                {
-                                    xur.Logger?.Here().Error("Failed to get property index for animated property {0}, returning false.", animatedProperty.PropertyDefinition.Name);
-                                    return false;
-                                }
-
-                                propertyIndexes.Add(index.Value);
-                            }
+                            xur.Logger?.Here().Error("Failed to get property indexes, returning false.");
+                            return false;
                         }
 
                         bool found = false;
-                        foreach(List<uint> builtPropertyIndex in builtPropertyIndexes)
+                        foreach(List<uint> indexGroup in groupedPropertyIndexes)
                         {
-                            if(propertyIndexes.SequenceEqual(builtPropertyIndex))
+                            if(propertyIndexes.SequenceEqual(indexGroup))
                             {
+                                xur.Logger?.Here().Verbose("Found an identical sequence of property indexes, we won't re-add these. The sequence is: {0}", string.Join(" ", propertyIndexes));
                                 found = true;
                                 break;
                             }
@@ -153,7 +128,7 @@ namespace XUIHelper.Core
                         if (!found)
                         {
                             builtIndexes.AddRange(propertyIndexes);
-                            builtPropertyIndexes.Add(propertyIndexes);
+                            groupedPropertyIndexes.Add(propertyIndexes);
                         }
                     }
                 }
@@ -167,7 +142,7 @@ namespace XUIHelper.Core
             }
         }
 
-        private uint? TryGetPropertyIndexForAnimatedPropertyValue(IXUR xur, XUPropertyDefinition animatedPropertyDefinition, object val)
+        private static uint? TryGetPropertyIndexForAnimatedPropertyValue(IXUR xur, XUPropertyDefinition animatedPropertyDefinition, object val)
         {
             try
             {
@@ -349,6 +324,57 @@ namespace XUIHelper.Core
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
             throw new NotImplementedException();
+        }
+
+        public static List<uint>? TryGetKeyframePropertyIndexes(IXUR xur, XUKeyframe keyframe)
+        {
+            try
+            {
+                List<uint> retIndexes = new List<uint>();
+                foreach (XUProperty animatedProperty in keyframe.Properties)
+                {
+                    if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        int valueIndex = 0;
+                        foreach (object? val in animatedProperty.Value as List<object?>)
+                        {
+                            if (val == null)
+                            {
+                                //This index isn't animated
+                                valueIndex++;
+                                continue;
+                            }
+
+                            uint? index = TryGetPropertyIndexForAnimatedPropertyValue(xur, animatedProperty.PropertyDefinition, val);
+                            if (index == null)
+                            {
+                                xur.Logger?.Here().Error("Failed to get property index for indexed animated property {0} at index {1}, returning null.", animatedProperty.PropertyDefinition.Name, valueIndex);
+                                return null;
+                            }
+
+                            retIndexes.Add(index.Value);
+                        }
+                    }
+                    else
+                    {
+                        uint? index = TryGetPropertyIndexForAnimatedPropertyValue(xur, animatedProperty.PropertyDefinition, animatedProperty.Value);
+                        if (index == null)
+                        {
+                            xur.Logger?.Here().Error("Failed to get property index for animated property {0}, returning null.", animatedProperty.PropertyDefinition.Name);
+                            return null;
+                        }
+
+                        retIndexes.Add(index.Value);
+                    }
+                }
+
+                return retIndexes;
+            }
+            catch(Exception ex) 
+            {
+                xur.Logger?.Here().Error("Caught an exception when trying to get keyframe property indexes, returning false. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }

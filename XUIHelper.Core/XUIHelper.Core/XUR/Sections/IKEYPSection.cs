@@ -11,5 +11,6 @@ namespace XUIHelper.Core
         const int ExpectedMagic = 0x4B455950;
 
         List<uint> PropertyIndexes { get; }
+        List<List<uint>> GroupedPropertyIndexes { get; }
     }
 }
