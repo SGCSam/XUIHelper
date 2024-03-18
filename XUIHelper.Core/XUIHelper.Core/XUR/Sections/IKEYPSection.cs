@@ -10,6 +10,6 @@ namespace XUIHelper.Core
     {
         const int ExpectedMagic = 0x4B455950;
 
-        List<ulong> PropertyIndexes { get; }
+        List<uint> PropertyIndexes { get; }
     }
 }

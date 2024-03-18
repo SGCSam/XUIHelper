@@ -163,14 +163,11 @@ namespace XUIHelper.Core
 
                 ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
 
-                List<IXURSection>? sections = await TryBuildSectionsFromObjectAsync(rootObject);
-                if (sections == null)
+                if (!await TryBuildSectionsFromObjectAsync(rootObject))
                 {
                     Logger?.Here().Error("Failed to build sections, returning false.");
                     return false;
                 }
-
-                Sections = sections;
 
                 //TODO: Verify file path here!
                 Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
@@ -347,6 +344,6 @@ namespace XUIHelper.Core
 
         protected abstract IXURCountHeader GetCountHeader();
 
-        protected abstract Task<List<IXURSection>?> TryBuildSectionsFromObjectAsync(XUObject xuObject);
+        protected abstract Task<bool> TryBuildSectionsFromObjectAsync(XUObject xuObject);
     }
 }

@@ -83,20 +83,18 @@ namespace XUIHelper.Core
                 || rootObject.GetNamedFramesCount() >= 0x19;    //Not sure if named frames is but this allows community.xur and hudbkgnd.xur to write
         }
 
-        protected override async Task<List<IXURSection>?> TryBuildSectionsFromObjectAsync(XUObject rootObject)
+        protected override async Task<bool> TryBuildSectionsFromObjectAsync(XUObject rootObject)
         {
-            List<IXURSection> retList = new List<IXURSection>();
-
             STRN5Section strnSection = new STRN5Section();
             if(!await strnSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build STRN5 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build STRN5 section, returning false.");
+                return false;
             }
             else if(strnSection.Strings.Count > 0)
             {
                 Logger?.Here().Verbose("Adding STRN5 section.");
-                retList.Add(strnSection);
+                Sections.Add(strnSection);
             }
             else
             {
@@ -106,13 +104,13 @@ namespace XUIHelper.Core
             VECT5Section vectSection = new VECT5Section();
             if (!await vectSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build VECT5 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build VECT5 section, returning false.");
+                return false;
             }
             else if (vectSection.Vectors.Count > 0)
             {
                 Logger?.Here().Verbose("Adding VECT5 section.");
-                retList.Add(vectSection);
+                Sections.Add(vectSection);
             }
             else
             {
@@ -122,13 +120,13 @@ namespace XUIHelper.Core
             QUAT5Section quatSection = new QUAT5Section();
             if (!await quatSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build QUAT5 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build QUAT5 section, returning false.");
+                return false;
             }
             else if (quatSection.Quaternions.Count > 0)
             {
                 Logger?.Here().Verbose("Adding QUAT5 section.");
-                retList.Add(quatSection);
+                Sections.Add(quatSection);
             }
             else
             {
@@ -138,13 +136,13 @@ namespace XUIHelper.Core
             CUST5Section custSection = new CUST5Section();
             if (!await custSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build CUST5 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build CUST5 section, returning false.");
+                return false;
             }
             else if (custSection.Figures.Count > 0)
             {
                 Logger?.Here().Verbose("Adding CUST5 section.");
-                retList.Add(custSection);
+                Sections.Add(custSection);
             }
             else
             {
@@ -152,9 +150,9 @@ namespace XUIHelper.Core
             }
 
             DATA5Section dataSection = new DATA5Section(rootObject);
-            retList.Add(dataSection);
+            Sections.Add(dataSection);
 
-            return retList;
+            return true;
         }
     }
 }

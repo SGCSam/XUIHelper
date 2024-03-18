@@ -851,7 +851,7 @@ namespace XUIHelper.Core
                             case XUPropertyDefinitionTypes.Unsigned:
                             {
                                 xur.Logger?.Here().Verbose("Animated property is unsigned, using value {0}.", thisPropertyIndex);
-                                xuProperty = new XUProperty(animatedPropertyDefinition, thisPropertyIndex);
+                                xuProperty = new XUProperty(animatedPropertyDefinition, (uint)thisPropertyIndex);
                                 break;
                             }
                             case XUPropertyDefinitionTypes.Bool:
@@ -950,6 +950,7 @@ namespace XUIHelper.Core
                             }
 
                             xur.Logger?.Here().Verbose("The property {0} is indexed, using index of {1}.", animatedPropertyDefinition.Name, indexedPropertyIndexes[handledIndexedProperties]);
+                            //TODO: USE THE INDEX HERE
 
                             bool found = false;
                             foreach (XUProperty addedAnimatedProperty in animatedProperties)

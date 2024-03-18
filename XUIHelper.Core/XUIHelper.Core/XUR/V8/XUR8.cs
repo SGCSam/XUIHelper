@@ -133,20 +133,18 @@ namespace XUIHelper.Core
             return true;
         }
 
-        protected override async Task<List<IXURSection>?> TryBuildSectionsFromObjectAsync(XUObject rootObject)
+        protected override async Task<bool> TryBuildSectionsFromObjectAsync(XUObject rootObject)
         {
-            List<IXURSection> retList = new List<IXURSection>();
-
             STRN8Section strnSection = new STRN8Section();
             if (!await strnSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build STRN8 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build STRN8 section, returning false.");
+                return false;
             }
             else if (strnSection.Strings.Count > 0)
             {
                 Logger?.Here().Verbose("Adding STRN8 section.");
-                retList.Add(strnSection);
+                Sections.Add(strnSection);
             }
             else
             {
@@ -156,13 +154,13 @@ namespace XUIHelper.Core
             VECT8Section vectSection = new VECT8Section();
             if (!await vectSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build VECT8 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build VECT8 section, returning false.");
+                return false;
             }
             else if (vectSection.Vectors.Count > 0)
             {
                 Logger?.Here().Verbose("Adding VECT8 section.");
-                retList.Add(vectSection);
+                Sections.Add(vectSection);
             }
             else
             {
@@ -172,13 +170,13 @@ namespace XUIHelper.Core
             QUAT8Section quatSection = new QUAT8Section();
             if (!await quatSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build QUAT8 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build QUAT8 section, returning false.");
+                return false;
             }
             else if (quatSection.Quaternions.Count > 0)
             {
                 Logger?.Here().Verbose("Adding QUAT8 section.");
-                retList.Add(quatSection);
+                Sections.Add(quatSection);
             }
             else
             {
@@ -188,13 +186,13 @@ namespace XUIHelper.Core
             CUST8Section custSection = new CUST8Section();
             if (!await custSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build CUST8 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build CUST8 section, returning false.");
+                return false;
             }
             else if (custSection.Figures.Count > 0)
             {
                 Logger?.Here().Verbose("Adding CUST8 section.");
-                retList.Add(custSection);
+                Sections.Add(custSection);
             }
             else
             {
@@ -204,13 +202,13 @@ namespace XUIHelper.Core
             FLOT8Section flotSection = new FLOT8Section();
             if (!await flotSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build FLOT8 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build FLOT8 section, returning false.");
+                return false;
             }
             else if (flotSection.Floats.Count > 0)
             {
                 Logger?.Here().Verbose("Adding FLOT8 section.");
-                retList.Add(flotSection);
+                Sections.Add(flotSection);
             }
             else
             {
@@ -220,13 +218,13 @@ namespace XUIHelper.Core
             COLR8Section colrSection = new COLR8Section();
             if (!await colrSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build COLR8 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build COLR8 section, returning false.");
+                return false;
             }
             else if (colrSection.Colours.Count > 0)
             {
                 Logger?.Here().Verbose("Adding COLR8 section.");
-                retList.Add(colrSection);
+                Sections.Add(colrSection);
             }
             else
             {
@@ -236,13 +234,13 @@ namespace XUIHelper.Core
             KEYP8Section keypSection = new KEYP8Section();
             if (!await keypSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build KEYP8 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build KEYP8 section, returning false.");
+                return false;
             }
             else if (keypSection.PropertyIndexes.Count > 0)
             {
                 Logger?.Here().Verbose("Adding KEYP8 section.");
-                retList.Add(keypSection);
+                Sections.Add(keypSection);
             }
             else
             {
@@ -252,13 +250,13 @@ namespace XUIHelper.Core
             KEYD8Section keydSection = new KEYD8Section();
             if (!await keydSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build KEYD8 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build KEYD8 section, returning false.");
+                return false;
             }
             else if (keydSection.Keyframes.Count > 0)
             {
                 Logger?.Here().Verbose("Adding KEYD8 section.");
-                retList.Add(keydSection);
+                Sections.Add(keydSection);
             }
             else
             {
@@ -268,13 +266,13 @@ namespace XUIHelper.Core
             NAME8Section nameSection = new NAME8Section();
             if (!await nameSection.TryBuildAsync(this, rootObject))
             {
-                Logger?.Here().Error("Failed to build NAME8 section, returning null.");
-                return null;
+                Logger?.Here().Error("Failed to build NAME8 section, returning false.");
+                return false;
             }
             else if (nameSection.NamedFrames.Count > 0)
             {
                 Logger?.Here().Verbose("Adding NAME8 section.");
-                retList.Add(nameSection);
+                Sections.Add(nameSection);
             }
             else
             {
@@ -282,9 +280,9 @@ namespace XUIHelper.Core
             }
 
             DATA5Section dataSection = new DATA5Section(rootObject);
-            retList.Add(dataSection);
+            Sections.Add(dataSection);
 
-            return retList;
+            return true;
         }
     }
 }

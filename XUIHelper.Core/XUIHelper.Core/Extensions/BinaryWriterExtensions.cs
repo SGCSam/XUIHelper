@@ -100,5 +100,30 @@ namespace XUIHelper.Core.Extensions
             }
         }
         #endregion
+
+        #region PackedUInt
+
+        public static void WritePackedUInt(this BinaryWriter writer, uint val)
+        {
+            if (val > 0xEFF)
+            {
+                writer.Write((byte)0xFF);
+                writer.Write((int)val);
+            }
+            else if (val >= 0xF0)
+            {
+                uint highPart = val >> 8;
+                highPart |= 0xF0;
+                byte lowPart = (byte)(val & 0xFF);
+
+                writer.Write((byte)highPart);
+                writer.Write((byte)lowPart);
+            }
+            else
+            {
+                writer.Write((byte)val);
+            }
+        }
+        #endregion
     }
 }
