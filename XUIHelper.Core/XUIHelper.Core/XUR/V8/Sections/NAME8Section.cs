@@ -41,10 +41,10 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Reading named frames from offset {0:X8}.", entry.Offset);
                 reader.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
-                int keyframeIndex = 0;
+                int namedFrameIndex = 0;
                 for (int bytesRead = 0; bytesRead < entry.Length;)
                 {
-                    xur.Logger?.Here().Verbose("Reading keyframe index {0}.", keyframeIndex);
+                    xur.Logger?.Here().Verbose("Reading named frame index {0}.", namedFrameIndex);
 
                     byte readStringIndexBytes;
                     int stringIndex = (int)reader.ReadPackedUInt(out readStringIndexBytes);
@@ -97,7 +97,7 @@ namespace XUIHelper.Core
                         NamedFrames.Add(new XUNamedFrame(name, (int)keyframe, commandType));
                     }
 
-                    keyframeIndex++;
+                    namedFrameIndex++;
                 }
 
                 xur.Logger?.Here().Verbose("Read named frames successfully, read a total of {0} named frames", NamedFrames.Count);
@@ -112,7 +112,57 @@ namespace XUIHelper.Core
 
         public async Task<bool> TryBuildAsync(IXUR xur, XUObject xuObject)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger?.Here().Verbose("Building NAME8 named frames.");
+                HashSet<XUNamedFrame> builtNamedFrames = new HashSet<XUNamedFrame>();
+
+                if (!TryBuildNamedFramesFromObject(xur, xuObject, ref builtNamedFrames))
+                {
+                    xur.Logger?.Here().Error("Failed to build named frames, returning null.");
+                    return false;
+                }
+
+                NamedFrames = builtNamedFrames.ToList();
+
+                xur.Logger?.Here().Verbose("Built a total of {0} NAME8 named frames successfully!", NamedFrames.Count);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when building NAME8 named frames, returning false. The exception is: {0}", ex);
+                return false;
+            }
+        }
+
+        private bool TryBuildNamedFramesFromObject(IXUR xur, XUObject xuObject, ref HashSet<XUNamedFrame> builtNamedFrames)
+        {
+            try
+            {
+                foreach (XUObject childObject in xuObject.Children)
+                {
+                    if (!TryBuildNamedFramesFromObject(xur, childObject, ref builtNamedFrames))
+                    {
+                        xur.Logger?.Here().Error("Failed to get named frames for child {0}, returning false.", childObject.ClassName);
+                        return false;
+                    }
+                }
+
+                foreach(XUNamedFrame namedFrame in xuObject.NamedFrames)
+                {
+                    if(builtNamedFrames.Add(namedFrame))
+                    {
+                        xur.Logger?.Here().Verbose("Added named frame {0}", namedFrame);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when trying to build NAME8 named frames for object {0}, returning false. The exception is: {1}", xuObject.ClassName, ex);
+                return false;
+            }
         }
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
