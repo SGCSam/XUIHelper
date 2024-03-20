@@ -188,7 +188,29 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(FLOT8Section));
+                xur.Logger?.Here().Verbose("Writing FLOT8 section.");
+
+                int bytesWritten = 0;
+                int floatsWritten = 0;
+                foreach (float floatToWrite in Floats)
+                {
+                    writer.WriteSingleBE(floatToWrite);
+                    bytesWritten += 4;
+                    xur.Logger?.Here().Verbose("Wrote float index {0}: {1}.", floatsWritten, floatToWrite);
+                    floatsWritten++;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} FLOT8 floats as {1:X8} bytes successfully!", Floats.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing FLOT8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }
