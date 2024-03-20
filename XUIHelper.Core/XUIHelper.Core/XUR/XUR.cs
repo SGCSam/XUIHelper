@@ -175,7 +175,7 @@ namespace XUIHelper.Core
 
                 int writtenFileSize = 0;
                 Dictionary<int, int> sectionsLengths = new Dictionary<int, int>();
-                string sectionsFilePath = Path.GetTempFileName();
+                string sectionsFilePath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\sections.bin";
                 Logger?.Here().Verbose("Writing sections to {0}", sectionsFilePath);
                 using (BinaryWriter sectionsWriter = new BinaryWriter(File.OpenWrite(sectionsFilePath)))
                 {

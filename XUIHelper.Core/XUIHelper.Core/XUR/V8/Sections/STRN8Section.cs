@@ -34,27 +34,18 @@ namespace XUIHelper.Core
                 int totalStringsLength = reader.ReadInt32BE();
                 short stringsCount = reader.ReadInt16BE();
 
-                //TODO: This *might* be wrong, do all XUR8s include an empty string?
                 Strings.Add("");
 
-                for(int stringIndex = 0; stringIndex < stringsCount; stringIndex++)
+                for (int stringIndex = 0; stringIndex < stringsCount; stringIndex++)
                 {
                     string readStr = reader.ReadNullTerminatedString();
                     xur.Logger?.Here().Verbose("Read a string {0}", readStr);
                     Strings.Add(readStr);
                 }
 
-                //We add + 2 to our checks too, since a empty string "" is still included in the totalStringsLength even though it may not be in the table...
-                int expectedOffset = entry.Offset + totalStringsLength + 6;
-                if(reader.BaseStream.Position != expectedOffset && reader.BaseStream.Position != expectedOffset + 2)
+                if (stringsCount != Strings.Count - 1)
                 {
-                    xur.Logger?.Here().Error("Mismatch of offsets when reading STRN8 section, returning false. Expected: {0:X8}, Actual: {1:X8}", expectedOffset, reader.BaseStream.Position);
-                    return true;
-                }
-
-                if(stringsCount != Strings.Count - 1)
-                {
-                    xur.Logger?.Here().Error("Mismatch of strings count when reading STRN8 section, returning false. Expected: {0:X8}, Actual: {1:X8}", stringsCount, Strings.Count);
+                    xur.Logger?.Here().Error("Mismatch of strings count when reading STRN8 section, returning false. Expected: {0:X8}, Actual: {1:X8}", stringsCount, Strings.Count - 1);
                     return false;
                 }
 
@@ -74,7 +65,6 @@ namespace XUIHelper.Core
             {
                 xur.Logger?.Here().Verbose("Building STRN8 strings.");
 
-                //TODO: This *might* be wrong, do all XUR8s include an empty string?
                 Strings.Add("");
 
                 HashSet<string> builtStrings = new HashSet<string>();
@@ -212,7 +202,50 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(STRN8Section));
+                xur.Logger?.Here().Verbose("Writing STRN8 section.");
+
+                int totalStringsLength = 0;
+                short stringsCount = 0;
+
+                foreach (string str in Strings)
+                {
+                    if(string.IsNullOrEmpty(str))
+                    {
+                        continue;
+                    }
+
+                    totalStringsLength += (str.Length) + 1;
+                    stringsCount++;
+                }
+
+                int bytesWritten = 0;
+                writer.WriteInt32BE(totalStringsLength);
+                writer.WriteInt16BE(stringsCount);
+                bytesWritten += 6;
+
+                foreach (string str in Strings)
+                {
+                    //This is NOT an error, the empty string doesn't get written to the STRN section
+                    if (string.IsNullOrEmpty(str))
+                    {
+                        continue;
+                    }
+
+                    writer.WriteNullTerminatedString(str);
+                    bytesWritten += (str.Length) + 1;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} STRN8 strings as {1:X8} bytes successfully!", Strings.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing STRN8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }

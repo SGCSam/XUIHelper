@@ -90,7 +90,6 @@ namespace XUIHelper.Core.Extensions
         #endregion
 
         #region String
-
         public static void WriteUTF8String(this BinaryWriter writer, string val)
         {
             for(int i = 0; i < val.Length; i++)
@@ -98,6 +97,16 @@ namespace XUIHelper.Core.Extensions
                 writer.Write((byte)0x00);
                 writer.Write(val[i]);
             }
+        }
+
+        public static void WriteNullTerminatedString(this BinaryWriter writer, string val)
+        {
+            foreach(char c in val)
+            {
+                writer.Write(c);
+            }
+
+            writer.Write((byte)0x00);
         }
         #endregion
 
