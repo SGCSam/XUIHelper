@@ -167,7 +167,73 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(NAME8Section));
+                xur.Logger?.Here().Verbose("Writing NAME8 section.");
+
+                ISTRNSection? strnSection = xur.TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
+                {
+                    xur.Logger?.Here().Error("STRN section was null, returning null.");
+                    return null;
+                }
+
+                int bytesWritten = 0;
+                int namedFramesWritten = 0;
+                foreach (XUNamedFrame namedFrame in NamedFrames)
+                {
+                    int thisNamedFrameBytesWritten = 0;
+
+                    int nameIndex = strnSection.Strings.IndexOf(namedFrame.Name);
+                    if(nameIndex == -1)
+                    {
+                        xur.Logger?.Here().Error("Failed to get string index for named frame index {0}, name {1}, returning null.", namedFramesWritten, namedFrame.Name);
+                        return null;
+                    }
+
+                    int nameIndexBytesWritten = 0;
+                    writer.WritePackedUInt((uint)nameIndex, out nameIndexBytesWritten);
+                    thisNamedFrameBytesWritten += nameIndexBytesWritten;
+
+                    int keyframeBytesWritten = 0;
+                    writer.WritePackedUInt((uint)namedFrame.Keyframe, out keyframeBytesWritten);
+                    thisNamedFrameBytesWritten += keyframeBytesWritten;
+
+                    writer.Write((byte)namedFrame.CommandType);
+                    thisNamedFrameBytesWritten++;
+
+                    if(namedFrame.CommandType == XUNamedFrameCommandTypes.GoTo || 
+                        namedFrame.CommandType == XUNamedFrameCommandTypes.GoToAndPlay ||
+                        namedFrame.CommandType == XUNamedFrameCommandTypes.GoToAndStop)
+                    {
+                        xur.Logger?.Here().Verbose("Named frame index {0} has a target parameter from its command type {1}.", namedFramesWritten, namedFrame.CommandType);
+
+                        int paramIndex = strnSection.Strings.IndexOf(namedFrame.TargetParameter);
+                        if (paramIndex == -1)
+                        {
+                            xur.Logger?.Here().Error("Failed to get string index for named frame index {0}, parameter {1}, returning null.", namedFramesWritten, namedFrame.TargetParameter);
+                            return null;
+                        }
+
+                        int paramIndexBytesWritten = 0;
+                        writer.WritePackedUInt((uint)paramIndex, out paramIndexBytesWritten);
+                        thisNamedFrameBytesWritten += paramIndexBytesWritten;
+                    }
+
+                    bytesWritten += thisNamedFrameBytesWritten;
+                    xur.Logger?.Here().Verbose("Wrote named frame index {0} of {1} bytes: {2}.", namedFramesWritten, thisNamedFrameBytesWritten, namedFrame);
+                    namedFramesWritten++;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} NAME8 named frames as {1:X8} bytes successfully!", NamedFrames.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing KEYD8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }
