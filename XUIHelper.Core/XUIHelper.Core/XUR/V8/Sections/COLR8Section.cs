@@ -221,7 +221,32 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(COLR8Section));
+                xur.Logger?.Here().Verbose("Writing COLR8 section.");
+
+                int bytesWritten = 0;
+                int coloursWritten = 0;
+                foreach (XUColour colour in Colours)
+                {
+                    writer.Write(colour.A);
+                    writer.Write(colour.R);
+                    writer.Write(colour.G);
+                    writer.Write(colour.B);
+                    bytesWritten += 4;
+                    xur.Logger?.Here().Verbose("Wrote colour index {0}: {1}.", coloursWritten, colour);
+                    coloursWritten++;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} COLR8 colours as {1:X8} bytes successfully!", Colours.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing COLR8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }
