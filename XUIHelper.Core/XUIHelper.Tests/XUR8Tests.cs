@@ -9,7 +9,7 @@ namespace XUIHelper.Tests
         //TODO: XUR8 write support
         //TODO: XUR8 unit tests
         //TODO: Genericise the build floats, quats, vectors, etc into a templated function
-        //TODO: Add a parent class VECTSection for VECT5Section, VECT8Section that implements build. Do this for QUAT too that writes the same between XUR5 and XUR8.
+        //TODO: Add a parent class VECTSection for VECT5Section, VECT8Section that implements build. Do this for QUAT and CUST too that writes the same between XUR5 and XUR8.
         //TODO: Decouple XUI version from extensions, make it more of a group IDed by a string, as we should be able to write a XUR8 as a XUR5
         //TODO: Support for ignore properties (ones that aren't supported in XuiTool)
         //TODO: Function library API

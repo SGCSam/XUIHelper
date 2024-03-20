@@ -215,7 +215,47 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(CUST8Section));
+                xur.Logger?.Here().Verbose("Writing CUST8 section.");
+
+                int bytesWritten = 0;
+                int figuresWritten = 0;
+                foreach (XUFigure figure in Figures)
+                {
+                    int thisDataLength = 12 + (24 * figure.Points.Count);
+                    writer.WriteInt32BE(thisDataLength);
+                    xur.Logger?.Here().Verbose("Wrote a data length of {0:X8} for figure index {1} that has a total of {2} points.", thisDataLength, figuresWritten, figure.Points.Count);
+
+                    writer.WriteSingleBE(figure.BoundingBox.X);
+                    writer.WriteSingleBE(figure.BoundingBox.Y);
+                    writer.WriteInt32BE(figure.Points.Count);
+                    bytesWritten += 16;
+
+                    foreach (XUBezierPoint bezierPoint in figure.Points)
+                    {
+                        writer.WriteSingleBE(bezierPoint.Point.X);
+                        writer.WriteSingleBE(bezierPoint.Point.Y);
+                        writer.WriteSingleBE(bezierPoint.ControlPointOne.X);
+                        writer.WriteSingleBE(bezierPoint.ControlPointOne.Y);
+                        writer.WriteSingleBE(bezierPoint.ControlPointTwo.X);
+                        writer.WriteSingleBE(bezierPoint.ControlPointTwo.Y);
+                        bytesWritten += 24;
+                    }
+
+                    xur.Logger?.Here().Verbose("Wrote figure index {0}: {1}.", figuresWritten, figure);
+                    figuresWritten++;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} CUST8 customs as {1:X8} bytes successfully!", Figures.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing CUST8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }
