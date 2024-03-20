@@ -114,10 +114,17 @@ namespace XUIHelper.Core.Extensions
 
         public static void WritePackedUInt(this BinaryWriter writer, uint val)
         {
+            int bytesWritten = 0;
+            WritePackedUInt(writer, val, out bytesWritten);
+        }
+
+        public static void WritePackedUInt(this BinaryWriter writer, uint val, out int bytesWritten)
+        {
             if (val > 0xEFF)
             {
                 writer.Write((byte)0xFF);
                 writer.Write((int)val);
+                bytesWritten = 5;
             }
             else if (val >= 0xF0)
             {
@@ -127,10 +134,12 @@ namespace XUIHelper.Core.Extensions
 
                 writer.Write((byte)highPart);
                 writer.Write((byte)lowPart);
+                bytesWritten = 2;
             }
             else
             {
                 writer.Write((byte)val);
+                bytesWritten = 1;
             }
         }
         #endregion

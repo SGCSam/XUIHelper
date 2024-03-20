@@ -323,7 +323,30 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(KEYP8Section));
+                xur.Logger?.Here().Verbose("Writing KEYP8 section.");
+
+                int bytesWritten = 0;
+                int indexesWritten = 0;
+                foreach (uint propertyIndex in PropertyIndexes)
+                {
+                    int indexBytesWritten = 0;
+                    writer.WritePackedUInt(propertyIndex, out indexBytesWritten);
+                    bytesWritten += indexBytesWritten;
+                    xur.Logger?.Here().Verbose("Wrote property index {0} of {1} bytes: {2}.", indexesWritten, indexBytesWritten, propertyIndex);
+                    indexesWritten++;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} KEYP8 indexes as {1:X8} bytes successfully!", PropertyIndexes.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing KEYP8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
 
         public static List<uint>? TryGetKeyframePropertyIndexes(IXUR xur, XUKeyframe keyframe)
