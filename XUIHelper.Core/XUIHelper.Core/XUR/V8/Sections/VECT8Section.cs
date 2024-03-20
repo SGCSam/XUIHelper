@@ -172,7 +172,31 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(VECT8Section));
+                xur.Logger?.Here().Verbose("Writing VECT8 section.");
+
+                int bytesWritten = 0;
+                int vectsWritten = 0;
+                foreach (XUVector vect in Vectors)
+                {
+                    writer.WriteSingleBE(vect.X);
+                    writer.WriteSingleBE(vect.Y);
+                    writer.WriteSingleBE(vect.Z);
+                    bytesWritten += 12;
+                    xur.Logger?.Here().Verbose("Wrote vector index {0}: {1}.", vectsWritten, vect);
+                    vectsWritten++;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} VECT8 vectors as {1:X8} bytes successfully!", Vectors.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing VECT8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }
