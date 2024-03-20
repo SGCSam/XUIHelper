@@ -194,7 +194,61 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(KEYD8Section));
+                xur.Logger?.Here().Verbose("Writing KEYD8 section.");
+
+                int bytesWritten = 0;
+                int keyframesWritten = 0;
+                foreach (XURKeyframe keyframe in Keyframes)
+                {
+                    int thisKeyframeBytesWritten = 0;
+
+                    int frameBytesWritten = 0;
+                    writer.WritePackedUInt((uint)keyframe.Keyframe, out frameBytesWritten);
+                    thisKeyframeBytesWritten += frameBytesWritten;
+
+                    byte flag = 0x0;
+                    if(keyframe.InterpolationType == XUKeyframeInterpolationTypes.None)
+                    {
+                        xur.Logger?.Here().Verbose("Keyframe index {0} has an interpolation type of none, setting flag to 0x1.", keyframesWritten);
+                        flag = 0x1;
+                    }
+                    else if(keyframe.EaseIn != 0 || keyframe.EaseOut != 0 || keyframe.EaseScale != 0) 
+                    {
+                        xur.Logger?.Here().Verbose("Keyframe index {0} has an ease value that is non-zero, setting flag to 0x2.", keyframesWritten);
+                        flag = 0x2;
+                    }
+
+                    writer.Write(flag);
+                    thisKeyframeBytesWritten++;
+
+                    if(flag == 0x2)
+                    {
+                        writer.Write(keyframe.EaseIn);
+                        writer.Write(keyframe.EaseOut);
+                        writer.Write(keyframe.EaseScale);
+                        thisKeyframeBytesWritten += 3;
+                    }
+
+                    int indexBytesWritten = 0;
+                    writer.WritePackedUInt((uint)keyframe.PropertyIndex, out indexBytesWritten);
+                    thisKeyframeBytesWritten += indexBytesWritten;
+
+                    bytesWritten += thisKeyframeBytesWritten;
+                    xur.Logger?.Here().Verbose("Wrote keyframe index {0} of {1} bytes: {2}.", keyframesWritten, thisKeyframeBytesWritten, keyframe);
+                    keyframesWritten++;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote a total of {0} KEYD8 keyframes as {1:X8} bytes successfully!", Keyframes.Count, bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing KEYD8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }
