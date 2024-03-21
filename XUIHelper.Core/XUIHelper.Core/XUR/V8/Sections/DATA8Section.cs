@@ -282,11 +282,296 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, XUObject xuObject, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(DATA8Section));
+                xur.Logger?.Here().Verbose("Writing DATA8 section.");
+
+                if (ExtensionsManager == null)
+                {
+                    xur.Logger?.Here().Error("Extensions manager was null, returning null.");
+                    return null;
+                }
+
+                if (RootObject == null)
+                {
+                    xur.Logger?.Here().Error("Root object was null, returning null.");
+                    return null;
+                }
+
+                int? bytesWritten = TryWriteObject(xur, writer, RootObject);
+                if (bytesWritten == null)
+                {
+                    xur.Logger?.Here().Error("Bytes written was null, write must have failed, returning null.");
+                    return null;
+                }
+
+                xur.Logger?.Here().Verbose("Wrote DATA8 section as {0:X8} bytes successfully!", bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing DATA8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
+
+        private int? TryWriteObject(IXUR xur, BinaryWriter writer, XUObject xuObject)
+        {
+            try
+            {
+                xur.Logger?.Here().Verbose("Writing object {0}.", xuObject.ClassName);
+                int bytesWritten = 0;
+
+                ISTRNSection? strnSection = xur.TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
+                {
+                    xur.Logger?.Here().Error("STRN section was null, returning null.");
+                    return null;
+                }
+
+                short classNameIndex = (short)strnSection.Strings.IndexOf(xuObject.ClassName);
+                if (classNameIndex == -1)
+                {
+                    xur.Logger?.Here().Error("Failed to find valid string index for class name {0}, returning null.", xuObject.ClassName);
+                    return null;
+                }
+
+                int classNameBytesWritten = 0;
+                writer.WritePackedUInt((uint)classNameIndex, out classNameBytesWritten);
+                bytesWritten += classNameBytesWritten;
+                xur.Logger?.Here().Verbose("Wrote object class name index of {0} for class name {1}, {2} bytes.", classNameIndex, xuObject.ClassName, classNameBytesWritten);
+
+                byte flags = 0x00;
+                if (xuObject.Properties.Count > 0)
+                {
+                    //TODO: If the properties are shared, flags |= 0x8, else...
+
+                    flags |= 0x1;
+                    xur.Logger?.Here().Verbose("Object has properties, flags is now {0:X8}", flags);
+                }
+
+                if (xuObject.Children.Count > 0)
+                {
+                    flags |= 0x2;
+                    xur.Logger?.Here().Verbose("Object has children, flags is now {0:X8}", flags);
+                }
+
+                if (xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0)
+                {
+                    flags |= 0x4;
+                    xur.Logger?.Here().Verbose("Object has timline data, flags is now {0:X8}", flags);
+                }
+
+                xur.Logger?.Here().Verbose("Writing flags of {0:X8}.", (byte)flags);
+                writer.Write((byte)flags);
+                bytesWritten++;
+
+                if (xuObject.Properties.Count > 0)
+                {
+                    xur.Logger?.Here().Verbose("Writing {0:X8} object properties.", xuObject.Properties.Count);
+                    int? propertyBytesWritten = TryWriteProperties(xur, writer, xuObject);
+                    if (propertyBytesWritten == null)
+                    {
+                        xur.Logger?.Here().Error("Property bytes written was null for {0}, an error must have occurred, returning null.", xuObject.ClassName);
+                        return null;
+                    }
+
+                    bytesWritten += propertyBytesWritten.Value;
+                }
+
+                //TODO: ...
+                /*if (xuObject.Children.Count > 0)
+                {
+                    xur.Logger?.Here().Verbose("Writing {0:X8} object children.", xuObject.Children.Count);
+                    writer.WriteInt32BE(xuObject.Children.Count);
+                    bytesWritten += 4;
+
+                    foreach (XUObject childObject in xuObject.Children)
+                    {
+                        int? childBytesWritten = TryWriteObject(xur, writer, childObject);
+                        if (childBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Child bytes written was null for child object {0}, an error must have occurred, returning null.", childObject.ClassName);
+                            return null;
+                        }
+
+                        bytesWritten += childBytesWritten.Value;
+                    }
+                }
+
+                if (xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0)
+                {
+                    xur.Logger?.Here().Verbose("Writing timeline data.");
+
+                    xur.Logger?.Here().Verbose("Object has {0:X8} named frames.", xuObject.NamedFrames.Count);
+                    writer.WriteInt32BE(xuObject.NamedFrames.Count);
+                    bytesWritten += 4;
+
+                    for (int namedFrameIndex = 0; namedFrameIndex < xuObject.NamedFrames.Count; namedFrameIndex++)
+                    {
+                        xur.Logger?.Here().Verbose("Writing named frame index {0}.", namedFrameIndex);
+                        int? namedFrameBytesWritten = ((XUR5)xur).TryWriteNamedFrame(writer, xuObject.NamedFrames[namedFrameIndex]);
+                        if (namedFrameBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Named frame bytes written was null for named frame index {0}, an error must have occurred, returning null.", namedFrameIndex);
+                            return null;
+                        }
+
+                        bytesWritten += namedFrameBytesWritten.Value;
+                    }
+
+                    if (xuObject.Children.Count == 0)
+                    {
+                        xur.Logger?.Here().Verbose("The object had no children, no need to load timeline data.");
+                        return bytesWritten;
+                    }
+
+                    xur.Logger?.Here().Verbose("Object has {0:X8} timelines.", xuObject.Timelines.Count);
+                    writer.WriteInt32BE(xuObject.Timelines.Count);
+                    bytesWritten += 4;
+
+                    for (int timelineIndex = 0; timelineIndex < xuObject.Timelines.Count; timelineIndex++)
+                    {
+                        xur.Logger?.Here().Verbose("Writing timeline index {0}.", timelineIndex);
+                        int? timelineBytesWritten = ((XUR5)xur).TryWriteTimeline(writer, xuObject, xuObject.Timelines[timelineIndex]);
+                        if (timelineBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Timeline bytes written was null for timeline index {0}, an error must have occurred, returning null.", timelineIndex);
+                            return null;
+                        }
+
+                        bytesWritten += timelineBytesWritten.Value;
+                    }
+                }*/
+
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing object, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
+
+        private int? TryWriteProperties(IXUR xur, BinaryWriter writer, XUObject xuObject)
+        {
+            try
+            {
+                xur.Logger?.Here().Verbose("Writing object properties.");
+
+                if (xuObject.Properties.Count == 0)
+                {
+                    xur.Logger?.Here().Verbose("There were no properties, returning 0.");
+                    return 0;
+                }
+
+                int bytesWritten = 0;
+
+                int propertiesCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)xuObject.Properties.Count, out propertiesCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote object properties count of {0:X8}, {1} bytes.", xuObject.Properties.Count, propertiesCountBytesWritten);
+                bytesWritten += propertiesCountBytesWritten;
+
+                List<XUClass>? classList = ExtensionsManager?.TryGetClassHierarchy(xuObject.ClassName);
+                if (classList == null)
+                {
+                    xur.Logger?.Here().Error("Failed to get class hierarchy for class {0}, returning null.", xuObject.ClassName);
+                    return null;
+                }
+
+                Dictionary<XUClass, List<XUProperty>> classProperties = new Dictionary<XUClass, List<XUProperty>>();
+                foreach (XUProperty property in xuObject.Properties)
+                {
+                    bool found = false;
+                    foreach (XUClass xuClass in classList)
+                    {
+                        if (property.PropertyDefinition.ParentClassName == xuClass.Name)
+                        {
+                            if (!classProperties.ContainsKey(xuClass))
+                            {
+                                classProperties[xuClass] = new List<XUProperty>();
+                            }
+
+                            classProperties[xuClass].Add(property);
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        xur.Logger?.Here().Error("Failed to find parent class in hierarchy for property {0}, returning null.", property.PropertyDefinition.Name);
+                        return null;
+                    }
+                }
+
+                foreach (XUClass xuClass in classList)
+                {
+                    xur.Logger?.Here().Verbose("Handling class {0}.", xuClass.Name);
+
+                    if (!classProperties.ContainsKey(xuClass) || classProperties[xuClass].Count == 0)
+                    {
+                        xur.Logger?.Here().Verbose("Class doesn't have any properties set, writing 0 for mask.");
+                        writer.Write((byte)0x00);
+                        bytesWritten++;
+                        continue;
+                    }
+
+                    uint thisPropertyMask = 0x00;
+                    int propertyDefinitionIndex = 0;
+                    foreach (XUPropertyDefinition propertyDefinition in xuClass.PropertyDefinitions)
+                    {
+                        foreach (XUProperty property in classProperties[xuClass])
+                        {
+                            if (propertyDefinition == property.PropertyDefinition)
+                            {
+                                thisPropertyMask |= (byte)(1 << propertyDefinitionIndex);
+                                break;
+                            }
+                        }
+
+                        propertyDefinitionIndex++;
+                    }
+
+                    xur.Logger?.Here().Verbose("Got a property mask of {0:X8} for class {1}.", thisPropertyMask, xuClass.Name);
+
+                    int propertyMaskBytesWritten = 0;
+                    writer.WritePackedUInt(thisPropertyMask, out propertyMaskBytesWritten);
+                    xur.Logger?.Here().Verbose("Wrote property mask {0:X8}, {1} bytes.", thisPropertyMask, propertyMaskBytesWritten);
+                    bytesWritten += propertyMaskBytesWritten;
+
+                    foreach (XUProperty property in classProperties[xuClass])
+                    {
+                        xur.Logger?.Here().Verbose("Writing {0} property.", property.PropertyDefinition.Name);
+                        int? propertyBytesWritten = xur.TryWriteProperty(writer, property, property.Value);
+                        if (propertyBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Property bytes written was null for property {0}, returning null.", property.PropertyDefinition.Name);
+                            return null;
+                        }
+
+                        bytesWritten += propertyBytesWritten.Value;
+                    }
+                }
+
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing object properties, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
 
         public DATA8Section()
         {
+            ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x8);
+        }
+
+        public DATA8Section(XUObject rootObject)
+        {
+            RootObject = rootObject;
             ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x8);
         }
     }

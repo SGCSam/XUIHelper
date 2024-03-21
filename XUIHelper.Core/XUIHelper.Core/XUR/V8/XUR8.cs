@@ -279,7 +279,7 @@ namespace XUIHelper.Core
                 Logger?.Here().Verbose("NAME8 section had no named frames, not adding.");
             }
 
-            DATA5Section dataSection = new DATA5Section(rootObject);
+            DATA8Section dataSection = new DATA8Section(rootObject);
             Sections.Add(dataSection);
 
             return true;

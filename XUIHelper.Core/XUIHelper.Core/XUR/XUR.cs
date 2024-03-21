@@ -181,6 +181,11 @@ namespace XUIHelper.Core
                 {
                     foreach (IXURSection section in Sections)
                     {
+                        if(section is not DATA8Section)
+                        {
+                            continue;
+                        }
+
                         if (sectionsLengths.ContainsKey(section.Magic))
                         {
                             Logger?.Here().Error("Sections lengths already contained a duplicate magic of {0}, returning false.", section.Magic);
