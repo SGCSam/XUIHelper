@@ -106,10 +106,10 @@ namespace XUIHelper.Core
             try
             {
                 xur.Logger?.Here().Verbose("Building CUST8 figures.");
-                HashSet<XUFigure> builtFigs = new HashSet<XUFigure>();
-                if (!TryBuildFiguresFromObject(xur, xuObject, ref builtFigs))
+                List<XUFigure>? builtFigs = await xuObject.TryBuildPropertyTypeAsync<XUFigure>(xur);
+                if(builtFigs == null)
                 {
-                    xur.Logger?.Here().Error("Failed to build figures, returning null.");
+                    xur.Logger?.Here().Error("Built figures was null, returning false.");
                     return false;
                 }
 
@@ -120,95 +120,6 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when trying to build CUST8 figures, returning false. The exception is: {0}", ex);
-                return false;
-            }
-        }
-
-        private bool TryBuildFiguresFromObject(IXUR xur, XUObject xuObject, ref HashSet<XUFigure> builtFigs)
-        {
-            try
-            {
-                if (!TryBuildFiguresFromProperties(xur, xuObject.Properties, ref builtFigs))
-                {
-                    xur.Logger?.Here().Error("Failed to build figures from properties for {0}, returning false.", xuObject.ClassName);
-                    return false;
-                }
-
-                foreach (XUObject childObject in xuObject.Children)
-                {
-                    if (!TryBuildFiguresFromObject(xur, childObject, ref builtFigs))
-                    {
-                        xur.Logger?.Here().Error("Failed to get figures for child {0}, returning false.", childObject.ClassName);
-                        return false;
-                    }
-                }
-
-                foreach (XUTimeline childTimeline in xuObject.Timelines)
-                {
-                    foreach (XUKeyframe childKeyframe in childTimeline.Keyframes)
-                    {
-                        foreach (XUProperty animatedProperty in childKeyframe.Properties)
-                        {
-                            if (animatedProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Custom)
-                            {
-                                if (animatedProperty.Value is not XUFigure valueFigure)
-                                {
-                                    xur.Logger?.Here().Error("Animated property {0} marked as custom had a non-custom value of {1}, returning false.", animatedProperty.PropertyDefinition.Name, animatedProperty.Value);
-                                    return false;
-                                }
-
-                                if (builtFigs.Add(valueFigure))
-                                {
-                                    xur.Logger?.Here().Verbose("Added {0} animated property value figure {1}.", animatedProperty.PropertyDefinition.Name, valueFigure);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                xur.Logger?.Here().Error("Caught an exception when trying to build CUST8 figures for object {0}, returning false. The exception is: {1}", xuObject.ClassName, ex);
-                return false;
-            }
-        }
-
-        private bool TryBuildFiguresFromProperties(IXUR xur, List<XUProperty> properties, ref HashSet<XUFigure> builtFigs)
-        {
-            try
-            {
-                foreach (XUProperty childProperty in properties)
-                {
-                    if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Custom)
-                    {
-                        if (childProperty.Value is not XUFigure valueFigure)
-                        {
-                            xur.Logger?.Here().Error("Child property {0} marked as custom had a non-custom value of {1}, returning false.", childProperty.PropertyDefinition.Name, childProperty.Value);
-                            return false;
-                        }
-
-                        if (builtFigs.Add(valueFigure))
-                        {
-                            xur.Logger?.Here().Verbose("Added {0} property value figure {1}.", childProperty.PropertyDefinition.Name, valueFigure);
-                        }
-                    }
-                    else if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Object)
-                    {
-                        if (!TryBuildFiguresFromProperties(xur, childProperty.Value as List<XUProperty>, ref builtFigs))
-                        {
-                            xur.Logger?.Here().Error("Failed to build figures for child compound properties, returning false.");
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                xur.Logger?.Here().Error("Caught an exception when trying to build CUST8 figures from properties, returning false. The exception is: {0}", ex);
                 return false;
             }
         }

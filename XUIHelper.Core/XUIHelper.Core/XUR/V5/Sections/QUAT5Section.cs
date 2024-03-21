@@ -63,10 +63,10 @@ namespace XUIHelper.Core
             try
             {
                 xur.Logger?.Here().Verbose("Building QUAT5 quaternions.");
-                HashSet<XUQuaternion> builtQuats = new HashSet<XUQuaternion>();
-                if (!TryBuildQuaternionsFromObject(xur, xuObject, ref builtQuats))
+                List<XUQuaternion>? builtQuats = await xuObject.TryBuildPropertyTypeAsync<XUQuaternion>(xur);
+                if (builtQuats == null)
                 {
-                    xur.Logger?.Here().Error("Failed to build quaternions, returning null.");
+                    xur.Logger?.Here().Error("Built quaternions was null, returning false.");
                     return false;
                 }
 
@@ -77,95 +77,6 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when trying to build QUAT5 quaternions, returning false. The exception is: {0}", ex);
-                return false;
-            }
-        }
-
-        private bool TryBuildQuaternionsFromObject(IXUR xur, XUObject xuObject, ref HashSet<XUQuaternion> builtQuats)
-        {
-            try
-            {
-                if (!TryBuildQuaternionsFromProperties(xur, xuObject.Properties, ref builtQuats))
-                {
-                    xur.Logger?.Here().Error("Failed to build quaternions from properties for {0}, returning false.", xuObject.ClassName);
-                    return false;
-                }
-
-                foreach (XUObject childObject in xuObject.Children)
-                {
-                    if (!TryBuildQuaternionsFromObject(xur, childObject, ref builtQuats))
-                    {
-                        xur.Logger?.Here().Error("Failed to get quaternions for child {0}, returning false.", childObject.ClassName);
-                        return false;
-                    }
-                }
-
-                foreach (XUTimeline childTimeline in xuObject.Timelines)
-                {
-                    foreach (XUKeyframe childKeyframe in childTimeline.Keyframes)
-                    {
-                        foreach (XUProperty animatedProperty in childKeyframe.Properties)
-                        {
-                            if (animatedProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Quaternion)
-                            {
-                                if (animatedProperty.Value is not XUQuaternion valueQuat)
-                                {
-                                    xur.Logger?.Here().Error("Animated property {0} marked as quaternion had a non-quaternion value of {1}, returning false.", animatedProperty.PropertyDefinition.Name, animatedProperty.Value);
-                                    return false;
-                                }
-
-                                if (builtQuats.Add(valueQuat))
-                                {
-                                    xur.Logger?.Here().Verbose("Added {0} animated property value quaternion {1}.", animatedProperty.PropertyDefinition.Name, valueQuat);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                xur.Logger?.Here().Error("Caught an exception when trying to build QUAT5 quaternions for object {0}, returning false. The exception is: {1}", xuObject.ClassName, ex);
-                return false;
-            }
-        }
-
-        private bool TryBuildQuaternionsFromProperties(IXUR xur, List<XUProperty> properties, ref HashSet<XUQuaternion> builtQuats)
-        {
-            try
-            {
-                foreach (XUProperty childProperty in properties)
-                {
-                    if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Quaternion)
-                    {
-                        if (childProperty.Value is not XUQuaternion valueQuat)
-                        {
-                            xur.Logger?.Here().Error("Child property {0} marked as quaternion had a non-quaternion value of {1}, returning false.", childProperty.PropertyDefinition.Name, childProperty.Value);
-                            return false;
-                        }
-
-                        if (builtQuats.Add(valueQuat))
-                        {
-                            xur.Logger?.Here().Verbose("Added {0} property value quaternion {1}.", childProperty.PropertyDefinition.Name, valueQuat);
-                        }
-                    }
-                    else if (childProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Object)
-                    {
-                        if (!TryBuildQuaternionsFromProperties(xur, childProperty.Value as List<XUProperty>, ref builtQuats))
-                        {
-                            xur.Logger?.Here().Error("Failed to build quaternions for child compound properties, returning false.");
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                xur.Logger?.Here().Error("Caught an exception when trying to build QUAT5 quaterions from properties, returning false. The exception is: {0}", ex);
                 return false;
             }
         }

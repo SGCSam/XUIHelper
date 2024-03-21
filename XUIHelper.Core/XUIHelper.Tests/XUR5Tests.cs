@@ -48,7 +48,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURReadSuccessful()
         {
-            Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/9199/PhotoCapture.xur"));
+            Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/9199/GamerCard.xur"));
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURWriteSuccessful()
         {
-            Assert.True(await CheckSingleXURWriteSuccessfulAsync(@"Test Data/XUR/9199/JKeyboard.xur"));
+            Assert.True(await CheckSingleXURWriteSuccessfulAsync(@"Test Data/XUR/9199/GamerCard.xur"));
         }
     }
 }
