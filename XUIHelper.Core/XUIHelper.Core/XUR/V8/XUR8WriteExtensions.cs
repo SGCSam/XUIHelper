@@ -131,7 +131,22 @@ namespace XUIHelper.Core
         {
             try
             {
-                throw new NotImplementedException();
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Unsigned)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not unsigned, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not uint unsignedVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as unsigned had a non-unsigned value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                int unsignedBytesWritten = 0;
+                writer.WritePackedUInt(unsignedVal, out unsignedBytesWritten);
+                xur.Logger?.Here().Verbose("Written {0} unsigned property value of {1}, {2} bytes.", propertyDefinition.Name, unsignedVal, unsignedBytesWritten);
+                return unsignedBytesWritten;
             }
             catch (Exception ex)
             {
