@@ -333,11 +333,28 @@ namespace XUIHelper.Core
             }
         }
 
-        public static int? TryWriteNamedFrame(this XUR8 xur, BinaryWriter writer, XUNamedFrame namedFrame)
+        public static int? TryWriteNamedFrames(this XUR8 xur, BinaryWriter writer, List<XUNamedFrame> namedFrames)
         {
             try
             {
-                throw new NotImplementedException();
+                INAMESection? nameSection = ((IXUR)xur).TryFindXURSectionByMagic<INAMESection>(INAMESection.ExpectedMagic);
+                if (nameSection == null)
+                {
+                    xur.Logger?.Here().Error("NAME section was null, returning null.");
+                    return null;
+                }
+
+                int baseIndex = namedFrames.GetSequenceIndex(namedFrames);
+                if (baseIndex == -1)
+                {
+                    xur.Logger?.Here().Error("Failed to get base index for named frames, returning null.");
+                    return null;
+                }
+
+                int baseIndexBytesWritten = 0;
+                writer.WritePackedUInt((uint)baseIndex, out baseIndexBytesWritten);
+                xur.Logger?.Here().Verbose("Written named frames as base index {0}, {1} bytes.", baseIndex, baseIndexBytesWritten);
+                return baseIndexBytesWritten;
             }
             catch (Exception ex)
             {

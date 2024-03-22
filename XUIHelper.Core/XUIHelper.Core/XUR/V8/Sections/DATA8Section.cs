@@ -118,7 +118,7 @@ namespace XUIHelper.Core
                     xur.Logger?.Here().Verbose("Got a shared properties index of {0}", propertyArrayIndex);
 
                     XUR8 xur8 = (XUR8)xur;
-                    if(propertyArrayIndex < 0 || propertyArrayIndex >= xur8.ReadPropertiesLists.Count)
+                    if (propertyArrayIndex < 0 || propertyArrayIndex >= xur8.ReadPropertiesLists.Count)
                     {
                         xur.Logger?.Here().Error("Failed to read shared properties as we got an invalid index of {0}. The shared properties length is {1}. Returning null.", propertyArrayIndex, xur8.ReadPropertiesLists.Count);
                         return null;
@@ -155,7 +155,7 @@ namespace XUIHelper.Core
                     uint namedFramesCount = reader.ReadPackedUInt();
                     xur.Logger?.Here().Verbose("Class has {0} named frames.", namedFramesCount);
 
-                    if(namedFramesCount > 0) 
+                    if (namedFramesCount > 0)
                     {
                         int namedFrameBaseIndex = (int)reader.ReadPackedUInt();
                         xur.Logger?.Here().Verbose("Read named frame base index of {0:X8}.", namedFrameBaseIndex);
@@ -260,7 +260,7 @@ namespace XUIHelper.Core
                     }
                 }
 
-                if(retProperties.Count != propertiesCount)
+                if (retProperties.Count != propertiesCount)
                 {
                     xur.Logger?.Here().Error("Mismatch of properties count, returning null. Expected: {0}, Actual: {1}", propertiesCount, retProperties.Count);
                     return null;
@@ -402,26 +402,22 @@ namespace XUIHelper.Core
 
                 if (xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0)
                 {
-                    throw new NotImplementedException();
+                    xur.Logger?.Here().Verbose("Writing timeline data.");
 
-                    /*xur.Logger?.Here().Verbose("Writing timeline data.");
+                    int namedFramesCountBytesWritten = 0;
+                    writer.WritePackedUInt((uint)xuObject.NamedFrames.Count, out namedFramesCountBytesWritten);
+                    bytesWritten += namedFramesCountBytesWritten;
+                    xur.Logger?.Here().Verbose("Wrote object named frame count of {0:X8}, {1} bytes.", xuObject.NamedFrames.Count, namedFramesCountBytesWritten);
 
-                    xur.Logger?.Here().Verbose("Object has {0:X8} named frames.", xuObject.NamedFrames.Count);
-                    writer.WriteInt32BE(xuObject.NamedFrames.Count);
-                    bytesWritten += 4;
-
-                    for (int namedFrameIndex = 0; namedFrameIndex < xuObject.NamedFrames.Count; namedFrameIndex++)
+                    xur.Logger?.Here().Verbose("Writing named frames.");
+                    int? namedFrameBytesWritten = ((XUR8)xur).TryWriteNamedFrames(writer, xuObject.NamedFrames);
+                    if (namedFrameBytesWritten == null)
                     {
-                        xur.Logger?.Here().Verbose("Writing named frame index {0}.", namedFrameIndex);
-                        int? namedFrameBytesWritten = ((XUR5)xur).TryWriteNamedFrame(writer, xuObject.NamedFrames[namedFrameIndex]);
-                        if (namedFrameBytesWritten == null)
-                        {
-                            xur.Logger?.Here().Error("Named frame bytes written was null for named frame index {0}, an error must have occurred, returning null.", namedFrameIndex);
-                            return null;
-                        }
-
-                        bytesWritten += namedFrameBytesWritten.Value;
+                        xur.Logger?.Here().Error("Named frame bytes written was null, an error must have occurred, returning null.");
+                        return null;
                     }
+
+                    bytesWritten += namedFrameBytesWritten.Value;
 
                     if (xuObject.Children.Count == 0)
                     {
@@ -429,14 +425,15 @@ namespace XUIHelper.Core
                         return bytesWritten;
                     }
 
-                    xur.Logger?.Here().Verbose("Object has {0:X8} timelines.", xuObject.Timelines.Count);
-                    writer.WriteInt32BE(xuObject.Timelines.Count);
-                    bytesWritten += 4;
+                    int timelinesCountBytesWritten = 0;
+                    writer.WritePackedUInt((uint)xuObject.Timelines.Count, out timelinesCountBytesWritten);
+                    bytesWritten += timelinesCountBytesWritten;
+                    xur.Logger?.Here().Verbose("Wrote object timelines count of {0:X8}, {1} bytes.", xuObject.Timelines.Count, timelinesCountBytesWritten);
 
                     for (int timelineIndex = 0; timelineIndex < xuObject.Timelines.Count; timelineIndex++)
                     {
                         xur.Logger?.Here().Verbose("Writing timeline index {0}.", timelineIndex);
-                        int? timelineBytesWritten = ((XUR5)xur).TryWriteTimeline(writer, xuObject, xuObject.Timelines[timelineIndex]);
+                        int? timelineBytesWritten = ((XUR8)xur).TryWriteTimeline(writer, xuObject, xuObject.Timelines[timelineIndex]);
                         if (timelineBytesWritten == null)
                         {
                             xur.Logger?.Here().Error("Timeline bytes written was null for timeline index {0}, an error must have occurred, returning null.", timelineIndex);
@@ -444,7 +441,7 @@ namespace XUIHelper.Core
                         }
 
                         bytesWritten += timelineBytesWritten.Value;
-                    }*/
+                    }
                 }
 
                 return bytesWritten;
