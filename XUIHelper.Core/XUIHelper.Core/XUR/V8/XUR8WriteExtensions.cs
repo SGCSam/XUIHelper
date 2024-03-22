@@ -144,7 +144,36 @@ namespace XUIHelper.Core
         {
             try
             {
-                throw new NotImplementedException();
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.String)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not string, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not string stringVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as string had a non-string value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
+                if (strnSection == null)
+                {
+                    xur.Logger?.Here().Error("STRN section was null, returning null.");
+                    return null;
+                }
+
+                int stringIndex = strnSection.Strings.IndexOf(stringVal);
+                if (stringIndex == -1)
+                {
+                    xur.Logger?.Here().Error("Failed to get string index for {0} with value {1}, returning null.", propertyDefinition.Name, stringVal);
+                    return null;
+                }
+
+                int stringIndexBytesWritten = 0;
+                writer.WritePackedUInt((uint)stringIndex, out stringIndexBytesWritten);
+                xur.Logger?.Here().Verbose("Written {0} string property value of {1} as index {2}, {3} bytes.", propertyDefinition.Name, stringVal, stringIndex, stringIndexBytesWritten);
+                return stringIndexBytesWritten;
             }
             catch (Exception ex)
             {

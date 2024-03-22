@@ -382,10 +382,10 @@ namespace XUIHelper.Core
 
                 if (xuObject.Children.Count > 0)
                 {
-                    throw new NotImplementedException();
-                    /*xur.Logger?.Here().Verbose("Writing {0:X8} object children.", xuObject.Children.Count);
-                    writer.WriteInt32BE(xuObject.Children.Count);
-                    bytesWritten += 4;
+                    int childCountBytesWritten = 0;
+                    writer.WritePackedUInt((uint)xuObject.Children.Count, out childCountBytesWritten);
+                    bytesWritten += childCountBytesWritten;
+                    xur.Logger?.Here().Verbose("Wrote count of {0:X8} object children, {1} bytes.", xuObject.Children.Count, childCountBytesWritten);
 
                     foreach (XUObject childObject in xuObject.Children)
                     {
@@ -397,7 +397,7 @@ namespace XUIHelper.Core
                         }
 
                         bytesWritten += childBytesWritten.Value;
-                    }*/
+                    }
                 }
 
                 if (xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0)
