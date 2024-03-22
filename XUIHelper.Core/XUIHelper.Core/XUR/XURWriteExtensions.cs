@@ -21,6 +21,11 @@ namespace XUIHelper.Core
                     xur.Logger?.Here().Verbose("Trying to write XUR5 property {0}", property.PropertyDefinition.Name);
                     return xur5.TryWriteProperty(writer, property, val);
                 }
+                else if (xur is XUR8 xur8)
+                {
+                    xur.Logger?.Here().Verbose("Trying to write XUR8 property {0}", property.PropertyDefinition.Name);
+                    return xur8.TryWriteProperty(writer, property, val);
+                }
 
                 xur.Logger?.Here().Error("Unhandled IXUR for property {0}, returning null.", property.PropertyDefinition.Name);
                 return null;

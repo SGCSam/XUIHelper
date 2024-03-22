@@ -380,10 +380,10 @@ namespace XUIHelper.Core
                     bytesWritten += propertyBytesWritten.Value;
                 }
 
-                //TODO: ...
-                /*if (xuObject.Children.Count > 0)
+                if (xuObject.Children.Count > 0)
                 {
-                    xur.Logger?.Here().Verbose("Writing {0:X8} object children.", xuObject.Children.Count);
+                    throw new NotImplementedException();
+                    /*xur.Logger?.Here().Verbose("Writing {0:X8} object children.", xuObject.Children.Count);
                     writer.WriteInt32BE(xuObject.Children.Count);
                     bytesWritten += 4;
 
@@ -397,12 +397,14 @@ namespace XUIHelper.Core
                         }
 
                         bytesWritten += childBytesWritten.Value;
-                    }
+                    }*/
                 }
 
                 if (xuObject.Timelines.Count > 0 || xuObject.NamedFrames.Count > 0)
                 {
-                    xur.Logger?.Here().Verbose("Writing timeline data.");
+                    throw new NotImplementedException();
+
+                    /*xur.Logger?.Here().Verbose("Writing timeline data.");
 
                     xur.Logger?.Here().Verbose("Object has {0:X8} named frames.", xuObject.NamedFrames.Count);
                     writer.WriteInt32BE(xuObject.NamedFrames.Count);
@@ -442,8 +444,8 @@ namespace XUIHelper.Core
                         }
 
                         bytesWritten += timelineBytesWritten.Value;
-                    }
-                }*/
+                    }*/
+                }
 
                 return bytesWritten;
             }
