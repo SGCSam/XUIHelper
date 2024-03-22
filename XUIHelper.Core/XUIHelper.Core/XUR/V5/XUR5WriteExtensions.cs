@@ -859,7 +859,7 @@ namespace XUIHelper.Core
 
                         if (animatedProperty.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
                         {
-                            xur.Logger?.Here().Verbose("Property {0} is indexed, writing index count of {0:X8}", i);
+                            xur.Logger?.Here().Verbose("Property {0} is indexed, writing index count of {1:X8}", animatedProperty.PropertyDefinition.Name, i);
                             writer.WriteInt32BE(i);
                             bytesWritten += 4;
                         }

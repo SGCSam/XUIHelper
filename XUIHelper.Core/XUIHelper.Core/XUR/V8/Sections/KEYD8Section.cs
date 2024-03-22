@@ -9,11 +9,25 @@ using XUIHelper.Core.Extensions;
 
 namespace XUIHelper.Core
 {
+    public class KEYDIndexData
+    {
+        public XUTimeline Timeline { get; private set; }
+        public int BaseIndex { get; private set;}
+
+        public KEYDIndexData(XUTimeline timeline, int baseIndex)
+        {
+            Timeline = timeline;
+            BaseIndex = baseIndex;
+        }
+    }
+
     public class KEYD8Section : IKEYDSection
     {
         public int Magic { get { return IKEYDSection.ExpectedMagic; } }
 
         public List<XURKeyframe> Keyframes { get; private set; } = new List<XURKeyframe>();
+
+        private List<KEYDIndexData> _IndexData = new List<KEYDIndexData>();
 
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
@@ -110,8 +124,8 @@ namespace XUIHelper.Core
             try
             {
                 xur.Logger?.Here().Verbose("Building KEYD8 keyframes.");
+                _IndexData = new List<KEYDIndexData>();
                 List<XURKeyframe> builtKeyframes = new List<XURKeyframe>();
-
                 if (!TryBuildKeyframesFromObject(xur, xuObject, ref builtKeyframes))
                 {
                     xur.Logger?.Here().Error("Failed to build keyframes, returning null.");
@@ -180,10 +194,12 @@ namespace XUIHelper.Core
                     if (existingIndex != -1)
                     {
                         xur.Logger?.Here().Error("Found an existing sequence of keyframes at index {0}, won't re-add.", existingIndex);
+                        _IndexData.Add(new KEYDIndexData(childTimeline, existingIndex));
                         continue;
                     }
 
                     xur.Logger?.Here().Error("Adding a sequence of {0} keyframes for a new total of {1}. Added:\n{2}", builtXURKeyframes.Count, Keyframes.Count + builtXURKeyframes.Count, string.Join("\n", builtXURKeyframes));
+                    _IndexData.Add(new KEYDIndexData(childTimeline, builtKeyframes.Count));
                     builtKeyframes.AddRange(builtXURKeyframes);
                 }
 
@@ -251,6 +267,28 @@ namespace XUIHelper.Core
             catch (Exception ex)
             {
                 xur.Logger?.Here().Error("Caught an exception when writing KEYD8 section, returning null. The exception is: {0}", ex);
+                return null;
+            }
+        }
+
+        public int? TryGetBaseIndexForTimelineKeyframes(XUTimeline timeline, ILogger? logger = null)
+        {
+            try
+            {
+                foreach(KEYDIndexData indexData in _IndexData)
+                {
+                    if (indexData.Timeline == timeline)
+                    {
+                        return indexData.BaseIndex;
+                    }
+                }
+
+                logger?.Here().Error("Failed to find base index for timeline keyframes, returning null.");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                logger?.Here().Error("Caught an exception when trying to get base index for timeline keyframes, returning null. The exception is: {0}", ex);
                 return null;
             }
         }
