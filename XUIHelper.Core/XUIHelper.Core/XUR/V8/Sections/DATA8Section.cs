@@ -528,7 +528,7 @@ namespace XUIHelper.Core
                         {
                             if (propertyDefinition == property.PropertyDefinition)
                             {
-                                thisPropertyMask |= (byte)(1 << propertyDefinitionIndex);
+                                thisPropertyMask |= (uint)(1 << propertyDefinitionIndex);
                                 break;
                             }
                         }

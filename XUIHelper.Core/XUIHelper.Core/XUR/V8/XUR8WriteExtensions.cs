@@ -228,7 +228,36 @@ namespace XUIHelper.Core
         {
             try
             {
-                throw new NotImplementedException();
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Vector)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not vector, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not XUVector vectVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as vector had a non-vector value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                IVECTSection? vectSection = ((IXUR)xur).TryFindXURSectionByMagic<IVECTSection>(IVECTSection.ExpectedMagic);
+                if (vectSection == null)
+                {
+                    xur.Logger?.Here().Error("VECT section was null, returning null.");
+                    return null;
+                }
+
+                int vectIndex = vectSection.Vectors.IndexOf(vectVal);
+                if (vectIndex == -1)
+                {
+                    xur.Logger?.Here().Error("Failed to get vector index for {0} with value {1}, returning null.", propertyDefinition.Name, vectVal);
+                    return null;
+                }
+
+                int vectIndexBytesWritten = 0;
+                writer.WritePackedUInt((uint)vectIndex, out vectIndexBytesWritten);
+                xur.Logger?.Here().Verbose("Written {0} vector property value of {1} as index {2}, {3} bytes.", propertyDefinition.Name, vectVal, vectIndex, vectIndexBytesWritten);
+                return vectIndexBytesWritten;
             }
             catch (Exception ex)
             {
