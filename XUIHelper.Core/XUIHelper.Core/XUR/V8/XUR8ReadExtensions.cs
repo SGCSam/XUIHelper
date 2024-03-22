@@ -702,6 +702,7 @@ namespace XUIHelper.Core
                 uint propertyDefinitionsCount = reader.ReadPackedUInt();
                 xur.Logger?.Here().Verbose("Got a count of {0} property definitions.", propertyDefinitionsCount);
 
+                int maxIndex = 0;
                 List<XUPropertyDefinition> animatedPropertyDefinitions = new List<XUPropertyDefinition>();
                 List<int> indexedPropertyIndexes = new List<int>();
                 for (int i = 0; i < propertyDefinitionsCount; i++)
@@ -791,6 +792,11 @@ namespace XUIHelper.Core
                         int index = (int)reader.ReadPackedUInt();
                         xur.Logger?.Here()?.Verbose("Read a timeline compound index value of {0}", index);
                         indexedPropertyIndexes.Add(index);
+
+                        if (index > maxIndex)
+                        {
+                            maxIndex = index;
+                        }
                     }
                 }
 
@@ -949,8 +955,8 @@ namespace XUIHelper.Core
                                 return null;
                             }
 
-                            xur.Logger?.Here().Verbose("The property {0} is indexed, using index of {1}.", animatedPropertyDefinition.Name, indexedPropertyIndexes[handledIndexedProperties]);
-                            //TODO: USE THE INDEX HERE
+                            int indexToUse = indexedPropertyIndexes[handledIndexedProperties];
+                            xur.Logger?.Here().Verbose("The property {0} is indexed, using index of {1}.", animatedPropertyDefinition.Name, indexToUse);
 
                             bool found = false;
                             foreach (XUProperty addedAnimatedProperty in animatedProperties)
@@ -961,7 +967,7 @@ namespace XUIHelper.Core
                                     {
                                         if (xuProperty.Value is List<object> readList)
                                         {
-                                            addedList.AddRange(readList);
+                                            addedList[indexToUse] = readList[0];
                                             handledIndexedProperties++;
                                             found = true;
                                             break;
@@ -986,10 +992,23 @@ namespace XUIHelper.Core
                                 animatedPropertyDefinitionIndex++;
                                 continue;
                             }
-                        }
 
-                        animatedProperties.Add(xuProperty);
-                        animatedPropertyDefinitionIndex++;
+                            List<object?> values = new List<object?>();
+                            for (int j = 0; j <= maxIndex; j++)
+                            {
+                                values.Add(null);
+                            }
+
+                            values[indexToUse] = (xuProperty.Value as List<object>)[0];
+                            animatedProperties.Add(new XUProperty(xuProperty.PropertyDefinition, values));
+                            handledIndexedProperties++;
+                            animatedPropertyDefinitionIndex++;
+                        }
+                        else
+                        {
+                            animatedProperties.Add(xuProperty);
+                            animatedPropertyDefinitionIndex++;
+                        }
                     }
 
                     keyframes.Add(new XUKeyframe(keyframeData, animatedProperties));
