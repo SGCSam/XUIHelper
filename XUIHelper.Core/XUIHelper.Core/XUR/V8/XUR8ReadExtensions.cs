@@ -363,13 +363,11 @@ namespace XUIHelper.Core
                 int compoundDataIndex = (int)reader.ReadPackedUInt();
                 xur.Logger?.Here()?.Verbose("Got a compound data index of {0}.", compoundDataIndex);
 
-                foreach(XURCompoundPropertyData data in xur.CompoundPropertyDatas)
+                if(compoundDataIndex >= 0 && compoundDataIndex < xur.CompoundPropertyDatas.Count)
                 {
-                    if(data.Index == compoundDataIndex)
-                    {
-                        xur.Logger?.Here()?.Verbose("Found with the index, returning {0} properties.", data.Properties);
-                        return new List<XUProperty>(data.Properties);
-                    }
+                    List<XUProperty> retList = new List<XUProperty>(xur.CompoundPropertyDatas[compoundDataIndex]);
+                    xur.Logger?.Here()?.Verbose("Found with the index, returning {0} properties.", retList.Count);
+                    return retList;
                 }
 
                 xur.Logger?.Here()?.Verbose("Didn't find data with the index, creating new.");
@@ -438,7 +436,7 @@ namespace XUIHelper.Core
                     propertyIndex++;
                 }
 
-                xur.CompoundPropertyDatas.Add(new XURCompoundPropertyData(compoundDataIndex, compoundProperties));
+                xur.CompoundPropertyDatas.Add(compoundProperties);
                 return compoundProperties;
             }
             catch (Exception ex)

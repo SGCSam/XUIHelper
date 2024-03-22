@@ -11,7 +11,7 @@ namespace XUIHelper.Core
 {
     public class XUR8 : XUR
     {
-        public List<XURCompoundPropertyData> CompoundPropertyDatas { get; set; } = new List<XURCompoundPropertyData>();
+        public List<List<XUProperty>> CompoundPropertyDatas { get; set; } = new List<List<XUProperty>>();
         public List<List<XUProperty>> ReadPropertiesLists { get; set; } = new List<List<XUProperty>>();
 
         public XUR8(string filePath, ILogger? logger = null) : base(filePath, new XUR8Header(), new XUR8SectionsTable(), logger)
@@ -22,10 +22,10 @@ namespace XUIHelper.Core
         public int GetSharedCompoundPropertiesCount()
         {
             int retCount = 0;
-            foreach (XURCompoundPropertyData item in CompoundPropertyDatas)
+            foreach (List<XUProperty> properties in CompoundPropertyDatas)
             {
-                retCount += item.Properties.Count;
-                foreach(XUProperty property in item.Properties)
+                retCount += properties.Count;
+                foreach(XUProperty property in properties)
                 {
                     if(property.PropertyDefinition.Type == XUPropertyDefinitionTypes.Object)
                     {

@@ -287,6 +287,12 @@ namespace XUIHelper.Core
                 xur.Logger = xur.Logger?.ForContext(typeof(DATA8Section));
                 xur.Logger?.Here().Verbose("Writing DATA8 section.");
 
+                if (xur is not XUR8 xur8)
+                {
+                    xur.Logger?.Here().Error("XUR to write was not XUR8, returning null.");
+                    return null;
+                }
+
                 if (ExtensionsManager == null)
                 {
                     xur.Logger?.Here().Error("Extensions manager was null, returning null.");
@@ -299,6 +305,13 @@ namespace XUIHelper.Core
                     return null;
                 }
 
+                if (!TryBuildCompoundPropertyDatas(xur8, RootObject))
+                {
+                    xur.Logger?.Here().Error("Failed to build compound property datas, returning null.");
+                    return null;
+                }
+
+                xur.Logger?.Here().Verbose("Built a total of {0} compound property datas.", xur8.CompoundPropertyDatas.Count);
                 int? bytesWritten = TryWriteObject(xur, writer, RootObject);
                 if (bytesWritten == null)
                 {
@@ -313,6 +326,106 @@ namespace XUIHelper.Core
             {
                 xur.Logger?.Here().Error("Caught an exception when writing DATA8 section, returning null. The exception is: {0}", ex);
                 return null;
+            }
+        }
+
+        private bool TryBuildCompoundPropertyDatas(XUR8 xur8, XUObject xuObject)
+        {
+            try
+            {
+                if(!TryBuildCompoundPropertyDatasFromProperties(xur8, xuObject.Properties))
+                {
+                    xur8.Logger?.Here().Error("Failed to build compound properties for {0}, returning false.", xuObject.ClassName);
+                    return false;
+                }
+
+                foreach (XUObject childObject in xuObject.Children)
+                {
+                    if (!TryBuildCompoundPropertyDatas(xur8, childObject))
+                    {
+                        xur8.Logger?.Here().Error("Failed to build compound properties for child object {0}, returning false.", childObject.ClassName);
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur8.Logger?.Here().Error("Caught an exception when building compound properties, returning false. The exception is: {0}", ex);
+                return false;
+            }
+        }
+
+        private bool TryBuildCompoundPropertyDatasFromProperties(XUR8 xur8, List<XUProperty> properties)
+        {
+            try
+            {
+                foreach (XUProperty property in properties)
+                {
+                    if (property.PropertyDefinition.Type != XUPropertyDefinitionTypes.Object)
+                    {
+                        continue;
+                    }
+
+                    List<XUProperty>? objectProperties = property.Value as List<XUProperty>;
+                    if (objectProperties == null)
+                    {
+                        xur8.Logger?.Here().Error("The value of property {0} was not a list of properties, returning false.", property.PropertyDefinition.Name);
+                        return false;
+                    }
+
+                    if (!TryBuildCompoundPropertyDatasFromProperties(xur8, objectProperties))
+                    {
+                        xur8.Logger?.Here().Error("Failed to build compound properties from property {0}, returning false.", property.PropertyDefinition.Name);
+                        return false;
+                    }
+
+                    bool isDuplicate = false;
+                    foreach (List<XUProperty> addedProperties in xur8.CompoundPropertyDatas)
+                    {
+                        if (addedProperties.Count == objectProperties.Count)
+                        {
+                            isDuplicate = true;
+                            for (int i = 0; i < addedProperties.Count; i++)
+                            {
+                                if (addedProperties[i].PropertyDefinition != objectProperties[i].PropertyDefinition)
+                                {
+                                    isDuplicate = false;
+                                    break;
+                                }
+
+                                if (!addedProperties[i].Value.Equals(objectProperties[i].Value))
+                                {
+                                    isDuplicate = false;
+                                    break;
+                                }
+                            }
+
+                            if (isDuplicate)
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!isDuplicate)
+                    {
+                        xur8.Logger?.Here().Verbose("Adding {0} object properties to compound property datas.", objectProperties.Count);
+                        xur8.CompoundPropertyDatas.Add(objectProperties);
+                    }
+                    else
+                    {
+                        xur8.Logger?.Here().Verbose("The {0} object properties are duplicates, won't re-add.", objectProperties.Count);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                xur8.Logger?.Here().Error("Caught an exception when building compound properties from properties, returning false. The exception is: {0}", ex);
+                return false;
             }
         }
 

@@ -285,7 +285,13 @@ namespace XUIHelper.Core
         {
             try
             {
-                throw new NotImplementedException();
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Object)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not object, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                return null;
             }
             catch (Exception ex)
             {
