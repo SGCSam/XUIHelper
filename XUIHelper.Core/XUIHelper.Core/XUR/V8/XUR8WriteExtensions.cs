@@ -291,7 +291,162 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                return null;
+                if(val is not List<XUProperty> objectProperties)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as object had a non-list value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                int compoundPropertiesIndex = xur.CompoundPropertyDatas.IndexOf(objectProperties);
+                if (compoundPropertiesIndex != -1)
+                {
+                    int compoundPropertiesIndexBytesWritten = 0;
+                    writer.WritePackedUInt((uint)compoundPropertiesIndex, out compoundPropertiesIndexBytesWritten);
+                    xur.Logger?.Here().Verbose("Written compound properties index of {0} for property {1}, {2} bytes.", compoundPropertiesIndex, propertyDefinition.Name, compoundPropertiesIndexBytesWritten);
+                    return compoundPropertiesIndexBytesWritten;
+                }
+
+                int bytesWritten = 0;
+
+                xur.Logger?.Here().Verbose("Didn't find existing compound properties, creating new.");
+                xur.CompoundPropertyDatas.Add(objectProperties);
+                writer.Write((byte)(xur.CompoundPropertyDatas.Count - 1));   //Write the count as our index for this value
+                bytesWritten++;
+
+                XMLExtensionsManager? ext = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x8);
+                if (ext == null)
+                {
+                    xur.Logger?.Here().Error("Failed to get extensions manager, returning null.");
+                    return null;
+                }
+
+                
+                XUClass? compoundClass = null;
+                switch (propertyDefinition.Name)
+                {
+                    case "Fill":
+                    {
+                        xur.Logger?.Here()?.Verbose("Writing fill object.");
+                        compoundClass = ext.TryGetClassByName("XuiFigureFill");
+                        break;
+                    }
+
+                    case "Gradient":
+                    {
+                        xur.Logger?.Here()?.Verbose("Writing gradient object.");
+                        compoundClass = ext.TryGetClassByName("XuiFigureFillGradient");
+                        break;
+                    }
+
+                    case "Stroke":
+                    {
+                        xur.Logger?.Here()?.Verbose("Writing stroke object.");
+                        compoundClass = ext.TryGetClassByName("XuiFigureStroke");
+                        break;
+                    }
+                    default:
+                    {
+                        xur.Logger?.Here().Error("Unhandled compound class of {0}, returning null.", propertyDefinition.Name);
+                        return null;
+                    }
+                }
+
+                if (compoundClass == null)
+                {
+                    xur.Logger?.Here()?.Error("Compound class was null, the class lookup must have failed, returning null.");
+                    return null;
+                }
+
+                uint objectPropertiesCount = 0;
+                foreach (XUProperty property in objectProperties)
+                {
+                    if (property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        uint indexedPropertiesCount = (uint)(property.Value as IList).Count;
+                        xur.Logger?.Here().Verbose("Property {0} is indexed, incrementing count by list count of {1}.", property.PropertyDefinition.Name, indexedPropertiesCount);
+                        objectPropertiesCount += indexedPropertiesCount;
+                    }
+                    else
+                    {
+                        xur.Logger?.Here().Verbose("Property {0} is not indexed, incrementing count by 1.", property.PropertyDefinition.Name);
+                        objectPropertiesCount++;
+                    }
+                }
+
+                int objectPropertiesCountBytesWritten = 0;
+                writer.WritePackedUInt(objectPropertiesCount, out objectPropertiesCountBytesWritten);
+                xur.Logger?.Here().Verbose("Written object properties count of {0} for property {1}, {2} bytes.", objectPropertiesCount, propertyDefinition.Name, objectPropertiesCountBytesWritten);
+                bytesWritten += objectPropertiesCountBytesWritten;
+
+                uint thisPropertyMask = 0x00;
+                int propertyDefinitionIndex = 0;
+                foreach (XUPropertyDefinition compoundPropertyDefinition in compoundClass.PropertyDefinitions)
+                {
+                    foreach (XUProperty property in objectProperties)
+                    {
+                        if (compoundPropertyDefinition == property.PropertyDefinition)
+                        {
+                            thisPropertyMask |= (uint)(1 << propertyDefinitionIndex);
+                            break;
+                        }
+                    }
+
+                    propertyDefinitionIndex++;
+                }
+
+                int propertyMaskBytesWritten = 0;
+                writer.WritePackedUInt(thisPropertyMask, out propertyMaskBytesWritten);
+                xur.Logger?.Here().Verbose("Written object mask of {0:X8} for property {1}, {2} bytes.", thisPropertyMask, propertyDefinition.Name, propertyMaskBytesWritten);
+                bytesWritten += propertyMaskBytesWritten;
+
+                foreach (XUProperty property in objectProperties)
+                {
+                    xur.Logger?.Here().Verbose("Writing {0} compound property.", property.PropertyDefinition.Name);
+                    if (property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed))
+                    {
+                        xur.Logger?.Here().Verbose("Compound property is indexed.");
+                        List<object>? indexedPropertyValues = property.Value as List<object>;
+                        if (indexedPropertyValues == null)
+                        {
+                            xur.Logger?.Here()?.Error("Indexed compound property value was not a list, returning null.");
+                            return null;
+                        }
+
+                        int indexedPropertyValuesCountBytesWritten = 0;
+                        writer.WritePackedUInt((uint)indexedPropertyValues.Count, out indexedPropertyValuesCountBytesWritten);
+                        xur.Logger?.Here().Verbose("Written indexed property values count {0:X8} for property {1}, {2} bytes.", indexedPropertyValues.Count, propertyDefinition.Name, indexedPropertyValuesCountBytesWritten);
+                        bytesWritten += indexedPropertyValuesCountBytesWritten;
+
+                        int indexCount = 0;
+                        foreach (object indexedPropertyValue in indexedPropertyValues)
+                        {
+                            xur.Logger?.Here().Verbose("Writing {0} indexed compound property index {1}.", property.PropertyDefinition.Name, indexCount);
+                            int? propertyBytesWritten = xur.TryWriteProperty(writer, property, indexedPropertyValue);
+                            if (propertyBytesWritten == null)
+                            {
+                                xur.Logger?.Here().Error("Property bytes written was null for indexed compound property {0} at index {1}, returning null.", property.PropertyDefinition.Name, indexCount);
+                                return null;
+                            }
+
+                            bytesWritten += propertyBytesWritten.Value;
+                            indexCount++;
+                        }
+                    }
+                    else
+                    {
+                        xur.Logger?.Here().Verbose("Compound property is not indexed.");
+                        int? propertyBytesWritten = xur.TryWriteProperty(writer, property, property.Value);
+                        if (propertyBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Property bytes written was null for compound property {0}, returning null.", property.PropertyDefinition.Name);
+                            return null;
+                        }
+
+                        bytesWritten += propertyBytesWritten.Value;
+                    }
+                }
+
+                return bytesWritten;
             }
             catch (Exception ex)
             {
@@ -304,7 +459,36 @@ namespace XUIHelper.Core
         {
             try
             {
-                throw new NotImplementedException();
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Colour)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not colour, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not XUColour colourVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as colour had a non-colour value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                ICOLRSection? colrSection = ((IXUR)xur).TryFindXURSectionByMagic<ICOLRSection>(ICOLRSection.ExpectedMagic);
+                if (colrSection == null)
+                {
+                    xur.Logger?.Here().Error("COLR section was null, returning null.");
+                    return null;
+                }
+
+                int colourIndex = colrSection.Colours.IndexOf(colourVal);
+                if (colourIndex == -1)
+                {
+                    xur.Logger?.Here().Error("Failed to get colour index for {0} with value {1}, returning null.", propertyDefinition.Name, colourVal);
+                    return null;
+                }
+
+                int colourIndexBytesWritten = 0;
+                writer.WritePackedUInt((uint)colourIndex, out colourIndexBytesWritten);
+                xur.Logger?.Here().Verbose("Written {0} colour property value of {1} as index {2}, {3} bytes.", propertyDefinition.Name, colourVal, colourIndex, colourIndexBytesWritten);
+                return colourIndexBytesWritten;
             }
             catch (Exception ex)
             {
