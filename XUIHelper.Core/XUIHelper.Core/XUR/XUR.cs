@@ -175,17 +175,12 @@ namespace XUIHelper.Core
 
                 int writtenFileSize = 0;
                 Dictionary<int, int> sectionsLengths = new Dictionary<int, int>();
-                string sectionsFilePath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\sections.bin";
+                string sectionsFilePath = Path.GetTempFileName();
                 Logger?.Here().Verbose("Writing sections to {0}", sectionsFilePath);
                 using (BinaryWriter sectionsWriter = new BinaryWriter(File.OpenWrite(sectionsFilePath)))
                 {
                     foreach (IXURSection section in Sections)
                     {
-                        if(section is not DATA8Section)
-                        {
-                            continue;
-                        }
-
                         if (sectionsLengths.ContainsKey(section.Magic))
                         {
                             Logger?.Here().Error("Sections lengths already contained a duplicate magic of {0}, returning false.", section.Magic);
@@ -282,7 +277,7 @@ namespace XUIHelper.Core
                 }
                 else if(this is XUR8)
                 {
-                    Header = new XUR8Header(string.IsNullOrEmpty(countHeaderFilePath) ? 0x0 : 0x1, writtenFileSize, (short)Sections.Count);
+                    Header = new XUR8Header(0x0, writtenFileSize, (short)Sections.Count);
                 }
                 else
                 {

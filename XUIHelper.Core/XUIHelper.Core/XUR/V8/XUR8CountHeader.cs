@@ -228,7 +228,115 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, BinaryWriter writer, XUObject rootObject)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(XUR8CountHeader));
+                xur.Logger?.Here().Verbose("Writing XUR8 count header.");
+
+                if (xur is not XUR8 xur8)
+                {
+                    xur.Logger?.Here().Error("XUR was not XUR8, returning null.");
+                    return null;
+                }
+
+                int bytesWritten = 0;
+
+                int objCount = rootObject.GetTotalObjectsCount();
+                int objCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)objCount, out objCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote total objects count of {0:X8}, {1} bytes.", objCount, objCountBytesWritten);
+                bytesWritten += objCountBytesWritten;
+
+                int totalUnsharedPropertiesCount = rootObject.GetTotalUnsharedPropertiesCount();
+                int totalUnsharedPropertiesCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)totalUnsharedPropertiesCount, out totalUnsharedPropertiesCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote total unshared properties count of {0:X8}, {1} bytes.", totalUnsharedPropertiesCount, totalUnsharedPropertiesCountBytesWritten);
+                bytesWritten += totalUnsharedPropertiesCountBytesWritten;
+
+                int sharedPropertiesArrayCount = xur8.ReadPropertiesLists.Count;
+                int sharedPropertiesArrayCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)sharedPropertiesArrayCount, out sharedPropertiesArrayCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote shared properties array count of {0:X8}, {1} bytes.", sharedPropertiesArrayCount, sharedPropertiesArrayCountBytesWritten);
+                bytesWritten += sharedPropertiesArrayCountBytesWritten;
+
+                int sharedCompoundPropertiesCount = xur8.GetSharedCompoundPropertiesCount();
+                int sharedCompoundPropertiesCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)sharedCompoundPropertiesCount, out sharedCompoundPropertiesCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote shared compound properties count of {0:X8}, {1} bytes.", sharedCompoundPropertiesCount, sharedCompoundPropertiesCountBytesWritten);
+                bytesWritten += sharedCompoundPropertiesCountBytesWritten;
+
+                int sharedCompoundPropertiesArrayCount = xur8.CompoundPropertyDatas.Count;
+                int sharedCompoundPropertiesArrayCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)sharedCompoundPropertiesArrayCount, out sharedCompoundPropertiesArrayCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote shared compound properties array count of {0:X8}, {1} bytes.", sharedCompoundPropertiesArrayCount, sharedCompoundPropertiesArrayCountBytesWritten);
+                bytesWritten += sharedCompoundPropertiesArrayCountBytesWritten;
+
+                int? totalKeyframePropertyClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth(0x8);
+                if (totalKeyframePropertyClassDepth == null)
+                {
+                    xur.Logger?.Here().Error("Failed to get total keyframe property class depth, returning null.");
+                    return null;
+                }
+
+                int totalKeyframePropertyClassDepthBytesWritten = 0;
+                writer.WritePackedUInt((uint)totalKeyframePropertyClassDepth, out totalKeyframePropertyClassDepthBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote total keyframe property class depth of {0:X8}, {1} bytes.", totalKeyframePropertyClassDepth, totalKeyframePropertyClassDepthBytesWritten);
+                bytesWritten += totalKeyframePropertyClassDepthBytesWritten;
+
+                int totalTimelinePropertyClassDepth = rootObject.GetTotalTimelinePropertyDefinitionsClassDepth();
+                int totalTimelinePropertyClassDepthBytesWritten = 0;
+                writer.WritePackedUInt((uint)totalTimelinePropertyClassDepth, out totalTimelinePropertyClassDepthBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote total timeline property class depth of {0:X8}, {1} bytes.", totalTimelinePropertyClassDepth, totalTimelinePropertyClassDepthBytesWritten);
+                bytesWritten += totalTimelinePropertyClassDepthBytesWritten;
+
+                int timelinesCount = rootObject.GetTimelinesCount();
+                int timelinesCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)timelinesCount, out timelinesCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote timelines count of {0:X8}, {1} bytes.", timelinesCount, timelinesCountBytesWritten);
+                bytesWritten += timelinesCountBytesWritten;
+
+                int keyframePropertiesCount = 0;
+                IKEYPSection? keypSection = ((IXUR)xur).TryFindXURSectionByMagic<IKEYPSection>(IKEYPSection.ExpectedMagic);
+                if (keypSection != null)
+                {
+                    keyframePropertiesCount = keypSection.PropertyIndexes.Count;
+                }
+                int keyframePropertiesCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)keyframePropertiesCount, out keyframePropertiesCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote keyframe properties count of {0:X8}, {1} bytes.", timelinesCount, keyframePropertiesCountBytesWritten);
+                bytesWritten += keyframePropertiesCountBytesWritten;
+
+                int keyframeDataCount = 0;
+                IKEYDSection? keydSection = ((IXUR)xur).TryFindXURSectionByMagic<IKEYDSection>(IKEYDSection.ExpectedMagic);
+                if (keydSection != null)
+                {
+                    keyframeDataCount = keydSection.Keyframes.Count;
+                }
+                int keyframeDataCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)keyframeDataCount, out keyframeDataCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote keyframe data count of {0:X8}, {1} bytes.", keyframeDataCount, keyframeDataCountBytesWritten);
+                bytesWritten += keyframeDataCountBytesWritten;
+
+                int namedFramesCount = rootObject.GetNamedFramesCount();
+                int namedFramesCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)namedFramesCount, out namedFramesCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote named frames count of {0:X8}, {1} bytes.", namedFramesCount, namedFramesCountBytesWritten);
+                bytesWritten += namedFramesCountBytesWritten;
+
+                int objectsWithChildrenCount = rootObject.GetObjectsWithChildrenCount();
+                int objectsWithChildrenCountBytesWritten = 0;
+                writer.WritePackedUInt((uint)objectsWithChildrenCount, out objectsWithChildrenCountBytesWritten);
+                xur.Logger?.Here().Verbose("Wrote named frames count of {0:X8}, {1} bytes.", objectsWithChildrenCount, objectsWithChildrenCountBytesWritten);
+                bytesWritten += objectsWithChildrenCountBytesWritten;
+
+                xur.Logger?.Here().Verbose("Wrote XUR8 count header with a total of {0:X8} bytes successfully!", bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing XUR8 count header, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
     }
 }

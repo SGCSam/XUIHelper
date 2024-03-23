@@ -69,7 +69,45 @@ namespace XUIHelper.Core
 
         public async Task<int?> TryWriteAsync(IXUR xur, BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                xur.Logger = xur.Logger?.ForContext(typeof(XUR8Header));
+                xur.Logger?.Here().Verbose("Writing XUR8 header.");
+
+                int bytesWritten = 0;
+
+                xur.Logger?.Here().Verbose("Writing magic of {0:X8}.", Magic);
+                writer.WriteInt32BE(Magic);
+                bytesWritten += 4;
+
+                xur.Logger?.Here().Verbose("Writing version of {0:X8}.", Version);
+                writer.WriteInt32BE(Version);
+                bytesWritten += 4;
+
+                xur.Logger?.Here().Verbose("Writing flags of {0:X8}.", Flags);
+                writer.WriteInt32BE(Flags);
+                bytesWritten += 4;
+
+                xur.Logger?.Here().Verbose("Writing tool version of {0:X8}.", ToolVersion);
+                writer.WriteInt16BE(ToolVersion);
+                bytesWritten += 2;
+
+                xur.Logger?.Here().Verbose("Writing file size of {0:X8}.", FileSize);
+                writer.WriteInt32BE(FileSize);
+                bytesWritten += 4;
+
+                xur.Logger?.Here().Verbose("Writing sections count of {0:X8}.", SectionsCount);
+                writer.WriteInt16BE(SectionsCount);
+                bytesWritten += 2;
+
+                xur.Logger?.Here().Verbose("Wrote XUR8 header with a total of {0:X8} bytes successfully!", bytesWritten);
+                return bytesWritten;
+            }
+            catch (Exception ex)
+            {
+                xur.Logger?.Here().Error("Caught an exception when writing XUR8 header, returning null. The exception is: {0}", ex);
+                return null;
+            }
         }
 
         public XUR8Header()
