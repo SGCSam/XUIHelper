@@ -123,7 +123,7 @@ namespace XUIHelper.Core.Extensions
             if (val > 0xEFF)
             {
                 writer.Write((byte)0xFF);
-                writer.Write((int)val);
+                writer.WriteInt32BE((int)val);
                 bytesWritten = 5;
             }
             else if (val >= 0xF0)

@@ -330,6 +330,12 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Writing object {0}.", xuObject.ClassName);
                 int bytesWritten = 0;
 
+                if(xur is not XUR8 xur8)
+                {
+                    xur.Logger?.Here().Error("XUR to write was not XUR8, returning null.");
+                    return null;
+                }
+
                 ISTRNSection? strnSection = xur.TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
                 if (strnSection == null)
                 {
@@ -350,12 +356,21 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Wrote object class name index of {0} for class name {1}, {2} bytes.", classNameIndex, xuObject.ClassName, classNameBytesWritten);
 
                 byte flags = 0x00;
+                int? sharedPropertiesIndex = null;
+
                 if (xuObject.Properties.Count > 0)
                 {
-                    //TODO: If the properties are shared, flags |= 0x8, else...
-
-                    flags |= 0x1;
-                    xur.Logger?.Here().Verbose("Object has properties, flags is now {0:X8}", flags);
+                    sharedPropertiesIndex = xur8.ReadPropertiesLists.TryGetPropertiesListIndex(xuObject.Properties);
+                    if(sharedPropertiesIndex != null)
+                    {
+                        flags |= 0x8;
+                        xur.Logger?.Here().Verbose("Object has shared properties, flags is now {0:X8}", flags);
+                    }
+                    else
+                    {
+                        flags |= 0x1;
+                        xur.Logger?.Here().Verbose("Object has properties, flags is now {0:X8}", flags);
+                    }
                 }
 
                 if (xuObject.Children.Count > 0)
@@ -376,15 +391,26 @@ namespace XUIHelper.Core
 
                 if (xuObject.Properties.Count > 0)
                 {
-                    xur.Logger?.Here().Verbose("Writing {0:X8} object properties.", xuObject.Properties.Count);
-                    int? propertyBytesWritten = TryWriteProperties(xur, writer, xuObject);
-                    if (propertyBytesWritten == null)
+                    if(sharedPropertiesIndex != null)
                     {
-                        xur.Logger?.Here().Error("Property bytes written was null for {0}, an error must have occurred, returning null.", xuObject.ClassName);
-                        return null;
+                        int sharedPropertiesIndexBytesWritten = 0;
+                        writer.WritePackedUInt((uint)sharedPropertiesIndex, out sharedPropertiesIndexBytesWritten);
+                        bytesWritten += sharedPropertiesIndexBytesWritten;
+                        xur.Logger?.Here().Verbose("Wrote shared properties index of {0}, {1} bytes.", sharedPropertiesIndex, sharedPropertiesIndexBytesWritten);
                     }
+                    else
+                    {
+                        xur.Logger?.Here().Verbose("Writing {0:X8} object properties.", xuObject.Properties.Count);
+                        int? propertyBytesWritten = TryWriteProperties(xur, writer, xuObject);
+                        if (propertyBytesWritten == null)
+                        {
+                            xur.Logger?.Here().Error("Property bytes written was null for {0}, an error must have occurred, returning null.", xuObject.ClassName);
+                            return null;
+                        }
 
-                    bytesWritten += propertyBytesWritten.Value;
+                        bytesWritten += propertyBytesWritten.Value;
+                        xur8.ReadPropertiesLists.Add(xuObject.Properties);
+                    }
                 }
 
                 if (xuObject.Children.Count > 0)

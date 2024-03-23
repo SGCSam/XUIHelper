@@ -17,10 +17,14 @@ namespace XUIHelper.Core
 
         public List<XUNamedFrame> NamedFrames { get; private set; } = new List<XUNamedFrame>();
 
+        public HashSet<int> HandledBaseIndexes { get; private set; } = new HashSet<int>();
+
         public async Task<bool> TryReadAsync(IXUR xur, BinaryReader reader)
         {
             try
             {
+                HandledBaseIndexes.Clear();
+
                 xur.Logger = xur.Logger?.ForContext(typeof(NAME8Section));
                 xur.Logger?.Here().Verbose("Reading NAME8 section.");
 
@@ -114,6 +118,8 @@ namespace XUIHelper.Core
         {
             try
             {
+                HandledBaseIndexes.Clear();
+
                 xur.Logger?.Here().Verbose("Building NAME8 named frames.");
                 HashSet<XUNamedFrame> builtNamedFrames = new HashSet<XUNamedFrame>();
 

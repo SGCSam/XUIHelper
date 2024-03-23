@@ -118,7 +118,22 @@ namespace XUIHelper.Core
         {
             try
             {
-                throw new NotImplementedException();
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Integer)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not integer, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not int integerVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as integer had a non-integer value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                int integerBytesWritten = 0;
+                writer.WritePackedUInt((uint)integerVal, out integerBytesWritten);
+                xur.Logger?.Here().Verbose("Written {0} unsigned property value of {1}, {2} bytes.", propertyDefinition.Name, integerVal, integerBytesWritten);
+                return integerBytesWritten;
             }
             catch (Exception ex)
             {
@@ -297,8 +312,8 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                int compoundPropertiesIndex = xur.CompoundPropertyDatas.IndexOf(objectProperties);
-                if (compoundPropertiesIndex != -1)
+                int? compoundPropertiesIndex = xur.CompoundPropertyDatas.TryGetPropertiesListIndex(objectProperties);
+                if (compoundPropertiesIndex != null)
                 {
                     int compoundPropertiesIndexBytesWritten = 0;
                     writer.WritePackedUInt((uint)compoundPropertiesIndex, out compoundPropertiesIndexBytesWritten);
@@ -579,8 +594,8 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                int baseIndex = namedFrames.GetSequenceIndex(namedFrames);
-                if (baseIndex == -1)
+                int? baseIndex = nameSection.TryGetBaseIndex(namedFrames, xur.Logger);
+                if (baseIndex == null)
                 {
                     xur.Logger?.Here().Error("Failed to get base index for named frames, returning null.");
                     return null;
