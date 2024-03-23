@@ -306,11 +306,20 @@ namespace XUIHelper.Core
                     return compoundPropertiesIndexBytesWritten;
                 }
 
+                int childCompoundPropertiesCount = 0;
+                foreach(XUProperty childObjectProperty in objectProperties)
+                {
+                    childCompoundPropertiesCount += childObjectProperty.GetCompoundPropertiesCount();
+                }
+
                 int bytesWritten = 0;
 
-                xur.Logger?.Here().Verbose("Didn't find existing compound properties, creating new.");
-                xur.CompoundPropertyDatas.Add(objectProperties);
-                writer.Write((byte)(xur.CompoundPropertyDatas.Count - 1));   //Write the count as our index for this value
+                //We have to offset the index based upon how many child compound props we have
+                //So if we're writing XuiFigure, but also have XuiFigureFill and XuiFigureFillGradient set, we need to add 2
+                //So that FillGradient is 1st in the list, then Fill, then Figure
+                compoundPropertiesIndex = xur.CompoundPropertyDatas.Count + childCompoundPropertiesCount;
+                writer.Write((byte)compoundPropertiesIndex);   //Write the count as our index for this value
+                xur.Logger?.Here().Verbose("Didn't find existing compound properties, creating new as index {0}.", compoundPropertiesIndex);
                 bytesWritten++;
 
                 XMLExtensionsManager? ext = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x8);
@@ -320,7 +329,6 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                
                 XUClass? compoundClass = null;
                 switch (propertyDefinition.Name)
                 {
@@ -446,6 +454,7 @@ namespace XUIHelper.Core
                     }
                 }
 
+                xur.CompoundPropertyDatas.Add(objectProperties);
                 return bytesWritten;
             }
             catch (Exception ex)
@@ -501,7 +510,43 @@ namespace XUIHelper.Core
         {
             try
             {
-                throw new NotImplementedException();
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Custom)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not custom, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not XUFigure figureVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as custom had a non-custom value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                ICUSTSection? custSection = ((IXUR)xur).TryFindXURSectionByMagic<ICUSTSection>(ICUSTSection.ExpectedMagic);
+                if (custSection == null)
+                {
+                    xur.Logger?.Here().Error("CUST section was null, returning null.");
+                    return null;
+                }
+
+                uint custOffset = 0x00;
+                foreach (XUFigure figure in custSection.Figures)
+                {
+                    if (figure == figureVal)
+                    {
+                        int custOffsetBytesWritten = 0;
+                        writer.WritePackedUInt(custOffset, out custOffsetBytesWritten);
+                        xur.Logger?.Here().Verbose("Written {0} custom property value of {1} as offset {2}, {3} bytes.", propertyDefinition.Name, figureVal, custOffset, custOffsetBytesWritten);
+                        return custOffsetBytesWritten;
+                    }
+                    else
+                    {
+                        custOffset += (uint)(0x10 + (figure.Points.Count * 0x18));
+                    }
+                }
+
+                xur.Logger?.Here().Error("Failed to find figure offset for writing custom property {0} with value {1}, returning null.", propertyDefinition.Name, figureVal);
+                return null;
             }
             catch (Exception ex)
             {
