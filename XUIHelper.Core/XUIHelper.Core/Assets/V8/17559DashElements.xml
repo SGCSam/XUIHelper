@@ -15,6 +15,15 @@
       Description="Control Pack Aura Control" >
   </XUIClass>
 
+  <XUIClass
+      Name="ControlPackLegendScene"
+      BaseClassName="XuiScene"
+      DefaultWidth="880"
+      DefaultHeight="480"
+      Description="Control Pack Legend Scene" >
+    <PropDef Name="UnknownString" Type="string" />
+  </XUIClass>
+
   <XUIClass Name="DashScene" BaseClassName="XuiScene" Description="TestDesc">
     <PropDef Name="NavigationBreadcrumbs" Type="string" />
     <PropDef Name="DescriptionTexts" Type="string" />

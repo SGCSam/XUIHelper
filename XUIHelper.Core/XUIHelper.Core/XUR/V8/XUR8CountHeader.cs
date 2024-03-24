@@ -201,7 +201,13 @@ namespace XUIHelper.Core
                 }
 
                 xur.Logger?.Here().Verbose("Verifying named frames count.");
-                int namedFramesCount = rootObject.GetNamedFramesCount();
+                INAMESection? nameSection = ((IXUR)xur).TryFindXURSectionByMagic<INAMESection>(INAMESection.ExpectedMagic);
+                int namedFramesCount = 0;
+                if (nameSection != null)
+                {
+                    namedFramesCount = nameSection.NamedFrames.Count;
+                }
+
                 if (NamedFramesCount != namedFramesCount)
                 {
                     xur.Logger?.Here().Error("Mismatch between the named frames count, returning false. Expected: {0}, Actual: {1}", NamedFramesCount, namedFramesCount);

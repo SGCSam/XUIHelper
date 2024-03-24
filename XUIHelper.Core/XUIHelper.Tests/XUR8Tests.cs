@@ -50,7 +50,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURReadSuccessful()
         {
-            Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/17559/gamercard.xur"));
+            Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/17559/LegendScene.xur"));
         }
 
         [Test]

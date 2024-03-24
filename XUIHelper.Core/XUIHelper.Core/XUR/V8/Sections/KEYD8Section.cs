@@ -61,7 +61,7 @@ namespace XUIHelper.Core
                     if(unknown != 0)
                     {
                         xur.Logger?.Here().Verbose("Read an unknown of {0}", unknown);
-                        return false;
+                        //return false;
                     }
 
                     byte easeIn = 0;
@@ -90,7 +90,7 @@ namespace XUIHelper.Core
                             vectorIndex = (int)reader.ReadPackedUInt(out readVectorIndexBytes);
                             bytesRead += readVectorIndexBytes;
                             xur.Logger?.Here().Error("Unknown vector index of {0:X8}.", vectorIndex);
-                            return false;
+                            //return false;
                         }
                         else
                         {
