@@ -6,7 +6,6 @@ namespace XUIHelper.Tests
 {
     public class XUR8Tests : XURTests
     {
-        //TODO: I think XUR5 actually uses 0-based indexes, and has an empty string by default
         //TODO: Decouple XUI version from extensions, make it more of a group IDed by a string, as we should be able to write a XUR8 as a XUR5
         //TODO: Support for ignore properties (ones that aren't supported in XuiTool)
         //TODO: Function library API
@@ -33,6 +32,7 @@ namespace XUIHelper.Tests
             XMLExtensionsManager v8Extensions = new XMLExtensionsManager(logger);
             _ = v8Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\XuiElements.xml");
             _ = v8Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\17559DashElements.xml");
+            _ = v8Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\17559HUDElements.xml");
             XUIHelperCoreConstants.VersionedExtensions[0x8] = v8Extensions;
         }
 

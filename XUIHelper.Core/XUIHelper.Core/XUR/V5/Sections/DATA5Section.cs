@@ -73,7 +73,7 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                short stringIndex = (short)(reader.ReadInt16BE() - 1);
+                short stringIndex = (short)(reader.ReadInt16BE());
                 xur.Logger?.Here().Verbose("Read string index of {0:X8}.", stringIndex);
 
                 byte flags = reader.ReadByte();
@@ -335,7 +335,6 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                classNameIndex++;   //Class name indexes are 1-based :/
                 xur.Logger?.Here().Verbose("Writing object class name index of {0} for class name {1}.", classNameIndex, xuObject.ClassName);
                 writer.WriteInt16BE(classNameIndex);
                 bytesWritten += 2;

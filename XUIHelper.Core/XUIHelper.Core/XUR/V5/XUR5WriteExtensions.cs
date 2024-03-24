@@ -191,25 +191,16 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                if (string.IsNullOrEmpty(stringVal))
+                short stringIndex = (short)(strnSection.Strings.IndexOf(stringVal));
+                if (stringIndex == -1)
                 {
-                    writer.WriteInt16BE(0x0);
-                    xur.Logger?.Here().Verbose("Written {0} string property as index 0 as it was empty.", propertyDefinition.Name);
-                    return 2;
+                    xur.Logger?.Here().Error("Failed to get string index for property {0} value {1}, returning null.", propertyDefinition.Name, stringVal);
+                    return null;
                 }
-                else
-                {
-                    short stringIndex = (short)(strnSection.Strings.IndexOf(stringVal) + 1);
-                    if (stringIndex == 0)
-                    {
-                        xur.Logger?.Here().Error("Failed to get string index for property {0} value {1}, returning null.", propertyDefinition.Name, stringVal);
-                        return null;
-                    }
 
-                    writer.WriteInt16BE(stringIndex);
-                    xur.Logger?.Here().Verbose("Written {0} string property value of {1} as index {2}.", propertyDefinition.Name, stringVal, stringIndex);
-                    return 2;
-                }
+                writer.WriteInt16BE(stringIndex);
+                xur.Logger?.Here().Verbose("Written {0} string property value of {1} as index {2}.", propertyDefinition.Name, stringVal, stringIndex);
+                return 2;
             }
             catch (Exception ex)
             {
@@ -598,8 +589,8 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                short nameIndex = (short)(strnSection.Strings.IndexOf(namedFrame.Name) + 1);
-                if (nameIndex == 0)
+                short nameIndex = (short)(strnSection.Strings.IndexOf(namedFrame.Name));
+                if (nameIndex == -1)
                 {
                     xur.Logger?.Here().Error("Failed to get string index for named frame name {0}, returning null.", namedFrame.Name);
                     return null;
@@ -626,8 +617,8 @@ namespace XUIHelper.Core
                 }
                 else
                 {
-                    short parameterIndex = (short)(strnSection.Strings.IndexOf(namedFrame.TargetParameter) + 1);
-                    if (parameterIndex == 0)
+                    short parameterIndex = (short)(strnSection.Strings.IndexOf(namedFrame.TargetParameter));
+                    if (parameterIndex == -1)
                     {
                         xur.Logger?.Here().Error("Failed to get string index for named frame parameter {0}, returning null.", namedFrame.TargetParameter);
                         return null;
@@ -659,8 +650,8 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                short objectNameIndex = (short)(strnSection.Strings.IndexOf(timeline.ElementName) + 1);
-                if (objectNameIndex == 0)
+                short objectNameIndex = (short)(strnSection.Strings.IndexOf(timeline.ElementName));
+                if (objectNameIndex == -1)
                 {
                     xur.Logger?.Here().Error("Failed to get string index for timeline object name {0}, returning null.", timeline.ElementName);
                     return null;

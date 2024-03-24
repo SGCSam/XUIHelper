@@ -65,9 +65,8 @@ namespace XUIHelper.Core
             {
                 xur.Logger?.Here().Verbose("Building STRN8 strings.");
 
-                Strings.Add("");
-
                 HashSet<string> builtStrings = new HashSet<string>();
+                builtStrings.Add("");
                 if (!TryBuildStringsFromObject(xur, xuObject, ref builtStrings))
                 {
                     xur.Logger?.Here().Error("Failed to build strings, returning null.");
@@ -106,7 +105,7 @@ namespace XUIHelper.Core
 
                 foreach (XUTimeline childTimeline in xuObject.Timelines)
                 {
-                    if (!string.IsNullOrEmpty(childTimeline.ElementName) && builtStrings.Add(childTimeline.ElementName))
+                    if (builtStrings.Add(childTimeline.ElementName))
                     {
                         xur.Logger?.Here().Verbose("Added timeline string {0}.", childTimeline.ElementName);
                     }
@@ -114,12 +113,12 @@ namespace XUIHelper.Core
 
                 foreach (XUNamedFrame childNamedFrame in xuObject.NamedFrames)
                 {
-                    if (!string.IsNullOrEmpty(childNamedFrame.Name) && builtStrings.Add(childNamedFrame.Name))
+                    if (builtStrings.Add(childNamedFrame.Name))
                     {
                         xur.Logger?.Here().Verbose("Added named frame string {0}.", childNamedFrame.Name);
                     }
 
-                    if (!string.IsNullOrEmpty(childNamedFrame.TargetParameter) && builtStrings.Add(childNamedFrame.TargetParameter))
+                    if (builtStrings.Add(childNamedFrame.TargetParameter))
                     {
                         xur.Logger?.Here().Verbose("Added named frame target parameter {0}.", childNamedFrame.TargetParameter);
                     }
@@ -139,7 +138,7 @@ namespace XUIHelper.Core
                                     return false;
                                 }
 
-                                if (!string.IsNullOrEmpty(valueString) && builtStrings.Add(valueString))
+                                if (builtStrings.Add(valueString))
                                 {
                                     xur.Logger?.Here().Verbose("Added {0} animated property value string {1}.", animatedProperty.PropertyDefinition.Name, valueString);
                                 }
@@ -148,7 +147,7 @@ namespace XUIHelper.Core
                     }
                 }
 
-                if (!string.IsNullOrEmpty(xuObject.ClassName) && builtStrings.Add(xuObject.ClassName))
+                if (builtStrings.Add(xuObject.ClassName))
                 {
                     xur.Logger?.Here().Verbose("Added class name string {0}.", xuObject.ClassName);
                 }
@@ -176,7 +175,7 @@ namespace XUIHelper.Core
                             return false;
                         }
 
-                        if (!string.IsNullOrEmpty(valueString) && builtStrings.Add(valueString))
+                        if (builtStrings.Add(valueString))
                         {
                             xur.Logger?.Here().Verbose("Added {0} property value string {1}.", childProperty.PropertyDefinition.Name, valueString);
                         }

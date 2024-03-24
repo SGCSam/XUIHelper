@@ -187,20 +187,8 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                int stringIndex = reader.ReadInt16BE() - 1;
+                int stringIndex = reader.ReadInt16BE();
                 xur.Logger?.Here()?.Verbose("Reading string, got string index of {0}", stringIndex);
-
-                if (stringIndex <= 0x00)
-                {
-                    //This is VALID, NOT a bug/hack. Timelines who have animated string properties use index 0 to indicate an empty string.
-                    //We may animate the Visual property for example - 1 keyframe may have no visual, the next may have a different visual
-                    //So we can use 0x00 index instead of storing a blank string in the STRN table
-
-                    //We also use less than, since the zero based index method of -1 takes does 0 - 1, so we'll get a negative number
-
-                    xur.Logger?.Here()?.Verbose("String index was 0, returning empty string.");
-                    return string.Empty;
-                }
 
                 ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
                 if (strnSection == null)
@@ -546,7 +534,7 @@ namespace XUIHelper.Core
         {
             try
             {
-                short namedFrameStringIndex = (short)(reader.ReadInt16BE() - 1);
+                short namedFrameStringIndex = (short)(reader.ReadInt16BE());
                 xur.Logger?.Here().Verbose("Read named frame string index of {0:X8}.", namedFrameStringIndex);
 
                 ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
@@ -586,7 +574,7 @@ namespace XUIHelper.Core
                 XUNamedFrameCommandTypes namedFrameCommandType = (XUNamedFrameCommandTypes)namedFrameCommandByte;
                 xur.Logger?.Here().Verbose("Got a named frame command type of {0}.", namedFrameCommandType);
 
-                short targetParameterStringIndex = (short)(reader.ReadInt16BE() - 1);
+                short targetParameterStringIndex = (short)(reader.ReadInt16BE());
                 xur.Logger?.Here().Verbose("Read target parameter string index of {0:X8}.", targetParameterStringIndex);
 
                 if (targetParameterStringIndex < -1 || targetParameterStringIndex > strnSection.Strings.Count - 1)
@@ -619,7 +607,7 @@ namespace XUIHelper.Core
         {
             try
             {
-                short objectNameStringIndex = (short)(reader.ReadInt16BE() - 1);
+                short objectNameStringIndex = (short)(reader.ReadInt16BE());
                 xur.Logger?.Here().Verbose("Read object name string index of {0:X8}.", objectNameStringIndex);
 
                 ISTRNSection? strnSection = ((IXUR)xur).TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);

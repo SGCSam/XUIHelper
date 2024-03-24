@@ -395,7 +395,7 @@ namespace XUIHelper.Core
                 List<XUBezierPoint> bezierPoints = new List<XUBezierPoint>();
                 for(int bezierPointIndex = 0; bezierPointIndex < bezierPointsCount; bezierPointIndex++)
                 {
-                    int stringIndex = (bezierPointIndex * 6) + (bezierPointIndex * 1) + 1;
+                    int stringIndex = (bezierPointIndex * 6) + (bezierPointIndex * 1);
                     xui.Logger?.Here().Verbose("Reading bezier point index {0}, got string index {1}.", bezierPointIndex, stringIndex);
 
                     float refX = Convert.ToSingle(points[stringIndex]);
