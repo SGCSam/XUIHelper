@@ -14,7 +14,10 @@ namespace XUIHelper.Core
         public byte EaseOut { get; private set; }
         public byte EaseScale { get; private set; }
         public int VectorIndex { get; private set; }
-        public int PropertyIndex { get; private set; } 
+        public int PropertyIndex { get; private set; }
+        public byte Unknown4 { get; private set; }
+        public byte Unknown10 { get; private set; }
+        public byte Unknown20 { get; private set; }
 
         public XURKeyframe(int keyframe, XUKeyframeInterpolationTypes interpolationType, byte easeIn, byte easeOut, byte easeScale, int vectIndex, int propIndex)
         {
@@ -25,6 +28,20 @@ namespace XUIHelper.Core
             EaseScale = easeScale;
             VectorIndex = vectIndex;
             PropertyIndex = propIndex;
+        }
+
+        public XURKeyframe(int keyframe, XUKeyframeInterpolationTypes interpolationType, byte easeIn, byte easeOut, byte easeScale, int vectIndex, int propIndex, byte unk4, byte unk10, byte unk20)
+        {
+            Keyframe = keyframe;
+            InterpolationType = interpolationType;
+            EaseIn = easeIn;
+            EaseOut = easeOut;
+            EaseScale = easeScale;
+            VectorIndex = vectIndex;
+            PropertyIndex = propIndex;
+            Unknown4 = unk4;
+            Unknown10 = unk10;
+            Unknown20 = unk20;
         }
 
         public XURKeyframe(XUKeyframe keyframe, int vectIndex, int propIndex)

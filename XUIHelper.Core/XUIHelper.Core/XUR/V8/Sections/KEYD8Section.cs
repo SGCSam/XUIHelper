@@ -69,8 +69,50 @@ namespace XUIHelper.Core
                     byte easeScale = 0;
                     XUKeyframeInterpolationTypes interpolationType = XUKeyframeInterpolationTypes.Linear;
                     int vectorIndex = 0;
+                    byte Unknown4 = 0;
+                    byte Unknown10 = 0;
+                    byte Unknown20 = 0;
 
-                    if(flags != 0x0)
+                    /*if (flags != 0x0)
+                    {
+                        if ((flags & 0x1) == 0x1)
+                        {
+                            interpolationType = XUKeyframeInterpolationTypes.None;
+                        }
+                        if ((flags & 0x2) == 0x2)
+                        {
+                            easeIn = reader.ReadByte();
+                            easeOut = reader.ReadByte();
+                            easeScale = reader.ReadByte();
+                            interpolationType = XUKeyframeInterpolationTypes.Ease;
+                            bytesRead += 3;
+                        }
+                        if ((flags & 0x8) == 0x8)
+                        {
+                            byte readVectorIndexBytes;
+                            vectorIndex = (int)reader.ReadPackedUInt(out readVectorIndexBytes);
+                            bytesRead += readVectorIndexBytes;
+                            xur.Logger?.Here().Error("Unknown vector index of {0:X8}.", vectorIndex);
+                            //return false;
+                        }
+                        if ((flags & 0x10) == 0x10)
+                        {
+                            Unknown10 = reader.ReadByte();
+                            bytesRead++;
+                        }
+                        if ((flags & 0x20) == 0x20)
+                        {
+                            Unknown20 = reader.ReadByte();
+                            bytesRead++;
+                        }
+                        if ((flags & 0x4) == 0x4)
+                        {
+                            Unknown4 = reader.ReadByte();
+                            bytesRead++;
+                        }
+                    }*/
+
+                    if (flags != 0x0)
                     {
                         if (flags == 0x1)
                         {
@@ -103,7 +145,7 @@ namespace XUIHelper.Core
                     int propertyIndex = (int)reader.ReadPackedUInt(out readPropertyIndexBytes);
                     bytesRead += readPropertyIndexBytes;
 
-                    XURKeyframe readKeyframe = new XURKeyframe(frame, interpolationType, easeIn, easeOut, easeScale, vectorIndex, propertyIndex);
+                    XURKeyframe readKeyframe = new XURKeyframe(frame, interpolationType, easeIn, easeOut, easeScale, vectorIndex, propertyIndex, Unknown4, Unknown10, Unknown20);
                     Keyframes.Add(readKeyframe);
                     xur.Logger?.Here().Verbose("Read keyframe data index {0} as {1}.", dataIndex, readKeyframe);
                     dataIndex++;

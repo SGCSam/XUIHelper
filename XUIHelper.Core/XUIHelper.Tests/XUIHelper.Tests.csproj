@@ -60,12 +60,29 @@
     <None Remove="Test Data\XUR\17559\2407_WaitingScreen.xur" />
     <None Remove="Test Data\XUR\17559\2410_AttemptingOldSoftware.xur" />
     <None Remove="Test Data\XUR\17559\2413_UnableToConnect.xur" />
+    <None Remove="Test Data\XUR\17559\2902_UpdateProgress.xur" />
     <None Remove="Test Data\XUR\17559\742_metaByDevice %282%29.xur" />
     <None Remove="Test Data\XUR\17559\742_metaByDevice.xur" />
     <None Remove="Test Data\XUR\17559\742_SelectNetworkDevice %282%29.xur" />
     <None Remove="Test Data\XUR\17559\742_SelectNetworkDevice.xur" />
     <None Remove="Test Data\XUR\17559\744_ManageAffiliation %282%29.xur" />
     <None Remove="Test Data\XUR\17559\744_ManageAffiliation.xur" />
+    <None Remove="Test Data\XUR\17559\802_Achievements.xur" />
+    <None Remove="Test Data\XUR\17559\803_SignInPreferences.xur" />
+    <None Remove="Test Data\XUR\17559\804_LoadAchievements.xur" />
+    <None Remove="Test Data\XUR\17559\807_EditGamerTile.xur" />
+    <None Remove="Test Data\XUR\17559\808_editProfile.xur" />
+    <None Remove="Test Data\XUR\17559\809_ChangeGamerTile.xur" />
+    <None Remove="Test Data\XUR\17559\820_GameShowcaseMe.xur" />
+    <None Remove="Test Data\XUR\17559\825_GameShowcaseCompare.xur" />
+    <None Remove="Test Data\XUR\17559\826-7_GameAchievStatsYou.xur" />
+    <None Remove="Test Data\XUR\17559\828_AchievDetails.xur" />
+    <None Remove="Test Data\XUR\17559\830_GamerPreferences.xur" />
+    <None Remove="Test Data\XUR\17559\831_PreferenceSetting.xur" />
+    <None Remove="Test Data\XUR\17559\832_PreferenceCategory.xur" />
+    <None Remove="Test Data\XUR\17559\837_AvatarAwardGamesMe.xur" />
+    <None Remove="Test Data\XUR\17559\837_AvatarAwards.xur" />
+    <None Remove="Test Data\XUR\17559\837_LoadAvatarAwards.xur" />
     <None Remove="Test Data\XUR\17559\905_IndividualDeviceMain.xur" />
     <None Remove="Test Data\XUR\17559\aboutme.xur" />
     <None Remove="Test Data\XUR\17559\AccountManagementGridMetadataPanel.xur" />
@@ -78,6 +95,7 @@
     <None Remove="Test Data\XUR\17559\ActivityDetailsPreviewSlot.xur" />
     <None Remove="Test Data\XUR\17559\ActivityDetailsUserSlot.xur" />
     <None Remove="Test Data\XUR\17559\ActivitySlot.xur" />
+    <None Remove="Test Data\XUR\17559\AddXboxLive.xur" />
     <None Remove="Test Data\XUR\17559\AdSlot.xur" />
     <None Remove="Test Data\XUR\17559\AdSlotScene.xur" />
     <None Remove="Test Data\XUR\17559\AlbumDetails.xur" />
@@ -141,6 +159,7 @@
     <None Remove="Test Data\XUR\17559\CastListTemplate.xur" />
     <None Remove="Test Data\XUR\17559\CastSlotScene.xur" />
     <None Remove="Test Data\XUR\17559\Categories.xur" />
+    <None Remove="Test Data\XUR\17559\ChangePersonalTile.xur" />
     <None Remove="Test Data\XUR\17559\ChannelListScene %282%29.xur" />
     <None Remove="Test Data\XUR\17559\ChannelListScene %283%29.xur" />
     <None Remove="Test Data\XUR\17559\ChannelListScene %284%29.xur" />
@@ -169,7 +188,14 @@
     <None Remove="Test Data\XUR\17559\completedgameslotlayout.xur" />
     <None Remove="Test Data\XUR\17559\completedgamesummaryslot.xur" />
     <None Remove="Test Data\XUR\17559\CongratsScene.xur" />
+    <None Remove="Test Data\XUR\17559\Congratulations.xur" />
+    <None Remove="Test Data\XUR\17559\ConsoleContract.xur" />
     <None Remove="Test Data\XUR\17559\ContributorsPanel.xur" />
+    <None Remove="Test Data\XUR\17559\Controller_Full.xur" />
+    <None Remove="Test Data\XUR\17559\Controller_Half.xur" />
+    <None Remove="Test Data\XUR\17559\Controller_OneFourth.xur" />
+    <None Remove="Test Data\XUR\17559\Controller_ThreeFourths.xur" />
+    <None Remove="Test Data\XUR\17559\CreateGamerProfile.xur" />
     <None Remove="Test Data\XUR\17559\CurPasswordErrorScene.xur" />
     <None Remove="Test Data\XUR\17559\DashAppContainerPanel.xur" />
     <None Remove="Test Data\XUR\17559\DashAppHost.xur" />
@@ -248,6 +274,8 @@
     <None Remove="Test Data\XUR\17559\DeviceConfigureAdvancedScene.xur" />
     <None Remove="Test Data\XUR\17559\DeviceConfigureScene.xur" />
     <None Remove="Test Data\XUR\17559\DeviceDetails.xur" />
+    <None Remove="Test Data\XUR\17559\DeviceFull.xur" />
+    <None Remove="Test Data\XUR\17559\DeviceNotReady.xur" />
     <None Remove="Test Data\XUR\17559\DeviceSelector.xur" />
     <None Remove="Test Data\XUR\17559\Dialog.xur" />
     <None Remove="Test Data\XUR\17559\DialogNatalDeleteApplyOutfit.xur" />
@@ -350,7 +378,13 @@
     <None Remove="Test Data\XUR\17559\GamePlayScreen.xur" />
     <None Remove="Test Data\XUR\17559\GamePreStart.xur" />
     <None Remove="Test Data\XUR\17559\gamercard.xur" />
+    <None Remove="Test Data\XUR\17559\GamerCardScene.xur" />
     <None Remove="Test Data\XUR\17559\GamerRootScene.xur" />
+    <None Remove="Test Data\XUR\17559\GamerscoreMoreInfo.xur" />
+    <None Remove="Test Data\XUR\17559\GamerZoneInfo.xur" />
+    <None Remove="Test Data\XUR\17559\GamesTabServer.xur" />
+    <None Remove="Test Data\XUR\17559\GamesTabSignedIn.xur" />
+    <None Remove="Test Data\XUR\17559\GamesTabSignedOut.xur" />
     <None Remove="Test Data\XUR\17559\GatherInputScene.xur" />
     <None Remove="Test Data\XUR\17559\Grid.xur" />
     <None Remove="Test Data\XUR\17559\Grid2Items.xur" />
@@ -407,18 +441,28 @@
     <None Remove="Test Data\XUR\17559\GuideLabelScene %283%29.xur" />
     <None Remove="Test Data\XUR\17559\GuideLabelScene %284%29.xur" />
     <None Remove="Test Data\XUR\17559\GuideLabelScene.xur" />
+    <None Remove="Test Data\XUR\17559\GuideMain.xur" />
+    <None Remove="Test Data\XUR\17559\GuideMainServer.xur" />
     <None Remove="Test Data\XUR\17559\HardwareCheckErrorScene.xur" />
     <None Remove="Test Data\XUR\17559\HardwareCheckMainScene.xur" />
     <None Remove="Test Data\XUR\17559\HD.xur" />
     <None Remove="Test Data\XUR\17559\HDDVDContentDetails.xur" />
     <None Remove="Test Data\XUR\17559\HDDVDContents.xur" />
     <None Remove="Test Data\XUR\17559\HDDVDDevice.xur" />
+    <None Remove="Test Data\XUR\17559\Headset_Full.xur" />
+    <None Remove="Test Data\XUR\17559\Headset_Half.xur" />
+    <None Remove="Test Data\XUR\17559\Headset_OneFourth.xur" />
+    <None Remove="Test Data\XUR\17559\Headset_ThreeFourths.xur" />
     <None Remove="Test Data\XUR\17559\HealthSafetyMessageScene.xur" />
     <None Remove="Test Data\XUR\17559\HeightAndWidth.xur" />
     <None Remove="Test Data\XUR\17559\HeightAndWidth_43.xur" />
     <None Remove="Test Data\XUR\17559\HeightWidthHandle.xur" />
     <None Remove="Test Data\XUR\17559\HistoryScene.xur" />
     <None Remove="Test Data\XUR\17559\HomeNetworkConnectivityRequired.xur" />
+    <None Remove="Test Data\XUR\17559\HomeTabServer.xur" />
+    <None Remove="Test Data\XUR\17559\HomeTabSignedIn.xur" />
+    <None Remove="Test Data\XUR\17559\HomeTabSignedInLive.xur" />
+    <None Remove="Test Data\XUR\17559\HomeTabSignedOut.xur" />
     <None Remove="Test Data\XUR\17559\hubchannellayout.xur" />
     <None Remove="Test Data\XUR\17559\hubhomepage.xur" />
     <None Remove="Test Data\XUR\17559\HubPage-LongList.xur" />
@@ -450,20 +494,25 @@
     <None Remove="Test Data\XUR\17559\HubSceneStandard.xur" />
     <None Remove="Test Data\XUR\17559\HubSceneStudios.xur" />
     <None Remove="Test Data\XUR\17559\HubSceneZunePass.xur" />
+    <None Remove="Test Data\XUR\17559\hudbkgnd.xur" />
     <None Remove="Test Data\XUR\17559\IconScene.xur" />
     <None Remove="Test Data\XUR\17559\imgdest.xur" />
+    <None Remove="Test Data\XUR\17559\InfoMessage.xur" />
+    <None Remove="Test Data\XUR\17559\InfoUpsellLive.xur" />
     <None Remove="Test Data\XUR\17559\InputSceneSearch.xur" />
     <None Remove="Test Data\XUR\17559\InputSceneStandard %282%29.xur" />
     <None Remove="Test Data\XUR\17559\InputSceneStandard %283%29.xur" />
     <None Remove="Test Data\XUR\17559\InputSceneStandard %284%29.xur" />
     <None Remove="Test Data\XUR\17559\InputSceneStandard.xur" />
     <None Remove="Test Data\XUR\17559\InputSceneZune.xur" />
+    <None Remove="Test Data\XUR\17559\inspad.xur" />
     <None Remove="Test Data\XUR\17559\InstallTitleScene.xur" />
     <None Remove="Test Data\XUR\17559\IptvConnecting.xur" />
     <None Remove="Test Data\XUR\17559\ItemDetails.xur" />
     <None Remove="Test Data\XUR\17559\ItemsGrid.xur" />
     <None Remove="Test Data\XUR\17559\ItemsGrid2.xur" />
     <None Remove="Test Data\XUR\17559\ItemsIcons.xur" />
+    <None Remove="Test Data\XUR\17559\join.xur" />
     <None Remove="Test Data\XUR\17559\KeyboardBase %282%29.xur" />
     <None Remove="Test Data\XUR\17559\KeyboardBase %283%29.xur" />
     <None Remove="Test Data\XUR\17559\KeyboardBase %284%29.xur" />
@@ -499,6 +548,7 @@
     <None Remove="Test Data\XUR\17559\MediaSourceSelection %282%29.xur" />
     <None Remove="Test Data\XUR\17559\MediaSourceSelection.xur" />
     <None Remove="Test Data\XUR\17559\MessageBox.xur" />
+    <None Remove="Test Data\XUR\17559\MessageScene.xur" />
     <None Remove="Test Data\XUR\17559\MetaCriticScene.xur" />
     <None Remove="Test Data\XUR\17559\MetadataEpisodeOverview.xur" />
     <None Remove="Test Data\XUR\17559\MetadataGameVideoOverview.xur" />
@@ -517,6 +567,7 @@
     <None Remove="Test Data\XUR\17559\meyouviewavatarslot.xur" />
     <None Remove="Test Data\XUR\17559\MiniGamercard %282%29.xur" />
     <None Remove="Test Data\XUR\17559\MiniGamercard.xur" />
+    <None Remove="Test Data\XUR\17559\MiniMediaPlayer.xur" />
     <None Remove="Test Data\XUR\17559\MiniNowPlayingOverlay.xur" />
     <None Remove="Test Data\XUR\17559\ModalMenu2Scene.xur" />
     <None Remove="Test Data\XUR\17559\ModalMenu3Scene.xur" />
@@ -558,11 +609,14 @@
     <None Remove="Test Data\XUR\17559\NotchSubwayHandle %283%29.xur" />
     <None Remove="Test Data\XUR\17559\NotchSubwayHandle %284%29.xur" />
     <None Remove="Test Data\XUR\17559\NotchSubwayHandle.xur" />
+    <None Remove="Test Data\XUR\17559\notify.xur" />
     <None Remove="Test Data\XUR\17559\NowPlaying-Metadata.xur" />
     <None Remove="Test Data\XUR\17559\NowPlayingEditPage.xur" />
     <None Remove="Test Data\XUR\17559\NowPlayingListManagementOverlay.xur" />
     <None Remove="Test Data\XUR\17559\NowPlayingPage.xur" />
     <None Remove="Test Data\XUR\17559\NowPlayingSkin.xur" />
+    <None Remove="Test Data\XUR\17559\NuiAchievementDetails.xur" />
+    <None Remove="Test Data\XUR\17559\NuiAchievements.xur" />
     <None Remove="Test Data\XUR\17559\NuiButton.xur" />
     <None Remove="Test Data\XUR\17559\NuiButtonDetails.xur" />
     <None Remove="Test Data\XUR\17559\NuiButtonDetailsTwoLine.xur" />
@@ -574,9 +628,15 @@
     <None Remove="Test Data\XUR\17559\NuiButtonHandle.xur" />
     <None Remove="Test Data\XUR\17559\NuiButtonNP.xur" />
     <None Remove="Test Data\XUR\17559\NuiButtonSort.xur" />
+    <None Remove="Test Data\XUR\17559\NuiDeviceFull.xur" />
+    <None Remove="Test Data\XUR\17559\NuiDeviceNotReady.xur" />
+    <None Remove="Test Data\XUR\17559\NuiDeviceSelector.xur" />
+    <None Remove="Test Data\XUR\17559\NuiGamesList.xur" />
     <None Remove="Test Data\XUR\17559\NuiGlobalButtonsScene.xur" />
+    <None Remove="Test Data\XUR\17559\nuihud.xur" />
     <None Remove="Test Data\XUR\17559\nuiIntroScene.xur" />
     <None Remove="Test Data\XUR\17559\NuiLargeButton.xur" />
+    <None Remove="Test Data\XUR\17559\NuiLoadAchievements.xur" />
     <None Remove="Test Data\XUR\17559\nuiMoreInfoScene.xur" />
     <None Remove="Test Data\XUR\17559\NuiOneLineHoverButton.xur" />
     <None Remove="Test Data\XUR\17559\NuiOneLineHoverButtonMid.xur" />
@@ -596,6 +656,7 @@
     <None Remove="Test Data\XUR\17559\NuiTipsAndProgressScene %283%29.xur" />
     <None Remove="Test Data\XUR\17559\NuiTipsAndProgressScene %284%29.xur" />
     <None Remove="Test Data\XUR\17559\NuiTipsAndProgressScene.xur" />
+    <None Remove="Test Data\XUR\17559\nuititleupdateconfirmationscene.xur" />
     <None Remove="Test Data\XUR\17559\nuiTransitionCompleteScene.xur" />
     <None Remove="Test Data\XUR\17559\nuiTransitioningScene.xur" />
     <None Remove="Test Data\XUR\17559\oobeBackground.xur" />
@@ -613,6 +674,13 @@
     <None Remove="Test Data\XUR\17559\oobePrepareCompleteLive.xur" />
     <None Remove="Test Data\XUR\17559\OobeSetPControl.xur" />
     <None Remove="Test Data\XUR\17559\OperationProgress.xur" />
+    <None Remove="Test Data\XUR\17559\Options.xur" />
+    <None Remove="Test Data\XUR\17559\OptionsController.xur" />
+    <None Remove="Test Data\XUR\17559\OptionsNotifications.xur" />
+    <None Remove="Test Data\XUR\17559\OptionsOnline.xur" />
+    <None Remove="Test Data\XUR\17559\OptionsPlayTimer.xur" />
+    <None Remove="Test Data\XUR\17559\OptionsPlayTimerAddTime.xur" />
+    <None Remove="Test Data\XUR\17559\OptionsVoice.xur" />
     <None Remove="Test Data\XUR\17559\OverviewBandwidthTestAgainScene.xur" />
     <None Remove="Test Data\XUR\17559\OverviewBandwidthTestScene.xur" />
     <None Remove="Test Data\XUR\17559\PageContainer.xur" />
@@ -628,6 +696,8 @@
     <None Remove="Test Data\XUR\17559\partieslayout2.xur" />
     <None Remove="Test Data\XUR\17559\partydetails.xur" />
     <None Remove="Test Data\XUR\17559\partydetailsbuttons.xur" />
+    <None Remove="Test Data\XUR\17559\passcode.xur" />
+    <None Remove="Test Data\XUR\17559\passcodenui.xur" />
     <None Remove="Test Data\XUR\17559\PcSoftwareError.xur" />
     <None Remove="Test Data\XUR\17559\PHCountPanel.xur" />
     <None Remove="Test Data\XUR\17559\Photobooth.xur" />
@@ -657,10 +727,12 @@
     <None Remove="Test Data\XUR\17559\PurchaseConfirmPanel.xur" />
     <None Remove="Test Data\XUR\17559\PurchasedPanel.xur" />
     <None Remove="Test Data\XUR\17559\PurchaseOptionsPanel.xur" />
+    <None Remove="Test Data\XUR\17559\QuickLaunch.xur" />
     <None Remove="Test Data\XUR\17559\Rating.xur" />
     <None Remove="Test Data\XUR\17559\RatingSlotContainerScene.xur" />
     <None Remove="Test Data\XUR\17559\RatingsScene.xur" />
     <None Remove="Test Data\XUR\17559\ReconfigureWireless.xur" />
+    <None Remove="Test Data\XUR\17559\RecoveryIntro.xur" />
     <None Remove="Test Data\XUR\17559\RelatedTemplate_1x1.xur" />
     <None Remove="Test Data\XUR\17559\RelatedTemplate_Standard.xur" />
     <None Remove="Test Data\XUR\17559\RentBuyButton.xur" />
@@ -691,8 +763,12 @@
     <None Remove="Test Data\XUR\17559\SearchTVSeriesScene.xur" />
     <None Remove="Test Data\XUR\17559\SeasonOverviewPanel.xur" />
     <None Remove="Test Data\XUR\17559\SeasonsTemplate.xur" />
+    <None Remove="Test Data\XUR\17559\SelectGamerzone.xur" />
     <None Remove="Test Data\XUR\17559\SelectOfflineProfileScene.xur" />
     <None Remove="Test Data\XUR\17559\SeriesOverviewPanel.xur" />
+    <None Remove="Test Data\XUR\17559\SettingsTabServer.xur" />
+    <None Remove="Test Data\XUR\17559\SettingsTabSignedIn.xur" />
+    <None Remove="Test Data\XUR\17559\SettingsTabSignedOut.xur" />
     <None Remove="Test Data\XUR\17559\SideHandleLeft %282%29.xur" />
     <None Remove="Test Data\XUR\17559\SideHandleLeft %283%29.xur" />
     <None Remove="Test Data\XUR\17559\SideHandleLeft %284%29.xur" />
@@ -701,6 +777,10 @@
     <None Remove="Test Data\XUR\17559\SideHandleRight %283%29.xur" />
     <None Remove="Test Data\XUR\17559\SideHandleRight %284%29.xur" />
     <None Remove="Test Data\XUR\17559\SideHandleRight.xur" />
+    <None Remove="Test Data\XUR\17559\signin1.xur" />
+    <None Remove="Test Data\XUR\17559\signin1nui.xur" />
+    <None Remove="Test Data\XUR\17559\signin2.xur" />
+    <None Remove="Test Data\XUR\17559\signin4.xur" />
     <None Remove="Test Data\XUR\17559\SignInTemplate.xur" />
     <None Remove="Test Data\XUR\17559\SimpleCursorScene %282%29.xur" />
     <None Remove="Test Data\XUR\17559\SimpleCursorScene %283%29.xur" />
@@ -717,9 +797,12 @@
     <None Remove="Test Data\XUR\17559\SlotContainerScene.xur" />
     <None Remove="Test Data\XUR\17559\SmallLibrarySlot_Hub.xur" />
     <None Remove="Test Data\XUR\17559\SmallLibrarySlot_Hub_NoTitle.xur" />
+    <None Remove="Test Data\XUR\17559\SmartGlassInfo.xur" />
     <None Remove="Test Data\XUR\17559\SpeechSettings.xur" />
     <None Remove="Test Data\XUR\17559\SplashPage.xur" />
     <None Remove="Test Data\XUR\17559\StarsCriticScene.xur" />
+    <None Remove="Test Data\XUR\17559\status.xur" />
+    <None Remove="Test Data\XUR\17559\statusNui.xur" />
     <None Remove="Test Data\XUR\17559\StudioHubPage.xur" />
     <None Remove="Test Data\XUR\17559\SuggestionScene.xur" />
     <None Remove="Test Data\XUR\17559\SystemScene.xur" />
@@ -776,6 +859,8 @@
     <None Remove="Test Data\XUR\17559\threeiconbutton.xur" />
     <None Remove="Test Data\XUR\17559\TimeZoneScene %282%29.xur" />
     <None Remove="Test Data\XUR\17559\TimeZoneScene.xur" />
+    <None Remove="Test Data\XUR\17559\titleupdateconfirmationscene.xur" />
+    <None Remove="Test Data\XUR\17559\TitleUpdateSizeCheckScene.xur" />
     <None Remove="Test Data\XUR\17559\TrailerSlot.xur" />
     <None Remove="Test Data\XUR\17559\TrailerVideoScene.xur" />
     <None Remove="Test Data\XUR\17559\TraySlotScene.xur" />
@@ -791,8 +876,12 @@
     <None Remove="Test Data\XUR\17559\TV_Template5.xur" />
     <None Remove="Test Data\XUR\17559\TV_Template6.xur" />
     <None Remove="Test Data\XUR\17559\uninstallIPTV.xur" />
+    <None Remove="Test Data\XUR\17559\UpdateInProgressScene.xur" />
     <None Remove="Test Data\XUR\17559\UpdatingScene.xur" />
     <None Remove="Test Data\XUR\17559\upsellslotscene.xur" />
+    <None Remove="Test Data\XUR\17559\UserList.xur" />
+    <None Remove="Test Data\XUR\17559\UserListNui.xur" />
+    <None Remove="Test Data\XUR\17559\UserListSinglePane.xur" />
     <None Remove="Test Data\XUR\17559\Variables %282%29.xur" />
     <None Remove="Test Data\XUR\17559\Variables %283%29.xur" />
     <None Remove="Test Data\XUR\17559\Variables %284%29.xur" />
@@ -826,6 +915,8 @@
     <None Remove="Test Data\XUR\17559\WebVideoCollectionSlot_1x1.xur" />
     <None Remove="Test Data\XUR\17559\WebVideoSlot.xur" />
     <None Remove="Test Data\XUR\17559\WelcomeScreen.xur" />
+    <None Remove="Test Data\XUR\17559\XamNuiTipsAndProgressScene.xur" />
+    <None Remove="Test Data\XUR\17559\XamVariables.xur" />
     <None Remove="Test Data\XUR\17559\XboxMusicNewsPanel.xur" />
     <None Remove="Test Data\XUR\17559\XenonHandle %282%29.xur" />
     <None Remove="Test Data\XUR\17559\XenonHandle %283%29.xur" />
@@ -1604,6 +1695,9 @@
     <Content Include="Test Data\XUR\17559\2413_UnableToConnect.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\2902_UpdateProgress.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\742_metaByDevice (2).xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1620,6 +1714,54 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\744_ManageAffiliation.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\802_Achievements.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\803_SignInPreferences.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\804_LoadAchievements.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\807_EditGamerTile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\808_editProfile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\809_ChangeGamerTile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\820_GameShowcaseMe.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\825_GameShowcaseCompare.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\826-7_GameAchievStatsYou.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\828_AchievDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\830_GamerPreferences.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\831_PreferenceSetting.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\832_PreferenceCategory.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\837_AvatarAwardGamesMe.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\837_AvatarAwards.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\837_LoadAvatarAwards.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\905_IndividualDeviceMain.xur">
@@ -1656,6 +1798,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\ActivitySlot.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\AddXboxLive.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\AdSlot.xur">
@@ -1847,6 +1992,9 @@
     <Content Include="Test Data\XUR\17559\Categories.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\ChangePersonalTile.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\ChannelListScene (2).xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1931,7 +2079,28 @@
     <Content Include="Test Data\XUR\17559\CongratsScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\Congratulations.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\ConsoleContract.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\ContributorsPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Controller_Full.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Controller_Half.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Controller_OneFourth.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Controller_ThreeFourths.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\CreateGamerProfile.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\CurPasswordErrorScene.xur">
@@ -2166,6 +2335,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\DeviceDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DeviceFull.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\DeviceNotReady.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\DeviceSelector.xur">
@@ -2474,7 +2649,25 @@
     <Content Include="Test Data\XUR\17559\gamercard.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\GamerCardScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\GamerRootScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GamerscoreMoreInfo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GamerZoneInfo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GamesTabServer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GamesTabSignedIn.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GamesTabSignedOut.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\GatherInputScene.xur">
@@ -2645,6 +2838,12 @@
     <Content Include="Test Data\XUR\17559\GuideLabelScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\GuideMain.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\GuideMainServer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\HardwareCheckErrorScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2663,6 +2862,18 @@
     <Content Include="Test Data\XUR\17559\HDDVDDevice.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\Headset_Full.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Headset_Half.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Headset_OneFourth.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\Headset_ThreeFourths.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\HealthSafetyMessageScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2679,6 +2890,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\HomeNetworkConnectivityRequired.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HomeTabServer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HomeTabSignedIn.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HomeTabSignedInLive.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\HomeTabSignedOut.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\hubchannellayout.xur">
@@ -2774,10 +2997,19 @@
     <Content Include="Test Data\XUR\17559\HubSceneZunePass.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\hudbkgnd.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\IconScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\imgdest.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\InfoMessage.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\InfoUpsellLive.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\InputSceneSearch.xur">
@@ -2798,6 +3030,9 @@
     <Content Include="Test Data\XUR\17559\InputSceneZune.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\inspad.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\InstallTitleScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2814,6 +3049,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\ItemsIcons.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\join.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\KeyboardBase (2).xur">
@@ -2921,6 +3159,9 @@
     <Content Include="Test Data\XUR\17559\MessageBox.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\MessageScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\MetaCriticScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2973,6 +3214,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\MiniGamercard.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\MiniMediaPlayer.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\MiniNowPlayingOverlay.xur">
@@ -3098,6 +3342,9 @@
     <Content Include="Test Data\XUR\17559\NotchSubwayHandle.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\notify.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\NowPlaying-Metadata.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -3111,6 +3358,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\NowPlayingSkin.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiAchievementDetails.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiAchievements.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\NuiButton.xur">
@@ -3146,13 +3399,31 @@
     <Content Include="Test Data\XUR\17559\NuiButtonSort.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\NuiDeviceFull.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiDeviceNotReady.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiDeviceSelector.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiGamesList.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\NuiGlobalButtonsScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\nuihud.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\nuiIntroScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\NuiLargeButton.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\NuiLoadAchievements.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\nuiMoreInfoScene.xur">
@@ -3212,6 +3483,9 @@
     <Content Include="Test Data\XUR\17559\NuiTipsAndProgressScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\nuititleupdateconfirmationscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\nuiTransitionCompleteScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -3263,6 +3537,27 @@
     <Content Include="Test Data\XUR\17559\OperationProgress.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\Options.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OptionsController.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OptionsNotifications.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OptionsOnline.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OptionsPlayTimer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OptionsPlayTimerAddTime.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\OptionsVoice.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\OverviewBandwidthTestAgainScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -3306,6 +3601,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\partydetailsbuttons.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\passcode.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\passcodenui.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\PcSoftwareError.xur">
@@ -3395,6 +3696,9 @@
     <Content Include="Test Data\XUR\17559\PurchaseOptionsPanel.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\QuickLaunch.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\Rating.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -3405,6 +3709,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\ReconfigureWireless.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\RecoveryIntro.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\RelatedTemplate_1x1.xur">
@@ -3497,10 +3804,22 @@
     <Content Include="Test Data\XUR\17559\SeasonsTemplate.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\SelectGamerzone.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\SelectOfflineProfileScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\SeriesOverviewPanel.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SettingsTabServer.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SettingsTabSignedIn.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\SettingsTabSignedOut.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\SideHandleLeft (2).xur">
@@ -3525,6 +3844,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\SideHandleRight.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\signin1.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\signin1nui.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\signin2.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\signin4.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\SignInTemplate.xur">
@@ -3575,6 +3906,9 @@
     <Content Include="Test Data\XUR\17559\SmallLibrarySlot_Hub_NoTitle.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\SmartGlassInfo.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\SpeechSettings.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -3582,6 +3916,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\StarsCriticScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\status.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\statusNui.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\StudioHubPage.xur">
@@ -3752,6 +4092,12 @@
     <Content Include="Test Data\XUR\17559\TimeZoneScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\titleupdateconfirmationscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\TitleUpdateSizeCheckScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\TrailerSlot.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -3797,10 +4143,22 @@
     <Content Include="Test Data\XUR\17559\uninstallIPTV.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test Data\XUR\17559\UpdateInProgressScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test Data\XUR\17559\UpdatingScene.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\upsellslotscene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\UserList.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\UserListNui.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\UserListSinglePane.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\Variables (2).xur">
@@ -3900,6 +4258,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\WelcomeScreen.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XamNuiTipsAndProgressScene.xur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Test Data\XUR\17559\XamVariables.xur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Test Data\XUR\17559\XboxMusicNewsPanel.xur">
