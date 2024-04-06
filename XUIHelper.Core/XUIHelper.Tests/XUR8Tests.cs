@@ -1,6 +1,7 @@
 using Serilog.Events;
 using Serilog;
 using XUIHelper.Core;
+using System.IO;
 
 namespace XUIHelper.Tests
 {
@@ -11,6 +12,7 @@ namespace XUIHelper.Tests
         //TODO: Function library API
         //TODO: Console app
         //TODO: GUI app
+        //TODO: XUR8 keyframe data unknown upper bits and flags
 
         [SetUp]
         public void Setup()
@@ -50,7 +52,25 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURReadSuccessful()
         {
-            Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/17559/hudbkgnd.xur"));
+            //LegendScene - Always unknown 1, vector 11
+            //oobeControllerNoLanguage
+            //hudbkgnd
+            //BackHandle
+            //KeyboardBase - No unknowns, flag 0x3 only
+            //OobeNetworkSelection - Always unknown 1, vector 0xC
+            //CarouselSlotScene - Always unknown 1, vector 0xF
+            //VuiCommand - Always unknown 1, vector 0x2 and 0x4
+            //Template1 - Unknown 2, flag 0x4 (Remove Columns, Rows and AutoId from XUI)
+
+            Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/17559/LegendScene.xur"));
+
+            /*string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Test Data/XUR/17559/LightweightContainerScene.xur");
+            IXUR xur = GetXUR(xurFile, _Log);
+            if(await xur.TryReadAsync())
+            {
+                XUI12 xui12 = new XUI12(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui", null);
+                xui12.TryWriteAsync(0x8, (xur.TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic)).RootObject);
+            }*/
         }
 
         [Test]

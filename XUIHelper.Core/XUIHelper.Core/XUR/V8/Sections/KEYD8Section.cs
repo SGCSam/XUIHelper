@@ -62,6 +62,8 @@ namespace XUIHelper.Core
                     {
                         xur.Logger?.Here().Verbose("Read an unknown of {0}", unknown);
                         //return false;
+                        //Unknown 0x1 might be to indicate that this keyframe exists within the timeline of a named frame?
+                        //Unknown 0x2 might be to indicate this keyframe element affects child elements?
                     }
 
                     byte easeIn = 0;
@@ -126,13 +128,32 @@ namespace XUIHelper.Core
                             interpolationType = XUKeyframeInterpolationTypes.Ease;
                             bytesRead += 3;
                         }
+                        else if (flags == 0x3)
+                        {
+                            xur.Logger?.Here().Error("Flag 0x3.", flags);
+                        }
+                        else if (flags == 0x4)
+                        {
+                            xur.Logger?.Here().Error("Flag 0x4.", flags);
+                            //Seems to indicate this is a named keyframe that'll be the last Play before the end? (17559 template XURs)
+                        }
+                        else if (flags == 0x8)
+                        {
+                            xur.Logger?.Here().Error("Flag 0x8.", flags);
+                        }
                         else if (flags == 0xA)
                         {
                             byte readVectorIndexBytes;
                             vectorIndex = (int)reader.ReadPackedUInt(out readVectorIndexBytes);
                             bytesRead += readVectorIndexBytes;
-                            xur.Logger?.Here().Error("Unknown vector index of {0:X8}.", vectorIndex);
+                            xur.Logger?.Here().Error("Flag 0xA: unknown vector index of {0:X8}.", vectorIndex);
                             //return false;
+                        }
+                        else if (flags == 0xB)
+                        {
+                            xur.Logger?.Here().Error("Flag 0xB.", flags);
+                            reader.ReadByte();
+                            bytesRead++;
                         }
                         else
                         {
