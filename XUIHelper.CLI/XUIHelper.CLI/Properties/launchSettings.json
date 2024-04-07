@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "XUIHelper.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "setcurextgroup -g \"Example Group\""
+    }
+  }
+}

@@ -31,29 +31,19 @@ namespace XUIHelper.Core
         #endregion
 
         #region XML Extensions
-        public static async Task<bool> TryRegisterExtensionsGroupAsync(string extensionsGroupName, List<string> xmlExtensionFilePaths)
-        {
-            throw new NotImplementedException();
-        }
-
         public static async Task<bool> TryRegisterExtensionsGroupAsync(string extensionsGroupName, string xmlExtensionsFilePath)
         {
-            throw new NotImplementedException();
+            return await XMLExtensionsManager.TryRegisterExtensionsGroupAsync(extensionsGroupName, xmlExtensionsFilePath);
         }
 
-        public static bool TrySetActiveExtensionsGroup()
+        public static void SetCurrentExtensionsGroup(string groupName)
         {
-            throw new NotImplementedException();
+            XMLExtensionsManager.SetCurrentGroup(groupName);
         }
         #endregion
 
         #region Conversion
         public static async Task<bool> TryMassConvertDirectoryAsync(string directoryPath, XUIHelperSupportedFormats format, string outputDir, IXUIHelperProgressable? progressable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static async Task<bool> TryMassConvertFilesAsync(List<string> files, XUIHelperSupportedFormats format, string outputDir, IXUIHelperProgressable? progressable)
         {
             throw new NotImplementedException();
         }
