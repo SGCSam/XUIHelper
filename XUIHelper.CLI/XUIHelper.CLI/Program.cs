@@ -8,7 +8,7 @@ namespace XUIHelper.CLI
     {
         static async Task Main(string[] args)
         {
-            Type[] types = { typeof(AboutOptions), typeof(RegisterXMLExtensionOptions), typeof(SetCurrentXMLExtensionsGroupOptions) };
+            Type[] types = { typeof(AboutOptions), typeof(RegisterXMLExtensionOptions), typeof(SetCurrentXMLExtensionsGroupOptions), typeof(LoggerOptions) };
             await Parser.Default.ParseArguments(args, types).WithParsedAsync(HandleArguments);
         }
 

@@ -17,7 +17,7 @@ namespace XUIHelper.CLI
         public override Task HandleAsync()
         {
             XUIHelperAPI.SetCurrentExtensionsGroup(GroupName);
-            Console.WriteLine("Set the current XML extensions group to \"{0}\" successfully!", GroupName);
+            Console.WriteLine("SUCCESS: Set the current XML extensions group to \"{0}\" successfully!", GroupName);
             return Task.CompletedTask;
         }
     }

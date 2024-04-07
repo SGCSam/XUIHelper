@@ -1,4 +1,6 @@
-﻿using Serilog.Core;
+﻿using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,7 @@ namespace XUIHelper.Core
         }
 
         public static bool AreIgnoredPropertiesActive { get; private set; } = true;
+        public static ILogger? Logger { get; private set; } = null;
 
         public static void SetAreIgnoredPropertiesActive(bool areActive)
         {
@@ -26,7 +29,13 @@ namespace XUIHelper.Core
         #region Logging
         public static void SetLogger(string logPath, Serilog.Events.LogEventLevel level)
         {
-            throw new NotImplementedException();
+            string outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
+
+            Logger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.FromLogContext()
+            .WriteTo.File(logPath, level, outputTemplate)
+            .CreateLogger();
         }
         #endregion
 

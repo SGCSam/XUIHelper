@@ -21,11 +21,11 @@ namespace XUIHelper.CLI
         {
             if (!await XUIHelperAPI.TryRegisterExtensionsGroupAsync(GroupName, ExtensionsFilePath))
             {
-                Console.WriteLine("Failed to register XML extensions. Consider using a log file and checking it for more information.");
+                Console.WriteLine("ERROR: Failed to register XML extensions. Consider using a log file and checking it for more information.");
             }
             else
             {
-                Console.WriteLine("XML extensions registered successfully!");
+                Console.WriteLine("SUCCESS: XML extensions registered successfully!");
             }
         }
     }
