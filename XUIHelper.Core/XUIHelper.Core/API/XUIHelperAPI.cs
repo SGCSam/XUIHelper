@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XUIHelper.Core.Extensions;
 
 namespace XUIHelper.Core
 {
@@ -59,7 +60,143 @@ namespace XUIHelper.Core
 
         public static async Task<bool> TryConvertAsync(string filePath, XUIHelperSupportedFormats format, string outputPath)
         {
-            throw new NotImplementedException();
+            try
+            {
+                XUObject? rootObject = null;
+
+                Logger?.Here().Information("Converting {0} to {1}.", filePath, format);
+
+                if(XUI12.IsFileXUI12(filePath))
+                {
+                    if(format == XUIHelperSupportedFormats.XUI12)
+                    {
+                        Logger?.Information("{0} is already an XUI12, no need to convert, copying to {1}", filePath, outputPath);
+                        File.Copy(filePath, outputPath, true);
+                        return true;
+                    }
+
+                    XUI12 xui12 = new XUI12(filePath, Logger);
+                    if(!await xui12.TryReadAsync())
+                    {
+                        Logger?.Error("Failed to read XUI12, returning false.");
+                        return false;
+                    }
+
+                    rootObject = xui12.RootObject;
+                }
+                else if(XUR5.IsFileXUR5(filePath))
+                {
+                    if (format == XUIHelperSupportedFormats.XUR5)
+                    {
+                        Logger?.Information("{0} is already an XUR5, no need to convert, copying to {1}", filePath, outputPath);
+                        File.Copy(filePath, outputPath, true);
+                        return true;
+                    }
+
+                    XUR5 xur5 = new XUR5(filePath, Logger);
+                    if (!await xur5.TryReadAsync())
+                    {
+                        Logger?.Error("Failed to read XUR5, returning false.");
+                        return false;
+                    }
+
+                    IDATASection? data = ((IXUR)xur5).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
+                    if(data == null)
+                    {
+                        Logger?.Error("XUR5 DATA section was null, returning false.");
+                        return false;
+                    }
+
+                    rootObject = data.RootObject;
+                }
+                else if (XUR8.IsFileXUR8(filePath))
+                {
+                    if (format == XUIHelperSupportedFormats.XUR8)
+                    {
+                        Logger?.Information("{0} is already an XUR8, no need to convert, copying to {1}", filePath, outputPath);
+                        File.Copy(filePath, outputPath, true);
+                        return true;
+                    }
+
+                    XUR8 xur8 = new XUR8(filePath, Logger);
+                    if (!await xur8.TryReadAsync())
+                    {
+                        Logger?.Error("Failed to read XUR8, returning false.");
+                        return false;
+                    }
+
+                    IDATASection? data = ((IXUR)xur8).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
+                    if (data == null)
+                    {
+                        Logger?.Error("XUR5 DATA section was null, returning false.");
+                        return false;
+                    }
+
+                    rootObject = data.RootObject;
+                }
+
+                if(rootObject == null) 
+                {
+                    Logger?.Error("Root object was null, the file must be of an invalid type, returning false.");
+                    return false;
+                }
+
+                switch(format)
+                {
+                    case XUIHelperSupportedFormats.XUI12:
+                    {
+                        XUI12 xui12 = new XUI12(outputPath, Logger);
+                        if(!await xui12.TryWriteAsync(rootObject))
+                        {
+                            Logger?.Error("Failed to write XUI12 to {0}, returning false.", outputPath);
+                            return false;
+                        }
+                        else
+                        {
+                            Logger?.Information("Converted {0} to XUI12 successfully!", filePath);
+                            return true;
+                        }
+                    }
+                    case XUIHelperSupportedFormats.XUR5:
+                    {
+                        XUR5 xur5 = new XUR5(outputPath, Logger);
+                        if (!await xur5.TryWriteAsync(rootObject))
+                        {
+                            Logger?.Error("Failed to write XUR5 to {0}, returning false.", outputPath);
+                            return false;
+                        }
+                        else
+                        {
+                            Logger?.Information("Converted {0} to XUR5 successfully!", filePath);
+                            return true;
+                        }
+                    }
+                    case XUIHelperSupportedFormats.XUR8:
+                    {
+                        XUR8 xur8 = new XUR8(outputPath, Logger);
+                        if (!await xur8.TryWriteAsync(rootObject))
+                        {
+                            Logger?.Error("Failed to write XUR8 to {0}, returning false.", outputPath);
+                            return false;
+                        }
+                        else
+                        {
+                            Logger?.Information("Converted {0} to XUR8 successfully!", filePath);
+                            return true;
+                        }
+                    }
+                    default:
+                    {
+                        Logger?.Error("Unhandled format case of {0}, returning false.", format);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger?.Error("Caught an exception when trying to convert {0} to {1}, returning false. The exception is: {2}", filePath, format, ex);
+                return false;
+            }
         }
         #endregion
     }

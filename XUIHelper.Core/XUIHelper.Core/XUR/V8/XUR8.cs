@@ -19,6 +19,49 @@ namespace XUIHelper.Core
 
         }
 
+        public static bool IsFileXUR8(string filePath, ILogger? logger = null)
+        {
+            try
+            {
+                logger = logger?.ForContext(typeof(XUR8));
+
+                if (!File.Exists(filePath))
+                {
+                    logger?.Here().Verbose("The file at {0} doesn't exist, returning false.", filePath);
+                    return false;
+                }
+
+                using (BinaryReader reader = new BinaryReader(File.OpenRead(filePath)))
+                {
+                    if (reader.BaseStream.Length < 8)
+                    {
+                        logger?.Here().Verbose("The file at {0} had an invalid file length, returning false.", filePath);
+                        return false;
+                    }
+
+                    if (reader.ReadInt32BE() != IXURHeader.ExpectedMagic)
+                    {
+                        logger?.Here().Verbose("The file at {0} had the wrong magic, returning false.", filePath);
+                        return false;
+                    }
+
+                    if (reader.ReadInt32BE() != XUR8Header.ExpectedVersion)
+                    {
+                        logger?.Here().Verbose("The file at {0} had the wrong version, returning false.", filePath);
+                        return false;
+                    }
+                }
+
+                logger?.Here().Verbose("The file at {0} is an XUR8, returning true.", filePath);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger?.Here().Error("Caught an exception when checking if file {0} was XUR8, returning false. The exception is: {1}", filePath, ex);
+                return false;
+            }
+        }
+
         public int GetSharedCompoundPropertiesCount()
         {
             int retCount = 0;
