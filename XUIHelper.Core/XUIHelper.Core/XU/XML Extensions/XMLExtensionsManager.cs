@@ -179,6 +179,73 @@ namespace XUIHelper.Core
                         return null;
                     }
 
+                    if(deserializedExtension.Extensions == null)
+                    {
+                        Logger?.Here().Error("Failed to register XML extensions at {0} as the extensions are null, returning null.", xmlExtensionFilePath);
+                        return null;
+                    }
+
+                    if(deserializedExtension.IgnoreProperties != null)
+                    {
+                        HashSet<string> foundIgnoredClassNames = new HashSet<string>();
+                        foreach (XUIHelperIgnoreClass ignoredClass in deserializedExtension.IgnoreProperties.IgnoredClasses)
+                        {
+                            if (foundIgnoredClassNames.Contains(ignoredClass.ClassName))
+                            {
+                                Logger?.Here().Error("Failed to add ignore class {0} in XML extensions at {1} as it was a duplicate, returning null.", ignoredClass.ClassName, xmlExtensionFilePath);
+                                return null;
+                            }
+
+                            XUClass? foundClass = null;
+                            foreach (XUClass deserializedClass in deserializedExtension.Extensions.Classes)
+                            {
+                                if (ignoredClass.ClassName == deserializedClass.Name)
+                                {
+                                    foundClass = deserializedClass;
+                                    break;
+                                }
+                            }
+
+                            if (foundClass == null)
+                            {
+                                Logger?.Here().Error("Failed to find ignore class {0} in XML extensions at {1}, returning null.", ignoredClass.ClassName, xmlExtensionFilePath);
+                                return null;
+                            }
+
+                            foundIgnoredClassNames.Add(ignoredClass.ClassName);
+                            Logger?.Here().Verbose("Handling ignored class {0}.", ignoredClass.ClassName);
+
+                            HashSet<string> foundIgnoredPropertyNames = new HashSet<string>();
+                            foreach (XUIHelperIgnoreProperty ignoredProperty in ignoredClass.IgnornedProperties)
+                            {
+                                if (foundIgnoredPropertyNames.Contains(ignoredProperty.Value))
+                                {
+                                    Logger?.Here().Error("Failed to add ignore class {0} in XML extensions at {1} as the property {2} was a duplicate, returning null.", ignoredClass.ClassName, xmlExtensionFilePath, ignoredProperty.Value);
+                                    return null;
+                                }
+
+                                bool found = false;
+                                foreach (XUPropertyDefinition propertyDefinition in foundClass.PropertyDefinitions)
+                                {
+                                    if (propertyDefinition.Name == ignoredProperty.Value)
+                                    {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!found)
+                                {
+                                    Logger?.Here().Error("Failed to find property definition {0} from ignored class {1} in XML extensions at {2}, returning null.", ignoredProperty.Value, ignoredClass.ClassName, xmlExtensionFilePath);
+                                    return null;
+                                }
+
+                                Logger?.Here().Verbose("Will ignore property {0} of {1}.", ignoredProperty.Value, ignoredClass.ClassName);
+                                foundIgnoredPropertyNames.Add(ignoredProperty.Value);
+                            }
+                        }
+                    }
+
                     foreach (XUIHelperExtensions existingExtension in _Groups[_CurrentGroup])
                     {
                         foreach (XUClass existingClass in existingExtension.Extensions.Classes)
@@ -202,7 +269,7 @@ namespace XUIHelper.Core
                         }
                     }
 
-                    Logger?.Here().Verbose("Registered a total of {0} classes from {1}.", deserializedExtension.Extensions.Classes, xmlExtensionFilePath);
+                    Logger?.Here().Verbose("Registered a total of {0} classes from {1}.", deserializedExtension.Extensions.Classes.Count, xmlExtensionFilePath);
                     return deserializedExtension;
                 }
             }

@@ -11,10 +11,10 @@ namespace XUIHelper.Core
     public class XUIHelperExtensions
     {
         [XmlElement("XUIClassExtension")]
-        public XUClassExtension Extensions { get; set; }
+        public XUClassExtension? Extensions { get; set; }
 
-        [XmlElement("XUIClass")]
-        public XUIHelperIgnoreProperties IgnoreProperties { get; set; }
+        [XmlElement("IgnoreProperties")]
+        public XUIHelperIgnoreProperties? IgnoreProperties { get; set; }
 
         public XUIHelperExtensions()
         {
