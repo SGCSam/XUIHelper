@@ -17,6 +17,18 @@ namespace XUIHelper.Core
         {
             try
             {
+                bool? isIgnored = XMLExtensionsManager.IsPropertyIgnored(property.PropertyDefinition);
+                if(isIgnored == null)
+                {
+                    xui.Logger?.Here().Error("Is Ignored was null when writing property {0}, an error must have occurred, returning null.", property.PropertyDefinition.Name);
+                    return null;
+                }
+                else if(isIgnored.Value)
+                {
+                    xui.Logger?.Here().Verbose("Property {0} is ignored, returning empty list.", property.PropertyDefinition.Name);
+                    return new List<XElement>();
+                }
+
                 int indexCount = 1;
                 bool isIndexed = property.PropertyDefinition.FlagsSet.Contains(XUPropertyDefinitionFlags.Indexed);
                 if (isIndexed)

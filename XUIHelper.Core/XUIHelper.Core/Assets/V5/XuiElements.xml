@@ -635,6 +635,9 @@
       <IgnoreProperty>ColorFactor</IgnoreProperty>
       <IgnoreProperty>CenterPivot</IgnoreProperty>
     </IgnoreClass>
+    <IgnoreClass ClassName="XuiImage">
+      <IgnoreProperty>TextureSurfaceElement</IgnoreProperty>
+    </IgnoreClass>
   </IgnoreProperties>
   
 </XUIHelperExtensions>

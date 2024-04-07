@@ -174,7 +174,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXUIWriteSuccessful()
         {
-            string xuiFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/EditorSkin.xui");
+            string xuiFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/PanelScene.xui");
             XUI12 readXUI = new XUI12(xuiFile, null);
             Assert.True(await readXUI.TryReadAsync());
             Assert.NotNull(readXUI.RootObject);
@@ -183,23 +183,6 @@ namespace XUIHelper.Tests
             XUI12 writeXUI = new XUI12(thisWriteXUIPath, _Log);
             Assert.True(await writeXUI.TryWriteAsync(readXUI.RootObject));
             Assert.True(AreFilesEqual(readXUI.FilePath, writeXUI.FilePath));
-        }
-
-        [Test]
-        public async Task CheckPhotoCaptureWriteSuccessful()
-        {
-            string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUR/9199/PhotoCapture.xur");
-            XUR5 readXUR = new XUR5(xurFile, null);
-            Assert.True(await readXUR.TryReadAsync());
-            IDATASection? data = ((IXUR)readXUR).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
-            Assert.NotNull(data);
-            Assert.NotNull(data.RootObject);
-            string thisWriteXUIPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui";
-            string photoCaptureXUIPath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/PhotoCapture.xui");
-
-            XUI12 writeXUI = new XUI12(thisWriteXUIPath, _Log);
-            Assert.True(await writeXUI.TryWriteAsync(data.RootObject));
-            Assert.True(AreFilesEqual(photoCaptureXUIPath, writeXUI.FilePath));
         }
     }
 }

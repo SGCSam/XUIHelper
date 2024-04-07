@@ -153,6 +153,49 @@ namespace XUIHelper.Core
             return hierarchy;
         }
 
+        public static bool? IsPropertyIgnored(XUPropertyDefinition propertyDefinition) 
+        {
+            try
+            {
+                if (!_Groups.ContainsKey(_CurrentGroup))
+                {
+                    Logger?.Here().Error("Failed to get check if property {0} is ignored as the current group {1} is invalid, returning null.", propertyDefinition.Name, _CurrentGroup);
+                    return null;
+                }
+
+                foreach(XUIHelperExtensions extension in _Groups[_CurrentGroup])
+                {
+                    if(extension.IgnoreProperties == null)
+                    {
+                        continue;
+                    }
+
+                    foreach(XUIHelperIgnoreClass ignoredClass in extension.IgnoreProperties.IgnoredClasses)
+                    {
+                        if(propertyDefinition.ParentClassName != ignoredClass.ClassName)
+                        {
+                            continue;
+                        }
+
+                        foreach(XUIHelperIgnoreProperty ignoredProperty in ignoredClass.IgnornedProperties)
+                        {
+                            if(ignoredProperty.Value == propertyDefinition.Name)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Logger?.Here().Error("Caught an exception when trying check if property {0} was ignored, returning null. The exception is: {1}", propertyDefinition.Name, ex);
+                return null;
+            }
+        }
+
         private static async Task<XUIHelperExtensions?> TryRegisterXMLExtensionsAsync(string xmlExtensionFilePath)
         {
             try
