@@ -219,7 +219,7 @@ namespace XUIHelper.Core
             return retCount;
         }
 
-        public int? TryGetTotalKeyframePropertyDefinitionsClassDepth(int extensionVersion, ILogger? logger = null)
+        public int? TryGetTotalKeyframePropertyDefinitionsClassDepth(ILogger? logger = null)
         {
             int retDepth = 0;
 
@@ -234,7 +234,7 @@ namespace XUIHelper.Core
 
                 foreach(XUProperty animatedProperty in timeline.Keyframes[0].Properties)
                 {
-                    int? gotDepth = TryGetDepthOfPropertyDefinition(animatedProperty.PropertyDefinition, animatedChild.ClassName, extensionVersion, 1, logger);
+                    int? gotDepth = TryGetDepthOfPropertyDefinition(animatedProperty.PropertyDefinition, animatedChild.ClassName, 1, logger);
                     if (gotDepth == null)
                     {
                         logger?.Here().Error("Failed to get property definition depth for {0}, returning null.", animatedProperty.PropertyDefinition.Name);
@@ -255,7 +255,7 @@ namespace XUIHelper.Core
 
             foreach(XUObject childObject in Children)
             {
-                int? childDepth = childObject.TryGetTotalKeyframePropertyDefinitionsClassDepth(extensionVersion, logger);
+                int? childDepth = childObject.TryGetTotalKeyframePropertyDefinitionsClassDepth(logger);
                 if(childDepth == null)
                 {
                     logger?.Here().Error("Child depth for class {0} was null, returning null.", childObject.ClassName);
@@ -268,21 +268,14 @@ namespace XUIHelper.Core
             return retDepth;
         }
 
-        public int? TryGetDepthOfPropertyDefinition(XUPropertyDefinition propertyDefinition, string className, int extensionVersion, ILogger? logger = null)
+        public int? TryGetDepthOfPropertyDefinition(XUPropertyDefinition propertyDefinition, string className, ILogger? logger = null)
         {
-            return TryGetDepthOfPropertyDefinition(propertyDefinition, className, extensionVersion, 1, logger);
+            return TryGetDepthOfPropertyDefinition(propertyDefinition, className, 1, logger);
         }
 
-        private int? TryGetDepthOfPropertyDefinition(XUPropertyDefinition propertyDefinition, string className, int extensionVersion, int depth, ILogger? logger = null)
+        private int? TryGetDepthOfPropertyDefinition(XUPropertyDefinition propertyDefinition, string className, int depth, ILogger? logger = null)
         {
-            if(!XUIHelperCoreConstants.VersionedExtensions.ContainsKey(extensionVersion))
-            {
-                logger?.Here().Error("Failed to find extensions with version {0}, returning null.", extensionVersion);
-                return null;
-            }
-
-            XMLExtensionsManager manager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
-            List<XUClass>? classHierarchy = manager.TryGetClassHierarchy(className);
+            List<XUClass>? classHierarchy = XMLExtensionsManager.TryGetClassHierarchy(className);
             if (classHierarchy == null)
             {
                 logger?.Here().Error("Failed to get class hierarchy for {0}, returning null.", className);
@@ -304,19 +297,19 @@ namespace XUIHelper.Core
                         {
                             case "Fill":
                             {
-                                compoundClass = manager.TryGetClassByName("XuiFigureFill");
+                                compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFill");
                                 break;
                             }
 
                             case "Gradient":
                             {
-                                compoundClass = manager.TryGetClassByName("XuiFigureFillGradient");
+                                compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
                                 break;
                             }
 
                             case "Stroke":
                             {
-                                compoundClass = manager.TryGetClassByName("XuiFigureStroke");
+                                compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureStroke");
                                 break;
                             }
                             default:
@@ -332,7 +325,7 @@ namespace XUIHelper.Core
                             return null;
                         }
 
-                        int? foundDepth = TryGetDepthOfPropertyDefinition(propertyDefinition, compoundClass.Name, extensionVersion, depth + 1, logger);
+                        int? foundDepth = TryGetDepthOfPropertyDefinition(propertyDefinition, compoundClass.Name, depth + 1, logger);
                         if(foundDepth != null) 
                         {
                             return foundDepth.Value;

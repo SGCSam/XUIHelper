@@ -27,11 +27,9 @@ namespace XUIHelper.Tests
 
         protected override void RegisterExtensions(ILogger? logger = null)
         {
-            XMLExtensionsManager v5Extensions = new XMLExtensionsManager(logger);
-            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\XuiElements.xml");
-            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199DashElements.xml");
-            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199HUDElements.xml");
-            XUIHelperCoreConstants.VersionedExtensions[0x5] = v5Extensions;
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR5Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\XuiElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR5Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199DashElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR5Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199HUDElements.xml");
         }
 
         protected override IXUR GetXUR(string filePath, ILogger? logger = null)

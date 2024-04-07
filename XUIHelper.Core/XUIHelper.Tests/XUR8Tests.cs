@@ -7,8 +7,8 @@ namespace XUIHelper.Tests
 {
     public class XUR8Tests : XURTests
     {
-        //TODO: Decouple XUI version from extensions, make it more of a group IDed by a string, as we should be able to write a XUR8 as a XUR5
         //TODO: Support for ignore properties (ones that aren't supported in XuiTool)
+        //TODO: Make sure all read/write property functions for XUR5 and XUR8 natively support indexed properties, rather than assuming they're animated NumStops - do a check for all uses of Indexed
         //TODO: Function library API
         //TODO: Console app
         //TODO: GUI app
@@ -31,11 +31,9 @@ namespace XUIHelper.Tests
 
         protected override void RegisterExtensions(ILogger? logger = null)
         {
-            XMLExtensionsManager v8Extensions = new XMLExtensionsManager(logger);
-            _ = v8Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\XuiElements.xml");
-            _ = v8Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\17559DashElements.xml");
-            _ = v8Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\17559HUDElements.xml");
-            XUIHelperCoreConstants.VersionedExtensions[0x8] = v8Extensions;
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\XuiElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\17559DashElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\17559HUDElements.xml");
         }
 
         protected override IXUR GetXUR(string filePath, ILogger? logger = null)

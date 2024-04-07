@@ -282,13 +282,6 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                XMLExtensionsManager? ext = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x5);
-                if (ext == null)
-                {
-                    xur.Logger?.Here().Error("Failed to get extensions manager, returning null.");
-                    return null;
-                }
-
                 int compoundPropertyValuesCount = reader.ReadInt16BE();
                 xur.Logger?.Here()?.Verbose("Got a compound properties value count of {0}.", compoundPropertyValuesCount);
 
@@ -298,21 +291,21 @@ namespace XUIHelper.Core
                     case "Fill":
                     {
                         xur.Logger?.Here()?.Verbose("Reading fill object.");
-                        compoundClass = ext.TryGetClassByName("XuiFigureFill");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFill");
                         break;
                     }
 
                     case "Gradient":
                     {
                         xur.Logger?.Here()?.Verbose("Reading gradient object.");
-                        compoundClass = ext.TryGetClassByName("XuiFigureFillGradient");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
                         break;
                     }
 
                     case "Stroke":
                     {
                         xur.Logger?.Here()?.Verbose("Reading stroke object.");
-                        compoundClass = ext.TryGetClassByName("XuiFigureStroke");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureStroke");
                         break;
                     }
                     default:
@@ -639,15 +632,8 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                XMLExtensionsManager? ext = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x5);
-                if (ext == null)
-                {
-                    xur.Logger?.Here().Error("Failed to get extensions manager, returning null.");
-                    return null;
-                }
-
                 xur.Logger?.Here().Verbose("Found object has a class name of {0}.", elementObject.ClassName);
-                List<XUClass>? classList = ext.TryGetClassHierarchy(elementObject.ClassName);
+                List<XUClass>? classList = XMLExtensionsManager.TryGetClassHierarchy(elementObject.ClassName);
                 if (classList == null)
                 {
                     Log.Error(string.Format("Failed to get {0} class hierarchy, returning false.", elementObject.ClassName));
@@ -702,21 +688,21 @@ namespace XUIHelper.Core
                                 case "Fill":
                                 {
                                     xur.Logger?.Here()?.Verbose("Got a class depth of {0}, handling fill.", classDepth);
-                                    classAtIndex = ext.TryGetClassByName("XuiFigureFill");
+                                    classAtIndex = XMLExtensionsManager.TryGetClassByName("XuiFigureFill");
                                     break;
                                 }
 
                                 case "Gradient":
                                 {
                                     xur.Logger?.Here()?.Verbose("Got a class depth of {0}, handling gradient.", classDepth);
-                                    classAtIndex = ext.TryGetClassByName("XuiFigureFillGradient");
+                                    classAtIndex = XMLExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
                                     break;
                                 }
 
                                 case "Stroke":
                                 {
                                     xur.Logger?.Here()?.Verbose("Got a class depth of {0}, handling stroke.", classDepth);
-                                    classAtIndex = ext.TryGetClassByName("XuiFigureStroke");
+                                    classAtIndex = XMLExtensionsManager.TryGetClassByName("XuiFigureStroke");
                                     break;
                                 }
                                 default:

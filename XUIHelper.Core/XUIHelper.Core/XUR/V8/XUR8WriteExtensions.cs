@@ -337,34 +337,27 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Didn't find existing compound properties, creating new as index {0}.", compoundPropertiesIndex);
                 bytesWritten++;
 
-                XMLExtensionsManager? ext = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x8);
-                if (ext == null)
-                {
-                    xur.Logger?.Here().Error("Failed to get extensions manager, returning null.");
-                    return null;
-                }
-
                 XUClass? compoundClass = null;
                 switch (propertyDefinition.Name)
                 {
                     case "Fill":
                     {
                         xur.Logger?.Here()?.Verbose("Writing fill object.");
-                        compoundClass = ext.TryGetClassByName("XuiFigureFill");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFill");
                         break;
                     }
 
                     case "Gradient":
                     {
                         xur.Logger?.Here()?.Verbose("Writing gradient object.");
-                        compoundClass = ext.TryGetClassByName("XuiFigureFillGradient");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
                         break;
                     }
 
                     case "Stroke":
                     {
                         xur.Logger?.Here()?.Verbose("Writing stroke object.");
-                        compoundClass = ext.TryGetClassByName("XuiFigureStroke");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureStroke");
                         break;
                     }
                     default:
@@ -677,7 +670,7 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                List<XUClass>? classList = xur.ExtensionsManager?.TryGetClassHierarchy(elementObject.ClassName);
+                List<XUClass>? classList = XMLExtensionsManager.TryGetClassHierarchy(elementObject.ClassName);
                 if (classList == null)
                 {
                     xur.Logger?.Here().Error(string.Format("Failed to get {0} class hierarchy, returning null.", elementObject.ClassName));
@@ -753,14 +746,14 @@ namespace XUIHelper.Core
                             writer.Write((byte)0x00);
                             writer.Write((byte)0x01);
                             bytesWritten += 2;
-                            foundClass = xur.ExtensionsManager?.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
+                            foundClass = XMLExtensionsManager.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
                         }
                         else if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureStroke")
                         {
                             writer.Write((byte)0x00);
                             writer.Write((byte)0x01);
                             bytesWritten += 2;
-                            foundClass = xur.ExtensionsManager?.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
+                            foundClass = XMLExtensionsManager.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
                         }
                         else if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFillGradient")
                         {
@@ -768,7 +761,7 @@ namespace XUIHelper.Core
                             writer.Write((byte)0x01);
                             writer.Write((byte)0x03);
                             bytesWritten += 3;
-                            foundClass = xur.ExtensionsManager?.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
+                            foundClass = XMLExtensionsManager.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
                         }
                         else
                         {

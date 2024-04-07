@@ -28,17 +28,15 @@ namespace XUIHelper.Tests
 
         private void RegisterExtensions(ILogger? logger = null)
         {
-            XMLExtensionsManager v5Extensions = new XMLExtensionsManager(logger);
-            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\XuiElements.xml");
-            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199DashElements.xml");
-            _ = v5Extensions.TryRegisterXMLExtensionsAsync(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199HUDElements.xml");
-            XUIHelperCoreConstants.VersionedExtensions[0x5] = v5Extensions;
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\XuiElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199DashElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199HUDElements.xml");
         }
 
         private async Task<XUI12?> GetReadXUI(string filePath, int extensionVersion, ILogger? logger = null)
         {
             XUI12 xui = new XUI12(filePath, logger);
-            if (await xui.TryReadAsync(0x5))
+            if (await xui.TryReadAsync())
             {
                 return xui;
             }
@@ -74,7 +72,7 @@ namespace XUIHelper.Tests
             foreach (string xuiFile in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199"), "*.xui", SearchOption.AllDirectories))
             {
                 XUI12 xui = new XUI12(xuiFile, null);
-                if (!await xui.TryReadAsync(0x5))
+                if (!await xui.TryReadAsync())
                 {
                     failedXUIs.Add(xuiFile);
                 }
@@ -107,7 +105,7 @@ namespace XUIHelper.Tests
         {
             string xuiFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/EditorSkin.xui");
             XUI12 xui = new XUI12(xuiFile, _Log);
-            Assert.True(await xui.TryReadAsync(0x5));
+            Assert.True(await xui.TryReadAsync());
         }
 
         [Test]
@@ -119,7 +117,7 @@ namespace XUIHelper.Tests
             foreach (string xuiFile in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199"), "*.xui", SearchOption.AllDirectories))
             {
                 XUI12 xur = new XUI12(xuiFile, null);
-                if (await xur.TryReadAsync(0x5))
+                if (await xur.TryReadAsync())
                 {
                     xuisCount++;
                     readXUIs.Add(xur);
@@ -139,7 +137,7 @@ namespace XUIHelper.Tests
 
                 string thisWriteXUIPath = Path.GetTempFileName();
                 XUI12 writeXUI = new XUI12(thisWriteXUIPath, null);
-                if (!await writeXUI.TryWriteAsync(0x5, readXUI.RootObject))
+                if (!await writeXUI.TryWriteAsync(readXUI.RootObject))
                 {
                     _Log.Information("Failure: Write failed for {0}", readXUI.FilePath);
                     failedXUIs.Add(readXUI.FilePath);
@@ -177,12 +175,12 @@ namespace XUIHelper.Tests
         {
             string xuiFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/EditorSkin.xui");
             XUI12 readXUI = new XUI12(xuiFile, null);
-            Assert.True(await readXUI.TryReadAsync(0x5));
+            Assert.True(await readXUI.TryReadAsync());
             Assert.NotNull(readXUI.RootObject);
 
             string thisWriteXUIPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui";
             XUI12 writeXUI = new XUI12(thisWriteXUIPath, _Log);
-            Assert.True(await writeXUI.TryWriteAsync(0x5, readXUI.RootObject));
+            Assert.True(await writeXUI.TryWriteAsync(readXUI.RootObject));
             Assert.True(AreFilesEqual(readXUI.FilePath, writeXUI.FilePath));
         }
 
@@ -199,7 +197,7 @@ namespace XUIHelper.Tests
             string photoCaptureXUIPath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/PhotoCapture.xui");
 
             XUI12 writeXUI = new XUI12(thisWriteXUIPath, _Log);
-            Assert.True(await writeXUI.TryWriteAsync(0x5, data.RootObject));
+            Assert.True(await writeXUI.TryWriteAsync(data.RootObject));
             Assert.True(AreFilesEqual(photoCaptureXUIPath, writeXUI.FilePath));
         }
     }

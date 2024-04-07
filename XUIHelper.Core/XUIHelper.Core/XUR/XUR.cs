@@ -22,8 +22,6 @@ namespace XUIHelper.Core
 
         protected BinaryReader Reader { get; private set; }
 
-        public XMLExtensionsManager? ExtensionsManager { get; private set; }
-
         public XUR(string filePath, IXURHeader header, IXURSectionsTable sectionsTable, ILogger? logger = null)
         {
             FilePath = filePath;
@@ -139,29 +137,6 @@ namespace XUIHelper.Core
                     Logger?.Here().Error("The object to write wasn't the root XuiCanvas, returning false.");
                     return false;
                 }
-
-                int extensionVersion = -1;
-                if (this is XUR5)
-                {
-                    extensionVersion = 0x5;
-                }
-                else if (this is XUR8)
-                {
-                    extensionVersion = 0x8;
-                }
-                else
-                {
-                    Logger?.Here().Error("Unhandled XUR type for extension version, returning false.");
-                    return false;
-                }
-
-                if (!XUIHelperCoreConstants.VersionedExtensions.ContainsKey(extensionVersion))
-                {
-                    Logger?.Here().Error("Failed to find extensions with version {0}, returning false.", extensionVersion);
-                    return false;
-                }
-
-                ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
 
                 if (!await TryBuildSectionsFromObjectAsync(rootObject))
                 {

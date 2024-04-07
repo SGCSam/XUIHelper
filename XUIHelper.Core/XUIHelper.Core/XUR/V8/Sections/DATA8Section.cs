@@ -17,7 +17,6 @@ namespace XUIHelper.Core
     {
         public int Magic { get { return IDATASection.ExpectedMagic; } }
 
-        public XMLExtensionsManager? ExtensionsManager { get; private set; }
         public ISTRNSection? STRNSection { get; private set; }
 
         public XUObject? RootObject { get; private set; }
@@ -28,12 +27,6 @@ namespace XUIHelper.Core
             {
                 xur.Logger = xur.Logger?.ForContext(typeof(DATA8Section));
                 xur.Logger?.Here().Verbose("Reading DATA8 section.");
-
-                if (ExtensionsManager == null)
-                {
-                    xur.Logger?.Here().Error("Extensions manager was null, returning false.");
-                    return false;
-                }
 
                 STRNSection = xur.TryFindXURSectionByMagic<ISTRNSection>(ISTRNSection.ExpectedMagic);
                 if (STRNSection == null)
@@ -220,7 +213,7 @@ namespace XUIHelper.Core
             {
                 xur.Logger?.Here().Verbose("Reading properties for class {0}.", className);
 
-                List<XUClass>? classList = ExtensionsManager?.TryGetClassHierarchy(className);
+                List<XUClass>? classList = XMLExtensionsManager.TryGetClassHierarchy(className);
                 if (classList == null)
                 {
                     xur.Logger?.Here().Error("Failed to get class hierarchy for class {0}, returning null.", className);
@@ -290,12 +283,6 @@ namespace XUIHelper.Core
                 if (xur is not XUR8 xur8)
                 {
                     xur.Logger?.Here().Error("XUR to write was not XUR8, returning null.");
-                    return null;
-                }
-
-                if (ExtensionsManager == null)
-                {
-                    xur.Logger?.Here().Error("Extensions manager was null, returning null.");
                     return null;
                 }
 
@@ -505,7 +492,7 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Wrote object properties count of {0:X8}, {1} bytes.", xuObject.Properties.Count, propertiesCountBytesWritten);
                 bytesWritten += propertiesCountBytesWritten;
 
-                List<XUClass>? classList = ExtensionsManager?.TryGetClassHierarchy(xuObject.ClassName);
+                List<XUClass>? classList = XMLExtensionsManager.TryGetClassHierarchy(xuObject.ClassName);
                 if (classList == null)
                 {
                     xur.Logger?.Here().Error("Failed to get class hierarchy for class {0}, returning null.", xuObject.ClassName);
@@ -598,13 +585,12 @@ namespace XUIHelper.Core
 
         public DATA8Section()
         {
-            ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x8);
+
         }
 
         public DATA8Section(XUObject rootObject)
         {
             RootObject = rootObject;
-            ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x8);
         }
     }
 }

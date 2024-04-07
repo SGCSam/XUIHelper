@@ -125,7 +125,7 @@ namespace XUIHelper.Core
                 }
 
                 xur.Logger?.Here().Verbose("Verifying total keyframe properties class depth.");
-                int? totalKeyframePropertiesClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth(0x5);
+                int? totalKeyframePropertiesClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth();
                 if(totalKeyframePropertiesClassDepth == null)
                 {
                     xur.Logger?.Here().Error("The acquired total keyframe properties class depth was null, an error must have occurred, returning false.");
@@ -217,7 +217,7 @@ namespace XUIHelper.Core
                 writer.WriteInt32BE(keyframePropertiesCount);
                 bytesWritten += 4;
 
-                int? totalKeyframePropertiesClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth(0x5);
+                int? totalKeyframePropertiesClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth();
                 if(totalKeyframePropertiesClassDepth == null)
                 {
                     xur.Logger?.Here().Error("Failed to get total keyframe property definitions class depth, returning null.");

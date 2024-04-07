@@ -12,7 +12,7 @@ namespace XUIHelper.Core
         ILogger? Logger { get; set; }
         string FilePath { get; }
 
-        public Task<bool> TryReadAsync(int extensionVersion);
-        public Task<bool> TryWriteAsync(int extensionVersion, XUObject rootObject);
+        public Task<bool> TryReadAsync();
+        public Task<bool> TryWriteAsync(XUObject rootObject);
     }
 }

@@ -293,13 +293,6 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                XMLExtensionsManager? ext = XUIHelperCoreConstants.VersionedExtensions.GetValueOrDefault(0x5);
-                if (ext == null)
-                {
-                    xur.Logger?.Here().Error("Failed to get extensions manager, returning null.");
-                    return null;
-                }
-
                 int parentClassPropertyDepth = 0;
                 XUClass? compoundClass = null;
                 switch (propertyDefinition.Name)
@@ -307,7 +300,7 @@ namespace XUIHelper.Core
                     case "Fill":
                     {
                         xur.Logger?.Here()?.Verbose("Writing fill object.");
-                        compoundClass = ext.TryGetClassByName("XuiFigureFill");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFill");
                         parentClassPropertyDepth = 5;   //4 for XuiElement, 1 for XuiFigure
                         break;
                     }
@@ -315,7 +308,7 @@ namespace XUIHelper.Core
                     case "Gradient":
                     {
                         xur.Logger?.Here()?.Verbose("Writing gradient object.");
-                        compoundClass = ext.TryGetClassByName("XuiFigureFillGradient");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
                         parentClassPropertyDepth = 6;   //4 for XuiElement, 1 for XuiFigure, 1 for XuiFigureFill (XuiFigureFill is 1, not 2, since gradient is within the first 8 properties)
                         break;
                     }
@@ -323,7 +316,7 @@ namespace XUIHelper.Core
                     case "Stroke":
                     {
                         xur.Logger?.Here()?.Verbose("Writing stroke object.");
-                        compoundClass = ext.TryGetClassByName("XuiFigureStroke");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureStroke");
                         parentClassPropertyDepth = 6;   //4 for XuiElement, 1 for XuiFigure
                         break;
                     }
@@ -699,7 +692,7 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                List<XUClass>? classList = xur.ExtensionsManager?.TryGetClassHierarchy(elementObject.ClassName);
+                List<XUClass>? classList = XMLExtensionsManager.TryGetClassHierarchy(elementObject.ClassName);
                 if (classList == null)
                 {
                     xur.Logger?.Here().Error(string.Format("Failed to get {0} class hierarchy, returning null.", elementObject.ClassName));
@@ -775,14 +768,14 @@ namespace XUIHelper.Core
                             writer.Write((byte)0x00);
                             writer.Write((byte)0x01);
                             bytesWritten += 2;
-                            foundClass = xur.ExtensionsManager?.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
+                            foundClass = XMLExtensionsManager.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
                         }
                         else if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureStroke")
                         {
                             writer.Write((byte)0x00);
                             writer.Write((byte)0x01);
                             bytesWritten += 2;
-                            foundClass = xur.ExtensionsManager?.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
+                            foundClass = XMLExtensionsManager.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
                         }
                         else if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFillGradient")
                         {
@@ -790,7 +783,7 @@ namespace XUIHelper.Core
                             writer.Write((byte)0x01);
                             writer.Write((byte)0x03);
                             bytesWritten += 3;
-                            foundClass = xur.ExtensionsManager?.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
+                            foundClass = XMLExtensionsManager.TryGetClassByName(animatedProperty.PropertyDefinition.ParentClassName);
                         }
                         else
                         {

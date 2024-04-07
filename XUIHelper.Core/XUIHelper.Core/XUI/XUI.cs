@@ -22,15 +22,13 @@ namespace XUIHelper.Core
 
         public XUObject? RootObject;
 
-        public XMLExtensionsManager? ExtensionsManager { get; private set; }
-
         public XUI(string filePath, ILogger? logger = null)
         {
             FilePath = filePath;
             Logger = logger?.ForContext(typeof(XUI));
         }
 
-        public virtual async Task<bool> TryReadAsync(int extensionVersion)
+        public virtual async Task<bool> TryReadAsync()
         {
             try
             {
@@ -40,13 +38,6 @@ namespace XUIHelper.Core
                     return false;
                 }
 
-                if(!XUIHelperCoreConstants.VersionedExtensions.ContainsKey(extensionVersion))
-                {
-                    Logger?.Here().Error("Failed to find extensions with version {0}, returning false.", extensionVersion);
-                    return false;
-                }
-
-                ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
                 Logger?.Here().Information("Reading XUI file at {0}", FilePath);
 
                 XDocument document = XDocument.Load(FilePath);
@@ -76,21 +67,16 @@ namespace XUIHelper.Core
 
         private XUObject? TryReadObject(XElement objectElement, ref XUObject parent)
         {
-            if(ExtensionsManager == null) 
-            {
-                Logger?.Here().Error("Extensions manager was null, returning null.");
-                return null;
-            }
 
             Logger?.Here().Verbose("Reading class {0}", objectElement.Name);
-            XUClass? elementClass = ExtensionsManager.TryGetClassByName(objectElement.Name.ToString());
+            XUClass? elementClass = XMLExtensionsManager.TryGetClassByName(objectElement.Name.ToString());
             if(elementClass == null) 
             {
                 Logger?.Here().Error("Failed to find class {0}, returning null.", objectElement.Name);
                 return null;
             }
 
-            List<XUClass>? classHierarchy = ExtensionsManager.TryGetClassHierarchy(elementClass.Name);
+            List<XUClass>? classHierarchy = XMLExtensionsManager.TryGetClassHierarchy(elementClass.Name);
             if (classHierarchy == null)
             {
                 Logger?.Here().Error("Failed to get class hierarchy for {0}, returning null.", elementClass.Name);
@@ -229,18 +215,10 @@ namespace XUIHelper.Core
             return thisObject;
         }
 
-        public async Task<bool> TryWriteAsync(int extensionVersion, XUObject rootObject)
+        public async Task<bool> TryWriteAsync(XUObject rootObject)
         {
             try
             {
-                if (!XUIHelperCoreConstants.VersionedExtensions.ContainsKey(extensionVersion))
-                {
-                    Logger?.Here().Error("Failed to find extensions with version {0}, returning false.", extensionVersion);
-                    return false;
-                }
-
-                ExtensionsManager = XUIHelperCoreConstants.VersionedExtensions[extensionVersion];
-
                 if(rootObject.ClassName != "XuiCanvas")
                 {
                     Logger?.Here().Error("The object to write wasn't the root XuiCanvas, returning false.");

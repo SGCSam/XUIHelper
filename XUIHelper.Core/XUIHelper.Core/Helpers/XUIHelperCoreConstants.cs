@@ -8,6 +8,6 @@ namespace XUIHelper.Core
 {
     public static class XUIHelperCoreConstants
     {
-        public static Dictionary<int, XMLExtensionsManager> VersionedExtensions = new Dictionary<int, XMLExtensionsManager>();
+
     }
 }

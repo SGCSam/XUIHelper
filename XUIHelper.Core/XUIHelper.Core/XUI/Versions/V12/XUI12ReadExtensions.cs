@@ -249,33 +249,27 @@ namespace XUIHelper.Core
 
                 xui.Logger?.Here().Verbose("Converting {0} for object property {1}.", element.Value, propertyDefinition.Name);
 
-                if (xui.ExtensionsManager == null)
-                {
-                    xui.Logger?.Here().Error("Failed to get extensions manager, returning null.");
-                    return null;
-                }
-
                 XUClass? compoundClass = null;
                 switch (propertyDefinition.Name)
                 {
                     case "Fill":
                     {
                         xui.Logger?.Here()?.Verbose("Reading fill object.");
-                        compoundClass = xui.ExtensionsManager.TryGetClassByName("XuiFigureFill");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFill");
                         break;
                     }
 
                     case "Gradient":
                     {
                         xui.Logger?.Here()?.Verbose("Reading gradient object.");
-                        compoundClass = xui.ExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
                         break;
                     }
 
                     case "Stroke":
                     {
                         xui.Logger?.Here()?.Verbose("Reading stroke object.");
-                        compoundClass = xui.ExtensionsManager.TryGetClassByName("XuiFigureStroke");
+                        compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureStroke");
                         break;
                     }
                 }
@@ -549,12 +543,6 @@ namespace XUIHelper.Core
         {
             try
             {
-                if (xui.ExtensionsManager == null)
-                {
-                    xui.Logger?.Here().Error("Failed to get extensions manager, returning null.");
-                    return null;
-                }
-
                 string? id = element.Element("Id")?.Value;
                 if (id == null)
                 {
@@ -569,7 +557,7 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                XUClass? animatedObjectClass = xui.ExtensionsManager.TryGetClassByName(animatedObject.ClassName);
+                XUClass? animatedObjectClass = XMLExtensionsManager.TryGetClassByName(animatedObject.ClassName);
                 if (animatedObjectClass == null)
                 {
                     xui.Logger?.Here().Error("Failed to find animated object class {0}, returning null.", animatedObject.ClassName);
@@ -617,21 +605,21 @@ namespace XUIHelper.Core
                                 case "Fill":
                                 {
                                     xui.Logger?.Here().Verbose("Property {0} is compound, handling {1}, treating as fill.", propertyHierarchy, propertyName);
-                                    compoundClass = xui.ExtensionsManager.TryGetClassByName("XuiFigureFill");
+                                    compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFill");
                                     break;
                                 }
 
                                 case "Gradient":
                                 {
                                     xui.Logger?.Here().Verbose("Property {0} is compound, handling {1}, treating as gradient.", propertyHierarchy, propertyName);
-                                    compoundClass = xui.ExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
+                                    compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureFillGradient");
                                     break;
                                 }
 
                                 case "Stroke":
                                 {
                                     xui.Logger?.Here().Verbose("Property {0} is compound, handling {1}, treating as stroke.", propertyHierarchy, propertyName);
-                                    compoundClass = xui.ExtensionsManager.TryGetClassByName("XuiFigureStroke");
+                                    compoundClass = XMLExtensionsManager.TryGetClassByName("XuiFigureStroke");
                                     break;
                                 }
                             }
@@ -778,13 +766,8 @@ namespace XUIHelper.Core
         private static Tuple<XUClass, XUPropertyDefinition?>? GetPropertyDefinitionFromClass(XUI12 xui, string propertyName, XUClass propertyClass)
         {
             xui.Logger?.Here().Verbose("Attempting to find property definition for {0}", propertyName);
-            if (xui.ExtensionsManager == null)
-            {
-                xui.Logger?.Here().Error("Failed to get extensions manager, returning null.");
-                return null;
-            }
 
-            List<XUClass>? classHierarchy = xui.ExtensionsManager.TryGetClassHierarchy(propertyClass.Name);
+            List<XUClass>? classHierarchy = XMLExtensionsManager.TryGetClassHierarchy(propertyClass.Name);
             if (classHierarchy == null)
             {
                 xui.Logger?.Here().Error("Failed to get class hierarchy for {0}, returning null.", propertyClass.Name);

@@ -149,7 +149,7 @@ namespace XUIHelper.Core
                 }
 
                 xur.Logger?.Here().Verbose("Verifying total keyframe property class depth.");
-                int? totalKeyframePropertyClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth(0x8);
+                int? totalKeyframePropertyClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth();
                 if (TotalKeyframePropertyClassDepth != totalKeyframePropertyClassDepth)
                 {
                     xur.Logger?.Here().Error("Mismatch between the total keyframe property class depth, returning false. Expected: {0}, Actual: {1}", TotalKeyframePropertyClassDepth, totalKeyframePropertyClassDepth);
@@ -277,7 +277,7 @@ namespace XUIHelper.Core
                 xur.Logger?.Here().Verbose("Wrote shared compound properties array count of {0:X8}, {1} bytes.", sharedCompoundPropertiesArrayCount, sharedCompoundPropertiesArrayCountBytesWritten);
                 bytesWritten += sharedCompoundPropertiesArrayCountBytesWritten;
 
-                int? totalKeyframePropertyClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth(0x8);
+                int? totalKeyframePropertyClassDepth = rootObject.TryGetTotalKeyframePropertyDefinitionsClassDepth();
                 if (totalKeyframePropertyClassDepth == null)
                 {
                     xur.Logger?.Here().Error("Failed to get total keyframe property class depth, returning null.");
