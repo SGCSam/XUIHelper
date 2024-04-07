@@ -629,7 +629,23 @@
       </PropDef>
     </XUIClass>
   </XUIClassExtension>
-  
-  <IgnoreProperties />
+
+  <IgnoreProperties>
+    <IgnoreClass ClassName="XuiElement">
+      <IgnoreProperty>GripTarget</IgnoreProperty>
+      <IgnoreProperty>Hittable</IgnoreProperty>
+      <IgnoreProperty>LayoutLineBreak</IgnoreProperty>
+      <IgnoreProperty>LayoutFloat</IgnoreProperty>
+      <IgnoreProperty>Column</IgnoreProperty>
+      <IgnoreProperty>Row</IgnoreProperty>
+      <IgnoreProperty>ColumnSpan</IgnoreProperty>
+      <IgnoreProperty>RowSpan</IgnoreProperty>
+      <IgnoreProperty>ColorFactor</IgnoreProperty>
+      <IgnoreProperty>CenterPivot</IgnoreProperty>
+    </IgnoreClass>
+    <IgnoreClass ClassName="XuiImage">
+      <IgnoreProperty>TextureSurfaceElement</IgnoreProperty>
+    </IgnoreClass>
+  </IgnoreProperties>
   
 </XUIHelperExtensions>

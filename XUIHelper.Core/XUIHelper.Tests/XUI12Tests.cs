@@ -104,7 +104,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXUIReadSuccessful()
         {
-            string xuiFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/EditorSkin.xui");
+            string xuiFile = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data/XUI/9199/GamerCard.xui");
             XUI12 xui = new XUI12(xuiFile, _Log);
             Assert.True(await xui.TryReadAsync());
         }
