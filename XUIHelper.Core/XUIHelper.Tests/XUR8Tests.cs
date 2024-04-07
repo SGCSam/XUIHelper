@@ -31,6 +31,7 @@ namespace XUIHelper.Tests
 
         protected override void RegisterExtensions(ILogger? logger = null)
         {
+            XMLExtensionsManager.Initialize(logger);
             _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\XuiElements.xml");
             _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\17559DashElements.xml");
             _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V8\17559HUDElements.xml");

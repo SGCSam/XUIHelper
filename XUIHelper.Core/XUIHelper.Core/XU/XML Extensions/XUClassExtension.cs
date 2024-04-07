@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace XUIHelper.Core
 {
-    [Serializable, XmlRoot("XUIClassExtension")]
+    [Serializable, XmlType(TypeName = "XUIClassExtension")]
     public class XUClassExtension
     {
         [XmlAttribute("version")]

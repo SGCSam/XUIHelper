@@ -16,7 +16,7 @@ namespace XUIHelper.Core
 
         private static string _CurrentGroup = string.Empty;
 
-        private static Dictionary<string, List<XUClass>> _Groups = new Dictionary<string, List<XUClass>>();
+        private static Dictionary<string, List<XUIHelperExtensions>> _Groups = new Dictionary<string, List<XUIHelperExtensions>>();
 
         public static void Initialize(ILogger? logger = null) 
         {
@@ -54,14 +54,14 @@ namespace XUIHelper.Core
                 string oldGroup = _CurrentGroup;
                 SetCurrentGroup(extensionsGroupName);
 
-                List<XUClass>? registeredClasses = await TryRegisterXMLExtensionsAsync(xmlExtensionsFilePath);
-                if (registeredClasses == null)
+                XUIHelperExtensions? registeredExtension = await TryRegisterXMLExtensionsAsync(xmlExtensionsFilePath);
+                if (registeredExtension == null)
                 {
-                    Logger?.Here().Error("Registered classes for {0} was null, returning false.", xmlExtensionsFilePath);
+                    Logger?.Here().Error("Registered extension for {0} was null, returning false.", xmlExtensionsFilePath);
                     return false;
                 }
 
-                _Groups[extensionsGroupName].AddRange(registeredClasses);
+                _Groups[extensionsGroupName].Add(registeredExtension);
 
                 if (!string.IsNullOrEmpty(oldGroup))
                 {
@@ -81,7 +81,7 @@ namespace XUIHelper.Core
         {
             if(!_Groups.ContainsKey(groupName))
             {
-                _Groups[groupName] = new List<XUClass>();
+                _Groups[groupName] = new List<XUIHelperExtensions>();
             }
 
             _CurrentGroup = groupName;
@@ -95,11 +95,14 @@ namespace XUIHelper.Core
                 return null;
             }
 
-            foreach (XUClass cla in _Groups[_CurrentGroup])
+            foreach(XUIHelperExtensions extension in _Groups[_CurrentGroup])
             {
-                if (cla.Name == name)
+                foreach (XUClass cla in extension.Extensions.Classes)
                 {
-                    return cla;
+                    if (cla.Name == name)
+                    {
+                        return cla;
+                    }
                 }
             }
 
@@ -150,7 +153,7 @@ namespace XUIHelper.Core
             return hierarchy;
         }
 
-        private static async Task<List<XUClass>?> TryRegisterXMLExtensionsAsync(string xmlExtensionFilePath)
+        private static async Task<XUIHelperExtensions?> TryRegisterXMLExtensionsAsync(string xmlExtensionFilePath)
         {
             try
             {
@@ -166,29 +169,32 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                XmlSerializer serializer = new XmlSerializer(typeof(XUClassExtension));
+                XmlSerializer serializer = new XmlSerializer(typeof(XUIHelperExtensions));
                 using (FileStream extensionsFileStream = new FileStream(xmlExtensionFilePath, FileMode.Open))
                 {
-                    XUClassExtension? deserializedExtension = (XUClassExtension?)serializer.Deserialize(extensionsFileStream);
+                    XUIHelperExtensions? deserializedExtension = (XUIHelperExtensions?)serializer.Deserialize(extensionsFileStream);
                     if (deserializedExtension == null)
                     {
                         Logger?.Here().Error("Failed to register XML extensions at {0} as the deserialization has failed, returning null.", xmlExtensionFilePath);
                         return null;
                     }
 
-                    foreach (XUClass existingClass in _Groups[_CurrentGroup])
+                    foreach (XUIHelperExtensions existingExtension in _Groups[_CurrentGroup])
                     {
-                        foreach (XUClass deserializedClass in deserializedExtension.Classes)
+                        foreach (XUClass existingClass in existingExtension.Extensions.Classes)
                         {
-                            if (existingClass.Name == deserializedClass.Name)
+                            foreach (XUClass deserializedClass in deserializedExtension.Extensions.Classes)
                             {
-                                Logger?.Here().Error("Failed to register XML extensions at {0} as the class {1} is a duplicate, returning null.", xmlExtensionFilePath, existingClass.Name);
-                                return null;
+                                if (existingClass.Name == deserializedClass.Name)
+                                {
+                                    Logger?.Here().Error("Failed to register XML extensions at {0} as the class {1} is a duplicate, returning null.", xmlExtensionFilePath, existingClass.Name);
+                                    return null;
+                                }
                             }
                         }
                     }
 
-                    foreach (XUClass deserializedClass in deserializedExtension.Classes)
+                    foreach (XUClass deserializedClass in deserializedExtension.Extensions.Classes)
                     {
                         foreach (XUPropertyDefinition propertyDefinition in deserializedClass.PropertyDefinitions)
                         {
@@ -196,8 +202,8 @@ namespace XUIHelper.Core
                         }
                     }
 
-                    Logger?.Here().Verbose("Registered a total of {0} classes from {1}.", deserializedExtension.Classes, xmlExtensionFilePath);
-                    return deserializedExtension.Classes;
+                    Logger?.Here().Verbose("Registered a total of {0} classes from {1}.", deserializedExtension.Extensions.Classes, xmlExtensionFilePath);
+                    return deserializedExtension;
                 }
             }
             catch (Exception ex)
