@@ -643,6 +643,9 @@
       <IgnoreProperty>ColorFactor</IgnoreProperty>
       <IgnoreProperty>CenterPivot</IgnoreProperty>
     </IgnoreClass>
+    <IgnoreClass ClassName="XuiControl">
+      <IgnoreProperty>AutoId</IgnoreProperty>
+    </IgnoreClass>
     <IgnoreClass ClassName="XuiImage">
       <IgnoreProperty>TextureSurfaceElement</IgnoreProperty>
     </IgnoreClass>

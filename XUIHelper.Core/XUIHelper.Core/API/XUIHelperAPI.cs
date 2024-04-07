@@ -55,17 +55,106 @@ namespace XUIHelper.Core
         #region Conversion
         public static async Task<bool> TryMassConvertDirectoryAsync(string directoryPath, XUIHelperSupportedFormats format, string outputDir, IXUIHelperProgressable? progressable)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(!XUIHelperCoreUtilities.IsStringValidPath(directoryPath))
+                {
+                    Logger?.Error("The directory path {0} is invalid, returning false.", directoryPath);
+                    return false;
+                }
+
+                if (!XUIHelperCoreUtilities.IsStringValidPath(outputDir))
+                {
+                    Logger?.Error("The output directory path {0} is invalid, returning false.", outputDir);
+                    return false;
+                }
+
+                if (progressable != null)
+                {
+                    progressable.SuccessfulWorkCount = 0;
+                    progressable.FailedWorkCount = 0;
+                    progressable.IsIndeterminate = true;
+                    progressable.Description = "Searching for convertible files, please wait...";
+                }
+
+                List<string> convertibleFilePaths = new List<string>();
+                foreach(string filePath in Directory.GetFiles(directoryPath, "*", SearchOption.AllDirectories))
+                {
+                    if(XUI12.IsFileXUI12(filePath))
+                    {
+                        Logger?.Verbose("{0} is an XUI12.", filePath);
+                        convertibleFilePaths.Add(filePath);
+                    }
+                    else if(XUR5.IsFileXUR5(filePath))
+                    {
+                        Logger?.Verbose("{0} is an XUR5.", filePath);
+                        convertibleFilePaths.Add(filePath);
+                    }
+                    else if (XUR8.IsFileXUR8(filePath))
+                    {
+                        Logger?.Verbose("{0} is an XUR5.", filePath);
+                        convertibleFilePaths.Add(filePath);
+                    }
+                }
+
+                if(progressable != null)
+                {
+                    progressable.TotalWorkCount = convertibleFilePaths.Count;
+                }
+
+                Directory.CreateDirectory(outputDir);
+
+                foreach(string filePath in convertibleFilePaths)
+                {
+                    string thisOutputPath = Path.Combine(outputDir, Path.GetFileNameWithoutExtension(filePath));
+                    if(format == XUIHelperSupportedFormats.XUI12)
+                    {
+                        thisOutputPath += ".xui";
+                    }
+                    else
+                    {
+                        thisOutputPath += ".xur";
+                    }
+
+                    bool successful = await TryConvertAsync(filePath, format, thisOutputPath);
+
+                    if(progressable != null)
+                    {
+                        if(successful)
+                        {
+                            progressable.SuccessfulWorkCount++;
+                        }
+                        else
+                        {
+                            progressable.FailedWorkCount++;
+                        }
+
+                        progressable.Description = string.Format("Converting files, converted {0} of {1}...", progressable.CompletedWorkCount, progressable.TotalWorkCount);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger?.Error("Caught an exception when trying to mass convert files from {0} to {1}, returning false. The exception is: {2}", directoryPath, format, ex);
+                return false;
+            }
         }
 
         public static async Task<bool> TryConvertAsync(string filePath, XUIHelperSupportedFormats format, string outputPath)
         {
             try
             {
-                XUObject? rootObject = null;
-
                 Logger?.Here().Information("Converting {0} to {1}.", filePath, format);
 
+                if (!XUIHelperCoreUtilities.IsStringValidPath(outputPath))
+                {
+                    Logger?.Error("The output directory path {0} is invalid, returning false.", outputPath);
+                    return false;
+                }
+
+                XUObject? rootObject = null;
                 if(XUI12.IsFileXUI12(filePath))
                 {
                     if(format == XUIHelperSupportedFormats.XUI12)

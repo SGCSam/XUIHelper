@@ -34,7 +34,7 @@ namespace XUIHelper.Core
                     return false;
                 }
 
-                if (!lines[0].Contains("XuiCanvas"))
+                if (!lines[0].Contains("<XuiCanvas version="))
                 {
                     logger?.Here().Verbose("The file at {0} doesn't contain an XuiCanvas, returning false.", filePath);
                     return false;

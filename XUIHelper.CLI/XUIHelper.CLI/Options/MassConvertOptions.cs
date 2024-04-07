@@ -3,17 +3,17 @@ using XUIHelper.Core;
 
 namespace XUIHelper.CLI
 {
-    [Verb("conv", HelpText = "Converts a single file to the specified XU format and outputs the result to a new file.")]
-    public class ConvertOptions : OptionsBase
+    [Verb("massconv", HelpText = "Converts a directory of convertible files to the specified XU format and outputs the resultant files to a destination directory.")]
+    public class MassConvertOptions : OptionsBase
     {
-        [Option('s', "sourcefilepath", Required = true)]
-        public string SourceFilePath { get; set; } = string.Empty;
+        [Option('s', "sourcedir", Required = true)]
+        public string SourceDirectory { get; set; } = string.Empty;
 
         [Option('f', "filetype", Required = true)]
         public string FileFormat { get; set; } = string.Empty;
 
-        [Option('o', "outputfilepath", Required = true)]
-        public string OutputFilePath { get; set; } = string.Empty;
+        [Option('o', "outputdir", Required = true)]
+        public string OutputDirectory { get; set; } = string.Empty;
 
         [Option('g', "groupname", Required = true)]
         public string ExtensionsGroupName { get; set; } = string.Empty;
@@ -30,16 +30,16 @@ namespace XUIHelper.CLI
         private List<string> _ValidFormats = new List<string>() { "xurv5", "xurv8", "xuiv12" };
         private List<string> _ValidLogLevels = new List<string>() { "verbose", "info" };
 
-        public ConvertOptions()
+        public MassConvertOptions()
         {
 
         }
 
         public override async Task HandleAsync()
         {
-            if (!File.Exists(SourceFilePath))
+            if (!XUIHelperCoreUtilities.IsStringValidPath(SourceDirectory))
             {
-                Console.WriteLine("ERROR: The source file at \"{0}\" does not exist.", SourceFilePath);
+                Console.WriteLine("ERROR: The source directory at \"{0}\" is invalid.", SourceDirectory);
                 return;
             }
 
@@ -75,21 +75,13 @@ namespace XUIHelper.CLI
                 }
             }
 
-            if (!XUIHelperCoreUtilities.IsStringValidPath(OutputFilePath))
+            if (!XUIHelperCoreUtilities.IsStringValidPath(OutputDirectory))
             {
-                Console.WriteLine("ERROR: The output file path \"{0}\" is invalid.", OutputFilePath);
+                Console.WriteLine("ERROR: The output directory \"{0}\" is invalid.", OutputDirectory);
                 return;
             }
 
-            string? directoryName = Path.GetDirectoryName(OutputFilePath);
-            if(string.IsNullOrEmpty(directoryName))
-            {
-                Console.WriteLine("ERROR: The directory name for output file path \"{0}\" is invalid.", OutputFilePath);
-                return;
-            }
-
-            Directory.CreateDirectory(directoryName);
-
+            Directory.CreateDirectory(OutputDirectory);
             XUIHelperAPI.SetCurrentExtensionsGroup(ExtensionsGroupName);
             XUIHelperAPI.SetAreIgnoredPropertiesActive(!IgnoreProperties);
 
@@ -130,14 +122,15 @@ namespace XUIHelper.CLI
 
                 XUIHelperAPI.SetLogger(LogFilePath, logLevel);
             }
-            
-            if (!await XUIHelperAPI.TryConvertAsync(SourceFilePath, format, OutputFilePath))
+
+            Console.WriteLine("INFO: Mass converting files, this may take some time, please wait...");
+            if (!await XUIHelperAPI.TryMassConvertDirectoryAsync(SourceDirectory, format, OutputDirectory, null))
             {
-                Console.WriteLine("ERROR: Failed to convert \"{0}\" to {1}. Consider using a log file and checking it for more information.", SourceFilePath, format);
+                Console.WriteLine("ERROR: Failed to convert files in \"{0}\" to {1}. Consider using a log file and checking it for more information.", SourceDirectory, format);
             }
             else
             {
-                Console.WriteLine("SUCCESS: Converted \"{0}\" to {1} successfully!", SourceFilePath, format);
+                Console.WriteLine("SUCCESS: Converted files in \"{0}\" to {1} successfully!", SourceDirectory, format);
             }
         }
     }

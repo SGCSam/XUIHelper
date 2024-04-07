@@ -2,7 +2,7 @@
   "profiles": {
     "XUIHelper.CLI": {
       "commandName": "Project",
-      "commandLineArgs": "conv -s \"F:\\Code Repos\\XUIHelper\\XUIHelper.Core\\XUIHelper.Tests\\Test Data\\XUR\\9199\\GamerCard.xur\" -f \"xuiv12\" -o \"F:\\XUIHelper Example\\output.xui\" -g \"V5\" -l \"F:\\XUIHelper Example\\logfile.txt\" -v \"verbose\""
+      "commandLineArgs": "about"
     }
   }
 }

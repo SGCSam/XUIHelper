@@ -11,7 +11,7 @@ namespace XUIHelper.CLI
         {
             await RegisterExtensionsAsync();
 
-            Type[] types = { typeof(AboutOptions), typeof(AboutOptions), typeof(ConvertOptions) };
+            Type[] types = { typeof(AboutOptions), typeof(AboutOptions), typeof(ConvertOptions), typeof(MassConvertOptions) };
             await Parser.Default.ParseArguments(args, types).WithParsedAsync(HandleArguments);
         }
 
