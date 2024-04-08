@@ -1,0 +1,16 @@
+﻿<Window x:Class="XUIHelper.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XUIHelper.GUI"
+        xmlns:nxe="clr-namespace:NXEControls;assembly=NXEControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Width="1280" Height="720">
+    <Grid>
+        <nxe:NXEBackgroundImage PlayBubbleAnimations="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="pack://application:,,,/NXEControls;component/Assets/Images/IMG_Background_Default.jpg" />
+        <nxe:NXETransitionLabel Margin="95, 46" Content="{Binding TransitionLabelText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Transition Label}" HorizontalAlignment="Stretch" />
+        <ContentControl Content="{Binding Content, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+        <nxe:NXEHUD x:Name="hud" GamerPictureSource="pack://application:,,,/NXEControls;component/Assets/Images/Core/IMG_Core_DefaultSystemImage.png" />
+    </Grid>
+</Window>
