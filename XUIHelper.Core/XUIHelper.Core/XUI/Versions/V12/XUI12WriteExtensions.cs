@@ -488,6 +488,18 @@ namespace XUIHelper.Core
 
                 foreach(XUProperty animatedProperty in timeline.Keyframes[0].Properties) 
                 {
+                    bool? isIgnored = XMLExtensionsManager.IsPropertyIgnored(animatedProperty.PropertyDefinition);
+                    if (isIgnored == null)
+                    {
+                        xui.Logger?.Here().Error("Is Ignored was null when writing property {0}, an error must have occurred, returning null.", animatedProperty.PropertyDefinition.Name);
+                        return null;
+                    }
+                    else if (isIgnored.Value)
+                    {
+                        xui.Logger?.Here().Verbose("Property {0} is ignored, continuing...", animatedProperty.PropertyDefinition.Name);
+                        continue;
+                    }
+
                     string elementPropertyDefinitionName = animatedProperty.PropertyDefinition.Name;
                     if (animatedProperty.PropertyDefinition.ParentClassName == "XuiFigureFill")
                     {
@@ -540,6 +552,18 @@ namespace XUIHelper.Core
 
                     foreach(XUProperty animatedProperty in keyframe.Properties)
                     {
+                        bool? isIgnored = XMLExtensionsManager.IsPropertyIgnored(animatedProperty.PropertyDefinition);
+                        if (isIgnored == null)
+                        {
+                            xui.Logger?.Here().Error("Is Ignored was null when writing property {0}, an error must have occurred, returning null.", animatedProperty.PropertyDefinition.Name);
+                            return null;
+                        }
+                        else if (isIgnored.Value)
+                        {
+                            xui.Logger?.Here().Verbose("Property {0} is ignored, continuing...", animatedProperty.PropertyDefinition.Name);
+                            continue;
+                        }
+
                         List<XElement>? propertyElements = TryWriteProperty(xui, animatedProperty);
                         if (propertyElements == null)
                         {

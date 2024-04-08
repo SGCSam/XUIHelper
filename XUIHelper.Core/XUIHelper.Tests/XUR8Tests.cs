@@ -7,10 +7,12 @@ namespace XUIHelper.Tests
 {
     public class XUR8Tests : XURTests
     {
+        //TODO: GUI app
+
         //TODO: Ignore properties for XUR writing
         //TODO: Make sure all read/write property functions for XUR5 and XUR8 natively support indexed properties, rather than assuming they're animated NumStops - do a check for all uses of Indexed
-        //TODO: GUI app
         //TODO: XUR8 keyframe data unknown upper bits and flags
+        //TODO: All remaining extension classes, ScriptScene, DashScene, LiveData, etc
 
         [SetUp]
         public void Setup()
@@ -59,14 +61,14 @@ namespace XUIHelper.Tests
             //VuiCommand - Always unknown 1, vector 0x2 and 0x4
             //Template1 - Unknown 2, flag 0x4 (Remove Columns, Rows and AutoId from XUI)
 
-            Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/17559/LegendScene.xur"));
+            Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/17559/community.xur"));
 
-            /*string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Test Data/XUR/17559/LightweightContainerScene.xur");
+            /*string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Test Data/XUR/17559/community.xur");
             IXUR xur = GetXUR(xurFile, _Log);
             if(await xur.TryReadAsync())
             {
-                XUI12 xui12 = new XUI12(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui", null);
-                xui12.TryWriteAsync(0x8, (xur.TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic)).RootObject);
+                XUI12 xui12 = new XUI12(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui", _Log);
+                xui12.TryWriteAsync((xur.TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic)).RootObject);
             }*/
         }
 
