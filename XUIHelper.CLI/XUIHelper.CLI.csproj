@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\XUIHelper.Core\XUIHelper.Core\XUIHelper.Core.csproj" />
+    <ProjectReference Include="..\XUIHelper.Core\XUIHelper.Core.csproj" />
   </ItemGroup>
 
 </Project>

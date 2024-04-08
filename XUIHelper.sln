@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUIHelper.Core", "XUIHelper
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUIHelper.Tests", "XUIHelper.Tests\XUIHelper.Tests.csproj", "{083C02B8-5938-42EC-B514-94408901825F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUIHelper.CLI", "..\XUIHelper.CLI\XUIHelper.CLI\XUIHelper.CLI.csproj", "{06D25B25-2929-42FA-B368-3590EC1E8B48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUIHelper.CLI", "XUIHelper.CLI\XUIHelper.CLI.csproj", "{06D25B25-2929-42FA-B368-3590EC1E8B48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUIHelper.GUI", "..\XUIHelper.GUI\XUIHelper.GUI\XUIHelper.GUI.csproj", "{89D8C576-0366-4031-A669-4A36A72F0FBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUIHelper.GUI", "XUIHelper.GUI\XUIHelper.GUI.csproj", "{89D8C576-0366-4031-A669-4A36A72F0FBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
