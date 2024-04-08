@@ -13,45 +13,58 @@
         <Grid Width="1280" Height="720">
             <nxe:NXEBackgroundPanel Width="890" Height="485">
                 <Grid>
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="25, 25, 25, 100">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.4*" />
-                            <RowDefinition Height="0.4*" />
-                            <RowDefinition Height="0.1*" />
-                            <RowDefinition Height="0.1*" />
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0">
-                            <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Source File Path" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-                            <TextBlock Style="{StaticResource TextBlock.XUIHelper.NXEFilePath}" Margin="25, 25, 100, 0" Text="{Binding SourceFilePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <nxe:NXEButton Width="64" Height="64" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 25, 0"
-                                           Content="..." Command="{Binding BrowseSourceFilePathCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
-
-                        <Grid Grid.Row="1">
-                            <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Destination File Path" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
-                            <TextBlock Style="{StaticResource TextBlock.XUIHelper.NXEFilePath}" Margin="25, 25, 100, 0" Text="{Binding DestinationFilePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <nxe:NXEButton Width="64" Height="64" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 25, 0"
-                                Content="..." Command="{Binding BrowseDestinationFilePathCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
-
-                        <Grid Grid.Row="2">
-                            <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Output File Type" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="200, 0, 0, 0"
-                                      ItemsSource="{Binding OutputFileTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                      SelectedIndex="{Binding SelectedOutputFileTypeIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
-
-                        <Grid Grid.Row="3">
-                            <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Log Verbosity" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="200, 0, 0, 0"
-                                      ItemsSource="{Binding LogVerbosityLevels, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                      SelectedIndex="{Binding SelecteLogVerbosityLevelIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
+                    <Grid Visibility="{Binding IsConverting, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource booleanToVisibilityConverter}, FallbackValue=Hidden}" 
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="25">
+                        <nxe:NXELoading HorizontalAlignment="Center" VerticalAlignment="Center" Width="96" Height="96" Margin="0, 0, 0, 75" />
+                        <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 75, 0, 0"
+                                   Text="Converting, please wait..."/>
                     </Grid>
 
-                    <nxe:NXEButton Content="Back" IsBackButton="True" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="47" Margin="25" 
-                                   Command="{Binding NavigateBackCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Grid Visibility="{Binding IsConverting, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource booleanToVisibilityConverter}, ConverterParameter=False, FallbackValue=Visible}">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="25, 25, 25, 100">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.4*" />
+                                <RowDefinition Height="0.4*" />
+                                <RowDefinition Height="0.1*" />
+                                <RowDefinition Height="0.1*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Source File Path" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                                <TextBlock Style="{StaticResource TextBlock.XUIHelper.NXEFilePath}" Margin="25, 50, 100, 25" Text="{Binding SourceFilePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <nxe:NXEButton Width="64" Height="64" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 25, 0"
+                                           Content="..." Command="{Binding BrowseSourceFilePathCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+
+                            <Grid Grid.Row="1">
+                                <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Destination File Path" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                                <TextBlock Style="{StaticResource TextBlock.XUIHelper.NXEFilePath}" Margin="25, 50, 100, 25" Text="{Binding DestinationFilePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <nxe:NXEButton Width="64" Height="64" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 25, 0"
+                                Content="..." Command="{Binding BrowseDestinationFilePathCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+
+                            <Grid Grid.Row="2">
+                                <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Output File Type" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="200, 0, 0, 0" Height="25"
+                                      ItemsSource="{Binding OutputFileTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedIndex="{Binding SelectedOutputFileTypeIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+
+                            <Grid Grid.Row="3">
+                                <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Log Verbosity" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="200, 0, 0, 0" Height="25"
+                                      ItemsSource="{Binding LogVerbosityLevels, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedIndex="{Binding SelectedLogVerbosityLevelIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                        </Grid>
+
+                        <UniformGrid Rows="1" Columns="2">
+                            <nxe:NXEButton Grid.Column="0" Content="Back" IsBackButton="True" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="47" Margin="25" 
+                            Command="{Binding NavigateBackCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <nxe:NXEButton Grid.Column="1" Content="Convert" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="47" Margin="25" 
+                            Command="{Binding ConvertCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </UniformGrid>
+                    </Grid>
                 </Grid>
 
             </nxe:NXEBackgroundPanel>

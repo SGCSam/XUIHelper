@@ -20,6 +20,9 @@ namespace XUIHelper.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        //TODO: Extensions group manager
+        //TODO: Ignore properties checkbox
+
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             Constants.Initialize(hud);
