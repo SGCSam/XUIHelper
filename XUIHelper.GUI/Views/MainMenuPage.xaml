@@ -1,7 +1,7 @@
 ﻿<nxe:NXEUserControl x:Class="XUIHelper.GUI.MainMenuPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:XUIHelper.GUI"
              xmlns:nxe="clr-namespace:NXEControls;assembly=NXEControls"
@@ -15,8 +15,8 @@
                 <nxe:NXEBackgroundPanelButtonsListUserControl.Buttons>
                     <nxe:NXEButton IsSeparatorEnabled="True" Height="47" Content="Single Conversion" />
                     <nxe:NXEButton IsSeparatorEnabled="True" Height="47" Content="Mass Conversion" />
-                    <nxe:NXEButton IsSeparatorEnabled="True" Height="47" Content="About" />
-                    <nxe:NXEButton IsSeparatorEnabled="True" IsBackButton="True" Height="47" Content="Exit" />
+                    <nxe:NXEButton IsSeparatorEnabled="True" Height="47" Content="About" Command="{Binding AboutCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <nxe:NXEButton IsSeparatorEnabled="True" IsBackButton="True" Height="47" Content="Exit" Command="{Binding ExitCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                 </nxe:NXEBackgroundPanelButtonsListUserControl.Buttons>
 
                 <nxe:NXEBackgroundPanelButtonsListUserControl.Descriptions>

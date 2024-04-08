@@ -9,7 +9,7 @@ namespace XUIHelper.GUI
 {
     public class MainWindowViewModel : NXEViewModelBase
     {
-        private string _TransitionLabelText;
+        private string _TransitionLabelText = string.Empty;
         private object? _Content;
 
         public string TransitionLabelText

@@ -17,13 +17,13 @@ using System.Windows.Shapes;
 namespace XUIHelper.GUI
 {
     /// <summary>
-    /// Interaction logic for MainMenuPage.xaml
+    /// Interaction logic for AboutPage.xaml
     /// </summary>
-    public partial class MainMenuPage : NXEUserControl
+    public partial class AboutPage : NXEUserControl
     {
-        public MainMenuPage()
+        public AboutPage()
         {
-            DataContext = new MainMenuPageViewModel();
+            DataContext = new AboutPageViewModel();
             InitializeComponent();
         }
     }

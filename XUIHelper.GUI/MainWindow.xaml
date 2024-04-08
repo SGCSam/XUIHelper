@@ -9,7 +9,7 @@
         Title="MainWindow" Width="1280" Height="720">
     <Grid>
         <nxe:NXEBackgroundImage PlayBubbleAnimations="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="pack://application:,,,/NXEControls;component/Assets/Images/IMG_Background_Default.jpg" />
-        <nxe:NXETransitionLabel Margin="95, 46" Content="{Binding TransitionLabelText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Transition Label}" HorizontalAlignment="Stretch" />
+        <nxe:NXETransitionLabel Margin="95, 46" Content="{Binding TransitionLabelText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
         <ContentControl Content="{Binding Content, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
         <nxe:NXEHUD x:Name="hud" GamerPictureSource="pack://application:,,,/NXEControls;component/Assets/Images/Core/IMG_Core_DefaultSystemImage.png" />
     </Grid>
