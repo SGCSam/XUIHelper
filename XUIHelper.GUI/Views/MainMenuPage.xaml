@@ -13,7 +13,7 @@
         <Grid Width="1280" Height="720">
             <nxe:NXEBackgroundPanelButtonsListUserControl Width="890" Height="485">
                 <nxe:NXEBackgroundPanelButtonsListUserControl.Buttons>
-                    <nxe:NXEButton IsSeparatorEnabled="True" Height="47" Content="Single Conversion" />
+                    <nxe:NXEButton IsSeparatorEnabled="True" Height="47" Content="Single Conversion" Command="{Binding SingleConvertCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                     <nxe:NXEButton IsSeparatorEnabled="True" Height="47" Content="Mass Conversion" />
                     <nxe:NXEButton IsSeparatorEnabled="True" Height="47" Content="About" Command="{Binding AboutCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                     <nxe:NXEButton IsSeparatorEnabled="True" IsBackButton="True" Height="47" Content="Exit" Command="{Binding ExitCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
