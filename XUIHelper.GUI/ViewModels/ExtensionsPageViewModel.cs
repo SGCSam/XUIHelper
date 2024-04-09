@@ -16,6 +16,9 @@ namespace XUIHelper.GUI
         private int _SelectedRegisteredExtensionIndex;
         private bool _IsExtensionSelected;
         private bool _HasRegisteredExtensions;
+        private ObservableCollection<string> _ExtensionGroups = new ObservableCollection<string>();
+        private int _SelectedExtensionGroupIndex;
+        private bool _IsExtensionGroupSelected;
         private ICommand _AddCommand;
         private ICommand _RemoveCommand;
         private ICommand _RemoveAllCommand;
@@ -70,6 +73,46 @@ namespace XUIHelper.GUI
             private set
             {
                 _HasRegisteredExtensions = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> ExtensionGroups
+        {
+            get
+            {
+                return _ExtensionGroups;
+            }
+            private set
+            {
+                _ExtensionGroups = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int SelectedExtensionGroupIndex
+        {
+            get
+            {
+                return _SelectedExtensionGroupIndex;
+            }
+            set
+            {
+                _SelectedExtensionGroupIndex = value;
+                NotifyPropertyChanged();
+                IsExtensionGroupSelected = (SelectedExtensionGroupIndex >= 0 && SelectedExtensionGroupIndex < _ExtensionGroups.Count);
+            }
+        }
+
+        public bool IsExtensionGroupSelected
+        {
+            get
+            {
+                return _IsExtensionGroupSelected;
+            }
+            private set
+            {
+                _IsExtensionGroupSelected = value;
                 NotifyPropertyChanged();
             }
         }
@@ -160,7 +203,7 @@ namespace XUIHelper.GUI
         private void OnExtensionGroupChanged(object? sender, EventArgs e)
         {
             RegisteredExtensions.Clear();
-            int oldIndex = SelectedRegisteredExtensionIndex;
+            ExtensionGroups.Clear();
 
             foreach (XMLExtensionsManager.XUIHelperExtensionsGroupData group in XMLExtensionsManager.Groups.Values)
             {
@@ -168,22 +211,25 @@ namespace XUIHelper.GUI
                 {
                     RegisteredExtensions.Add(extensionFile.FilePath);
                 }
+
+                ExtensionGroups.Add(group.GroupName);
             }
 
             NotifyPropertyChanged("RegisteredExtensions");
+            NotifyPropertyChanged("ExtensionGroups");
+
             HasRegisteredExtensions = RegisteredExtensions.Count > 0;
 
-            if(oldIndex < RegisteredExtensions.Count)
+            if(RegisteredExtensions.Count > 0)
             {
-                SelectedRegisteredExtensionIndex = oldIndex;
+                SelectedRegisteredExtensionIndex = 0;
+                IsExtensionSelected = true;
             }
-            else if(RegisteredExtensions.Count > 0)
+
+            if(ExtensionGroups.Count > 0)
             {
-                SelectedRegisteredExtensionIndex = RegisteredExtensions.Count - 1;
-            }
-            else
-            {
-                SelectedRegisteredExtensionIndex = -1;
+                SelectedExtensionGroupIndex = 0;
+                IsExtensionGroupSelected = true;
             }
         }
 
