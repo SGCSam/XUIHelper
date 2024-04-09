@@ -15,7 +15,7 @@ namespace XUIHelper.Tests
         [SetUp]
         public void Setup()
         {
-            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
+            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
             var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
             _Log = new LoggerConfiguration()
             .MinimumLevel.Verbose()
@@ -29,9 +29,9 @@ namespace XUIHelper.Tests
         private void RegisterExtensions(ILogger? logger = null)
         {
             XMLExtensionsManager.Initialize(logger);
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\XuiElements.xml");
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199DashElements.xml");
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Assets\V5\9199HUDElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V5\XuiElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V5\9199DashElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V5\9199HUDElements.xml");
         }
 
         private async Task<XUI12?> GetReadXUI(string filePath, int extensionVersion, ILogger? logger = null)
@@ -179,7 +179,7 @@ namespace XUIHelper.Tests
             Assert.True(await readXUI.TryReadAsync());
             Assert.NotNull(readXUI.RootObject);
 
-            string thisWriteXUIPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui";
+            string thisWriteXUIPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\Debug\written.xui";
             XUI12 writeXUI = new XUI12(thisWriteXUIPath, _Log);
             Assert.True(await writeXUI.TryWriteAsync(readXUI.RootObject));
             Assert.True(AreFilesEqual(readXUI.FilePath, writeXUI.FilePath));

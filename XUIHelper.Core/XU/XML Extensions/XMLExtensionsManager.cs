@@ -12,11 +12,41 @@ namespace XUIHelper.Core
 {
     public static class XMLExtensionsManager
     {
+        public class XUIHelperExtensionsGroupData
+        {
+            public string GroupName { get; private set; }
+            public List<XUIHelperExtensionsFile> ExtensionsFiles { get; private set; } = new List<XUIHelperExtensionsFile>();
+
+            public XUIHelperExtensionsGroupData(string groupName, List<XUIHelperExtensionsFile> extensionsFiles)
+            {
+                GroupName = groupName;
+                ExtensionsFiles = extensionsFiles;
+            }
+
+            public XUIHelperExtensionsGroupData(string groupName)
+            {
+                GroupName = groupName;
+                ExtensionsFiles = new List<XUIHelperExtensionsFile>();
+            }
+        }
+
+        public class XUIHelperExtensionsFile
+        {
+            public string FilePath { get; private set; } = string.Empty;
+            public XUIHelperExtensions Data { get; private set; }
+
+            public XUIHelperExtensionsFile(string filePath, XUIHelperExtensions data)
+            {
+                FilePath = filePath;
+                Data = data;
+            }
+        }
+
         public static ILogger? Logger { get; private set; }
 
         private static string _CurrentGroup = string.Empty;
 
-        private static Dictionary<string, List<XUIHelperExtensions>> _Groups = new Dictionary<string, List<XUIHelperExtensions>>();
+        private static Dictionary<string, XUIHelperExtensionsGroupData> _Groups = new Dictionary<string, XUIHelperExtensionsGroupData>();
 
         public static void Initialize(ILogger? logger = null) 
         {
@@ -51,6 +81,18 @@ namespace XUIHelper.Core
             {
                 Logger?.Here().Verbose("Registering classes from {0} into group {1}.", xmlExtensionsFilePath, extensionsGroupName);
 
+                if(_Groups.ContainsKey(extensionsGroupName))
+                {
+                    foreach (XUIHelperExtensionsFile extensionsFile in _Groups[extensionsGroupName].ExtensionsFiles)
+                    {
+                        if (extensionsFile.FilePath == xmlExtensionsFilePath)
+                        {
+                            Logger?.Here().Verbose("Already registered extensions from {0} for group {1}, won't re-register, returning true.", xmlExtensionsFilePath, extensionsGroupName);
+                            return true;
+                        }
+                    }
+                }
+
                 string oldGroup = _CurrentGroup;
                 SetCurrentGroup(extensionsGroupName);
 
@@ -61,7 +103,7 @@ namespace XUIHelper.Core
                     return false;
                 }
 
-                _Groups[extensionsGroupName].Add(registeredExtension);
+                _Groups[extensionsGroupName].ExtensionsFiles.Add(new XUIHelperExtensionsFile(xmlExtensionsFilePath, registeredExtension));
 
                 if (!string.IsNullOrEmpty(oldGroup))
                 {
@@ -81,7 +123,7 @@ namespace XUIHelper.Core
         {
             if(!_Groups.ContainsKey(groupName))
             {
-                _Groups[groupName] = new List<XUIHelperExtensions>();
+                _Groups[groupName] = new XUIHelperExtensionsGroupData(groupName);
             }
 
             _CurrentGroup = groupName;
@@ -95,9 +137,14 @@ namespace XUIHelper.Core
                 return null;
             }
 
-            foreach(XUIHelperExtensions extension in _Groups[_CurrentGroup])
+            foreach(XUIHelperExtensionsFile extensionFile in _Groups[_CurrentGroup].ExtensionsFiles)
             {
-                foreach (XUClass cla in extension.Extensions.Classes)
+                if(extensionFile.Data.Extensions == null)
+                {
+                    continue;
+                }
+
+                foreach (XUClass cla in extensionFile.Data.Extensions.Classes)
                 {
                     if (cla.Name == name)
                     {
@@ -163,30 +210,30 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                foreach(XUIHelperExtensions extension in _Groups[_CurrentGroup])
+                foreach(XUIHelperExtensionsFile extensionFile in _Groups[_CurrentGroup].ExtensionsFiles)
                 {
-                    if(extension.IgnoreProperties == null)
+                    if (extensionFile.Data.IgnoreProperties == null)
                     {
                         continue;
                     }
 
-                    foreach(XUIHelperIgnoreClass ignoredClass in extension.IgnoreProperties.IgnoredClasses)
+                    foreach (XUIHelperIgnoreClass ignoredClass in extensionFile.Data.IgnoreProperties.IgnoredClasses)
                     {
-                        if(propertyDefinition.ParentClassName != ignoredClass.ClassName)
+                        if (propertyDefinition.ParentClassName != ignoredClass.ClassName)
                         {
                             continue;
                         }
 
-                        foreach(XUIHelperIgnoreProperty ignoredProperty in ignoredClass.IgnornedProperties)
+                        foreach (XUIHelperIgnoreProperty ignoredProperty in ignoredClass.IgnornedProperties)
                         {
-                            if(ignoredProperty.Value == propertyDefinition.Name)
+                            if (ignoredProperty.Value == propertyDefinition.Name)
                             {
                                 return true;
                             }
                         }
                     }
                 }
-
+                
                 return false;
             }
             catch (Exception ex)
@@ -289,9 +336,14 @@ namespace XUIHelper.Core
                         }
                     }
 
-                    foreach (XUIHelperExtensions existingExtension in _Groups[_CurrentGroup])
+                    foreach (XUIHelperExtensionsFile existingExtensionFile in _Groups[_CurrentGroup].ExtensionsFiles)
                     {
-                        foreach (XUClass existingClass in existingExtension.Extensions.Classes)
+                        if(existingExtensionFile.Data.Extensions == null)
+                        {
+                            continue;
+                        }
+
+                        foreach (XUClass existingClass in existingExtensionFile.Data.Extensions.Classes)
                         {
                             foreach (XUClass deserializedClass in deserializedExtension.Extensions.Classes)
                             {
