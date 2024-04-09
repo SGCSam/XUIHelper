@@ -103,6 +103,7 @@ namespace XUIHelper.GUI
                 _SelectedExtensionGroupIndex = value;
                 NotifyPropertyChanged();
                 IsExtensionGroupSelected = (SelectedExtensionGroupIndex >= 0 && SelectedExtensionGroupIndex < _ExtensionGroups.Count);
+                SetExtensionsFromSelectedGroup();
             }
         }
 
@@ -215,13 +216,26 @@ namespace XUIHelper.GUI
 
         private async Task DeregisterAllExtensions()
         {
-            int buttonIndex = await Constants.HUDManager?.ShowMessageBox("Are you sure you want to remove all registered extensions?", "Remove All Extensions", new List<string>() { "Yes, remove all", "No, don't remove all"}, NXEHUD.NXEHUDIconType.Question);
+            if (SelectedExtensionGroupIndex < 0 || SelectedExtensionGroupIndex >= ExtensionGroups.Count)
+            {
+                _ = Constants.HUDManager?.ShowMessageBox("Please select an extension group.", "Invalid Extension Group", System.Windows.MessageBoxButton.OK, NXEHUD.NXEHUDIconType.Error);
+                return;
+            }
+
+            string extensionGroup = ExtensionGroups[SelectedExtensionGroupIndex];
+
+            int buttonIndex = await Constants.HUDManager?.ShowMessageBox(string.Format("Are you sure you want to remove all registered extensions from group \"{0}\"?", extensionGroup), "Remove All Extensions", new List<string>() { "Yes, remove all", "No, don't remove all"}, NXEHUD.NXEHUDIconType.Question);
             if(buttonIndex == 1)
             {
                 return;
             }
 
-            XMLExtensionsManager.DeregisterAllExtensions();
+            foreach(string extensionFilePath in RegisteredExtensions)
+            {
+                File.Delete(extensionFilePath);
+            }
+
+            XMLExtensionsManager.DeregisterAllExtensionsFromGroup(extensionGroup);
         }
 
         private void NavigateBack()
@@ -229,37 +243,67 @@ namespace XUIHelper.GUI
             _ = Constants.PageManager.NavigateBackAsync();
         }
 
+        private void SetExtensionsFromSelectedGroup()
+        {
+            RegisteredExtensions.Clear();
+
+            if(SelectedExtensionGroupIndex < 0 || SelectedExtensionGroupIndex >= ExtensionGroups.Count)
+            {
+                return;
+            }
+
+            string extensionGroup = ExtensionGroups[SelectedExtensionGroupIndex];
+            if(!XMLExtensionsManager.Groups.ContainsKey(extensionGroup))
+            {
+                return;
+            }
+
+            foreach (XMLExtensionsManager.XUIHelperExtensionsFile extensionFile in XMLExtensionsManager.Groups[extensionGroup].ExtensionsFiles)
+            {
+                RegisteredExtensions.Add(extensionFile.FilePath);
+            }
+
+            NotifyPropertyChanged("RegisteredExtensions");
+
+            HasRegisteredExtensions = RegisteredExtensions.Count > 0;
+            if (HasRegisteredExtensions)
+            {
+                SelectedRegisteredExtensionIndex = 0;
+                IsExtensionSelected = true;
+            }
+        }
+
         private void OnExtensionGroupChanged(object? sender, EventArgs e)
         {
+            string oldExtensionGroup = string.Empty;
+            if(SelectedExtensionGroupIndex >= 0 && SelectedExtensionGroupIndex < RegisteredExtensions.Count)
+            {
+                oldExtensionGroup = RegisteredExtensions[SelectedExtensionGroupIndex];
+            }
+
             RegisteredExtensions.Clear();
             ExtensionGroups.Clear();
 
             foreach (XMLExtensionsManager.XUIHelperExtensionsGroupData group in XMLExtensionsManager.Groups.Values)
             {
-                foreach (XMLExtensionsManager.XUIHelperExtensionsFile extensionFile in group.ExtensionsFiles)
-                {
-                    RegisteredExtensions.Add(extensionFile.FilePath);
-                }
-
                 ExtensionGroups.Add(group.GroupName);
             }
-
-            NotifyPropertyChanged("RegisteredExtensions");
+            
             NotifyPropertyChanged("ExtensionGroups");
 
-            HasRegisteredExtensions = RegisteredExtensions.Count > 0;
-
-            if(RegisteredExtensions.Count > 0)
+            string extensionGroupToUse = XMLExtensionsManager.Groups.ElementAt(0).Key;
+            if(XMLExtensionsManager.Groups.ContainsKey(oldExtensionGroup))
             {
-                SelectedRegisteredExtensionIndex = 0;
-                IsExtensionSelected = true;
+                extensionGroupToUse = oldExtensionGroup;
             }
-
+            
             if(ExtensionGroups.Count > 0)
             {
-                SelectedExtensionGroupIndex = 0;
+                SelectedExtensionGroupIndex = ExtensionGroups.IndexOf(extensionGroupToUse);
                 IsExtensionGroupSelected = true;
             }
+
+            SetExtensionsFromSelectedGroup();
         }
 
         public ExtensionsPageViewModel()

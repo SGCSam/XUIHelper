@@ -26,14 +26,17 @@
 
                         <Grid Grid.Column="1">
                             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="25, 0, 0, 0">
-                                <Grid Margin="0, 0, 0, 20">
-                                    <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0, 0, 75, 0"
-                                              ItemsSource="{Binding ExtensionGroups, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                              SelectedIndex="{Binding SelectedExtensionGroupIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <nxe:NXEButton Content="Add" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Height="47"
-                                                   Command="{Binding AddCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                   IsEnabled="{Binding IsExtensionGroupSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                </Grid>
+
+                                <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Active Group" HorizontalAlignment="Center" />
+
+                                <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0, 10, 0, 20"
+                                      ItemsSource="{Binding ExtensionGroups, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedIndex="{Binding SelectedExtensionGroupIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <nxe:NXEButton Content="Add" HorizontalContentAlignment="Center" Height="47" Margin="0, 0, 0, 20"
+                                               Command="{Binding AddCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                               IsEnabled="{Binding IsExtensionGroupSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                
                                 <nxe:NXEButton Content="Remove" HorizontalContentAlignment="Center" Height="47" Margin="0, 0, 0, 20"
                                                Command="{Binding RemoveCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                IsEnabled="{Binding IsExtensionSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
