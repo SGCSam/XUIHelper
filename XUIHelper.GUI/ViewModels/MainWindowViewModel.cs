@@ -62,8 +62,6 @@ namespace XUIHelper.GUI
             }
         }
 
-
-
         public MainWindowViewModel()
         {
             Constants.PageManager.NavigatedForward += OnNavigatedForward;

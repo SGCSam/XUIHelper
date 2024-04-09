@@ -9,8 +9,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Title="XUIHelper">
+    <nxe:NXEUserControl.TransTo>
+        <Storyboard>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="contentGrid" Storyboard.TargetProperty="Opacity">
+                <LinearDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.125" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </nxe:NXEUserControl.TransTo>
+    <nxe:NXEUserControl.TransFrom>
+        <Storyboard>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="contentGrid" Storyboard.TargetProperty="Opacity">
+                <LinearDoubleKeyFrame KeyTime="0" Value="1"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.125" Value="0.25" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </nxe:NXEUserControl.TransFrom>
+    <nxe:NXEUserControl.TransBackTo>
+        <Storyboard>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="contentGrid" Storyboard.TargetProperty="Opacity">
+                <LinearDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.125" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </nxe:NXEUserControl.TransBackTo>
+    <nxe:NXEUserControl.TransBackFrom>
+        <Storyboard>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="contentGrid" Storyboard.TargetProperty="Opacity">
+                <LinearDoubleKeyFrame KeyTime="0" Value="1"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.125" Value="0.25" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </nxe:NXEUserControl.TransBackFrom>
+
     <Viewbox>
-        <Grid Width="1280" Height="720">
+        <Grid Width="1280" Height="720" x:Name="contentGrid">
             <nxe:NXEBackgroundPanelButtonsListUserControl Width="890" Height="485">
                 <nxe:NXEBackgroundPanelButtonsListUserControl.Buttons>
                     <nxe:NXEButton IsSeparatorEnabled="True" Height="47" Content="Single Conversion" Command="{Binding SingleConvertCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />

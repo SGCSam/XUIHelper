@@ -7,8 +7,6 @@ namespace XUIHelper.Tests
 {
     public class XUR8Tests : XURTests
     {
-        //TODO: GUI app
-
         //TODO: Ignore properties for XUR writing
         //TODO: Make sure all read/write property functions for XUR5 and XUR8 natively support indexed properties, rather than assuming they're animated NumStops - do a check for all uses of Indexed
         //TODO: XUR8 keyframe data unknown upper bits and flags

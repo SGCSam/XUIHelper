@@ -9,8 +9,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Title="About">
+    <nxe:NXEUserControl.TransTo>
+        <Storyboard>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="contentGrid" Storyboard.TargetProperty="Opacity">
+                <LinearDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.125" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </nxe:NXEUserControl.TransTo>
+    <nxe:NXEUserControl.TransFrom>
+        <Storyboard>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="contentGrid" Storyboard.TargetProperty="Opacity">
+                <LinearDoubleKeyFrame KeyTime="0" Value="1"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.125" Value="0.25" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </nxe:NXEUserControl.TransFrom>
+    <nxe:NXEUserControl.TransBackTo>
+        <Storyboard>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="contentGrid" Storyboard.TargetProperty="Opacity">
+                <LinearDoubleKeyFrame KeyTime="0" Value="0.25"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.125" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </nxe:NXEUserControl.TransBackTo>
+    <nxe:NXEUserControl.TransBackFrom>
+        <Storyboard>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="contentGrid" Storyboard.TargetProperty="Opacity">
+                <LinearDoubleKeyFrame KeyTime="0" Value="1"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.125" Value="0.25" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </nxe:NXEUserControl.TransBackFrom>
+
     <Viewbox>
-        <Grid Width="1280" Height="720">
+        <Grid Width="1280" Height="720" x:Name="contentGrid">
             <nxe:NXEBackgroundPanel Width="890" Height="485">
                 <Grid>
                     <nxe:NXEScrollViewer Margin="25, 25, 25, 100">
