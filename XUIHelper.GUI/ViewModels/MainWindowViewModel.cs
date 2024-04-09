@@ -69,7 +69,7 @@ namespace XUIHelper.GUI
             Constants.PageManager.NavigatedForward += OnNavigatedForward;
             Constants.PageManager.NavigatedBack += OnNavigatedBack;
 
-            _ = XUIHelperAPI.RegisterExtensionsFromDirectoryAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Extensions"));
+            _ = XUIHelperAPI.RegisterExtensionsFromDirectoryAsync(Constants.ExtensionsDirectoryPath);
         }
     }
 }

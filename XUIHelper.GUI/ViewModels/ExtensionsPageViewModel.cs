@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using XUIHelper.Core;
 
@@ -123,7 +125,7 @@ namespace XUIHelper.GUI
             {
                 if(_AddCommand == null)
                 {
-                    _AddCommand = new NXERelayCommand(x => AddExtension());
+                    _AddCommand = new NXERelayCommand(x => _ = AddExtensionAsync());
                 }
 
                 return _AddCommand;
@@ -169,9 +171,34 @@ namespace XUIHelper.GUI
             }
         }
 
-        private void AddExtension()
+        private async Task AddExtensionAsync()
         {
-            _ = Constants.HUDManager?.ShowMessageBox("Add.", "Debug");
+            if (SelectedExtensionGroupIndex < 0 || SelectedExtensionGroupIndex >= ExtensionGroups.Count)
+            {
+                _ = Constants.HUDManager?.ShowMessageBox("Please select an extension group to add extensions to.", "Invalid Extension Group", System.Windows.MessageBoxButton.OK, NXEHUD.NXEHUDIconType.Error);
+                return;
+            }
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "XML files (*.xml)|*.xml";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string destPath = Path.Combine(Constants.ExtensionsDirectoryPath, ExtensionGroups[SelectedExtensionGroupIndex], Path.GetFileName(openFileDialog.FileName));
+                if(File.Exists(destPath))
+                {
+                    _ = Constants.HUDManager?.ShowMessageBox(string.Format("Failed to add the extension as a file already exists at the destination path:\n\n{0}", destPath), "Failed to Add Extension", System.Windows.MessageBoxButton.OK, NXEHUD.NXEHUDIconType.Error);
+                    return;
+                }
+
+                File.Copy(openFileDialog.FileName, destPath, true);
+                bool successful = await XMLExtensionsManager.TryRegisterExtensionsGroupAsync(ExtensionGroups[SelectedExtensionGroupIndex], destPath);
+                if(!successful)
+                {
+                    File.Delete(destPath);
+                    _ = Constants.HUDManager?.ShowMessageBox("Failed to add the extension. Please ensure the selected XML file is valid with no malformities.", "Failed to Add Extension", System.Windows.MessageBoxButton.OK, NXEHUD.NXEHUDIconType.Error);
+                }
+            }
         }
 
         private void RemoveExtension()
@@ -181,12 +208,14 @@ namespace XUIHelper.GUI
                 return;
             }
 
-            XMLExtensionsManager.DeregisterExtensionFile(RegisteredExtensions[SelectedRegisteredExtensionIndex]);
+            string extensionFilePath = RegisteredExtensions[SelectedRegisteredExtensionIndex];
+            XMLExtensionsManager.DeregisterExtensionFile(extensionFilePath);
+            File.Delete(extensionFilePath);
         }
 
         private async Task DeregisterAllExtensions()
         {
-            int buttonIndex = await Constants.HUDManager?.ShowMessageBox("Are you sure you want to remove all registered extensions?", "Remove All?", new List<string>() { "Yes, remove all", "No, don't remove all"}, NXEHUD.NXEHUDIconType.Question);
+            int buttonIndex = await Constants.HUDManager?.ShowMessageBox("Are you sure you want to remove all registered extensions?", "Remove All Extensions", new List<string>() { "Yes, remove all", "No, don't remove all"}, NXEHUD.NXEHUDIconType.Question);
             if(buttonIndex == 1)
             {
                 return;
