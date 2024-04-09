@@ -15,9 +15,9 @@ namespace XUIHelper.GUI
 {
     public class MassConvertPageViewModel : NXEViewModelBase
     {
-        private string _SourceDirectory;
+        private string _SourceDirectory = @"F:\Code Repos\XUIHelper\XUIHelper.Tests\Test Data\XUR\17559";
         private ICommand _BrowseSourceDirectoryCommand;
-        private string _DestinationDirectory;
+        private string _DestinationDirectory = @"F:\XUIHelper Example\output";
         private ICommand _BrowseDestinationDirectoryCommand;
         private bool _IgnoreProperties = true;
         private ObservableCollection<string> _OutputFileTypes = new ObservableCollection<string>() { "XUR v5", "XUR v8", "XUI v12" };
@@ -304,15 +304,7 @@ namespace XUIHelper.GUI
                     return;
                 }
 
-                /*bool successful = await XUIHelperAPI.TryMassConvertDirectoryAsync(SourceDirectory, format.Value, DestinationDirectory);
-                if (!successful)
-                {
-                    _ = Constants.HUDManager?.ShowMessageBox("The conversion has failed. Consider enabling logging and consult the log file for more information.", "Conversion Failed", System.Windows.MessageBoxButton.OK, NXEHUD.NXEHUDIconType.Error);
-                }
-                else
-                {
-                    _ = Constants.HUDManager?.ShowMessageBox("The conversion was successful!", "Conversion Succeeded", System.Windows.MessageBoxButton.OK, NXEHUD.NXEHUDIconType.Exclamation);
-                }*/
+                _ = Constants.HUDManager?.NavigateForwardAsync(new MassConvertProgressPage(SourceDirectory, format.Value, DestinationDirectory));
             }
             catch (Exception ex)
             {

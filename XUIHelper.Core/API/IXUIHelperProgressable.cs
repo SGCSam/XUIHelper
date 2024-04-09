@@ -8,11 +8,7 @@ namespace XUIHelper.Core
 {
     public interface IXUIHelperProgressable
     {
-        int TotalWorkCount { get; set; }
-        int SuccessfulWorkCount { get; set; }
-        int FailedWorkCount { get; set; }
-        int CompletedWorkCount { get { return SuccessfulWorkCount + FailedWorkCount; } }
-        float Progress { get { return (CompletedWorkCount / (float)TotalWorkCount) * 100.0f; } }
+        float Progress { get; set; }
         bool IsIndeterminate { get; set; }
         string Description { get; set; }
     }

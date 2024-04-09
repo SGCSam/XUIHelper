@@ -1,0 +1,22 @@
+﻿<nxe:NXEHUDUserControl x:Class="XUIHelper.GUI.MassConvertProgressPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:XUIHelper.GUI"
+             xmlns:nxe="clr-namespace:NXEControls;assembly=NXEControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="315" d:DesignWidth="550" PageSize="Half" Title="Conversion in Progress" IconType="Exclamation">
+    <Viewbox>
+        <Grid Width="550" Height="315" Margin="15">
+            <TextBlock Style="{StaticResource NXEHUDMessageBoxPage.TextBlock.MessageText}" Text="Please wait while files are converted. This may take some time." />
+            <nxe:NXELoading Variant="HUDInline" Width="38" Height="38" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Style="{StaticResource NXEHUDMessageBoxPage.TextBlock.MessageText}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="100" Margin="0, 150, 0, 0"
+                       Text="{Binding Description, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Description Text}" />
+            <nxe:NXEHUDProgressBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="20, 0" 
+                                   IsIndeterminate="{Binding IsIndeterminate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Value="{Binding Progress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+    </Viewbox>
+
+</nxe:NXEHUDUserControl>

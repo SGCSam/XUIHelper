@@ -23,6 +23,7 @@ namespace XUIHelper.GUI
         public static void Initialize(NXEHUD hud)
         {
             HUDManager = new NXEHUDManager(hud);
+            HUDManager.SetShouldManageDateTime(true);
         }
     }
 }

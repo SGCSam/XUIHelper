@@ -19,6 +19,27 @@ namespace XUIHelper.Core
             XUI12
         }
 
+        public class MassConversionResult
+        {
+            public bool Successful { get; private set; }
+            public int SuccessfulWorkCount { get; private set; }
+            public int FailedWorkCount { get; private set; }
+
+            public MassConversionResult(bool successful, int successfulWorkCount, int failedWorkCount) 
+            { 
+                Successful = successful;
+                SuccessfulWorkCount = successfulWorkCount;
+                FailedWorkCount = failedWorkCount;
+            }
+
+            public MassConversionResult(bool successful)
+            {
+                Successful = successful;
+                SuccessfulWorkCount = 0;
+                FailedWorkCount = 0;
+            }
+        }
+
         public static bool AreIgnoredPropertiesActive { get; private set; } = true;
         public static ILogger? Logger { get; private set; } = null;
 
@@ -73,26 +94,24 @@ namespace XUIHelper.Core
         #endregion
 
         #region Conversion
-        public static async Task<bool> TryMassConvertDirectoryAsync(string directoryPath, XUIHelperSupportedFormats format, string outputDir, IXUIHelperProgressable? progressable)
+        public static async Task<MassConversionResult> TryMassConvertDirectoryAsync(string directoryPath, XUIHelperSupportedFormats format, string outputDir, IXUIHelperProgressable? progressable)
         {
             try
             {
                 if(!XUIHelperCoreUtilities.IsStringValidPath(directoryPath))
                 {
                     Logger?.Error("The directory path {0} is invalid, returning false.", directoryPath);
-                    return false;
+                    return new MassConversionResult(false);
                 }
 
                 if (!XUIHelperCoreUtilities.IsStringValidPath(outputDir))
                 {
                     Logger?.Error("The output directory path {0} is invalid, returning false.", outputDir);
-                    return false;
+                    return new MassConversionResult(false);
                 }
 
                 if (progressable != null)
                 {
-                    progressable.SuccessfulWorkCount = 0;
-                    progressable.FailedWorkCount = 0;
                     progressable.IsIndeterminate = true;
                     progressable.Description = "Searching for convertible files, please wait...";
                 }
@@ -117,14 +136,20 @@ namespace XUIHelper.Core
                     }
                 }
 
-                if(progressable != null)
-                {
-                    progressable.TotalWorkCount = convertibleFilePaths.Count;
-                }
-
                 Directory.CreateDirectory(outputDir);
 
-                foreach(string filePath in convertibleFilePaths)
+                int totalWorkCount = convertibleFilePaths.Count;
+                int completedWorkCount = 0;
+                int successfulWorkCount = 0;
+                int failedWorkCount = 0;
+
+                if (progressable != null)
+                {
+                    progressable.IsIndeterminate = false;
+                    progressable.Description = string.Format("Converting files, converted 0 of {0}...", totalWorkCount);
+                }
+
+                foreach (string filePath in convertibleFilePaths)
                 {
                     string thisOutputPath = Path.Combine(outputDir, Path.GetFileNameWithoutExtension(filePath));
                     if(format == XUIHelperSupportedFormats.XUI12)
@@ -137,28 +162,30 @@ namespace XUIHelper.Core
                     }
 
                     bool successful = await TryConvertAsync(filePath, format, thisOutputPath);
+                    if (successful)
+                    {
+                        successfulWorkCount++;
+                    }
+                    else
+                    {
+                        failedWorkCount++;
+                    }
+
+                    completedWorkCount++;
 
                     if(progressable != null)
                     {
-                        if(successful)
-                        {
-                            progressable.SuccessfulWorkCount++;
-                        }
-                        else
-                        {
-                            progressable.FailedWorkCount++;
-                        }
-
-                        progressable.Description = string.Format("Converting files, converted {0} of {1}...", progressable.CompletedWorkCount, progressable.TotalWorkCount);
+                        progressable.Description = string.Format("Converting files, converted {0} of {1}...", completedWorkCount, totalWorkCount);
+                        progressable.Progress = Convert.ToInt32((completedWorkCount / (float)totalWorkCount) * 100.0f);
                     }
                 }
 
-                return true;
+                return new MassConversionResult(true, successfulWorkCount, failedWorkCount);
             }
             catch (Exception ex)
             {
                 Logger?.Error("Caught an exception when trying to mass convert files from {0} to {1}, returning false. The exception is: {2}", directoryPath, format, ex);
-                return false;
+                return new MassConversionResult(false);
             }
         }
 
