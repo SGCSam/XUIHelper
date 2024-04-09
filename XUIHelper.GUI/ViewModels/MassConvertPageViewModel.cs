@@ -15,9 +15,9 @@ namespace XUIHelper.GUI
 {
     public class MassConvertPageViewModel : NXEViewModelBase
     {
-        private string _SourceDirectory = @"F:\Code Repos\XUIHelper\XUIHelper.Tests\Test Data\XUR\17559";
+        private string _SourceDirectory;
         private ICommand _BrowseSourceDirectoryCommand;
-        private string _DestinationDirectory = @"F:\XUIHelper Example\output";
+        private string _DestinationDirectory;
         private ICommand _BrowseDestinationDirectoryCommand;
         private bool _IgnoreProperties = true;
         private ObservableCollection<string> _OutputFileTypes = new ObservableCollection<string>() { "XUR v5", "XUR v8", "XUI v12" };

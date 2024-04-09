@@ -34,7 +34,7 @@ namespace XUIHelper.Core
                 }
                 else
                 {
-                    indexToCheck = baseIndex;
+                    indexToCheck = baseIndex + 1;
                 }
             }
         }

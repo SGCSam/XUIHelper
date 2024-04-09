@@ -13,7 +13,7 @@ namespace XUIHelper.Tests
         [SetUp]
         public void Setup()
         {
-            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
+            string logPath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
             var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
 
             _Log = new LoggerConfiguration()
@@ -28,10 +28,10 @@ namespace XUIHelper.Tests
         protected override void RegisterExtensions(ILogger? logger = null)
         {
             XMLExtensionsManager.Initialize(logger);
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V8\XuiElements.xml");
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V8\XuiDataBinding.xml");
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V8\17559DashElements.xml");
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V8\17559HUDElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V8\XuiElements.xml"));
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V8\XuiDataBinding.xml"));
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V8\17559DashElements.xml"));
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR8Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V8\17559HUDElements.xml"));
         }
 
         protected override IXUR GetXUR(string filePath, ILogger? logger = null)
@@ -48,25 +48,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURReadSuccessful()
         {
-            //LegendScene - Always unknown 1, vector 11
-            //oobeControllerNoLanguage
-            //hudbkgnd
-            //BackHandle
-            //KeyboardBase - No unknowns, flag 0x3 only
-            //OobeNetworkSelection - Always unknown 1, vector 0xC
-            //CarouselSlotScene - Always unknown 1, vector 0xF
-            //VuiCommand - Always unknown 1, vector 0x2 and 0x4
-            //Template1 - Unknown 2, flag 0x4 (Remove Columns, Rows and AutoId from XUI)
-
             Assert.True(await CheckSingleXURReadSuccessfulAsync(@"Test Data/XUR/17559/community.xur"));
-
-            /*string xurFile = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Test Data/XUR/17559/community.xur");
-            IXUR xur = GetXUR(xurFile, _Log);
-            if(await xur.TryReadAsync())
-            {
-                XUI12 xui12 = new XUI12(@"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xui", _Log);
-                xui12.TryWriteAsync((xur.TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic)).RootObject);
-            }*/
         }
 
         [Test]
@@ -78,7 +60,7 @@ namespace XUIHelper.Tests
         [Test]
         public async Task CheckSingleXURWriteSuccessful()
         {
-            Assert.True(await CheckSingleXURWriteSuccessfulAsync(@"Test Data/XUR/17559/gamercard.xur"));
+            Assert.True(await CheckSingleXURWriteSuccessfulAsync(@"Test Data/XUR/17559/LegendScene.xur"));
         }
     }
 }

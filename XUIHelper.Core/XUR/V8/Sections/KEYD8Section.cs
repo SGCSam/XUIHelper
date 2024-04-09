@@ -68,6 +68,19 @@ namespace XUIHelper.Core
                     //
                     //It's also possible the data is VUI/Kinect related for how the UI reacts when a Kinect is used but I don't own one so can't test
                     //This is the only unknown data left I believe, the rest has been fully reversed.
+                    //
+                    //Below are some example XURs from 17559 that will be useful for reversing
+                    //
+                    //LegendScene - Always unknown 1, read byte is 0x11
+                    //oobeControllerNoLanguage
+                    //hudbkgnd
+                    //BackHandle
+                    //KeyboardBase - No unknowns, flag 0x3 only
+                    //OobeNetworkSelection - Always unknown 1, read byte is 0xC
+                    //CarouselSlotScene - Always unknown 1, read byte is 0xF
+                    //VuiCommand - Always unknown 1, read byte is 0x2 and 0x4
+                    //Template1 - Unknown 2, flag 0x4
+                    //
 
                     byte flags = (byte)(flagByte & 0x3F);
                     int unknown = ((byte)(flagByte >> 6));

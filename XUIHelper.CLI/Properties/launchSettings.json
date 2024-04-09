@@ -1,8 +1,7 @@
 {
   "profiles": {
     "XUIHelper.CLI": {
-      "commandName": "Project",
-      "commandLineArgs": "massconv -s \"F:\\Code Repos\\XUIHelper\\XUIHelper.Tests\\Test Data\\XUR\\17559\" -f \"xuiv12\" -o \"F:\\XUIHelper Example\\output\" -g \"V8\""
+      "commandName": "Project"
     }
   }
 }

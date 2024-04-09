@@ -14,9 +14,9 @@ namespace XUIHelper.GUI
 {
     public class SingleConvertPageViewModel : NXEViewModelBase
     {
-        private string _SourceFilePath = @"F:\Code Repos\XUIHelper\XUIHelper.Tests\Test Data\XUR\17559\hudbkgnd.xur";
+        private string _SourceFilePath;
         private ICommand _BrowseSourceFilePathCommand;
-        private string _DestinationFilePath = @"F:\XUIHelper Example\Test.xui";
+        private string _DestinationFilePath;
         private ICommand _BrowseDestinationFilePathCommand;
         private bool _IgnoreProperties = true;
         private ObservableCollection<string> _OutputFileTypes = new ObservableCollection<string>() { "XUR v5", "XUR v8", "XUI v12" };

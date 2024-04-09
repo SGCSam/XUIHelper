@@ -93,112 +93,124 @@ namespace XUIHelper.Tests
 
         protected async Task<bool> CheckAllWritesSuccessfulAsync(string dir)
         {
-            List<IXUR> readXURs = new List<IXUR>();
-
-            int xursCount = 0;
-            foreach (string xurFile in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, dir), "*.xur", SearchOption.AllDirectories))
+            try
             {
-                IXUR xur = GetXUR(xurFile, null);
-                if (await xur.TryReadAsync())
-                {
-                    xursCount++;
-                    readXURs.Add(xur);
-                }
-            }
+                List<IXUR> readXURs = new List<IXUR>();
 
-            List<string> successfulXURs = new List<string>();
-            List<string> warningXURs = new List<string>();
-            List<string> failedXURs = new List<string>();
-            foreach (IXUR readXUR in readXURs)
-            {
-                IDATASection? readData = readXUR.TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
-                if (readData == null)
+                int xursCount = 0;
+                foreach (string xurFile in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, dir), "*.xur", SearchOption.AllDirectories))
                 {
-                    _Log.Information("Failure: Null data for {0}", readXUR.FilePath);
-                    failedXURs.Add(readXUR.FilePath);
-                    continue;
-                }
-
-                if (readData.RootObject == null)
-                {
-                    _Log.Information("Failure: Null root object for {0}", readXUR.FilePath);
-                    failedXURs.Add(readXUR.FilePath);
-                    continue;
-                }
-
-                string thisWriteXURPath = Path.GetTempFileName();
-                IXUR writeXUR = GetXUR(thisWriteXURPath, null);
-                if (!await writeXUR.TryWriteAsync(readData.RootObject))
-                {
-                    _Log.Information("Failure: Write failed for {0}", readXUR.FilePath);
-                    failedXURs.Add(readXUR.FilePath);
-                }
-                else
-                {
-                    IDATASection? writtenData = writeXUR.TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
-                    if (writtenData == null)
+                    IXUR xur = GetXUR(xurFile, null);
+                    if (await xur.TryReadAsync())
                     {
-                        _Log.Information("Failure: Null data for {0}", writeXUR.FilePath);
-                        failedXURs.Add(readXUR.FilePath);
+                        xursCount++;
+                        readXURs.Add(xur);
                     }
-                    else if (writtenData.RootObject == null)
+                }
+
+                List<string> successfulXURs = new List<string>();
+                List<string> warningXURs = new List<string>();
+                List<string> failedXURs = new List<string>();
+                foreach (IXUR readXUR in readXURs)
+                {
+                    if (readXUR.FilePath.Contains("AuraScene"))
                     {
-                        _Log.Information("Failure: Null root object for {0}", writeXUR.FilePath);
-                        failedXURs.Add(readXUR.FilePath);
+
                     }
 
-                    IXUR readBackXUR = GetXUR(thisWriteXURPath, null);
-                    if (!await readBackXUR.TryReadAsync())
+                    IDATASection? readData = readXUR.TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
+                    if (readData == null)
                     {
-                        _Log.Information("Failure: Read back failed for {0}", thisWriteXURPath);
+                        _Log?.Information("Failure: Null data for {0}", readXUR.FilePath);
+                        failedXURs.Add(readXUR.FilePath);
+                        continue;
+                    }
+
+                    if (readData.RootObject == null)
+                    {
+                        _Log?.Information("Failure: Null root object for {0}", readXUR.FilePath);
+                        failedXURs.Add(readXUR.FilePath);
+                        continue;
+                    }
+
+                    string thisWriteXURPath = Path.GetTempFileName();
+                    IXUR writeXUR = GetXUR(thisWriteXURPath, null);
+                    if (!await writeXUR.TryWriteAsync(readData.RootObject))
+                    {
+                        _Log?.Information("Failure: Write failed for {0}", readXUR.FilePath);
                         failedXURs.Add(readXUR.FilePath);
                     }
                     else
                     {
-                        IDATASection? readBackData = ((IXUR)readBackXUR).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
-                        if (readBackData == null)
+                        IDATASection? writtenData = writeXUR.TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
+                        if (writtenData == null)
                         {
-                            _Log.Information("Failure: Null read back data for {0}", thisWriteXURPath);
+                            _Log?.Information("Failure: Null data for {0}", writeXUR.FilePath);
                             failedXURs.Add(readXUR.FilePath);
                         }
-                        else if (readBackData.RootObject == null)
+                        else if (writtenData.RootObject == null)
                         {
-                            _Log.Information("Failure: Null read back root object for {0}", thisWriteXURPath);
+                            _Log?.Information("Failure: Null root object for {0}", writeXUR.FilePath);
                             failedXURs.Add(readXUR.FilePath);
                         }
-                        else if (JsonConvert.SerializeObject(readData.RootObject) != JsonConvert.SerializeObject(readBackData.RootObject))
+
+                        IXUR readBackXUR = GetXUR(thisWriteXURPath, null);
+                        if (!await readBackXUR.TryReadAsync())
                         {
-                            _Log.Information("Failure: Non-equal root objects for {0}.", readXUR.FilePath);
+                            _Log?.Information("Failure: Read back failed for {0}", thisWriteXURPath);
                             failedXURs.Add(readXUR.FilePath);
-                        }
-                        else if (!AreFilesEqual(readXUR.FilePath, thisWriteXURPath))
-                        {
-                            _Log.Information("Warning: Non-equal files for {0}.", readXUR.FilePath);
-                            warningXURs.Add(readXUR.FilePath);
                         }
                         else
                         {
-                            successfulXURs.Add(readXUR.FilePath);
+                            IDATASection? readBackData = ((IXUR)readBackXUR).TryFindXURSectionByMagic<IDATASection>(IDATASection.ExpectedMagic);
+                            if (readBackData == null)
+                            {
+                                _Log?.Information("Failure: Null read back data for {0}", thisWriteXURPath);
+                                failedXURs.Add(readXUR.FilePath);
+                            }
+                            else if (readBackData.RootObject == null)
+                            {
+                                _Log?.Information("Failure: Null read back root object for {0}", thisWriteXURPath);
+                                failedXURs.Add(readXUR.FilePath);
+                            }
+                            else if (JsonConvert.SerializeObject(readData.RootObject) != JsonConvert.SerializeObject(readBackData.RootObject))
+                            {
+                                _Log?.Information("Failure: Non-equal root objects for {0}.", readXUR.FilePath);
+                                failedXURs.Add(readXUR.FilePath);
+                            }
+                            else if (!AreFilesEqual(readXUR.FilePath, thisWriteXURPath))
+                            {
+                                _Log?.Information("Warning: Non-equal files for {0}.", readXUR.FilePath);
+                                warningXURs.Add(readXUR.FilePath);
+                            }
+                            else
+                            {
+                                successfulXURs.Add(readXUR.FilePath);
+                            }
                         }
                     }
+
+                    File.Delete(thisWriteXURPath);
                 }
 
-                File.Delete(thisWriteXURPath);
+                float successPercentage = ((successfulXURs.Count + warningXURs.Count) / (float)readXURs.Count) * 100.0f;
+
+                _Log?.Information("==== XUR ALL WRITES ====");
+                _Log?.Information("Total: {0}, Successful: {1}, Failed: {2}, Warning: {3} ({4}%)", readXURs.Count, successfulXURs.Count, failedXURs.Count, warningXURs.Count, successPercentage);
+                _Log?.Information("");
+                _Log?.Information("==== SUCCESSFUL XURS ====");
+                _Log?.Information(string.Join("\n", successfulXURs));
+                _Log?.Information("");
+                _Log?.Information("==== FAILED XURS ====");
+                _Log?.Information(string.Join("\n", failedXURs));
+                _Log?.Information("");
+
+                return failedXURs.Count == 0;
             }
-
-            float successPercentage = ((successfulXURs.Count + warningXURs.Count) / (float)readXURs.Count) * 100.0f;
-
-            _Log.Information("==== XUR5 ALL WRITES ====");
-            _Log.Information("Total: {0}, Successful: {1}, Failed: {2}, Warning: {3} ({4}%)", readXURs.Count, successfulXURs.Count, failedXURs.Count, warningXURs.Count, successPercentage);
-            _Log.Information("");
-            _Log.Information("==== SUCCESSFUL XURS ====");
-            _Log.Information(string.Join("\n", successfulXURs));
-            _Log.Information("");
-            _Log.Information("==== FAILED XURS ====");
-            _Log.Information(string.Join("\n", failedXURs));
-            _Log.Information("");
-
-            return failedXURs.Count == 0;
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
 
         protected async Task<bool> CheckSingleXURWriteSuccessfulAsync(string path)
@@ -221,7 +233,7 @@ namespace XUIHelper.Tests
                 return false;
             }
 
-            string thisWriteXURPath = @"F:\Code Repos\XUIHelper\XUIHelper.Core\XUIHelper.Core\Debug\written.xur";
+            string thisWriteXURPath = Path.Combine(TestContext.CurrentContext.TestDirectory, @"Debug\written.xur");
             IXUR writeXUR = GetXUR(thisWriteXURPath, _Log);
             if(!await writeXUR.TryWriteAsync(readData.RootObject))
             {

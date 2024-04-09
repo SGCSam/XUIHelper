@@ -567,7 +567,36 @@ namespace XUIHelper.Core
         {
             try
             {
-                throw new NotImplementedException();
+                if (propertyDefinition.Type != XUPropertyDefinitionTypes.Quaternion)
+                {
+                    xur.Logger?.Here().Error("Property type for {0} is not quaternion, it is {1}, returning null.", propertyDefinition.Name, propertyDefinition.Type);
+                    return null;
+                }
+
+                if (val is not XUQuaternion quatVal)
+                {
+                    xur.Logger?.Here().Error("Property {0} marked as quaternion had a non-quaternion value of {1}, returning null.", propertyDefinition.Name, val);
+                    return null;
+                }
+
+                IQUATSection? quatSection = ((IXUR)xur).TryFindXURSectionByMagic<IQUATSection>(IQUATSection.ExpectedMagic);
+                if (quatSection == null)
+                {
+                    xur.Logger?.Here().Error("QUAT section was null, returning null.");
+                    return null;
+                }
+
+                int quatIndex = quatSection.Quaternions.IndexOf(quatVal);
+                if (quatIndex == -1)
+                {
+                    xur.Logger?.Here().Error("Failed to get quaternion index for {0} with value {1}, returning null.", propertyDefinition.Name, quatVal);
+                    return null;
+                }
+
+                int quatIndexBytesWritten = 0;
+                writer.WritePackedUInt((uint)quatIndex, out quatIndexBytesWritten);
+                xur.Logger?.Here().Verbose("Written {0} quaternion property value of {1} as index {2}, {3} bytes.", propertyDefinition.Name, quatVal, quatIndex, quatIndexBytesWritten);
+                return quatIndexBytesWritten;
             }
             catch (Exception ex)
             {

@@ -1,0 +1,159 @@
+﻿<XUIHelperExtensions>
+  <XUIClassExtension version="0001">
+    <XUIClass
+        Name="LegacyControl"
+        BaseClassName="XuiControl"
+        DefaultWidth="880"
+        DefaultHeight="480"
+        Description="Legacy Control" >
+    </XUIClass>
+
+    <XUIClass Name="ScriptScene" BaseClassName="XuiScene" DefaultWidth="300" DefaultHeight="300" Description="ScriptScene">
+      <PropDef Flags="noanim|filepath" Name="Script" Type="string" Editor="FilePathEditor(4)" />
+    </XUIClass>
+
+    <XUIClass Name="DashScene" BaseClassName="XuiScene" Description="TestDesc">
+      <PropDef Name="NavigationBreadcrumbs" Type="string" />
+      <PropDef Name="DescriptionTexts" Type="string" />
+      <PropDef Name="MetapaneSceneOverrides" Type="string" />
+    </XUIClass>
+
+    <XUIClass Name="MediaScene" BaseClassName="ScriptScene" DefaultWidth="300" DefaultHeight="300" Description="MediaScene" >
+      <PropDef Name="Image" Type="string">
+        <DefaultVal></DefaultVal>
+      </PropDef>
+    </XUIClass>
+
+    <!--<XUIClass Name="LiveData" BaseClassName="XuiElement" DefaultWidth="1280" DefaultHeight="720" Description="Live Data" />
+  <XUIClass Name="MediaData" BaseClassName="XuiControl" DefaultWidth="1280" DefaultHeight="720" Description="Media Data">
+	<PropDef Name="UnkString" Type="string" />
+  </XUIClass>-->
+
+    <XUIClass Name="AuraControl" BaseClassName="XuiElement" DefaultWidth="64" DefaultHeight="64" Description="Aura Control">
+      <PropDef Name="ThemeImageIndex" Type="unsigned">
+        <DefaultVal>0</DefaultVal>
+      </PropDef>
+      <PropDef Name="BackgroundImage" Type="string">
+        <DefaultVal></DefaultVal>
+      </PropDef>
+      <PropDef Name="SurfaceSphere" Type="bool">
+        <DefaultVal>false</DefaultVal>
+      </PropDef>
+    </XUIClass>
+
+    <XUIClass Name="XuiHtmlElement" BaseClassName="XuiElement" DefaultWidth="60" DefaultHeight="30" Description="HTML Element">
+      <PropDef Name="Text" Type="string" />
+      <PropDef Name="TeletypeCount" Type="integer">
+        <DefaultVal>-1</DefaultVal>
+      </PropDef>
+    </XUIClass>
+
+    <XUIClass Name="XuiHtmlPresenter" BaseClassName="XuiElement" DefaultWidth="60" DefaultHeight="30" Description="HTML Presenter">
+      <PropDef Name="DataAssociation" Type="integer">
+        <DefaultVal>0</DefaultVal>
+      </PropDef>
+    </XUIClass>
+
+    <XUIClass Name="MobyRootScene" BaseClassName="XuiPerspectiveScene" DefaultWidth="1280"  DefaultHeight="720" Description="Moby Root Scene" />
+    <XUIClass Name="RomeRootScene" BaseClassName="XuiPerspectiveScene" DefaultWidth="1280" DefaultHeight="720" Description="Rome Root Scene" />
+    <XUIClass Name="MPSlotScene" BaseClassName="ScriptScene" DefaultWidth="1280" DefaultHeight="720" Description="MP Slot Scene" />
+    <XUIClass Name="MediaImageHttp" BaseClassName="XuiImage" DefaultWidth="1280" DefaultHeight="720" Description="Media Image Http" />
+
+    <XUIClass
+        Name="XuiAvatar"
+        BaseClassName="XuiControl"
+        DefaultWidth="256"
+        DefaultHeight="256"
+        Description="XuiAvatar" >
+      <PropDef
+          Name="UseActiveUserAvatar"
+          Type="bool"
+          Flags="noanim">
+        <DefaultVal>false</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="EnableUserControl"
+          Type="bool"
+          Flags="noanim">
+        <DefaultVal>false</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="QueueAnimation"
+          Type="unsigned">
+        <DefaultVal>0</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="PlayAnimation"
+          Type="unsigned">
+        <DefaultVal>0</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="UseCustomView"
+          Type="bool"
+          Flags="noanim">
+        <DefaultVal>false</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="RenderView"
+          Type="unsigned"
+          Flags="noanim">
+        <DefaultVal>0</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="CustomViewEyePosition"
+          Type="vector"
+          Editor="Vec3Editor">
+        <DefaultVal>0.0,0.0,0.0</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="CustomViewFocusPosition"
+          Type="vector"
+          Editor="Vec3Editor">
+        <DefaultVal>0.0,0.0,0.0</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="CustomViewUpDirection"
+          Type="vector"
+          Editor="Vec3Editor">
+        <DefaultVal>0.0,0.0,0.0</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="ShowSelfShadow"
+          Type="bool"
+          Flags="noanim">
+        <DefaultVal>true</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="ShowShadow"
+          Type="bool"
+          Flags="noanim">
+        <DefaultVal>true</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="ShowCarryable"
+          Type="bool"
+          Flags="noanim">
+        <DefaultVal>true</DefaultVal>
+      </PropDef>
+      <PropDef
+          Name="ShowHat"
+          Type="bool"
+          Flags="noanim">
+        <DefaultVal>true</DefaultVal>
+      </PropDef>
+    </XUIClass>
+
+    <XUIClass
+        Name="XuiGamerCard"
+        BaseClassName="XuiControl"
+        DefaultWidth="256"
+        DefaultHeight="256"
+        Description="XuiGamerCard">
+      <PropDef Name="PlaceHolder" Type="string" />
+      <PropDef Name="BoolOne" Type="bool" />
+    </XUIClass>
+  </XUIClassExtension>
+  
+  <IgnoreProperties />
+  
+</XUIHelperExtensions>

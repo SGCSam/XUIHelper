@@ -13,7 +13,7 @@ namespace XUIHelper.Tests
         [SetUp]
         public void Setup()
         {
-            string logPath = Path.Combine(@"F:\Code Repos\XUIHelper\XUIHelper.Core\Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
+            string logPath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Debug", string.Format("Tests Log {0}.log", DateTime.Now.ToString("yyyy - MM - dd HHmmss")));
             var outputTemplate = "({Timestamp:HH:mm:ss.fff}) {Level}: [{LineNumber}]{SourceContext}::{MemberName} - {Message}{NewLine}";
 
             _Log = new LoggerConfiguration()
@@ -28,9 +28,9 @@ namespace XUIHelper.Tests
         protected override void RegisterExtensions(ILogger? logger = null)
         {
             XMLExtensionsManager.Initialize(logger);
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR5Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V5\XuiElements.xml");
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR5Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V5\9199DashElements.xml");
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR5Tests", @"F:\Code Repos\XUIHelper\XUIHelper.Core\Assets\V5\9199HUDElements.xml");
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR5Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V5\XuiElements.xml"));
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR5Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V5\9199DashElements.xml"));
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUR5Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V5\9199HUDElements.xml"));
         }
 
         protected override IXUR GetXUR(string filePath, ILogger? logger = null)

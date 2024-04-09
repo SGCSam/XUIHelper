@@ -274,6 +274,7 @@ namespace XUIHelper.Core
                 Logger?.Here().Verbose("COLR8 section had no colours, not adding.");
             }
 
+            bool addedKeyp = false;
             KEYP8Section keypSection = new KEYP8Section();
             if (!await keypSection.TryBuildAsync(this, rootObject))
             {
@@ -284,28 +285,36 @@ namespace XUIHelper.Core
             {
                 Logger?.Here().Verbose("Adding KEYP8 section.");
                 Sections.Add(keypSection);
+                addedKeyp = true;
             }
             else
             {
                 Logger?.Here().Verbose("KEYP8 section had no indexes, not adding.");
             }
 
-            KEYD8Section keydSection = new KEYD8Section();
-            if (!await keydSection.TryBuildAsync(this, rootObject))
+            if(addedKeyp)
             {
-                Logger?.Here().Error("Failed to build KEYD8 section, returning false.");
-                return false;
-            }
-            else if (keydSection.Keyframes.Count > 0)
-            {
-                Logger?.Here().Verbose("Adding KEYD8 section.");
-                Sections.Add(keydSection);
+                KEYD8Section keydSection = new KEYD8Section();
+                if (!await keydSection.TryBuildAsync(this, rootObject))
+                {
+                    Logger?.Here().Error("Failed to build KEYD8 section, returning false.");
+                    return false;
+                }
+                else if (keydSection.Keyframes.Count > 0)
+                {
+                    Logger?.Here().Verbose("Adding KEYD8 section.");
+                    Sections.Add(keydSection);
+                }
+                else
+                {
+                    Logger?.Here().Verbose("KEYD8 section had no keyframes, not adding.");
+                }
             }
             else
             {
-                Logger?.Here().Verbose("KEYD8 section had no keyframes, not adding.");
+                Logger?.Here().Verbose("KEYP8 section wasn't added, so we won't add KEYD8 either.");
             }
-
+           
             NAME8Section nameSection = new NAME8Section();
             if (!await nameSection.TryBuildAsync(this, rootObject))
             {
