@@ -32,7 +32,8 @@
                                                Command="{Binding RemoveCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                IsEnabled="{Binding IsExtensionSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 <nxe:NXEButton Content="Remove All" HorizontalContentAlignment="Center" Height="47" Margin="0, 0, 0, 20"
-                                               Command="{Binding RemoveAllCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                               Command="{Binding RemoveAllCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                               IsEnabled="{Binding HasRegisteredExtensions, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                         </Grid>
                     </Grid>

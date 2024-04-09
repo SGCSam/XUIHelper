@@ -130,6 +130,19 @@ namespace XUIHelper.Core
             }
         }
 
+        public static void DeregisterAllExtensions()
+        {
+            foreach (XUIHelperExtensionsGroupData group in Groups.Values)
+            {
+                foreach (XUIHelperExtensionsFile extensionFile in group.ExtensionsFiles.ToList())
+                {
+                    group.ExtensionsFiles.Remove(extensionFile);
+                }
+            }
+
+            OnExtensionGroupsChanged();
+        }
+
         public static void SetCurrentGroup(string groupName)
         {
             if(!Groups.ContainsKey(groupName))

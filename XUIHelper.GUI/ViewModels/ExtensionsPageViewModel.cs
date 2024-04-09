@@ -15,6 +15,7 @@ namespace XUIHelper.GUI
         private ObservableCollection<string> _RegisteredExtensions = new ObservableCollection<string>();
         private int _SelectedRegisteredExtensionIndex;
         private bool _IsExtensionSelected;
+        private bool _HasRegisteredExtensions;
         private ICommand _AddCommand;
         private ICommand _RemoveCommand;
         private ICommand _RemoveAllCommand;
@@ -60,6 +61,19 @@ namespace XUIHelper.GUI
             }
         }
 
+        public bool HasRegisteredExtensions
+        {
+            get
+            {
+                return _HasRegisteredExtensions;
+            }
+            private set
+            {
+                _HasRegisteredExtensions = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public ICommand AddCommand
         {
             get
@@ -92,7 +106,7 @@ namespace XUIHelper.GUI
             {
                 if (_RemoveAllCommand == null)
                 {
-                    _RemoveAllCommand = new NXERelayCommand(x => RemoveAllExtensions());
+                    _RemoveAllCommand = new NXERelayCommand(x => _ = DeregisterAllExtensions());
                 }
 
                 return _RemoveAllCommand;
@@ -127,9 +141,15 @@ namespace XUIHelper.GUI
             XMLExtensionsManager.DeregisterExtensionFile(RegisteredExtensions[SelectedRegisteredExtensionIndex]);
         }
 
-        private async Task RemoveAllExtensions()
+        private async Task DeregisterAllExtensions()
         {
-            _ = Constants.HUDManager?.ShowMessageBox("Remove All.", "Debug");
+            int buttonIndex = await Constants.HUDManager?.ShowMessageBox("Are you sure you want to remove all registered extensions?", "Remove All?", new List<string>() { "Yes, remove all", "No, don't remove all"}, NXEHUD.NXEHUDIconType.Question);
+            if(buttonIndex == 1)
+            {
+                return;
+            }
+
+            XMLExtensionsManager.DeregisterAllExtensions();
         }
 
         private void NavigateBack()
@@ -151,6 +171,7 @@ namespace XUIHelper.GUI
             }
 
             NotifyPropertyChanged("RegisteredExtensions");
+            HasRegisteredExtensions = RegisteredExtensions.Count > 0;
 
             if(oldIndex < RegisteredExtensions.Count)
             {
