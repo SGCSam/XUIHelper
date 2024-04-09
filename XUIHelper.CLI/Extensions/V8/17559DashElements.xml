@@ -56,6 +56,16 @@
     <XUIClass Name="ScriptScene" BaseClassName="XuiScene" DefaultWidth="880" DefaultHeight="480" Description="Script Scene">
       <PropDef Name="ScriptPath" Type="string" />
     </XUIClass>
+
+    <XUIClass
+        Name="XuiGamerCard"
+        BaseClassName="XuiControl"
+        DefaultWidth="256"
+        DefaultHeight="256"
+        Description="XuiGamerCard">
+      <PropDef Name="StringOne" Type="string" />
+      <PropDef Name="BoolOne" Type="bool" />
+    </XUIClass>
   </XUIClassExtension>
   
   <IgnoreProperties />

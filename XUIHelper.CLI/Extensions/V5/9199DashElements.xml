@@ -149,7 +149,7 @@
         DefaultWidth="256"
         DefaultHeight="256"
         Description="XuiGamerCard">
-      <PropDef Name="PlaceHolder" Type="string" />
+      <PropDef Name="StringOne" Type="string" />
       <PropDef Name="BoolOne" Type="bool" />
     </XUIClass>
   </XUIClassExtension>

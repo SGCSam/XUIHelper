@@ -17,6 +17,30 @@
     </XUIClass>
 
     <XUIClass
+        Name="ControlPackHubScene"
+        BaseClassName="XuiControl"
+        DefaultWidth="880"
+        DefaultHeight="480"
+        Description="Control Pack Hub Scene" >
+    </XUIClass>
+
+    <XUIClass
+       Name="ControlPackHorizonControl"
+       BaseClassName="XuiControl"
+       DefaultWidth="880"
+       DefaultHeight="480"
+       Description="Control Pack Horizon Control" >
+    </XUIClass>
+
+    <XUIClass
+       Name="ControlPackVuiBling"
+       BaseClassName="XuiControl"
+       DefaultWidth="880"
+       DefaultHeight="480"
+       Description="Control Pack VUI Bling" >
+    </XUIClass>
+
+    <XUIClass
         Name="ControlPackLegendScene"
         BaseClassName="XuiScene"
         DefaultWidth="880"
@@ -56,6 +80,17 @@
     <XUIClass Name="ScriptScene" BaseClassName="XuiScene" DefaultWidth="880" DefaultHeight="480" Description="Script Scene">
       <PropDef Name="ScriptPath" Type="string" />
     </XUIClass>
+
+    <XUIClass
+        Name="XuiGamerCard"
+        BaseClassName="XuiControl"
+        DefaultWidth="256"
+        DefaultHeight="256"
+        Description="XuiGamerCard">
+      <PropDef Name="StringOne" Type="string" />
+      <PropDef Name="BoolOne" Type="bool" />
+    </XUIClass>
+    
   </XUIClassExtension>
   
   <IgnoreProperties />

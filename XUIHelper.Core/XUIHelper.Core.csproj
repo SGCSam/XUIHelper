@@ -8,11 +8,15 @@
 
   <ItemGroup>
     <None Remove="Assets\V5\XuiElements.xml" />
+    <None Remove="Assets\V8\XuiDataBinding.xml" />
     <None Remove="Assets\V8\XuiElements.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\V5\XuiElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\V8\XuiDataBinding.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\V8\XuiElements.xml">
