@@ -245,10 +245,21 @@ namespace XUIHelper.Core
                     return false;
                 }
 
-                if (!File.Exists(FilePath))
+                if (!XUIHelperCoreUtilities.IsStringValidPath(FilePath))
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
+                    Logger?.Here().Error("The provided file path {0} is invalid, returning false.", FilePath);
+                    return false;
                 }
+
+                string? dirName = Path.GetDirectoryName(FilePath);
+                if (string.IsNullOrEmpty(dirName))
+                {
+                    Logger?.Here().Error("The directory name for {0} was null or empty, returning false.", FilePath);
+                    return false;
+                }
+
+                Directory.CreateDirectory(dirName);
+                File.Delete(FilePath);
 
                 XDocument document = new XDocument(rootElement);
                 XmlWriterSettings writerSettings = new XmlWriterSettings();
