@@ -42,37 +42,31 @@ namespace XUIHelper.Core
             }
         }
 
+        #region Events
+
+        #region ExtensionGroupsChanged
+        private static void OnExtensionGroupsChanged()
+        {
+            if(ExtensionGroupsChanged != null)
+            {
+                ExtensionGroupsChanged(null, EventArgs.Empty);
+            }
+        }
+
+        public static event EventHandler? ExtensionGroupsChanged;
+        #endregion
+
+        #endregion
+
         public static ILogger? Logger { get; private set; }
 
-        private static string _CurrentGroup = string.Empty;
+        public static string CurrentGroup { get; private set; } = string.Empty;
 
-        private static Dictionary<string, XUIHelperExtensionsGroupData> _Groups = new Dictionary<string, XUIHelperExtensionsGroupData>();
+        public static Dictionary<string, XUIHelperExtensionsGroupData> Groups { get; private set; } = new Dictionary<string, XUIHelperExtensionsGroupData>();
 
         public static void Initialize(ILogger? logger = null) 
         {
             Logger = logger?.ForContext(typeof(XMLExtensionsManager));
-        }
-
-        public static async Task<bool> TryRegisterExtensionsGroupAsync(string extensionsGroupName, List<string> xmlExtensionFilePaths)
-        {
-            try
-            {
-                foreach (string xmlExtensionFilePath in xmlExtensionFilePaths)
-                {
-                    if(!await TryRegisterExtensionsGroupAsync(extensionsGroupName, xmlExtensionFilePath))
-                    {
-                        Logger?.Here().Error("Failed to register XML extensions from {0} into group {1}, returning false.", xmlExtensionFilePath, extensionsGroupName);
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Logger?.Here().Error("Caught an exception when trying to register XML extensions group {0}, returning false. The exception is: {1}", extensionsGroupName, ex);
-                return false;
-            }
         }
 
         public static async Task<bool> TryRegisterExtensionsGroupAsync(string extensionsGroupName, string xmlExtensionsFilePath)
@@ -81,9 +75,9 @@ namespace XUIHelper.Core
             {
                 Logger?.Here().Verbose("Registering classes from {0} into group {1}.", xmlExtensionsFilePath, extensionsGroupName);
 
-                if(_Groups.ContainsKey(extensionsGroupName))
+                if(Groups.ContainsKey(extensionsGroupName))
                 {
-                    foreach (XUIHelperExtensionsFile extensionsFile in _Groups[extensionsGroupName].ExtensionsFiles)
+                    foreach (XUIHelperExtensionsFile extensionsFile in Groups[extensionsGroupName].ExtensionsFiles)
                     {
                         if (extensionsFile.FilePath == xmlExtensionsFilePath)
                         {
@@ -93,7 +87,7 @@ namespace XUIHelper.Core
                     }
                 }
 
-                string oldGroup = _CurrentGroup;
+                string oldGroup = CurrentGroup;
                 SetCurrentGroup(extensionsGroupName);
 
                 XUIHelperExtensions? registeredExtension = await TryRegisterXMLExtensionsAsync(xmlExtensionsFilePath);
@@ -103,13 +97,14 @@ namespace XUIHelper.Core
                     return false;
                 }
 
-                _Groups[extensionsGroupName].ExtensionsFiles.Add(new XUIHelperExtensionsFile(xmlExtensionsFilePath, registeredExtension));
+                Groups[extensionsGroupName].ExtensionsFiles.Add(new XUIHelperExtensionsFile(xmlExtensionsFilePath, registeredExtension));
 
                 if (!string.IsNullOrEmpty(oldGroup))
                 {
                     SetCurrentGroup(oldGroup);
                 }
 
+                OnExtensionGroupsChanged();
                 return true;
             }
             catch (Exception ex)
@@ -119,25 +114,41 @@ namespace XUIHelper.Core
             }
         }
 
+        public static void DeregisterExtensionFile(string xmlExtensionsFilePath)
+        {
+            foreach(XUIHelperExtensionsGroupData group in Groups.Values)
+            {
+                foreach (XUIHelperExtensionsFile extensionFile in group.ExtensionsFiles.ToList())
+                {
+                    if (extensionFile.FilePath == xmlExtensionsFilePath)
+                    {
+                        group.ExtensionsFiles.Remove(extensionFile);
+                        OnExtensionGroupsChanged();
+                        return;
+                    }
+                }
+            }
+        }
+
         public static void SetCurrentGroup(string groupName)
         {
-            if(!_Groups.ContainsKey(groupName))
+            if(!Groups.ContainsKey(groupName))
             {
-                _Groups[groupName] = new XUIHelperExtensionsGroupData(groupName);
+                Groups[groupName] = new XUIHelperExtensionsGroupData(groupName);
             }
 
-            _CurrentGroup = groupName;
+            CurrentGroup = groupName;
         }
 
         public static XUClass? TryGetClassByName(string name)
         {
-            if (!_Groups.ContainsKey(_CurrentGroup))
+            if (!Groups.ContainsKey(CurrentGroup))
             {
-                Logger?.Here().Error("Failed to get class {0} as the current group {1} is invalid, returning null.", name, _CurrentGroup);
+                Logger?.Here().Error("Failed to get class {0} as the current group {1} is invalid, returning null.", name, CurrentGroup);
                 return null;
             }
 
-            foreach(XUIHelperExtensionsFile extensionFile in _Groups[_CurrentGroup].ExtensionsFiles)
+            foreach(XUIHelperExtensionsFile extensionFile in Groups[CurrentGroup].ExtensionsFiles)
             {
                 if(extensionFile.Data.Extensions == null)
                 {
@@ -204,13 +215,13 @@ namespace XUIHelper.Core
         {
             try
             {
-                if (!_Groups.ContainsKey(_CurrentGroup))
+                if (!Groups.ContainsKey(CurrentGroup))
                 {
-                    Logger?.Here().Error("Failed to get check if property {0} is ignored as the current group {1} is invalid, returning null.", propertyDefinition.Name, _CurrentGroup);
+                    Logger?.Here().Error("Failed to get check if property {0} is ignored as the current group {1} is invalid, returning null.", propertyDefinition.Name, CurrentGroup);
                     return null;
                 }
 
-                foreach(XUIHelperExtensionsFile extensionFile in _Groups[_CurrentGroup].ExtensionsFiles)
+                foreach(XUIHelperExtensionsFile extensionFile in Groups[CurrentGroup].ExtensionsFiles)
                 {
                     if (extensionFile.Data.IgnoreProperties == null)
                     {
@@ -253,9 +264,9 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                if (!_Groups.ContainsKey(_CurrentGroup))
+                if (!Groups.ContainsKey(CurrentGroup))
                 {
-                    Logger?.Here().Error("Failed to register XML extensions as the current group {0} is invalid, returning null.", _CurrentGroup);
+                    Logger?.Here().Error("Failed to register XML extensions as the current group {0} is invalid, returning null.", CurrentGroup);
                     return null;
                 }
 
@@ -336,7 +347,7 @@ namespace XUIHelper.Core
                         }
                     }
 
-                    foreach (XUIHelperExtensionsFile existingExtensionFile in _Groups[_CurrentGroup].ExtensionsFiles)
+                    foreach (XUIHelperExtensionsFile existingExtensionFile in Groups[CurrentGroup].ExtensionsFiles)
                     {
                         if(existingExtensionFile.Data.Extensions == null)
                         {

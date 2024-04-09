@@ -9,10 +9,34 @@
 
   <ItemGroup>
     <None Remove="Assets\NXEControls.dll" />
+    <None Remove="Extensions\V5\9199DashElements.xml" />
+    <None Remove="Extensions\V5\9199HUDElements.xml" />
+    <None Remove="Extensions\V5\XuiElements.xml" />
+    <None Remove="Extensions\V8\17559DashElements.xml" />
+    <None Remove="Extensions\V8\17559HUDElements.xml" />
+    <None Remove="Extensions\V8\XuiElements.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\NXEControls.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Extensions\V5\9199DashElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Extensions\V5\9199HUDElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Extensions\V5\XuiElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Extensions\V8\17559DashElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Extensions\V8\17559HUDElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Extensions\V8\XuiElements.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

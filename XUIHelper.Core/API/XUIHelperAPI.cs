@@ -41,6 +41,26 @@ namespace XUIHelper.Core
         #endregion
 
         #region XML Extensions
+        public static async Task RegisterExtensionsFromDirectoryAsync(string extensionsDirPath, ILogger? logger = null)
+        {
+            foreach (string subDir in Directory.GetDirectories(extensionsDirPath, "*", SearchOption.TopDirectoryOnly))
+            {
+                string groupName = new DirectoryInfo(subDir).Name;
+
+                foreach (string extensionXML in Directory.GetFiles(subDir, "*.xml", SearchOption.TopDirectoryOnly))
+                {
+                    if (!await TryRegisterExtensionsGroupAsync(groupName, extensionXML))
+                    {
+                        logger?.Here().Error("Failed to register XML extension at {0}.", extensionXML);
+                    }
+                    else
+                    {
+                        logger?.Here().Information("Registered XML extensions from {0}.", extensionXML);
+                    }
+                }
+            }
+        }
+
         public static async Task<bool> TryRegisterExtensionsGroupAsync(string extensionsGroupName, string xmlExtensionsFilePath)
         {
             return await XMLExtensionsManager.TryRegisterExtensionsGroupAsync(extensionsGroupName, xmlExtensionsFilePath);

@@ -1,9 +1,11 @@
 ﻿using NXEControls;
+using XUIHelper.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace XUIHelper.GUI
 {
@@ -60,10 +62,14 @@ namespace XUIHelper.GUI
             }
         }
 
+
+
         public MainWindowViewModel()
         {
             Constants.PageManager.NavigatedForward += OnNavigatedForward;
             Constants.PageManager.NavigatedBack += OnNavigatedBack;
+
+            _ = XUIHelperAPI.RegisterExtensionsFromDirectoryAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Extensions"));
         }
     }
 }

@@ -21,7 +21,7 @@
 
                         <Grid Grid.Column="0">
                             <ListView ItemsSource="{Binding RegisteredExtensions, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                      SelectedIndex="{Binding SelectedRegisteredExtensionIndex, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                      SelectedIndex="{Binding SelectedRegisteredExtensionIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
 
                         <Grid Grid.Column="1">
@@ -29,7 +29,8 @@
                                 <nxe:NXEButton Content="Add" HorizontalContentAlignment="Center" Height="47" Margin="0, 0, 0, 20" 
                                                Command="{Binding AddCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <nxe:NXEButton Content="Remove" HorizontalContentAlignment="Center" Height="47" Margin="0, 0, 0, 20"
-                                               Command="{Binding RemoveCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                               Command="{Binding RemoveCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                               IsEnabled="{Binding IsExtensionSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 <nxe:NXEButton Content="Remove All" HorizontalContentAlignment="Center" Height="47" Margin="0, 0, 0, 20"
                                                Command="{Binding RemoveAllCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>

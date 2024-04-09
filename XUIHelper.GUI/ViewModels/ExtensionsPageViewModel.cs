@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using XUIHelper.Core;
 
 namespace XUIHelper.GUI
 {
@@ -13,6 +14,7 @@ namespace XUIHelper.GUI
     {
         private ObservableCollection<string> _RegisteredExtensions = new ObservableCollection<string>();
         private int _SelectedRegisteredExtensionIndex;
+        private bool _IsExtensionSelected;
         private ICommand _AddCommand;
         private ICommand _RemoveCommand;
         private ICommand _RemoveAllCommand;
@@ -40,6 +42,20 @@ namespace XUIHelper.GUI
             set
             {
                 _SelectedRegisteredExtensionIndex = value;
+                NotifyPropertyChanged();
+                IsExtensionSelected = (SelectedRegisteredExtensionIndex >= 0 && SelectedRegisteredExtensionIndex < _RegisteredExtensions.Count);
+            }
+        }
+
+        public bool IsExtensionSelected
+        {
+            get
+            {
+                return _IsExtensionSelected;
+            }
+            private set
+            {
+                _IsExtensionSelected = value;
                 NotifyPropertyChanged();
             }
         }
@@ -103,10 +119,15 @@ namespace XUIHelper.GUI
 
         private void RemoveExtension()
         {
-            _ = Constants.HUDManager?.ShowMessageBox("Remove.", "Debug");
+            if(SelectedRegisteredExtensionIndex < 0 || SelectedRegisteredExtensionIndex >= RegisteredExtensions.Count)
+            {
+                return;
+            }
+
+            XMLExtensionsManager.DeregisterExtensionFile(RegisteredExtensions[SelectedRegisteredExtensionIndex]);
         }
 
-        private void RemoveAllExtensions()
+        private async Task RemoveAllExtensions()
         {
             _ = Constants.HUDManager?.ShowMessageBox("Remove All.", "Debug");
         }
@@ -114,6 +135,41 @@ namespace XUIHelper.GUI
         private void NavigateBack()
         {
             _ = Constants.PageManager.NavigateBackAsync();
+        }
+
+        private void OnExtensionGroupChanged(object? sender, EventArgs e)
+        {
+            RegisteredExtensions.Clear();
+            int oldIndex = SelectedRegisteredExtensionIndex;
+
+            foreach (XMLExtensionsManager.XUIHelperExtensionsGroupData group in XMLExtensionsManager.Groups.Values)
+            {
+                foreach (XMLExtensionsManager.XUIHelperExtensionsFile extensionFile in group.ExtensionsFiles)
+                {
+                    RegisteredExtensions.Add(extensionFile.FilePath);
+                }
+            }
+
+            NotifyPropertyChanged("RegisteredExtensions");
+
+            if(oldIndex < RegisteredExtensions.Count)
+            {
+                SelectedRegisteredExtensionIndex = oldIndex;
+            }
+            else if(RegisteredExtensions.Count > 0)
+            {
+                SelectedRegisteredExtensionIndex = RegisteredExtensions.Count - 1;
+            }
+            else
+            {
+                SelectedRegisteredExtensionIndex = -1;
+            }
+        }
+
+        public ExtensionsPageViewModel()
+        {
+            OnExtensionGroupChanged(null, EventArgs.Empty);
+            XMLExtensionsManager.ExtensionGroupsChanged += OnExtensionGroupChanged;
         }
     }
 }
