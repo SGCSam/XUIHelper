@@ -20,8 +20,8 @@ namespace XUIHelper.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        //TODO: Extensions group manager
-        //TODO: Ignore properties checkbox
+        //TODO: Fix transition label
+        //TODO: Page transitions
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
