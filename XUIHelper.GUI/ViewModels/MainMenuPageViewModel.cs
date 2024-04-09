@@ -12,6 +12,7 @@ namespace XUIHelper.GUI
     public class MainMenuPageViewModel : NXEViewModelBase
     {
         private ICommand _SingleConvertCommand;
+        private ICommand _MassConvertCommand;
         private ICommand _ExtensionsCommand;
         private ICommand _AboutCommand;
         private ICommand _ExitCommand;
@@ -26,6 +27,19 @@ namespace XUIHelper.GUI
                 }
 
                 return _SingleConvertCommand;
+            }
+        }
+
+        public ICommand MassConvertCommand
+        {
+            get
+            {
+                if (_MassConvertCommand == null)
+                {
+                    _MassConvertCommand = new NXERelayCommand(x => NavigateToMassConvert());
+                }
+
+                return _MassConvertCommand;
             }
         }
 
@@ -71,6 +85,11 @@ namespace XUIHelper.GUI
         private void NavigateToSingleConvert()
         {
             _ = Constants.PageManager.NavigateForwardAsync(new SingleConvertPage());
+        }
+
+        private void NavigateToMassConvert()
+        {
+            _ = Constants.PageManager.NavigateForwardAsync(new MassConvertPage());
         }
 
         private void NavigateToExtensions()

@@ -12,7 +12,7 @@ namespace XUIHelper.GUI
 {
     public class AboutPageViewModel : NXEViewModelBase
     {
-        private Version _AppVersion;
+        private Version _AppVersion = new Version(0, 0, 0, 0);
         private ICommand _NavigateBackCommand;
 
         public Version AppVersion
@@ -48,8 +48,6 @@ namespace XUIHelper.GUI
 
         public AboutPageViewModel()
         {
-            AppVersion = new Version(0, 0, 0, 0);
-
             Assembly? entryAssembly = Assembly.GetEntryAssembly();
             if(entryAssembly == null)
             {

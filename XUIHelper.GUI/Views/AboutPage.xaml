@@ -15,7 +15,7 @@
                 <Grid>
                     <nxe:NXEScrollViewer Margin="25, 25, 25, 100">
                         <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource TextBlock.NXEBackgroundPanelButtonsListUserControl.DescriptionText}">
-                            <Run Text="XUIHelper.CLI" />
+                            <Run Text="XUIHelper.GUI" />
                             <Run Text="{Binding AppVersion, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0.0.0.0}" />
                             <Run Text="by SGCSam" />
                             <LineBreak />

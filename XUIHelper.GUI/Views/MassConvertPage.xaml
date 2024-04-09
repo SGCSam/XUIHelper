@@ -1,0 +1,77 @@
+﻿<nxe:NXEUserControl x:Class="XUIHelper.GUI.MassConvertPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:XUIHelper.GUI"
+             xmlns:nxe="clr-namespace:NXEControls;assembly=NXEControls"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Title="Mass Convert">
+    <Viewbox>
+        <Grid Width="1280" Height="720">
+            <nxe:NXEBackgroundPanel Width="890" Height="485">
+                <Grid>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="25, 25, 25, 100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*" />
+                            <RowDefinition Height="0.5*" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Source Directory" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                            <TextBlock Style="{StaticResource TextBlock.XUIHelper.NXEFilePath}" Margin="25, 50, 100, 25" Text="{Binding SourceDirectory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <nxe:NXEButton Width="64" Height="64" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 25, 0"
+                                           Content="..." Command="{Binding BrowseSourceDirectoryCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Destination Directory" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                            <TextBlock Style="{StaticResource TextBlock.XUIHelper.NXEFilePath}" Margin="25, 50, 100, 25" Text="{Binding DestinationDirectory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <nxe:NXEButton Width="64" Height="64" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0, 0, 25, 0"
+                                           Content="..." Command="{Binding BrowseDestinationDirectoryCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <CheckBox Content="Ignore Properties" Style="{StaticResource CheckBox.XUIHelper.NXE}" 
+                                      IsChecked="{Binding IgnoreProperties, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
+                        <Grid Grid.Row="3">
+                            <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Output File Type" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="200, 0, 0, 0" Height="25"
+                                       ItemsSource="{Binding OutputFileTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       SelectedIndex="{Binding SelectedOutputFileTypeIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
+                        <Grid Grid.Row="4">
+                            <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Extensions Group" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="200, 0, 0, 0" Height="25"
+                                       ItemsSource="{Binding ExtensionGroups, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       SelectedIndex="{Binding SelectedExtensionGroupIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
+                        <Grid Grid.Row="5">
+                            <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Log Verbosity" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="200, 0, 0, 0" Height="25"
+                                       ItemsSource="{Binding LogVerbosityLevels, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       SelectedIndex="{Binding SelectedLogVerbosityLevelIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </Grid>
+
+                    <UniformGrid Rows="1" Columns="2">
+                        <nxe:NXEButton Grid.Column="0" Content="Back" IsBackButton="True" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="47" Margin="25" 
+                                       Command="{Binding NavigateBackCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <nxe:NXEButton Grid.Column="1" Content="Convert" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="47" Margin="25" 
+                                       Command="{Binding ConvertCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </UniformGrid>
+                </Grid>
+            </nxe:NXEBackgroundPanel>
+        </Grid>
+    </Viewbox>
+</nxe:NXEUserControl>

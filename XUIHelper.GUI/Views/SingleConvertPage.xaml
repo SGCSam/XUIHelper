@@ -8,7 +8,7 @@
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Title="About">
+             Title="Single Convert">
     <Viewbox>
         <Grid Width="1280" Height="720">
             <nxe:NXEBackgroundPanel Width="890" Height="485">
