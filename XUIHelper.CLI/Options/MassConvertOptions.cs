@@ -124,13 +124,16 @@ namespace XUIHelper.CLI
             }
 
             Console.WriteLine("INFO: Mass converting files, this may take some time, please wait...");
-            if (!await XUIHelperAPI.TryMassConvertDirectoryAsync(SourceDirectory, format, OutputDirectory, null))
+            XUIHelperAPI.MassConversionResult result = await XUIHelperAPI.TryMassConvertDirectoryAsync(SourceDirectory, format, OutputDirectory, null);
+
+            if (!result.Successful)
             {
                 Console.WriteLine("ERROR: Failed to convert files in \"{0}\" to {1}. Consider using a log file and checking it for more information.", SourceDirectory, format);
             }
             else
             {
-                Console.WriteLine("SUCCESS: Converted files in \"{0}\" to {1} successfully!", SourceDirectory, format);
+                Console.WriteLine("SUCCESS: Converted files in \"{0}\" to {1} successfully!\n\tSuccessful Conversions: {2}\n\tFailed Conversions: {3}\n\tSuccess Rate: {4}%", 
+                    SourceDirectory, format, result.SuccessfulWorkCount, result.FailedWorkCount, Convert.ToInt32((result.SuccessfulWorkCount / (float)(result.SuccessfulWorkCount + result.FailedWorkCount)) * 100.0f));
             }
         }
     }
