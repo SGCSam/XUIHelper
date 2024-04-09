@@ -23,10 +23,12 @@
                     <Grid Visibility="{Binding IsConverting, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource booleanToVisibilityConverter}, ConverterParameter=False, FallbackValue=Visible}">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="25, 25, 25, 100">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="0.4*" />
-                                <RowDefinition Height="0.4*" />
-                                <RowDefinition Height="0.1*" />
-                                <RowDefinition Height="0.1*" />
+                                <RowDefinition Height="0.5*" />
+                                <RowDefinition Height="0.5*" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="0">
@@ -44,13 +46,25 @@
                             </Grid>
 
                             <Grid Grid.Row="2">
+                                <CheckBox Content="Ignore Properties" Style="{StaticResource CheckBox.XUIHelper.NXE}" 
+                                          IsChecked="{Binding IgnoreProperties, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+
+                            <Grid Grid.Row="3">
                                 <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Output File Type" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                 <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="200, 0, 0, 0" Height="25"
                                       ItemsSource="{Binding OutputFileTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedIndex="{Binding SelectedOutputFileTypeIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
 
-                            <Grid Grid.Row="3">
+                            <Grid Grid.Row="4">
+                                <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Extensions Group" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="200, 0, 0, 0" Height="25"
+                                          ItemsSource="{Binding ExtensionGroups, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedIndex="{Binding SelectedExtensionGroupIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+
+                            <Grid Grid.Row="5">
                                 <TextBlock Style="{StaticResource TextBlock.Core.NXEHeader}" Text="Log Verbosity" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                 <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="200, 0, 0, 0" Height="25"
                                       ItemsSource="{Binding LogVerbosityLevels, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

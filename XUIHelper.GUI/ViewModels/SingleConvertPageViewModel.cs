@@ -18,8 +18,11 @@ namespace XUIHelper.GUI
         private ICommand _BrowseSourceFilePathCommand;
         private string _DestinationFilePath = @"F:\XUIHelper Example\Test.xui";
         private ICommand _BrowseDestinationFilePathCommand;
+        private bool _IgnoreProperties = true;
         private ObservableCollection<string> _OutputFileTypes = new ObservableCollection<string>() { "XUR v5", "XUR v8", "XUI v12" };
         private int _SelectedOutputFileTypeIndex = 0;
+        private ObservableCollection<string> _ExtensionGroups = new ObservableCollection<string>();
+        private int _SelectedExtensionGroupIndex = 0;
         private ObservableCollection<string> _LogVerbosityLevels = new ObservableCollection<string>() { "None", "Information", "Verbose" };
         private int _SelectedLogVerbosityLevelIndex = 0;
         private ICommand _NavigateBackCommand;
@@ -78,6 +81,19 @@ namespace XUIHelper.GUI
             }
         }
 
+        public bool IgnoreProperties
+        {
+            get
+            {
+                return _IgnoreProperties;
+            }
+            set
+            {
+                _IgnoreProperties = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public ObservableCollection<string> OutputFileTypes
         {
             get
@@ -100,6 +116,32 @@ namespace XUIHelper.GUI
             set
             {
                 _SelectedOutputFileTypeIndex = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> ExtensionGroups
+        {
+            get
+            {
+                return _ExtensionGroups;
+            }
+            private set
+            {
+                _ExtensionGroups = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public int SelectedExtensionGroupIndex
+        {
+            get
+            {
+                return _SelectedExtensionGroupIndex;
+            }
+            set
+            {
+                _SelectedExtensionGroupIndex = value;
                 NotifyPropertyChanged();
             }
         }
@@ -214,6 +256,15 @@ namespace XUIHelper.GUI
                     return;
                 }
 
+                if(SelectedExtensionGroupIndex < 0 || SelectedExtensionGroupIndex >= ExtensionGroups.Count)
+                {
+                    _ = Constants.HUDManager?.ShowMessageBox("The selected extension group is invalid.", "Invalid Selection Group", System.Windows.MessageBoxButton.OK, NXEHUD.NXEHUDIconType.Error);
+                    return;
+                }
+
+                XUIHelperAPI.SetCurrentExtensionsGroup(ExtensionGroups[SelectedExtensionGroupIndex]);
+                XUIHelperAPI.SetAreIgnoredPropertiesActive(IgnoreProperties);
+
                 string logPath = Path.Combine(Path.GetDirectoryName(DestinationFilePath), "Conversion Log.txt");
                 switch(_SelectedLogVerbosityLevelIndex)
                 {
@@ -284,6 +335,23 @@ namespace XUIHelper.GUI
             finally
             {
                 IsConverting = false;
+            }
+        }
+
+        public SingleConvertPageViewModel()
+        {
+            ExtensionGroups.Clear();
+
+            foreach (XMLExtensionsManager.XUIHelperExtensionsGroupData group in XMLExtensionsManager.Groups.Values)
+            {
+                ExtensionGroups.Add(group.GroupName);
+            }
+
+            NotifyPropertyChanged("ExtensionGroups");
+
+            if (ExtensionGroups.Count > 0)
+            {
+                SelectedExtensionGroupIndex = 0;
             }
         }
     }
