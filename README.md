@@ -20,9 +20,9 @@ XUIHelper is a suite of tools written in C# that provides interfaces for reading
 
 ## Wiki
 
-For documentation on using XUIHelper.CLI, see: TODO
-For documentation on using XUIHelper.GUI, see: TODO
-For documentation on the XML extensions system, see: TODO
+For documentation on using XUIHelper.CLI, see "Documentation/XUIHelper.CLI Documentation" 
+For documentation on using XUIHelper.GUI, see: "Documentation/XUIHelper.GUI Documentation" 
+For documentation on the XML extensions system, see: "Documentation/XML Extensions Documentation" 
 
 ## Contributors
 
