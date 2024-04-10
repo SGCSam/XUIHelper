@@ -16,8 +16,8 @@ To register extensions in XUIHelper.CLI:
 `about` - Display information about XUIHelper.CLI.
 
 `conv` - Convert an individual file to one of the XU supported formats
-  `-s <Path>` - The input source file path
-  `-f <xurv5/xurv8/xuiv12>` - The format to convert to. Must be either "xurv5", "xurv8" or "xuiv12"
+    `-s <Path>` - The input source file path
+    `-f <xurv5/xurv8/xuiv12>` - The format to convert to. Must be either "xurv5", "xurv8" or "xuiv12"
   `-o <Path>` - The output file path
   `-g <Group Name>` - The name of the XML extensions group to use for the conversion
   `(Optional) -i` - Used to disable the ignore properties for the conversion (the properties will NOT be ignored)
