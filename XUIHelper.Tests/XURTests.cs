@@ -71,7 +71,7 @@ namespace XUIHelper.Tests
             int totalXURsCount = successfulXURs.Count + failedXURs.Count;
             float successPercentage = (successfulXURs.Count / (float)totalXURsCount) * 100.0f;
 
-            _Log.Information("==== XUR5 ALL READS ====");
+            _Log.Information("==== XUR ALL READS ====");
             _Log.Information("Total: {0}, Successful: {1}, Failed: {2} ({3}%)", totalXURsCount, successfulXURs.Count, failedXURs.Count, successPercentage);
             _Log.Information("");
             _Log.Information("==== SUCCESSFUL XURS ====");
@@ -173,6 +173,17 @@ namespace XUIHelper.Tests
                         }
                         else if (!AreFilesEqual(readXUR.FilePath, thisWriteXURPath))
                         {
+                            //NOTE: We have to treat this as a warning rather than an error for several reasons as the outputted file may be perfectly valid, primarily with XUR5
+                            //(I've had loads of cases where the files are functionally identical when opened in XuiTool)
+                            //
+                            //1) For some reason, some of the XUR5s from 9199 don't always include all child class properties, chiefly with the root XuiCanvas
+                                //This means our packed byte and our masks counts will be "wrong", but our outputted XUR is still perfectly fine.
+                                //This is either some optimization I don't know about, or these may have been created with a different version of XuiTool.
+                            //2) The criteria I've implemented for when to write the extended count header for XUR5 isn't fully correct. So we'll end up with and additional 0x28 bytes
+                                //Fortunately, XuiTool doesn't care
+                            //We *could* write really in-depth comparisons of exactly why the files aren't equal and catch these cases but this is a lot of work.
+                            //If all files read and write successfully and a Json serialization matches, I think a warning suffices here.
+
                             _Log?.Information("Warning: Non-equal files for {0}.", readXUR.FilePath);
                             warningXURs.Add(readXUR.FilePath);
                         }
@@ -244,8 +255,6 @@ namespace XUIHelper.Tests
             {
                 return false;
             }
-
-
 
             return JsonConvert.SerializeObject(readData.RootObject) == JsonConvert.SerializeObject(readBackData.RootObject);
         }
