@@ -16,6 +16,7 @@ XUIHelper is a suite of tools written in C# that provides interfaces for reading
 1) Clone the repository
 2) Build XUIHelper.CLI in Visual Studio.
 3) Run XUIHelper.CLI via command line with the following arguments:
+   
   `conv -s <Source XUR Path> -f "xuiv12" -o <Output XUI Path> -g "V8"`
 
 ## Wiki
