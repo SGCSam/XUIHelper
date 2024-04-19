@@ -225,6 +225,7 @@ namespace XUIHelper.GUI
         private void BrowseForDestinationFilePath()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.CheckFileExists = false;
             openFileDialog.Filter = "All files (*.*)|*.*";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
