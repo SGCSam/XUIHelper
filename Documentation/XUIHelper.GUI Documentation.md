@@ -11,9 +11,10 @@ XUIHelper.GUI is a WPF application using NXEControls, a custom control library t
 To register extensions in XUIHelper.GUI, you can use the "XML Extensions Manager" option via the main menu.
 
 Alternatively, if you wish to perform this manually:
-1) Create a folder named "Extensions" in the same directory as the program .exe
-2) Create a folder inside "Extensions" named as your group name
-3) Inside your group name folder, place as many .xml extension files as you'd like
+1) Create a folder named "Assets" in the same directory as the program .exe
+2) Create a folder named "Extensions" inside the "Assets" folder
+3) Create a folder inside "Extensions" named as your group name
+4) Inside your group name folder, place as many .xhe files as you'd like
 
 ## Single Conversion
 
