@@ -1,35 +1,30 @@
-﻿<XUIHelperExtensions>
-  <XUIClassExtension version="0001">
-    <XUIClass Name="HUDScene" BaseClassName="XuiScene" Icon="Images/HUDScene.bmp" Description="HUDScene">
-      <PropDef Id="182" Editor="HudOpenTypeEditor" Name="OpenType" Type="unsigned">
-        <DefaultVal>0</DefaultVal>
-      </PropDef>
-      <PropDef Id="183" Name="LegendA" Type="string">
-        <DefaultVal></DefaultVal>
-      </PropDef>
-      <PropDef Id="184" Name="LegendB" Type="string">
-        <DefaultVal></DefaultVal>
-      </PropDef>
-      <PropDef Id="185" Name="LegendX" Type="string">
-        <DefaultVal></DefaultVal>
-      </PropDef>
-      <PropDef Id="186" Name="LegendY" Type="string">
-        <DefaultVal></DefaultVal>
-      </PropDef>
-      <PropDef Id="187" Name="ShowGamerInfo" Type="bool"></PropDef>
-    </XUIClass>
-    <XUIClass Name="GuideDashCommandNavButton" BaseClassName="XuiNavButton" Icon="Images/GuideDashCommandNavButton.bmp" Description="GuideDashCommandNavButton">
-      <PropDef Name="DashCommand" Type="integer">
-        <DefaultVal>0</DefaultVal>
-      </PropDef>
-    </XUIClass>
-    <XUIClass Name="GuideMainSceneNavButton" BaseClassName="XuiNavButton" Icon="Images/GuideMainSceneNavButton.bmp" Description="GuideMainSceneNavButton">
-      <PropDef Name="MainScenePressPath" Type="string">
-        <DefaultVal></DefaultVal>
-      </PropDef>
-    </XUIClass>
-  </XUIClassExtension>
-  
-  <IgnoreProperties />
-  
-</XUIHelperExtensions>
+﻿<XUIClassExtension version="0001">
+  <XUIClass Name="HUDScene" BaseClassName="XuiScene" Icon="Images/HUDScene.bmp" Description="HUDScene">
+    <PropDef Id="182" Editor="HudOpenTypeEditor" Name="OpenType" Type="unsigned">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+    <PropDef Id="183" Name="LegendA" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="184" Name="LegendB" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="185" Name="LegendX" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="186" Name="LegendY" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="187" Name="ShowGamerInfo" Type="bool"></PropDef>
+  </XUIClass>
+  <XUIClass Name="GuideDashCommandNavButton" BaseClassName="XuiNavButton" Icon="Images/GuideDashCommandNavButton.bmp" Description="GuideDashCommandNavButton">
+    <PropDef Name="DashCommand" Type="integer">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+  </XUIClass>
+  <XUIClass Name="GuideMainSceneNavButton" BaseClassName="XuiNavButton" Icon="Images/GuideMainSceneNavButton.bmp" Description="GuideMainSceneNavButton">
+    <PropDef Name="MainScenePressPath" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+  </XUIClass>
+</XUIClassExtension>

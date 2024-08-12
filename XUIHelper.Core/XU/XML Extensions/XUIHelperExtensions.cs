@@ -13,6 +13,9 @@ namespace XUIHelper.Core
         [XmlElement("XUIClassExtension")]
         public XUClassExtension? Extensions { get; set; }
 
+        [XmlElement("RelationalExtensions")]
+        public XUIHelperRelationalExtensions? RelationalExtensions { get; set; }
+
         [XmlElement("IgnoreProperties")]
         public XUIHelperIgnoreProperties? IgnoreProperties { get; set; }
 

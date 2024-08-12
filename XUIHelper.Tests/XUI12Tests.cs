@@ -29,9 +29,7 @@ namespace XUIHelper.Tests
         private void RegisterExtensions(ILogger? logger = null)
         {
             XMLExtensionsManager.Initialize(logger);
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V5\XuiElements.xml"));
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V5\9199DashElements.xml"));
-            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V5\9199HUDElements.xml"));
+            _ = XMLExtensionsManager.TryRegisterExtensionsGroupAsync("XUI12Tests", Path.Combine(TestContext.CurrentContext.TestDirectory, @"Extensions\V5\9199.xhe"));
         }
 
         private bool AreFilesEqual(string filePathOne, string filePathTwo)

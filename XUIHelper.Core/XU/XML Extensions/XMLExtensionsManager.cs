@@ -12,6 +12,8 @@ namespace XUIHelper.Core
 {
     public static class XMLExtensionsManager
     {
+        public const string XHEFileExtension = ".xhe";
+
         public class XUIHelperExtensionsGroupData
         {
             public string GroupName { get; private set; }
@@ -69,19 +71,19 @@ namespace XUIHelper.Core
             Logger = logger?.ForContext(typeof(XMLExtensionsManager));
         }
 
-        public static async Task<bool> TryRegisterExtensionsGroupAsync(string extensionsGroupName, string xmlExtensionsFilePath)
+        public static async Task<bool> TryRegisterExtensionsGroupAsync(string extensionsGroupName, string xheFilePath)
         {
             try
             {
-                Logger?.Here().Verbose("Registering classes from {0} into group {1}.", xmlExtensionsFilePath, extensionsGroupName);
+                Logger?.Here().Verbose("Registering classes from {0} into group {1}.", xheFilePath, extensionsGroupName);
 
                 if(Groups.ContainsKey(extensionsGroupName))
                 {
                     foreach (XUIHelperExtensionsFile extensionsFile in Groups[extensionsGroupName].ExtensionsFiles)
                     {
-                        if (extensionsFile.FilePath == xmlExtensionsFilePath)
+                        if (extensionsFile.FilePath == xheFilePath)
                         {
-                            Logger?.Here().Verbose("Already registered extensions from {0} for group {1}, won't re-register, returning true.", xmlExtensionsFilePath, extensionsGroupName);
+                            Logger?.Here().Verbose("Already registered extensions from {0} for group {1}, won't re-register, returning true.", xheFilePath, extensionsGroupName);
                             return true;
                         }
                     }
@@ -90,14 +92,15 @@ namespace XUIHelper.Core
                 string oldGroup = CurrentGroup;
                 SetCurrentGroup(extensionsGroupName);
 
-                XUIHelperExtensions? registeredExtension = await TryRegisterXMLExtensionsAsync(xmlExtensionsFilePath);
-                if (registeredExtension == null)
+                XUIHelperExtensions? xhe = await TryDeserializeXHEAsync(xheFilePath);
+                if (xhe == null)
                 {
-                    Logger?.Here().Error("Registered extension for {0} was null, returning false.", xmlExtensionsFilePath);
+                    Logger?.Here().Error("Registered extension for {0} was null, returning false.", xheFilePath);
                     return false;
                 }
 
-                Groups[extensionsGroupName].ExtensionsFiles.Add(new XUIHelperExtensionsFile(xmlExtensionsFilePath, registeredExtension));
+                //TODO: Here!
+                Groups[extensionsGroupName].ExtensionsFiles.Add(new XUIHelperExtensionsFile(xheFilePath, xhe));
 
                 if (!string.IsNullOrEmpty(oldGroup))
                 {
@@ -269,13 +272,20 @@ namespace XUIHelper.Core
             }
         }
 
-        private static async Task<XUIHelperExtensions?> TryRegisterXMLExtensionsAsync(string xmlExtensionFilePath)
+        private static async Task<XUIHelperExtensions?> TryDeserializeXHEAsync(string xheFilePath)
         {
             try
             {
-                if (!File.Exists(xmlExtensionFilePath))
+                if (!File.Exists(xheFilePath))
                 {
-                    Logger?.Here().Error("Failed to register XML extensions as the file does not exist at {0}, returning null.", xmlExtensionFilePath);
+                    Logger?.Here().Error("Failed to register XML extensions as the file does not exist at {0}, returning null.", xheFilePath);
+                    return null;
+                }
+
+                string fileExtension = Path.GetExtension(xheFilePath).ToLower();
+                if(fileExtension != XHEFileExtension)
+                {
+                    Logger?.Here().Error("Failed to register XML extensions as the file has an unexpected extension, returning null. Expected: {0}, Actual: {1}.", XHEFileExtension, fileExtension);
                     return null;
                 }
 
@@ -285,20 +295,64 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                XmlSerializer serializer = new XmlSerializer(typeof(XUIHelperExtensions));
-                using (FileStream extensionsFileStream = new FileStream(xmlExtensionFilePath, FileMode.Open))
+                XmlSerializer xheSerializer = new XmlSerializer(typeof(XUIHelperExtensions));
+                using (FileStream extensionsFileStream = new FileStream(xheFilePath, FileMode.Open))
                 {
-                    XUIHelperExtensions? deserializedExtension = (XUIHelperExtensions?)serializer.Deserialize(extensionsFileStream);
+                    XUIHelperExtensions? deserializedExtension = (XUIHelperExtensions?)xheSerializer.Deserialize(extensionsFileStream);
                     if (deserializedExtension == null)
                     {
-                        Logger?.Here().Error("Failed to register XML extensions at {0} as the deserialization has failed, returning null.", xmlExtensionFilePath);
+                        Logger?.Here().Error("Failed to register XML extensions at {0} as the deserialization has failed, returning null.", xheFilePath);
                         return null;
                     }
 
                     if(deserializedExtension.Extensions == null)
                     {
-                        Logger?.Here().Error("Failed to register XML extensions at {0} as the extensions are null, returning null.", xmlExtensionFilePath);
+                        Logger?.Here().Error("Failed to register XML extensions at {0} as the extensions are null, returning null.", xheFilePath);
                         return null;
+                    }
+
+                    if (deserializedExtension.RelationalExtensions != null)
+                    {
+                        string? xheDirectory = Path.GetDirectoryName(xheFilePath);
+                        if (string.IsNullOrEmpty(xheDirectory))
+                        {
+                            Logger?.Here().Warning("Failed to register relational extensions from {0} as the XHE directory is invalid, extensions from this file won't be registered.", xheFilePath);
+                        }
+                        else
+                        {
+                            foreach (XUIHelperRelationalExtension relationalExtension in deserializedExtension.RelationalExtensions.RelationalExtensions)
+                            {
+                                string absoluteRelationalsFilePath = Path.Combine(xheDirectory, relationalExtension.RelativeFilePath);
+
+                                try
+                                {
+                                    if (!File.Exists(absoluteRelationalsFilePath))
+                                    {
+                                        Logger?.Here().Warning("Failed to register relational extensions from {0} as the file does not exist, extensions from this file won't be registered.", absoluteRelationalsFilePath);
+                                        continue;
+                                    }
+
+                                    XmlSerializer classesSerializer = new XmlSerializer(typeof(XUClassExtension));
+                                    using (FileStream relationalFileStream = new FileStream(absoluteRelationalsFilePath, FileMode.Open))
+                                    {
+                                        XUClassExtension? deserializedRelationals = (XUClassExtension?)classesSerializer.Deserialize(relationalFileStream);
+                                        if (deserializedRelationals == null)
+                                        {
+                                            Logger?.Here().Warning("Failed to register relational extensions from {0} as the deserialization has failed, extensions from this file won't be registered.", absoluteRelationalsFilePath);
+                                            return null;
+                                        }
+
+                                        deserializedExtension.Extensions.Classes.AddRange(deserializedRelationals.Classes);
+                                        Logger?.Here().Verbose("Added {0} classes from relational extensions at {1}.", deserializedRelationals.Classes.Count, absoluteRelationalsFilePath);
+                                    }
+                                }
+                                catch(Exception relationalEx)
+                                {
+                                    Logger?.Here().Warning("Failed to register relational extension from {0} as an exception occurred, extensions from this file won't be registered. The exception is: {1}", absoluteRelationalsFilePath, relationalEx);
+                                    continue;
+                                }
+                            }
+                        }
                     }
 
                     if(deserializedExtension.IgnoreProperties != null)
@@ -308,7 +362,7 @@ namespace XUIHelper.Core
                         {
                             if (foundIgnoredClassNames.Contains(ignoredClass.ClassName))
                             {
-                                Logger?.Here().Error("Failed to add ignore class {0} in XML extensions at {1} as it was a duplicate, returning null.", ignoredClass.ClassName, xmlExtensionFilePath);
+                                Logger?.Here().Error("Failed to add ignore class {0} in XML extensions at {1} as it was a duplicate, returning null.", ignoredClass.ClassName, xheFilePath);
                                 return null;
                             }
 
@@ -324,7 +378,7 @@ namespace XUIHelper.Core
 
                             if (foundClass == null)
                             {
-                                Logger?.Here().Error("Failed to find ignore class {0} in XML extensions at {1}, returning null.", ignoredClass.ClassName, xmlExtensionFilePath);
+                                Logger?.Here().Error("Failed to find ignore class {0} in XML extensions at {1}, returning null.", ignoredClass.ClassName, xheFilePath);
                                 return null;
                             }
 
@@ -336,7 +390,7 @@ namespace XUIHelper.Core
                             {
                                 if (foundIgnoredPropertyNames.Contains(ignoredProperty.Value))
                                 {
-                                    Logger?.Here().Error("Failed to add ignore class {0} in XML extensions at {1} as the property {2} was a duplicate, returning null.", ignoredClass.ClassName, xmlExtensionFilePath, ignoredProperty.Value);
+                                    Logger?.Here().Error("Failed to add ignore class {0} in XML extensions at {1} as the property {2} was a duplicate, returning null.", ignoredClass.ClassName, xheFilePath, ignoredProperty.Value);
                                     return null;
                                 }
 
@@ -352,7 +406,7 @@ namespace XUIHelper.Core
 
                                 if (!found)
                                 {
-                                    Logger?.Here().Error("Failed to find property definition {0} from ignored class {1} in XML extensions at {2}, returning null.", ignoredProperty.Value, ignoredClass.ClassName, xmlExtensionFilePath);
+                                    Logger?.Here().Error("Failed to find property definition {0} from ignored class {1} in XML extensions at {2}, returning null.", ignoredProperty.Value, ignoredClass.ClassName, xheFilePath);
                                     return null;
                                 }
 
@@ -375,7 +429,7 @@ namespace XUIHelper.Core
                             {
                                 if (existingClass.Name == deserializedClass.Name)
                                 {
-                                    Logger?.Here().Error("Failed to register XML extensions at {0} as the class {1} is a duplicate, returning null.", xmlExtensionFilePath, existingClass.Name);
+                                    Logger?.Here().Error("Failed to register XML extensions at {0} as the class {1} is a duplicate, returning null.", xheFilePath, existingClass.Name);
                                     return null;
                                 }
                             }
@@ -390,13 +444,13 @@ namespace XUIHelper.Core
                         }
                     }
 
-                    Logger?.Here().Verbose("Registered a total of {0} classes from {1}.", deserializedExtension.Extensions.Classes.Count, xmlExtensionFilePath);
+                    Logger?.Here().Verbose("Registered a total of {0} classes from {1}.", deserializedExtension.Extensions.Classes.Count, xheFilePath);
                     return deserializedExtension;
                 }
             }
             catch (Exception ex)
             {
-                Logger?.Here().Error("Caught an exception when trying to register XML extensions at {0}, returning null. The exception is: {1}", xmlExtensionFilePath, ex);
+                Logger?.Here().Error("Caught an exception when trying to register XML extensions at {0}, returning null. The exception is: {1}", xheFilePath, ex);
                 return null;
             }
         }
