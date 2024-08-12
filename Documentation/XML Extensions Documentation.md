@@ -28,7 +28,7 @@ XUIHelper implements an IgnoreProperties section of its XHE format (see below), 
 
 ## XHE Files
 
-The XuiHelper Extensions (XHE) file is a simple XML file format, that wraps itself around XUI's XML extensions format. It allows XML extensions to be defined within it directly, as well as containing a "RelationalExtensions" section where relative file paths can be provided to XUI XML extension files to reduce duplication and promote reusability. The IgnoreProperties section is also within this format, each with a corresponding IgnoreClass and a collection of properties to ignore within that class.
+The XUIHelper Extensions (XHE) file is a simple XML file format, that wraps itself around XUI's XML extensions format. It allows XML extensions to be defined within it directly, as well as containing a "RelationalExtensions" section where relative file paths can be provided to XUI XML extension files to reduce duplication and promote reusability. The IgnoreProperties section is also within this format, each with a corresponding IgnoreClass and a collection of properties to ignore within that class.
 
 ## Registering Extensions
 
