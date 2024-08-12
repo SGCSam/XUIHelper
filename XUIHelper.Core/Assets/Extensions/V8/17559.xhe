@@ -3,8 +3,9 @@
   <XUIClassExtension version="0001" />
   
   <RelationalExtensions>
-	  <RelationalExtension>9199DashElements.xml</RelationalExtension>
-	  <RelationalExtension>9199HUDElements.xml</RelationalExtension>
+	  <RelationalExtension>17559DashElements.xml</RelationalExtension>
+	  <RelationalExtension>17550HUDElements.xml</RelationalExtension>
+      <RelationalExtension>XuiDataBinding.xml</RelationalExtension>
 	  <RelationalExtension>XuiElements.xml</RelationalExtension>
   </RelationalExtensions>
 
@@ -21,8 +22,21 @@
       <IgnoreProperty>ColorFactor</IgnoreProperty>
       <IgnoreProperty>CenterPivot</IgnoreProperty>
     </IgnoreClass>
+    <IgnoreClass ClassName="XuiControl">
+      <IgnoreProperty>AutoId</IgnoreProperty>
+    </IgnoreClass>
     <IgnoreClass ClassName="XuiImage">
       <IgnoreProperty>TextureSurfaceElement</IgnoreProperty>
+      <IgnoreProperty>LoadType</IgnoreProperty>
+    </IgnoreClass>
+    <IgnoreClass ClassName="XuiImagePresenter">
+      <IgnoreProperty>LoadType</IgnoreProperty>
+    </IgnoreClass>
+    <IgnoreClass ClassName="XuiText">
+      <IgnoreProperty>TextScale</IgnoreProperty>
+    </IgnoreClass>
+    <IgnoreClass ClassName="XuiTextPresenter">
+      <IgnoreProperty>TextScale</IgnoreProperty>
     </IgnoreClass>
   </IgnoreProperties>
   

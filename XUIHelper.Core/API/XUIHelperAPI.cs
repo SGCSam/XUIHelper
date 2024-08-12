@@ -68,23 +68,23 @@ namespace XUIHelper.Core
             {
                 string groupName = new DirectoryInfo(subDir).Name;
 
-                foreach (string extensionXML in Directory.GetFiles(subDir, "*.xml", SearchOption.TopDirectoryOnly))
+                foreach (string extensionXHEFilePath in Directory.GetFiles(subDir, string.Format("*{0}", XMLExtensionsManager.XHEFileExtension), SearchOption.TopDirectoryOnly))
                 {
-                    if (!await TryRegisterExtensionsGroupAsync(groupName, extensionXML))
+                    if (!await TryRegisterExtensionsGroupAsync(groupName, extensionXHEFilePath))
                     {
-                        logger?.Here().Error("Failed to register XML extension at {0}.", extensionXML);
+                        logger?.Here().Error("Failed to register XML extension at {0}.", extensionXHEFilePath);
                     }
                     else
                     {
-                        logger?.Here().Information("Registered XML extensions from {0}.", extensionXML);
+                        logger?.Here().Information("Registered XML extensions from {0}.", extensionXHEFilePath);
                     }
                 }
             }
         }
 
-        public static async Task<bool> TryRegisterExtensionsGroupAsync(string extensionsGroupName, string xmlExtensionsFilePath)
+        public static async Task<bool> TryRegisterExtensionsGroupAsync(string extensionsGroupName, string xheFilePath)
         {
-            return await XMLExtensionsManager.TryRegisterExtensionsGroupAsync(extensionsGroupName, xmlExtensionsFilePath);
+            return await XMLExtensionsManager.TryRegisterExtensionsGroupAsync(extensionsGroupName, xheFilePath);
         }
 
         public static void SetCurrentExtensionsGroup(string groupName)

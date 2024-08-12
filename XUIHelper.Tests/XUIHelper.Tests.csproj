@@ -10,14 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Extensions\V5\9199.xhe" />
-    <None Remove="Extensions\V5\9199DashElements.xml" />
-    <None Remove="Extensions\V5\9199HUDElements.xml" />
-    <None Remove="Extensions\V5\XuiElements.xml" />
-    <None Remove="Extensions\V8\17559DashElements.xml" />
-    <None Remove="Extensions\V8\17559HUDElements.xml" />
-    <None Remove="Extensions\V8\XuiDataBinding.xml" />
-    <None Remove="Extensions\V8\XuiElements.xml" />
+    <Compile Remove="Extensions\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <None Remove="Extensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Test Data\XUI\9199\AuraScene.xui" />
     <None Remove="Test Data\XUI\9199\community.xui" />
     <None Remove="Test Data\XUI\9199\Controller_Full.xui" />
@@ -1748,30 +1746,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Extensions\V5\9199.xhe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Extensions\V5\9199DashElements.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Extensions\V5\9199HUDElements.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Extensions\V5\XuiElements.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Extensions\V8\17559DashElements.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Extensions\V8\17559HUDElements.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Extensions\V8\XuiDataBinding.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Extensions\V8\XuiElements.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Test Data\XUI\9199\AuraScene.xui">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

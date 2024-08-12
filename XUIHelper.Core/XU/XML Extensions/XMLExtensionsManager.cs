@@ -99,7 +99,6 @@ namespace XUIHelper.Core
                     return false;
                 }
 
-                //TODO: Here!
                 Groups[extensionsGroupName].ExtensionsFiles.Add(new XUIHelperExtensionsFile(xheFilePath, xhe));
 
                 if (!string.IsNullOrEmpty(oldGroup))

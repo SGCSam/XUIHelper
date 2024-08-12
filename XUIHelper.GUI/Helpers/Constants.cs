@@ -13,7 +13,7 @@ namespace XUIHelper.GUI
         public static NXEPageManager PageManager { get; private set; }
         public static NXEHUDManager? HUDManager { get; private set; }
 
-        public static string ExtensionsDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Extensions");
+        public static string ExtensionsDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Assets\Extensions");
 
         static Constants()
         {

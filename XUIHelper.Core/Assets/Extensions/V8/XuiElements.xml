@@ -106,8 +106,16 @@
     <PropDef Id="43" Editor="FilePathEditor(0)" Name="ImagePath" Type="string">
       <DefaultVal></DefaultVal>
     </PropDef>
-    <!--<PropDef Id="44" Name="HasContextMenu" Type="bool"></PropDef>
-  <PropDef Id="45" Name="SizeToText" Type="bool"></PropDef>-->
+    <PropDef Id="44" Name="HasContextMenu" Type="bool"></PropDef>
+    <PropDef Id="45" Name="SizeToText" Type="bool"></PropDef>
+    <PropDef Id="46" Name="UseNuiAsMouse" Type="bool"></PropDef>
+    <PropDef Id="47" Name="AutoId" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="48" Name="HoverSelectTimer" Type="float">
+      <DefaultVal>1.750000</DefaultVal>
+    </PropDef>
+    <PropDef Id="49" Name="QuickInput" Type="bool"></PropDef>
   </XUIClass>
   <XUIClass Name="XuiScene" BaseClassName="XuiControl" Icon="Images/XuiScene.bmp" Description="XuiScene">
     <PropDef Id="50" Editor="ElementIdPickerEditor(0)" Name="DefaultFocus" Type="string">

@@ -7,23 +7,43 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\V5\9199.xhe" />
-    <None Remove="Assets\V5\XuiElements.xml" />
-    <None Remove="Assets\V8\XuiDataBinding.xml" />
-    <None Remove="Assets\V8\XuiElements.xml" />
+    <None Remove="Assets\Extensions\V5\9199.xhe" />
+    <None Remove="Assets\Extensions\V5\9199DashElements.xml" />
+    <None Remove="Assets\Extensions\V5\9199HUDElements.xml" />
+    <None Remove="Assets\Extensions\V5\XuiElements.xml" />
+    <None Remove="Assets\Extensions\V8\17559.xhe" />
+    <None Remove="Assets\Extensions\V8\17559DashElements.xml" />
+    <None Remove="Assets\Extensions\V8\17559HUDElements.xml" />
+    <None Remove="Assets\Extensions\V8\XuiDataBinding.xml" />
+    <None Remove="Assets\Extensions\V8\XuiElements.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\V5\9199.xhe">
+    <Content Include="Assets\Extensions\V5\9199.xhe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\V5\XuiElements.xml">
+    <Content Include="Assets\Extensions\V5\9199DashElements.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\V8\XuiDataBinding.xml">
+    <Content Include="Assets\Extensions\V5\9199HUDElements.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\V8\XuiElements.xml">
+    <Content Include="Assets\Extensions\V5\XuiElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Extensions\V8\17559.xhe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Extensions\V8\17559DashElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Extensions\V8\17559HUDElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Extensions\V8\XuiDataBinding.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Extensions\V8\XuiElements.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

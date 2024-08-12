@@ -9,7 +9,7 @@ namespace XUIHelper.CLI
     {
         static async Task Main(string[] args)
         {
-            string extensionsDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Extensions");
+            string extensionsDirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Assets\Extensions");
             await XUIHelperAPI.RegisterExtensionsFromDirectoryAsync(extensionsDirPath);
 
             Type[] types = { typeof(AboutOptions), typeof(AboutOptions), typeof(ConvertOptions), typeof(MassConvertOptions) };

@@ -284,6 +284,11 @@ namespace XUIHelper.GUI
             RegisteredExtensions.Clear();
             ExtensionGroups.Clear();
 
+            if(XMLExtensionsManager.Groups.Count <= 0)
+            {
+                return;
+            }
+
             foreach (XMLExtensionsManager.XUIHelperExtensionsGroupData group in XMLExtensionsManager.Groups.Values)
             {
                 ExtensionGroups.Add(group.GroupName);
