@@ -431,7 +431,7 @@
     <PropDef Id="148" Name="NoCenter" Type="bool"></PropDef>
   </XUIClass>
   <XUIClass Name="XuiShader" BaseClassName="XuiElement" Icon="Images/XuiShader.bmp" Description="XuiShader">
-    <PropDef Id="149" Name="Id" Type="string">
+    <PropDef Id="149" Name="ShaderId" Type="string">
       <DefaultVal></DefaultVal>
     </PropDef>
     <PropDef Id="150" Editor="FilePathEditor(0)" Name="ShaderFile" Type="string">

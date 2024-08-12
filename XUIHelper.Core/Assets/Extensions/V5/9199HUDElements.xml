@@ -27,4 +27,33 @@
       <DefaultVal></DefaultVal>
     </PropDef>
   </XUIClass>
+  <XUIClass Name="ScriptActionNavButton" BaseClassName="XuiNavButton" Icon="Images/ScriptActionNavButton.bmp" Description="ScriptActionNavButton">
+    <PropDef Id="188" Name="Param" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="189" Name="Param2" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="190" Name="Param3" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="191" Name="Param4" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="192" Name="Param5" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="193" Name="Param6" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+  </XUIClass>
+  <XUIClass Name="AccountManagementNavButton" BaseClassName="XuiNavButton">
+  </XUIClass>
+  <XUIClass Name="VideoMarketplaceNavButton" BaseClassName="XuiNavButton">
+  </XUIClass>
+  <XUIClass Name="AvatarEditorNavButton" BaseClassName="XuiNavButton">
+    <PropDef Name="EntryPoint" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+  </XUIClass>
 </XUIClassExtension>

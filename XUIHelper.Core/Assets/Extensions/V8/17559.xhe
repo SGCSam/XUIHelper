@@ -4,8 +4,8 @@
   
   <RelationalExtensions>
 	  <RelationalExtension>17559DashElements.xml</RelationalExtension>
-	  <RelationalExtension>17550HUDElements.xml</RelationalExtension>
-      <RelationalExtension>XuiDataBinding.xml</RelationalExtension>
+	  <RelationalExtension>17559HUDElements.xml</RelationalExtension>
+    <RelationalExtension>XuiDataBinding.xml</RelationalExtension>
 	  <RelationalExtension>XuiElements.xml</RelationalExtension>
   </RelationalExtensions>
 

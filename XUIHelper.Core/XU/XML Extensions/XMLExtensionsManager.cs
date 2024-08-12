@@ -435,6 +435,9 @@ namespace XUIHelper.Core
                         }
                     }
 
+                    //TODO: Need to verify every property in every class AND every property in the entire hierarchy of a class has a unique ID
+                    //If not, XUI writing will produce incorrect results, see: XuiShader using a duplicate "Id" property
+
                     foreach (XUClass deserializedClass in deserializedExtension.Extensions.Classes)
                     {
                         foreach (XUPropertyDefinition propertyDefinition in deserializedClass.PropertyDefinitions)

@@ -23,6 +23,16 @@
     </IgnoreClass>
     <IgnoreClass ClassName="XuiImage">
       <IgnoreProperty>TextureSurfaceElement</IgnoreProperty>
+      <IgnoreProperty>LoadType</IgnoreProperty>
+    </IgnoreClass>
+    <IgnoreClass ClassName="XuiImagePresenter">
+      <IgnoreProperty>LoadType</IgnoreProperty>
+    </IgnoreClass>
+    <IgnoreClass ClassName="XuiText">
+      <IgnoreProperty>TextScale</IgnoreProperty>
+    </IgnoreClass>
+    <IgnoreClass ClassName="XuiTextPresenter">
+      <IgnoreProperty>TextScale</IgnoreProperty>
     </IgnoreClass>
   </IgnoreProperties>
   
