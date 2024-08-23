@@ -524,7 +524,6 @@
       <DefaultVal></DefaultVal>
     </PropDef>
   </XUIClass>
-
   <XUIClass Name="XuiCanvas" BaseClassName="XuiElement" Icon="Images/XuiCanvas.bmp" Description="XuiCanvas">
   </XUIClass>
   <XUIClass Name="XuiGroup" BaseClassName="XuiElement" Icon="Images/XuiGroup.bmp" Description="XuiGroup">

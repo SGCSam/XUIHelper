@@ -1,0 +1,153 @@
+﻿<XUIClassExtension version="0001">
+  <XUIClass Name="ControlPackAuraControl" BaseClassName="XuiElement">
+    <PropDef Id="0" Name="ThemeImageIndex" Type="unsigned"></PropDef>
+    <PropDef Id="1" Name="BackgroundImage" Type="string"></PropDef>
+    <PropDef Id="2" Name="SurfaceSphere" Type="bool"></PropDef>
+    <PropDef Id="3" Name="BannerImage" Type="string"></PropDef>
+    <PropDef Id="4" Name="BackgroundImagePanScale" Type="float"></PropDef>
+    <PropDef Id="5" Name="SurfaceVignette" Type="bool"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackAuraScene" BaseClassName="XuiPerspectiveScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackDashCursorScene" BaseClassName="XuiScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackGuideItem" BaseClassName="XuiScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackGuideLabel" BaseClassName="XuiScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackGuideScene" BaseClassName="XuiScene">
+    <PropDef Id="0" Name="ColumnBlocks" Type="unsigned"></PropDef>
+    <PropDef Id="1" Name="ColumnBlockSpan" Type="unsigned"></PropDef>
+    <PropDef Id="2" Name="BumperBlocks" Type="unsigned"></PropDef>
+    <PropDef Id="3" Name="MaxColumns" Type="unsigned"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackLegacyControl" BaseClassName="XuiControl">
+  </XUIClass>
+  <XUIClass Name="ControlPackLegendScene" BaseClassName="XuiScene">
+    <PropDef Id="0" Name="LeftEdgeGutter" Type="float"></PropDef>
+    <PropDef Id="1" Name="RightEdgeGutter" Type="float"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackMiniPIPControl" BaseClassName="XuiControl">
+  </XUIClass>
+  <XUIClass Name="ControlPackMobyScene" BaseClassName="XuiPerspectiveScene">
+    <PropDef Id="0" Name="FocusScalingEnabled" Type="bool"></PropDef>
+    <PropDef Id="1" Name="OverflowPages" Type="float"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackRomeScene" BaseClassName="XuiPerspectiveScene">
+    <PropDef Id="0" Name="FocusScalingEnabled" Type="bool"></PropDef>
+    <PropDef Id="1" Name="OverflowPages" Type="float"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackScourScene" BaseClassName="XuiPerspectiveScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackRuneScene" BaseClassName="XuiPerspectiveScene">
+    <PropDef Id="0" Name="NuiFastAttachRadius" Type="float"></PropDef>
+    <PropDef Id="1" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+    <PropDef Id="2" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+    <PropDef Id="3" Name="NuiApproachRadius" Type="float"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackSlotListControl" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="BetweenSlotSpacing" Type="float"></PropDef>
+    <PropDef Id="1" Name="HorzAnchorJustify" Type="unsigned"></PropDef>
+    <PropDef Id="2" Name="VertAnchorJustify" Type="unsigned"></PropDef>
+    <PropDef Id="3" Name="OverflowPages" Type="float"></PropDef>
+    <PropDef Id="4" Name="FocusScalingEnabled" Type="bool"></PropDef>
+    <PropDef Id="5" Name="AllowFocusOnSlots" Type="bool"></PropDef>
+    <PropDef Id="6" Name="PreviewModeEnabled" Type="bool"></PropDef>
+    <PropDef Id="7" Name="AdjustProjection" Type="bool"></PropDef>
+    <PropDef Id="8" Name="VerticalLayout" Type="bool"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackHandleTracker" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="PositionRay" Type="quaternion"></PropDef>
+    <PropDef Id="1" Name="ScreenOffset" Type="quaternion"></PropDef>
+    <PropDef Id="2" Name="Handedness" Type="integer"></PropDef>
+    <PropDef Id="3" Name="Size" Type="float"></PropDef>
+    <PropDef Id="4" Name="Direction" Type="quaternion"></PropDef>
+    <PropDef Id="5" Name="AngleHigh" Type="float"></PropDef>
+    <PropDef Id="6" Name="DeadZoneAngleHigh" Type="float"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackWiperScene" BaseClassName="XuiScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackScourThumbnailControl" BaseClassName="XuiControl">
+  </XUIClass>
+  <XUIClass Name="ControlPackPageGrid" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="ColumnsPerPage" Type="unsigned"></PropDef>
+    <PropDef Id="1" Name="RowsPerPage" Type="unsigned"></PropDef>
+    <PropDef Id="2" Name="PagePadding" Type="float"></PropDef>
+    <PropDef Id="3" Name="IntraPagePadding" Type="float"></PropDef>
+    <PropDef Id="4" Name="PreviewScenePath" Type="string"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackHubScene" BaseClassName="XuiScene">
+    <PropDef Id="0" Name="TemplatePath" Type="string"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackInputScene" BaseClassName="XuiScene">
+    <PropDef Id="0" Name="TemplatePath" Type="string"></PropDef>
+    <PropDef Id="1" Name="KeyboardInput" Type="unsigned"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackVuiBling" BaseClassName="XuiControl">
+  </XUIClass>
+  <XUIClass Name="ControlPackHorizonControl" BaseClassName="XuiScene">
+    <PropDef Id="0" Name="ScenePadding" Type="float"></PropDef>
+    <PropDef Id="1" Name="RightSidePadding" Type="float"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiTipsScene" BaseClassName="XuiScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiHoverButton" BaseClassName="XuiButton">
+    <PropDef Id="0" Name="Handedness" Type="unsigned"></PropDef>
+    <PropDef Id="1" Name="Magnetism" Type="bool"></PropDef>
+    <PropDef Id="2" Name="NuiFastAttachRadius" Type="float"></PropDef>
+    <PropDef Id="3" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+    <PropDef Id="4" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+    <PropDef Id="5" Name="NuiApproachRadius" Type="float"></PropDef>
+    <PropDef Id="6" Name="MagnetOffset" Type="vector"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiHoverBack" BaseClassName="XuiButton">
+    <PropDef Id="0" Name="Handedness" Type="unsigned"></PropDef>
+    <PropDef Id="1" Name="Magnetism" Type="bool"></PropDef>
+    <PropDef Id="2" Name="NuiFastAttachRadius" Type="float"></PropDef>
+    <PropDef Id="3" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+    <PropDef Id="4" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+    <PropDef Id="5" Name="NuiApproachRadius" Type="float"></PropDef>
+    <PropDef Id="6" Name="MagnetOffset" Type="vector"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiHoverChrome" BaseClassName="XuiButton">
+    <PropDef Id="0" Name="Handedness" Type="unsigned"></PropDef>
+    <PropDef Id="1" Name="Magnetism" Type="bool"></PropDef>
+    <PropDef Id="2" Name="NuiFastAttachRadius" Type="float"></PropDef>
+    <PropDef Id="3" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+    <PropDef Id="4" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+    <PropDef Id="5" Name="NuiApproachRadius" Type="float"></PropDef>
+    <PropDef Id="6" Name="MagnetOffset" Type="vector"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiHoverCheckbox" BaseClassName="XuiCheckbox">
+    <PropDef Id="0" Name="Handedness" Type="unsigned"></PropDef>
+    <PropDef Id="1" Name="Magnetism" Type="bool"></PropDef>
+    <PropDef Id="2" Name="NuiFastAttachRadius" Type="float"></PropDef>
+    <PropDef Id="3" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+    <PropDef Id="4" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+    <PropDef Id="5" Name="NuiApproachRadius" Type="float"></PropDef>
+    <PropDef Id="6" Name="MagnetOffset" Type="vector"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackVariablesScene" BaseClassName="XuiScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiBack" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="AutoDisableHandle" Type="bool"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackSimpleCursorScene" BaseClassName="XuiScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiRadioButton" BaseClassName="XuiRadioButton">
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiCheckbox" BaseClassName="XuiCheckbox">
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiButton" BaseClassName="XuiButton">
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiVScroll" BaseClassName="XuiElement">
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiSideNav" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="XurPath" Type="string"></PropDef>
+    <PropDef Id="1" Name="UseLeftRail" Type="bool"></PropDef>
+    <PropDef Id="2" Name="UseRightRail" Type="bool"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ControlPackNuiSwipeNav" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="IsLeftSide" Type="bool"></PropDef>
+  </XUIClass>
+</XUIClassExtension>

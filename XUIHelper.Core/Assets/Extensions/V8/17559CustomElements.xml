@@ -1,0 +1,205 @@
+<XUIClassExtension version="0001">
+ <XUIClass Name="XuiDivider1" BaseClassName="XuiElement" Icon="Images/blank.bmp" Description="Divider">
+ </XUIClass>
+ <XUIClass Name="XuiDivider2" BaseClassName="XuiElement" Icon="Images/blank.bmp" Description="Divider">
+ </XUIClass>
+ <XUIClass Name="XuiTouch" BaseClassName="XuiControl" Icon="Images/blank.bmp" Description="XuiTouch">
+  <PropDef Id="179" Name="PositionOffset" Type="vector"></PropDef>
+  <PropDef Id="180" Name="HorizontalScrub" Type="bool"></PropDef>
+  <PropDef Id="181" Name="HorizontalFling" Type="bool"></PropDef>
+  <PropDef Id="182" Name="HorizontalRubberBand" Type="bool"></PropDef>
+  <PropDef Id="183" Name="HorizontalClamp" Type="bool"></PropDef>
+  <PropDef Id="184" Name="VerticalScrub" Type="bool"></PropDef>
+  <PropDef Id="185" Name="VerticalFling" Type="bool"></PropDef>
+  <PropDef Id="186" Name="VerticalRubberBand" Type="bool"></PropDef>
+  <PropDef Id="187" Name="VerticalClamp" Type="bool"></PropDef>
+  <PropDef Id="188" Name="CenterSmallCanvas" Type="bool"></PropDef>
+  <PropDef Id="189" Name="StretchToFit" Type="bool"></PropDef>
+  <PropDef Id="190" Name="EnableBandBreak" Type="bool"></PropDef>
+  <PropDef Id="191" Name="Hollow" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiTwist" BaseClassName="XuiControl" Icon="Images/blank.bmp" Description="XuiTwist">
+  <PropDef Id="192" Name="Wrap" Type="bool"></PropDef>
+  <PropDef Id="193" Name="Center" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiCompVideo" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="LiveVisionDashEffect" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="CDashListChooser" BaseClassName="XuiCommonList">
+</XUIClass>
+<XUIClass Name="CXuiEditRThumbScroll" BaseClassName="XuiEdit">
+</XUIClass>
+<XUIClass Name="ScriptList" BaseClassName="XuiList">
+<PropDef Id="0" Name="DataSet" Type="string"></PropDef>
+<PropDef Id="1" Name="DataAssociation" Type="string"></PropDef>
+<PropDef Id="2" Name="Embedded" Type="string"></PropDef>
+</XUIClass>
+<XUIClass Name="ScriptData" BaseClassName="XuiElement">
+<PropDef Id="0" Name="Query" Type="string"></PropDef>
+<PropDef Id="1" Name="State" Type="integer"></PropDef>
+<PropDef Id="2" Name="ItemCount" Type="unsigned"></PropDef>
+<PropDef Id="3" Name="Selected" Type="integer"></PropDef>
+</XUIClass>
+<XUIClass Name="ScriptImage" BaseClassName="XuiControl">
+<PropDef Id="0" Name="DataSet" Type="string"></PropDef>
+<PropDef Id="1" Name="DataAssociation" Type="string"></PropDef>
+<PropDef Id="2" Name="Embedded" Type="string"></PropDef>
+<PropDef Id="3" Name="Item" Type="integer"></PropDef>
+</XUIClass>
+<XUIClass Name="DashData" BaseClassName="ScriptData">
+</XUIClass>
+<XUIClass Name="DashDataList" BaseClassName="ScriptList">
+</XUIClass>
+<XUIClass Name="CLiveMessageBox" BaseClassName="XuiElement">
+</XUIClass>
+<XUIClass Name="MultiImage" BaseClassName="XuiControl">
+<PropDef Id="0" Name="ForegroundImgDataAssociation" Type="unsigned"></PropDef>
+<PropDef Id="1" Name="BackgroundImgDataAssociation" Type="unsigned"></PropDef>
+</XUIClass>
+<XUIClass Name="NuiBack" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="SingleHandleVisual" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NuiVScroll" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NuiNotch" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NuiSideNav" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashCValueSpin" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCTextSpin" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCTimezone" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCLanguage" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCCountry" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCRatingView" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCScreenSize" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCHints" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashPasscodeEdit" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="dashPasscodeNEdit" BaseClassName="XuiNavButton">
+</XUIClass>
+<XUIClass Name="DashSettingsList" BaseClassName="XuiCommonList">
+</XUIClass>
+<XUIClass Name="CFamilyTimerDurationList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="CGameExemptionsList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashPControlSettingsMenuButtons" BaseClassName="XuiRadioGroup">
+</XUIClass>
+<XUIClass Name="dashRemoteCList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="ChangeTVProviderList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCCSettingsMenuButtons" BaseClassName="XuiRadioGroup">
+</XUIClass>
+<XUIClass Name="dashCCSettings_ValuesListView" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="GridList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="ImageRenderControl" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="SongList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="MediaContainerList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="NowPlayingList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="MusicPlayPauseButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="NowPlayingRipOrEditButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="MusicPlaybackModeButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="VisualizerButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="EditNowPlayingQueueList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="RipCDProgressList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="EditBoxButton" BaseClassName="XuiNavButton">
+</XUIClass>
+<XUIClass Name="FileViewList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="MusicEqualizer" BaseClassName="XuiLabel">
+</XUIClass>
+<XUIClass Name="VideoData" BaseClassName="DashData">
+</XUIClass>
+<XUIClass Name="VideoContentScene" BaseClassName="ScriptScene">
+</XUIClass>
+<XUIClass Name="VideoContentList" BaseClassName="DashDataList">
+</XUIClass>
+<XUIClass Name="CLiveKeyboard" BaseClassName="XuiElement">
+</XUIClass>
+<XUIClass Name="C4LineBtn" BaseClassName="XuiNavButton">
+</XUIClass>
+<XUIClass Name="CNetworkListItem" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="CTestStatus" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="TracerouteDNSList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="DeviceSelectorList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="CategoriesList" BaseClassName="XuiCommonList">
+</XUIClass>
+<XUIClass Name="ItemsList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="HDDVDContentsList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="WizDeviceSelectorList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="WizCategoriesList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="WizDetailsList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="WizSourceSelectorList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="AsyncTaskManager0" BaseClassName="XuiElement">
+</XUIClass>
+<XUIClass Name="MeGamercardWorker" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="YouGamercardWorker" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="XuiGamerCard" BaseClassName="XuiControl">
+<PropDef Id="0" Name="Format" Type="string"></PropDef>
+<PropDef Id="1" Name="ShowExtendedPanel" Type="bool"></PropDef>
+</XUIClass>
+<XUIClass Name="LiveVisionControl" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="MediaSourceList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="SlotContainerButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="XuiAvatar" BaseClassName="XuiControl">
+<PropDef Id="0" Name="UseActiveUserAvatar" Type="bool"></PropDef>
+<PropDef Id="1" Name="EnableUserControl" Type="bool"></PropDef>
+<PropDef Id="2" Name="UseCustomView" Type="bool"></PropDef>
+<PropDef Id="3" Name="RenderView" Type="unsigned"></PropDef>
+<PropDef Id="4" Name="CustomViewEyePosition" Type="vector"></PropDef>
+<PropDef Id="5" Name="CustomViewFocusPosition" Type="vector"></PropDef>
+<PropDef Id="6" Name="CustomViewUpDirection" Type="vector"></PropDef>
+<PropDef Id="7" Name="ShowSelfShadow" Type="bool"></PropDef>
+<PropDef Id="8" Name="ShowShadow" Type="bool"></PropDef>
+<PropDef Id="9" Name="ShowCarryable" Type="bool"></PropDef>
+<PropDef Id="10" Name="ShowHat" Type="bool"></PropDef>
+<PropDef Id="11" Name="FreezeAvatar" Type="bool"></PropDef>
+<PropDef Id="12" Name="UseAvateering" Type="bool"></PropDef>
+<PropDef Id="13" Name="FullBodyAvateering" Type="bool"></PropDef>
+<PropDef Id="14" Name="AvateeringTrackingID" Type="unsigned"></PropDef>
+</XUIClass>
+<XUIClass Name="COptionList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="VisionEffectList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="SkinsList" BaseClassName="XuiList">
+</XUIClass>
+</XUIClassExtension>
