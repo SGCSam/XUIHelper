@@ -12,8 +12,12 @@
     <None Remove="Assets\Extensions\V5\9199HUDElements.xml" />
     <None Remove="Assets\Extensions\V5\XuiElements.xml" />
     <None Remove="Assets\Extensions\V8\17559.xhe" />
+    <None Remove="Assets\Extensions\V8\17559ControlPackElements.xml" />
+    <None Remove="Assets\Extensions\V8\17559CustomElements.xml" />
     <None Remove="Assets\Extensions\V8\17559DashElements.xml" />
     <None Remove="Assets\Extensions\V8\17559HUDElements.xml" />
+    <None Remove="Assets\Extensions\V8\17559SceneElements.xml" />
+    <None Remove="Assets\Extensions\V8\XamElements.xml" />
     <None Remove="Assets\Extensions\V8\XuiDataBinding.xml" />
     <None Remove="Assets\Extensions\V8\XuiElements.xml" />
   </ItemGroup>
@@ -34,10 +38,22 @@
     <Content Include="Assets\Extensions\V8\17559.xhe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Extensions\V8\17559ControlPackElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Extensions\V8\17559CustomElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Extensions\V8\17559DashElements.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Extensions\V8\17559HUDElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Extensions\V8\17559SceneElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Extensions\V8\XamElements.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Extensions\V8\XuiDataBinding.xml">

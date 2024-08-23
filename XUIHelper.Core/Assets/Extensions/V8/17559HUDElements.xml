@@ -56,4 +56,12 @@
       <DefaultVal></DefaultVal>
     </PropDef>
   </XUIClass>
+  <XUIClass Name="XuiGuideNavButton" BaseClassName="XuiNavButton" Description="XuiGuideNavButton">
+    <PropDef Id="194" Name="CommandId" Type="integer">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+    <PropDef Id="195" Name="MainImagePath" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+  </XUIClass>
 </XUIClassExtension>
