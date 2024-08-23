@@ -1,0 +1,779 @@
+<XUIClassExtension version="0001">
+ <XUIClass Name="XuiDivider1" BaseClassName="XuiElement" Icon="Images/blank.bmp" Description="Divider">
+ </XUIClass>
+ <XUIClass Name="XuiDivider2" BaseClassName="XuiElement" Icon="Images/blank.bmp" Description="Divider">
+ </XUIClass>
+ <XUIClass Name="GuideDashCommandNavButton" BaseClassName="XuiNavButton" Icon="Images/GuideDashCommandNavButton.bmp" Description="GuideDashCommandNavButton">
+  <PropDef Id="179" Name="DashCommand" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="AccountManagementNavButton" BaseClassName="GuideDashCommandNavButton">
+ </XUIClass> 
+ <XUIClass Name="AvatarEditorNavButton" BaseClassName="XuiNavButton">
+  <PropDef Id="180" Name="EntryPoint" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="GuideMainSceneNavButton" BaseClassName="XuiNavButton" Icon="Images/GuideMainSceneNavButton.bmp" Description="GuideMainSceneNavButton">
+  <PropDef Id="181" Name="MainScenePressPath" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="HUDScene" BaseClassName="XuiScene" Icon="Images/HUDScene.bmp" Description="HUDScene">
+  <PropDef Id="182" Editor="HudOpenTypeEditor" Name="OpenType" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="183" Name="LegendA" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="184" Name="LegendB" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="185" Name="LegendX" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="186" Name="LegendY" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="187" Name="ShowGamerInfo" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="ScriptActionNavButton" BaseClassName="XuiNavButton" Icon="Images/ScriptActionNavButton.bmp" Description="ScriptActionNavButton">
+  <PropDef Id="188" Name="Param" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="189" Name="Param2" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="190" Name="Param3" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="191" Name="Param4" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="192" Name="Param5" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Id="193" Name="Param6" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiGuideNavButton" BaseClassName="XuiNavButton" Description="XuiGuideNavButton">
+  <PropDef Id="194" Name="CommandId" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Id="195" Name="MainImagePath" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass> 
+ <XUIClass Name="XuiTouch" BaseClassName="XuiControl" Icon="Images/blank.bmp" Description="XuiTouch">
+  <PropDef Id="179" Name="PositionOffset" Type="vector"></PropDef>
+  <PropDef Id="180" Name="HorizontalScrub" Type="bool"></PropDef>
+  <PropDef Id="181" Name="HorizontalFling" Type="bool"></PropDef>
+  <PropDef Id="182" Name="HorizontalRubberBand" Type="bool"></PropDef>
+  <PropDef Id="183" Name="HorizontalClamp" Type="bool"></PropDef>
+  <PropDef Id="184" Name="VerticalScrub" Type="bool"></PropDef>
+  <PropDef Id="185" Name="VerticalFling" Type="bool"></PropDef>
+  <PropDef Id="186" Name="VerticalRubberBand" Type="bool"></PropDef>
+  <PropDef Id="187" Name="VerticalClamp" Type="bool"></PropDef>
+  <PropDef Id="188" Name="CenterSmallCanvas" Type="bool"></PropDef>
+  <PropDef Id="189" Name="StretchToFit" Type="bool"></PropDef>
+  <PropDef Id="190" Name="EnableBandBreak" Type="bool"></PropDef>
+  <PropDef Id="191" Name="Hollow" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiTwist" BaseClassName="XuiControl" Icon="Images/blank.bmp" Description="XuiTwist">
+  <PropDef Id="192" Name="Wrap" Type="bool"></PropDef>
+  <PropDef Id="193" Name="Center" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiPerspectiveScene" BaseClassName="XuiScene" Icon="Images/blank.bmp" Description="XuiPerspectiveScene">
+  <PropDef Id="140" Name="ProjectionScale" Type="float"></PropDef>
+  <PropDef Id="141" Name="ProjectionCenterU" Type="float"></PropDef>
+  <PropDef Id="142" Name="ProjectionCenterV" Type="float"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XuiCompVideo" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="DashVideoFullScreenScene" BaseClassName="XuiPerspectiveScene">
+</XUIClass>
+<XUIClass Name="MetaPanelScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="DashScene" BaseClassName="XuiScene">
+<PropDef Id="0" Name="PanelSettings" Type="string"></PropDef>
+<PropDef Id="1" Name="PanelStrings" Type="string"></PropDef>
+<PropDef Id="2" Name="PanelScenePaths" Type="string"></PropDef>
+</XUIClass>
+<XUIClass Name="NetworkDeviceSelectScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="NetworkDeviceMetaPanelScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkDeviceManagementScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="LiveVisionDashEffect" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="CDashListChooser" BaseClassName="XuiCommonList">
+</XUIClass>
+<XUIClass Name="CXuiEditRThumbScroll" BaseClassName="XuiEdit">
+</XUIClass>
+<XUIClass Name="ScriptScene" BaseClassName="XuiScene">
+<PropDef Id="0" Name="Script" Type="string"></PropDef>
+<PropDef Id="1" Name="Visible" Type="bool"></PropDef>
+</XUIClass>
+<XUIClass Name="ScriptList" BaseClassName="XuiList">
+<PropDef Id="0" Name="DataSet" Type="string"></PropDef>
+<PropDef Id="1" Name="DataAssociation" Type="string"></PropDef>
+<PropDef Id="2" Name="Embedded" Type="string"></PropDef>
+</XUIClass>
+<XUIClass Name="ScriptData" BaseClassName="XuiElement">
+<PropDef Id="0" Name="Query" Type="string"></PropDef>
+<PropDef Id="1" Name="State" Type="integer"></PropDef>
+<PropDef Id="2" Name="ItemCount" Type="unsigned"></PropDef>
+<PropDef Id="3" Name="Selected" Type="integer"></PropDef>
+</XUIClass>
+<XUIClass Name="ScriptImage" BaseClassName="XuiControl">
+<PropDef Id="0" Name="DataSet" Type="string"></PropDef>
+<PropDef Id="1" Name="DataAssociation" Type="string"></PropDef>
+<PropDef Id="2" Name="Embedded" Type="string"></PropDef>
+<PropDef Id="3" Name="Item" Type="integer"></PropDef>
+</XUIClass>
+<XUIClass Name="DashData" BaseClassName="ScriptData">
+</XUIClass>
+<XUIClass Name="DashDataList" BaseClassName="ScriptList">
+</XUIClass>
+<XUIClass Name="CLiveMessageBox" BaseClassName="XuiElement">
+</XUIClass>
+<XUIClass Name="DashBkgnd" BaseClassName="XuiPerspectiveScene">
+</XUIClass>
+<XUIClass Name="DashLoading" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ControlPackAuraControl" BaseClassName="XuiElement">
+<PropDef Id="0" Name="ThemeImageIndex" Type="unsigned"></PropDef>
+<PropDef Id="1" Name="BackgroundImage" Type="string"></PropDef>
+<PropDef Id="2" Name="SurfaceSphere" Type="bool"></PropDef>
+<PropDef Id="3" Name="BannerImage" Type="string"></PropDef>
+<PropDef Id="4" Name="BackgroundImagePanScale" Type="float"></PropDef>
+<PropDef Id="5" Name="SurfaceVignette" Type="bool"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackAuraScene" BaseClassName="XuiPerspectiveScene">
+</XUIClass>
+<XUIClass Name="ControlPackDashCursorScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ControlPackGuideItem" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ControlPackGuideLabel" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ControlPackGuideScene" BaseClassName="XuiScene">
+<PropDef Id="0" Name="ColumnBlocks" Type="unsigned"></PropDef>
+<PropDef Id="1" Name="ColumnBlockSpan" Type="unsigned"></PropDef>
+<PropDef Id="2" Name="BumperBlocks" Type="unsigned"></PropDef>
+<PropDef Id="3" Name="MaxColumns" Type="unsigned"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackLegacyControl" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="ControlPackLegendScene" BaseClassName="XuiScene">
+<PropDef Id="0" Name="LeftEdgeGutter" Type="float"></PropDef>
+<PropDef Id="1" Name="RightEdgeGutter" Type="float"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackMiniPIPControl" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="ControlPackMobyScene" BaseClassName="XuiPerspectiveScene">
+<PropDef Id="0" Name="FocusScalingEnabled" Type="bool"></PropDef>
+<PropDef Id="1" Name="OverflowPages" Type="float"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackRomeScene" BaseClassName="XuiPerspectiveScene">
+<PropDef Id="0" Name="FocusScalingEnabled" Type="bool"></PropDef>
+<PropDef Id="1" Name="OverflowPages" Type="float"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackScourScene" BaseClassName="XuiPerspectiveScene">
+</XUIClass>
+<XUIClass Name="ControlPackRuneScene" BaseClassName="XuiPerspectiveScene">
+<PropDef Id="0" Name="NuiFastAttachRadius" Type="float"></PropDef>
+<PropDef Id="1" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+<PropDef Id="2" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+<PropDef Id="3" Name="NuiApproachRadius" Type="float"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackSlotListControl" BaseClassName="XuiControl">
+<PropDef Id="0" Name="BetweenSlotSpacing" Type="float"></PropDef>
+<PropDef Id="1" Name="HorzAnchorJustify" Type="unsigned"></PropDef>
+<PropDef Id="2" Name="VertAnchorJustify" Type="unsigned"></PropDef>
+<PropDef Id="3" Name="OverflowPages" Type="float"></PropDef>
+<PropDef Id="4" Name="FocusScalingEnabled" Type="bool"></PropDef>
+<PropDef Id="5" Name="AllowFocusOnSlots" Type="bool"></PropDef>
+<PropDef Id="6" Name="PreviewModeEnabled" Type="bool"></PropDef>
+<PropDef Id="7" Name="AdjustProjection" Type="bool"></PropDef>
+<PropDef Id="8" Name="VerticalLayout" Type="bool"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackHandleTracker" BaseClassName="XuiControl">
+<PropDef Id="0" Name="PositionRay" Type="quaternion"></PropDef>
+<PropDef Id="1" Name="ScreenOffset" Type="quaternion"></PropDef>
+<PropDef Id="2" Name="Handedness" Type="integer"></PropDef>
+<PropDef Id="3" Name="Size" Type="float"></PropDef>
+<PropDef Id="4" Name="Direction" Type="quaternion"></PropDef>
+<PropDef Id="5" Name="AngleHigh" Type="float"></PropDef>
+<PropDef Id="6" Name="DeadZoneAngleHigh" Type="float"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackWiperScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ChannelListScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ControlPackScourThumbnailControl" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="ControlPackPageGrid" BaseClassName="XuiControl">
+<PropDef Id="0" Name="ColumnsPerPage" Type="unsigned"></PropDef>
+<PropDef Id="1" Name="RowsPerPage" Type="unsigned"></PropDef>
+<PropDef Id="2" Name="PagePadding" Type="float"></PropDef>
+<PropDef Id="3" Name="IntraPagePadding" Type="float"></PropDef>
+<PropDef Id="4" Name="PreviewScenePath" Type="string"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackHubScene" BaseClassName="XuiScene">
+<PropDef Id="0" Name="TemplatePath" Type="string"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackInputScene" BaseClassName="XuiScene">
+<PropDef Id="0" Name="TemplatePath" Type="string"></PropDef>
+<PropDef Id="1" Name="KeyboardInput" Type="unsigned"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackVuiBling" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="ControlPackHorizonControl" BaseClassName="XuiScene">
+<PropDef Id="0" Name="ScenePadding" Type="float"></PropDef>
+<PropDef Id="1" Name="RightSidePadding" Type="float"></PropDef>
+</XUIClass>
+<XUIClass Name="MultiImage" BaseClassName="XuiControl">
+<PropDef Id="0" Name="ForegroundImgDataAssociation" Type="unsigned"></PropDef>
+<PropDef Id="1" Name="BackgroundImgDataAssociation" Type="unsigned"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackNuiTipsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ControlPackNuiHoverButton" BaseClassName="XuiButton">
+<PropDef Id="0" Name="Handedness" Type="unsigned"></PropDef>
+<PropDef Id="1" Name="Magnetism" Type="bool"></PropDef>
+<PropDef Id="2" Name="NuiFastAttachRadius" Type="float"></PropDef>
+<PropDef Id="3" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+<PropDef Id="4" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+<PropDef Id="5" Name="NuiApproachRadius" Type="float"></PropDef>
+<PropDef Id="6" Name="MagnetOffset" Type="vector"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackNuiHoverBack" BaseClassName="XuiButton">
+<PropDef Id="0" Name="Handedness" Type="unsigned"></PropDef>
+<PropDef Id="1" Name="Magnetism" Type="bool"></PropDef>
+<PropDef Id="2" Name="NuiFastAttachRadius" Type="float"></PropDef>
+<PropDef Id="3" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+<PropDef Id="4" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+<PropDef Id="5" Name="NuiApproachRadius" Type="float"></PropDef>
+<PropDef Id="6" Name="MagnetOffset" Type="vector"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackNuiHoverChrome" BaseClassName="XuiButton">
+<PropDef Id="0" Name="Handedness" Type="unsigned"></PropDef>
+<PropDef Id="1" Name="Magnetism" Type="bool"></PropDef>
+<PropDef Id="2" Name="NuiFastAttachRadius" Type="float"></PropDef>
+<PropDef Id="3" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+<PropDef Id="4" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+<PropDef Id="5" Name="NuiApproachRadius" Type="float"></PropDef>
+<PropDef Id="6" Name="MagnetOffset" Type="vector"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackNuiHoverCheckbox" BaseClassName="XuiCheckbox">
+<PropDef Id="0" Name="Handedness" Type="unsigned"></PropDef>
+<PropDef Id="1" Name="Magnetism" Type="bool"></PropDef>
+<PropDef Id="2" Name="NuiFastAttachRadius" Type="float"></PropDef>
+<PropDef Id="3" Name="NuiSlowAttachRadius" Type="float"></PropDef>
+<PropDef Id="4" Name="NuiSlowDetachRadius" Type="float"></PropDef>
+<PropDef Id="5" Name="NuiApproachRadius" Type="float"></PropDef>
+<PropDef Id="6" Name="MagnetOffset" Type="vector"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackVariablesScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NuiBack" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ControlPackNuiBack" BaseClassName="XuiControl">
+<PropDef Id="0" Name="AutoDisableHandle" Type="bool"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackSimpleCursorScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="SingleHandleVisual" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ControlPackNuiRadioButton" BaseClassName="XuiRadioButton">
+</XUIClass>
+<XUIClass Name="ControlPackNuiCheckbox" BaseClassName="XuiCheckbox">
+</XUIClass>
+<XUIClass Name="ControlPackNuiButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="ControlPackNuiVScroll" BaseClassName="XuiElement">
+</XUIClass>
+<XUIClass Name="NuiVScroll" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NuiNotch" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NuiSideNav" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ControlPackNuiSideNav" BaseClassName="XuiControl">
+<PropDef Id="0" Name="XurPath" Type="string"></PropDef>
+<PropDef Id="1" Name="UseLeftRail" Type="bool"></PropDef>
+<PropDef Id="2" Name="UseRightRail" Type="bool"></PropDef>
+</XUIClass>
+<XUIClass Name="ControlPackNuiSwipeNav" BaseClassName="XuiControl">
+<PropDef Id="0" Name="IsLeftSide" Type="bool"></PropDef>
+</XUIClass>
+<XUIClass Name="SpeechPackVuiBarScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashCCInputScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashCValueSpin" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCTextSpin" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCTime" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashCDate" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashCTimezone" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCLanguage" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCCountry" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCRatingView" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCScreenSize" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashCHints" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashPasscodeEdit" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="dashPasscodeNEdit" BaseClassName="XuiNavButton">
+</XUIClass>
+<XUIClass Name="DashSettingsList" BaseClassName="XuiCommonList">
+</XUIClass>
+<XUIClass Name="DashSystemScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashSettingsRoot" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashVideoSettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashVideoSettings_HD" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashVideoSettings_Format" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashVideoSettings_60" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashAudioSettings" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashAudioSettings_D" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashAudioSettings_FX" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashAudioSettings_Nielsen" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashClockSettings" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashClockSettings_Menu" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashClockSettings_TZone" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashClockSettings_DSaving" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashClockSettings_1224" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashLangLocaleSettings" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashLanguageSettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashCountrySettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="CFamilyTimerDurationList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="CFamilyTimerSettingsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CGameExemptionsList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="CGameExemptionsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettingsMenuButtons" BaseClassName="XuiRadioGroup">
+</XUIClass>
+<XUIClass Name="dashPControlSettingsMenu" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_Game" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_Video" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_VideoMovie" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_VideoTV" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_VideoExplicit" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_VideoUnrated" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_LiveA" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_LiveC" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_Passcode" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_PasscodeHint" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashAutoOff" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashStartupShutdownSettings" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashStartUp" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashRemoteCList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashRemoteC" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashScreensaver" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashOutputLevels" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashColorSpaceSettings" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashDisplayDiscoverySettings" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashSystemReset" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashLiveVisionSettingsScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashBackgroundDownloads" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashMediaAutoLaunch" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashPControlSettings_ContentSettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="KinectSettingsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="KinectChatMicSettingScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="KinectSensorSettingScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="SpeechSettingScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dash3DEnableSettings" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashTVScreenSizeSettings" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashConsoleDiscoverable" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ChangeTVProviderList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="ChangeTVProvider" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashConsoleName" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="dashCCSettingsMenuButtons" BaseClassName="XuiRadioGroup">
+</XUIClass>
+<XUIClass Name="dashCCSettingsMenu" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashCCSettings_List" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashCCSettings_ValuesList" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="dashCCSettings_ValuesListView" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="dashAutoDownloads" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="DeviceMainScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="GridList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="FullScreenPhotoScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ImageRenderControl" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="TransportControlsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="DownloadLiveSignupScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CongratulationsScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="GotoMusicPlayerScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="GotoMusicPlayerDashScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="MusicLibraryScene" BaseClassName="GotoMusicPlayerDashScene">
+</XUIClass>
+<XUIClass Name="SongList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="SongListScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="MediaContainerList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="MediaContainerListScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="MediaContainerOptionsScene" BaseClassName="GotoMusicPlayerScene">
+</XUIClass>
+<XUIClass Name="ArtistOptionsScene" BaseClassName="GotoMusicPlayerScene">
+</XUIClass>
+<XUIClass Name="SongOptionsScene" BaseClassName="GotoMusicPlayerScene">
+</XUIClass>
+<XUIClass Name="SongMetadataScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NowPlayingList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="MusicPlayPauseButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="NowPlayingRipOrEditButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="NowPlayingScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="MusicPlaybackModeButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="VisualizerButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="VisualizerScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="EditNowPlayingQueueList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="EditNowPlayingQueueScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="RipCDProgressScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="RipCDProgressList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="RipCDSelectScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="EditTagInfoScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="EditBoxButton" BaseClassName="XuiNavButton">
+</XUIClass>
+<XUIClass Name="FileViewScene" BaseClassName="GotoMusicPlayerScene">
+</XUIClass>
+<XUIClass Name="FileViewList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="DeviceNotBrowseableScene" BaseClassName="GotoMusicPlayerScene">
+</XUIClass>
+<XUIClass Name="MusicTransportControlsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="MusicEqualizer" BaseClassName="XuiLabel">
+</XUIClass>
+<XUIClass Name="VideoScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="VideoData" BaseClassName="DashData">
+</XUIClass>
+<XUIClass Name="VideoContentScene" BaseClassName="ScriptScene">
+</XUIClass>
+<XUIClass Name="VideoContentList" BaseClassName="DashDataList">
+</XUIClass>
+<XUIClass Name="DetailsRootScene" BaseClassName="ControlPackRomeScene">
+</XUIClass>
+<XUIClass Name="FiltersCollectionsScene" BaseClassName="ScriptScene">
+</XUIClass>
+<XUIClass Name="FiltersRootScene" BaseClassName="ControlPackRomeScene">
+</XUIClass>
+<XUIClass Name="MediaSourceSelectionScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="CLiveKeyboard" BaseClassName="XuiElement">
+</XUIClass>
+<XUIClass Name="C4LineBtn" BaseClassName="XuiNavButton">
+</XUIClass>
+<XUIClass Name="C2004_NetworkDetails" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="C2004_MasterTab" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="C2005_AdditionalSettings" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="C2016_EditIPSettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2018_IPSettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2033_DNSConfig" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2034_DNSSettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2036_PPPoESettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2038_ConsoleInformation" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2020_AvailableWirelessNetworks" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="C2022_WirelessSecuritySettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2024_EnterSettings" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2026_ChannelList" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2028_WirelessModes" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="C2015_WirelessInformation" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CNetworkListItem" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="CSuggestionScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CTestStatus" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="CConnectBar" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CTestingScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CNetworkMenu" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CNetworkMain" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="TracerouteDNSList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="CNetworkTraceroute" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CNetworkTracerouteResults" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkSelectionMainScene" BaseClassName="ControlPackRomeScene">
+</XUIClass>
+<XUIClass Name="NetworkSelectionOOBE" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkSelectionWiredSlot" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkSelectionScanningSlot" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkSelectionWirelessSlot" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkSelectionWirelessInfoSlot" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkSelectionNoWirelessNetworksFoundSlot" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkSelectionAdvancedWirelessSlot" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkSelectionConfiguredWirelessSlot" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="DeviceSelectorScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="DeviceSelectorList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="DeviceDetailsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CategoriesScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CategoriesList" BaseClassName="XuiCommonList">
+</XUIClass>
+<XUIClass Name="ItemsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ItemsList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="ItemDetailsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="OperationProgressScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="FormatHDScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="DeleteMusicScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="HDDVDDeviceScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="HDDVDContentsList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="HDDVDContentsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="HDDVDContentDetailsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="WizDeviceSelectorList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="WizDeviceSelectorScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="WizCategoriesList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="WizCategoriesScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="WizDetailsList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="WizDetailsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="WizSourceSelectorList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="WizSourceSelectorScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ConfigureScene" BaseClassName="DashScene">
+</XUIClass>
+<XUIClass Name="ConfigureAdvanced" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="InstallTitleScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ErrorScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="WelcomeScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ContactErrorScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="WaitingScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="OldVersionScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="MediaCenterScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NetworkSettingsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="PcSoftwareScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="NoNetworkScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="SlowNetworkScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="Wireless80211bScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ReconfigureWirelessScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="LimitedNetworkScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="MCXFullscreenVideo" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="BaseScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ExtendedScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="GamerCardScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ReputationScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="AsyncTaskManager0" BaseClassName="XuiElement">
+</XUIClass>
+<XUIClass Name="MeGamercardWorker" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="YouGamercardWorker" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="XuiGamerCard" BaseClassName="XuiControl">
+<PropDef Id="0" Name="Format" Type="string"></PropDef>
+<PropDef Id="1" Name="ShowExtendedPanel" Type="bool"></PropDef>
+</XUIClass>
+<XUIClass Name="MiniGamerCardScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="LiveVisionControl" BaseClassName="XuiControl">
+</XUIClass>
+<XUIClass Name="MediaSourceList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="MediaSourceNoComputersMetapanelScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="TraySlotScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CImageDestSlotScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="LiveTileSlotScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CMovieSlotScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CarouselSlotScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="SlotContainerButton" BaseClassName="XuiButton">
+</XUIClass>
+<XUIClass Name="SlotContainerScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="QuickplaySlotScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="XuiAvatar" BaseClassName="XuiControl">
+<PropDef Id="0" Name="UseActiveUserAvatar" Type="bool"></PropDef>
+<PropDef Id="1" Name="EnableUserControl" Type="bool"></PropDef>
+<PropDef Id="2" Name="UseCustomView" Type="bool"></PropDef>
+<PropDef Id="3" Name="RenderView" Type="unsigned"></PropDef>
+<PropDef Id="4" Name="CustomViewEyePosition" Type="vector"></PropDef>
+<PropDef Id="5" Name="CustomViewFocusPosition" Type="vector"></PropDef>
+<PropDef Id="6" Name="CustomViewUpDirection" Type="vector"></PropDef>
+<PropDef Id="7" Name="ShowSelfShadow" Type="bool"></PropDef>
+<PropDef Id="8" Name="ShowShadow" Type="bool"></PropDef>
+<PropDef Id="9" Name="ShowCarryable" Type="bool"></PropDef>
+<PropDef Id="10" Name="ShowHat" Type="bool"></PropDef>
+<PropDef Id="11" Name="FreezeAvatar" Type="bool"></PropDef>
+<PropDef Id="12" Name="UseAvateering" Type="bool"></PropDef>
+<PropDef Id="13" Name="FullBodyAvateering" Type="bool"></PropDef>
+<PropDef Id="14" Name="AvateeringTrackingID" Type="unsigned"></PropDef>
+</XUIClass>
+<XUIClass Name="CGamerRootScene" BaseClassName="ControlPackRomeScene">
+</XUIClass>
+<XUIClass Name="COptionList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="ThemesRootScene" BaseClassName="ControlPackRomeScene">
+</XUIClass>
+<XUIClass Name="ThemePickerScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="ThemeVisionEffectsScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="VisionEffectList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="SkinsList" BaseClassName="XuiList">
+</XUIClass>
+<XUIClass Name="FullscreenVideo" BaseClassName="XuiScene">
+<PropDef Id="0" Name="VideoURL" Type="string"></PropDef>
+<PropDef Id="1" Name="VideoCaptionURL" Type="string"></PropDef>
+</XUIClass>
+<XUIClass Name="DashAppHostScene" BaseClassName="XuiScene">
+<PropDef Id="0" Name="DashAppName" Type="string"></PropDef>
+</XUIClass>
+<XUIClass Name="CTaskManagerScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CProfileSlotScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CActionSlotScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CSignInTemplateScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CModalMenuScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="CSkipSlotScene" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="InactiveImage" BaseClassName="XuiScene">
+</XUIClass>
+<XUIClass Name="OuterRing" BaseClassName="XuiScene">
+</XUIClass>
+
+</XUIClassExtension>

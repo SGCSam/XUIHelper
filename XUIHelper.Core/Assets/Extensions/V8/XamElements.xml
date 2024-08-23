@@ -1,0 +1,532 @@
+<XUIClassExtension version="0001">
+ <XUIClass Name="XamElement" BaseClassName="XuiElement" Icon="Images/blank.bmp" Description="XamElement">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamCanvas" BaseClassName="XuiCanvas" Icon="Images/XamCanvas.bmp" Description="XamCanvas">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamGroup" BaseClassName="XuiGroup" Icon="Images/XamGroup.bmp" Description="XamGroup">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamScene" BaseClassName="XuiScene" Icon="Images/XamScene.bmp" Description="XamScene">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+  <PropDef Name="RecurseTransitions" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamTabScene" BaseClassName="XuiTabScene" Icon="Images/XamTabScene.bmp" Description="XamTabScene">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+  <PropDef Name="RecurseTransitions" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamPerspectiveScene" BaseClassName="XamScene" Icon="Images/XamPerspectiveScene.bmp" Description="XamPerspectiveScene">
+  <PropDef Name="ProjectionScale" Type="float"><DefaultVal>1.000000</DefaultVal></PropDef>
+  <PropDef Name="ProjectionCenterU" Type="float"><DefaultVal>0.500000</DefaultVal></PropDef>
+  <PropDef Name="ProjectionCenterV" Type="float"><DefaultVal>0.500000</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamControl" BaseClassName="XuiControl" Icon="Images/XamControl.bmp" Description="XamControl">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamLabel" BaseClassName="XuiLabel" Icon="Images/XamLabel.bmp" Description="XamLabel">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+  <PropDef Name="MaxFlowLines" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamEdit" BaseClassName="XuiEdit" Icon="Images/XamEdit.bmp" Description="XamEdit">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamButton" BaseClassName="XuiButton" Icon="Images/XamButton.bmp" Description="XamButton">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+  <PropDef Name="PressAnimObject" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="PressAnimStartFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="PressAnimEndFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="FocusAnimObject" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="FocusAnimStartFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="FocusAnimEndFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamBackButton" BaseClassName="XuiBackButton" Icon="Images/XamBackButton.bmp" Description="XamBackButton">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+  <PropDef Name="PressAnimObject" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="PressAnimStartFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="PressAnimEndFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="FocusAnimObject" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="FocusAnimStartFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="FocusAnimEndFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamNavButton" BaseClassName="XuiNavButton" Icon="Images/XamNavButton.bmp" Description="XamNavButton">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+  <PropDef Name="PressAnimObject" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="PressAnimStartFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="PressAnimEndFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="FocusAnimObject" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="FocusAnimStartFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="FocusAnimEndFrame" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamCheckbox" BaseClassName="XuiCheckbox" Icon="Images/XamCheckbox.bmp" Description="XamCheckbox">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamRadioButton" BaseClassName="XuiRadioButton" Icon="Images/XamRadioButton.bmp" Description="XamRadioButton">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamProgressBar" BaseClassName="XuiProgressBar" Icon="Images/XamProgressBar.bmp" Description="XamProgressBar">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamSlider" BaseClassName="XuiSlider" Icon="Images/XamSlider.bmp" Description="XamSlider">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>  
+ </XUIClass>
+ <XUIClass Name="XamList" BaseClassName="XuiList" Icon="Images/XamList.bmp" Description="XamList">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+  <PropDef Name="WrapBump" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamCommonList" BaseClassName="XuiCommonList" Icon="Images/XamCommonList.bmp" Description="XamCommonList">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+  <PropDef Name="WrapBump" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamImage" BaseClassName="XuiImage" Icon="Images/XamImage.bmp" Description="XamImage">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Editor="ElementIdPickerEditor(1)" Name="TextureSurfaceElement" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="LoadType" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamImagePresenter" BaseClassName="XuiImagePresenter" Icon="Images/XamImagePresenter.bmp" Description="XamImagePresenter">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="LoadType" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamText" BaseClassName="XuiText" Icon="Images/XamText.bmp" Description="XamText">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="TextScale" Type="float"><DefaultVal>0.0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamTextPresenter" BaseClassName="XuiTextPresenter" Icon="Images/XamTextPresenter.bmp" Description="XamTextPresenter">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="TextScale" Type="float"><DefaultVal>1.000000</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamNineGrid" BaseClassName="XuiNineGrid" Icon="Images/XamNineGrid.bmp" Description="XamNineGrid">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamRadioGroup" BaseClassName="XuiRadioGroup" Icon="Images/XamRadioGroup.bmp" Description="XamRadioGroup">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamScrollEnd" BaseClassName="XuiScrollEnd" Icon="Images/XamScrollEnd.bmp" Description="XamScrollEnd">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamSound" BaseClassName="XuiSound" Icon="Images/XamSound.bmp" Description="XamSound">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamSoundXAudio" BaseClassName="XuiSoundXAudio" Icon="Images/XamSoundXAudio.bmp" Description="XamSoundXAudio">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamListItem" BaseClassName="XuiListItem" Icon="Images/XamListItem.bmp" Description="XamListItem">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamCaret" BaseClassName="XuiCaret" Icon="Images/XamCaret.bmp" Description="XamCaret">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+  <PropDef Name="HasContextMenu" Type="bool"></PropDef>
+  <PropDef Name="SizeToText" Type="bool"></PropDef>
+  <PropDef Name="UseNuiAsMouse" Type="bool"></PropDef>
+  <PropDef Name="AutoId" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="HoverSelectTimer" Type="float"><DefaultVal>1.750000</DefaultVal></PropDef>
+  <PropDef Name="QuickInput" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamShader" BaseClassName="XamElement" Icon="Images/XamShader.bmp" Description="XamShader">
+  <PropDef Name="Id" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Editor="FilePathEditor(0)" Name="ShaderFile" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Editor="FilePathEditor(0)" Name="TextureFileName" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Editor="ElementIdPickerEditor(1)" Name="TextureSurfaceElement" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="WrapX" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="WrapY" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="BrushFlags" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="CompositeEdge" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Name="ForceComposite" Type="bool"></PropDef>
+  <PropDef Editor="Vec3Editor(2)" Name="EffectParams1" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Editor="Vec3Editor(2)" Name="EffectParams2" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Editor="Vec3Editor(2)" Name="EffectParams3" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Editor="Vec3Editor(2)" Name="EffectParams4" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Editor="Vec3Editor(2)" Name="EffectParams5" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamGridPanel" BaseClassName="XamElement" Icon="Images/XamGridPanel.bmp" Description="XamGridPanel">
+  <PropDef Name="Columns" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="Rows" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Name="CellSpacing" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Name="Param0" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Name="Param1" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Name="Param2" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Name="Param3" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamTextureSurface" BaseClassName="XamGroup" Icon="Images/XamTextureSurface.bmp" Description="XamTextureSurface">
+  <PropDef Name="Offscreen" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="DepthStencil" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="PreRender" Type="bool"></PropDef>
+  <PropDef Name="Buffered" Type="bool"></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamVariable" BaseClassName="XamElement" Icon="Images/XamVariable.bmp" Description="XamVariable">
+  <PropDef Name="Id" Type="string"><DefaultVal></DefaultVal></PropDef>
+  <PropDef Editor="Vec3Editor(2)" Name="VectorVariable" Type="vector"><DefaultVal>0.000000,0.000000,0.000000</DefaultVal></PropDef>
+  <PropDef Name="FloatVariable" Type="float"><DefaultVal>0.000000</DefaultVal></PropDef>
+  <PropDef Name="IntegerVariable" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+ </XUIClass>
+ <XUIClass Name="XamFigure" BaseClassName="XuiFigure" Icon="Images/XamFigure.bmp" Description="XamFigure">
+  <PropDef Name="GripTarget" Type="bool"></PropDef>
+  <PropDef Name="Hittable" Type="bool"></PropDef>
+  <PropDef Name="LayoutLineBreak" Type="bool"></PropDef>
+  <PropDef Name="LayoutFloat" Type="bool"><DefaultVal>false</DefaultVal></PropDef>
+  <PropDef Name="Column" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="Row" Type="unsigned"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="ColumnSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="RowSpan" Type="unsigned"><DefaultVal>1</DefaultVal></PropDef>
+  <PropDef Name="ColorFactor" Type="color"><DefaultVal>0xffffffff</DefaultVal></PropDef>
+  <PropDef Name="CenterPivot" Type="bool"></PropDef>
+ </XUIClass>
+  <XUIClass Name="XamGuideNavButton" BaseClassName="XamNavButton" Icon="Images/blank.bmp" Description="XuiGuideNavButton">
+  <PropDef Name="CommandId" Type="integer"><DefaultVal>0</DefaultVal></PropDef>
+  <PropDef Name="MainImagePath" Type="string"><DefaultVal></DefaultVal></PropDef>
+ </XUIClass>
+ </XUIClassExtension>
