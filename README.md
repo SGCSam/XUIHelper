@@ -47,3 +47,5 @@ Thank you!
 ## Shoutouts
 
 Huge thank you to MaesterRowen and Wondro! Your original work on XuiWorkshop was invaluable.
+
+Thanks to jaydergham for providing a ton of additional XML extensions!
