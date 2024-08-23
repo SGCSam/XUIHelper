@@ -23,10 +23,37 @@
     </PropDef>
   </XUIClass>
 
-  <!--<XUIClass Name="LiveData" BaseClassName="XuiElement" DefaultWidth="1280" DefaultHeight="720" Description="Live Data" />
-  <XUIClass Name="MediaData" BaseClassName="XuiControl" DefaultWidth="1280" DefaultHeight="720" Description="Media Data">
-	<PropDef Name="UnkString" Type="string" />
-  </XUIClass>-->
+  <XUIClass Name="ScriptList" BaseClassName="XuiList">
+    <PropDef Id="0" Name="DataSet" Type="string"></PropDef>
+    <PropDef Id="1" Name="DataAssociation" Type="string"></PropDef>
+    <PropDef Id="2" Name="Embedded" Type="string"></PropDef>
+  </XUIClass>
+
+  <XUIClass Name="ScriptData" BaseClassName="XuiElement">
+    <PropDef Id="0" Name="Query" Type="string"></PropDef>
+    <PropDef Id="1" Name="State" Type="integer"></PropDef>
+    <PropDef Id="2" Name="ItemCount" Type="unsigned"></PropDef>
+    <PropDef Id="3" Name="Selected" Type="integer"></PropDef>
+  </XUIClass>
+
+  <XUIClass Name="ScriptImage" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="DataSet" Type="string"></PropDef>
+    <PropDef Id="1" Name="DataAssociation" Type="string"></PropDef>
+    <PropDef Id="2" Name="Embedded" Type="string"></PropDef>
+    <PropDef Id="3" Name="Item" Type="integer"></PropDef>
+  </XUIClass>
+
+  <XUIClass Name="DashData" BaseClassName="ScriptData">
+  </XUIClass>
+
+  <XUIClass Name="VideoData" BaseClassName="DashData">
+  </XUIClass>
+
+  <XUIClass Name="LiveData" BaseClassName="DashData">
+  </XUIClass>
+
+  <XUIClass Name="MediaData" BaseClassName="DashData">
+  </XUIClass>
 
   <XUIClass Name="AuraControl" BaseClassName="XuiElement" DefaultWidth="64" DefaultHeight="64" Description="Aura Control">
     <PropDef Name="ThemeImageIndex" Type="unsigned">
@@ -50,6 +77,12 @@
   <XUIClass Name="XuiHtmlPresenter" BaseClassName="XuiElement" DefaultWidth="60" DefaultHeight="30" Description="HTML Presenter">
     <PropDef Name="DataAssociation" Type="integer">
       <DefaultVal>0</DefaultVal>
+    </PropDef>
+  </XUIClass>
+
+  <XUIClass Name="XuiHtmlControl" BaseClassName="XuiControl" DefaultWidth="60" DefaultHeight="30" Description="HTML Control">
+    <PropDef Name="TeletypeCount" Type="integer">
+      <DefaultVal>-1</DefaultVal>
     </PropDef>
   </XUIClass>
 
@@ -142,13 +175,8 @@
     </PropDef>
   </XUIClass>
 
-  <XUIClass
-      Name="XuiGamerCard"
-      BaseClassName="XuiControl"
-      DefaultWidth="256"
-      DefaultHeight="256"
-      Description="XuiGamerCard">
-    <PropDef Name="PlaceHolder" Type="string" />
-    <PropDef Name="BoolOne" Type="bool" />
+  <XUIClass Name="XuiGamerCard" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="Format" Type="string"></PropDef>
+    <PropDef Id="1" Name="ShowExtendedPanel" Type="bool"></PropDef>
   </XUIClass>
 </XUIClassExtension>
