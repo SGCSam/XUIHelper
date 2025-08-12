@@ -524,6 +524,17 @@
       <DefaultVal></DefaultVal>
     </PropDef>
   </XUIClass>
+  <XUIClass Name="XuiSoundXACT" BaseClassName="XuiSound" Icon="Images/XuiSoundXACT.bmp" Description="XuiSoundXACT">
+    <PropDef Id="178" Editor="FilePathEditor(2)" Name="File" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="178" Editor="FilePathEditor(2)" Name="XSB Path" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="178" Editor="FilePathEditor(2)" Name="XWB Path" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+  </XUIClass>
   <XUIClass Name="XuiCanvas" BaseClassName="XuiElement" Icon="Images/XuiCanvas.bmp" Description="XuiCanvas">
   </XUIClass>
   <XUIClass Name="XuiGroup" BaseClassName="XuiElement" Icon="Images/XuiGroup.bmp" Description="XuiGroup">
