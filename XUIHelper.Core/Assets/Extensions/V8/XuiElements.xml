@@ -525,13 +525,13 @@
     </PropDef>
   </XUIClass>
   <XUIClass Name="XuiSoundXACT" BaseClassName="XuiSound" Icon="Images/XuiSoundXACT.bmp" Description="XuiSoundXACT">
-    <PropDef Id="178" Editor="FilePathEditor(2)" Name="File" Type="string">
+    <PropDef Id="179" Name="Cue" Type="string">
       <DefaultVal></DefaultVal>
     </PropDef>
-    <PropDef Id="178" Editor="FilePathEditor(2)" Name="XSB Path" Type="string">
+    <PropDef Id="180" Editor="FilePathEditor(2)" Name="SoundBank" Type="string">
       <DefaultVal></DefaultVal>
     </PropDef>
-    <PropDef Id="178" Editor="FilePathEditor(2)" Name="XWB Path" Type="string">
+    <PropDef Id="181" Editor="FilePathEditor(2)" Name="WaveBank" Type="string">
       <DefaultVal></DefaultVal>
     </PropDef>
   </XUIClass>
