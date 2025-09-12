@@ -3,9 +3,11 @@
   <XUIClassExtension version="0001" />
   
   <RelationalExtensions>
-	  <RelationalExtension>9199DashElements.xml</RelationalExtension>
-	  <RelationalExtension>9199HUDElements.xml</RelationalExtension>
 	  <RelationalExtension>XuiElements.xml</RelationalExtension>
+    <RelationalExtension>9199CustomElements.xml</RelationalExtension>
+    <RelationalExtension>9199SceneElements.xml</RelationalExtension>
+	  <RelationalExtension>9199HUDElements.xml</RelationalExtension>
+	  <RelationalExtension>9199DashElements.xml</RelationalExtension>
   </RelationalExtensions>
 
   <IgnoreProperties>

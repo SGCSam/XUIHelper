@@ -150,4 +150,16 @@
   <XUIClass Name="ControlPackNuiSwipeNav" BaseClassName="XuiControl">
     <PropDef Id="0" Name="IsLeftSide" Type="bool"></PropDef>
   </XUIClass>
+  <XUIClass Name="DetailsRootScene" BaseClassName="ControlPackRomeScene">
+  </XUIClass>
+  <XUIClass Name="FiltersRootScene" BaseClassName="ControlPackRomeScene">
+  </XUIClass>
+  <XUIClass Name="NetworkSelectionMainScene" BaseClassName="ControlPackRomeScene">
+  </XUIClass>
+  <XUIClass Name="CGamerRootScene" BaseClassName="ControlPackRomeScene">
+  </XUIClass>
+  <XUIClass Name="ThemesRootScene" BaseClassName="ControlPackRomeScene">
+  </XUIClass>
+  <XUIClass Name="ControlPackSystemGesture" BaseClassName="XuiControl">
+  </XUIClass>
 </XUIClassExtension>

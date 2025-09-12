@@ -1,0 +1,204 @@
+﻿<XUIClassExtension version="0001">
+  <XUIClass
+      Name="XuiAvatar"
+      BaseClassName="XuiControl"
+      DefaultWidth="256"
+      DefaultHeight="256"
+      Description="XuiAvatar" >
+    <PropDef
+        Name="UseActiveUserAvatar"
+        Type="bool"
+        Flags="noanim">
+      <DefaultVal>false</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="EnableUserControl"
+        Type="bool"
+        Flags="noanim">
+      <DefaultVal>false</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="QueueAnimation"
+        Type="unsigned">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="PlayAnimation"
+        Type="unsigned">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="UseCustomView"
+        Type="bool"
+        Flags="noanim">
+      <DefaultVal>false</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="RenderView"
+        Type="unsigned"
+        Flags="noanim">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="CustomViewEyePosition"
+        Type="vector"
+        Editor="Vec3Editor">
+      <DefaultVal>0.0,0.0,0.0</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="CustomViewFocusPosition"
+        Type="vector"
+        Editor="Vec3Editor">
+      <DefaultVal>0.0,0.0,0.0</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="CustomViewUpDirection"
+        Type="vector"
+        Editor="Vec3Editor">
+      <DefaultVal>0.0,0.0,0.0</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="ShowSelfShadow"
+        Type="bool"
+        Flags="noanim">
+      <DefaultVal>true</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="ShowShadow"
+        Type="bool"
+        Flags="noanim">
+      <DefaultVal>true</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="ShowCarryable"
+        Type="bool"
+        Flags="noanim">
+      <DefaultVal>true</DefaultVal>
+    </PropDef>
+    <PropDef
+        Name="ShowHat"
+        Type="bool"
+        Flags="noanim">
+      <DefaultVal>true</DefaultVal>
+    </PropDef>
+  </XUIClass>
+  <XUIClass Name="XuiGamerCard" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="Format" Type="string"></PropDef>
+    <PropDef Id="1" Name="ShowExtendedPanel" Type="bool"></PropDef>
+  </XUIClass>
+  <XUIClass Name="XuiShader" BaseClassName="XuiElement" Icon="Images/XuiShader.bmp" Description="XuiShader">
+    <PropDef Id="149" Name="ShaderId" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="150" Editor="FilePathEditor(0)" Name="ShaderFile" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="151" Editor="FilePathEditor(0)" Name="TextureFileName" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="152" Editor="ElementIdPickerEditor(1)" Name="TextureSurfaceElement" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="153" Name="WrapX" Type="unsigned">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+    <PropDef Id="154" Name="WrapY" Type="unsigned">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+    <PropDef Id="155" Name="BrushFlags" Type="unsigned">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+    <PropDef Id="156" Name="CompositeEdge" Type="float">
+      <DefaultVal>0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="157" Name="ForceComposite" Type="bool"></PropDef>
+    <PropDef Id="158" Editor="Vec3Editor(2)" Name="EffectParams1" Type="vector">
+      <DefaultVal>0.000000,0.000000,0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="159" Editor="Vec3Editor(2)" Name="EffectParams2" Type="vector">
+      <DefaultVal>0.000000,0.000000,0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="160" Editor="Vec3Editor(2)" Name="EffectParams3" Type="vector">
+      <DefaultVal>0.000000,0.000000,0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="161" Editor="Vec3Editor(2)" Name="EffectParams4" Type="vector">
+      <DefaultVal>0.000000,0.000000,0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="162" Editor="Vec3Editor(2)" Name="EffectParams5" Type="vector">
+      <DefaultVal>0.000000,0.000000,0.000000</DefaultVal>
+    </PropDef>
+  </XUIClass>
+  <XUIClass Name="XuiTextureSurface" BaseClassName="XuiGroup" Icon="Images/XuiTextureSurface.bmp" Description="XuiTextureSurface">
+    <PropDef Id="163" Name="Offscreen" Type="bool">
+      <DefaultVal>false</DefaultVal>
+    </PropDef>
+    <PropDef Id="164" Name="DepthStencil" Type="bool">
+      <DefaultVal>false</DefaultVal>
+    </PropDef>
+    <PropDef Id="165" Name="PreRender" Type="bool"></PropDef>
+    <PropDef Id="166" Name="Buffered" Type="bool"></PropDef>
+  </XUIClass>
+  <XUIClass Name="XuiVariable" BaseClassName="XuiElement" Icon="Images/XuiVariable.bmp" Description="XuiVariable">
+    <PropDef Id="167" Name="Id" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="168" Editor="Vec3Editor(2)" Name="VectorVariable" Type="vector">
+      <DefaultVal>0.000000,0.000000,0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="169" Name="FloatVariable" Type="float">
+      <DefaultVal>0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="170" Name="IntegerVariable" Type="integer">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+  </XUIClass>
+  <XUIClass Name="XuiGridPanel" BaseClassName="XuiElement" Icon="Images/XuiGridPanel.bmp" Description="XuiGridPanel">
+    <PropDef Id="171" Name="Columns" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="172" Name="Rows" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="173" Name="CellSpacing" Type="float">
+      <DefaultVal>0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="174" Name="Param0" Type="float">
+      <DefaultVal>0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="175" Name="Param1" Type="float">
+      <DefaultVal>0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="176" Name="Param2" Type="float">
+      <DefaultVal>0.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="177" Name="Param3" Type="float">
+      <DefaultVal>0.000000</DefaultVal>
+    </PropDef>
+  </XUIClass>
+  <XUIClass
+      Name="LegacyControl"
+      BaseClassName="XuiControl"
+      DefaultWidth="880"
+      DefaultHeight="480"
+      Description="Legacy Control" >
+  </XUIClass>
+  <XUIClass Name="MediaImageHttp" BaseClassName="XuiImage" DefaultWidth="1280" DefaultHeight="720" Description="Media Image Http">
+  </XUIClass>
+  <XUIClass Name="ScriptList" BaseClassName="XuiList">
+    <PropDef Id="0" Name="DataSet" Type="string"></PropDef>
+    <PropDef Id="1" Name="DataAssociation" Type="string"></PropDef>
+    <PropDef Id="2" Name="Embedded" Type="string"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ScriptData" BaseClassName="XuiElement">
+    <PropDef Id="0" Name="Query" Type="string"></PropDef>
+    <PropDef Id="1" Name="State" Type="integer"></PropDef>
+    <PropDef Id="2" Name="ItemCount" Type="unsigned"></PropDef>
+    <PropDef Id="3" Name="Selected" Type="integer"></PropDef>
+  </XUIClass>
+  <XUIClass Name="ScriptImage" BaseClassName="XuiControl">
+    <PropDef Id="0" Name="DataSet" Type="string"></PropDef>
+    <PropDef Id="1" Name="DataAssociation" Type="string"></PropDef>
+    <PropDef Id="2" Name="Embedded" Type="string"></PropDef>
+    <PropDef Id="3" Name="Item" Type="integer"></PropDef>
+  </XUIClass>
+</XUIClassExtension>

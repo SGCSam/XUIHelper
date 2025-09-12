@@ -1,0 +1,47 @@
+﻿<XUIClassExtension version="0001">
+  <XUIClass Name="XuiPerspectiveScene" BaseClassName="XuiScene" Icon="Images/XuiPerspectiveScene.bmp" Description="XuiPerspectiveScene">
+    <PropDef Id="140" Name="ProjectionScale" Type="float">
+      <DefaultVal>1.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="141" Name="ProjectionCenterU" Type="float">
+      <DefaultVal>0.500000</DefaultVal>
+    </PropDef>
+    <PropDef Id="142" Name="ProjectionCenterV" Type="float">
+      <DefaultVal>0.500000</DefaultVal>
+    </PropDef>
+  </XUIClass>
+  <XUIClass Name="ScriptScene" BaseClassName="XuiScene" DefaultWidth="300" DefaultHeight="300">
+    <PropDef Flags="noanim|filepath" Name="Script" Type="string" Editor="FilePathEditor(4)" />
+  </XUIClass>
+  <XUIClass Name="DashScene" BaseClassName="XuiScene">
+    <PropDef Name="NavigationBreadcrumbs" Type="string" />
+    <PropDef Name="DescriptionTexts" Type="string" />
+    <PropDef Name="MetapaneSceneOverrides" Type="string" />
+  </XUIClass>
+  <XUIClass Name="HUDScene" BaseClassName="XuiScene" Icon="Images/HUDScene.bmp" Description="HUDScene">
+    <PropDef Id="182" Editor="HudOpenTypeEditor" Name="OpenType" Type="unsigned">
+      <DefaultVal>0</DefaultVal>
+    </PropDef>
+    <PropDef Id="183" Name="LegendA" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="184" Name="LegendB" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="185" Name="LegendX" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="186" Name="LegendY" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+    <PropDef Id="187" Name="ShowGamerInfo" Type="bool"></PropDef>
+  </XUIClass>
+  <XUIClass Name="MediaScene" BaseClassName="ScriptScene" DefaultWidth="300" DefaultHeight="300">
+    <PropDef Name="Image" Type="string">
+      <DefaultVal></DefaultVal>
+    </PropDef>
+  </XUIClass>
+  <XUIClass Name="MobyRootScene" BaseClassName="XuiPerspectiveScene" DefaultWidth="1280"  DefaultHeight="720" Description="Moby Root Scene" />
+  <XUIClass Name="RomeRootScene" BaseClassName="XuiPerspectiveScene" DefaultWidth="1280" DefaultHeight="720" Description="Rome Root Scene" />
+  <XUIClass Name="MPSlotScene" BaseClassName="ScriptScene" DefaultWidth="1280" DefaultHeight="720" Description="MP Slot Scene" />
+</XUIClassExtension>

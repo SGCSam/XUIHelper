@@ -8,6 +8,19 @@
     <PropDef Id="1" Name="PanelStrings" Type="string"></PropDef>
     <PropDef Id="2" Name="PanelScenePaths" Type="string"></PropDef>
   </XUIClass>
+  <XUIClass Name="XuiPerspectiveScene" BaseClassName="XuiScene">
+    <PropDef Id="140" Name="ProjectionScale" Type="float">
+      <DefaultVal>1.000000</DefaultVal>
+    </PropDef>
+    <PropDef Id="141" Name="ProjectionCenterU" Type="float">
+      <DefaultVal>0.500000</DefaultVal>
+    </PropDef>
+    <PropDef Id="142" Name="ProjectionCenterV" Type="float">
+      <DefaultVal>0.500000</DefaultVal>
+    </PropDef>
+  </XUIClass>
+  <XUIClass Name="VideoContentScene" BaseClassName="ScriptScene">
+  </XUIClass>
   <XUIClass Name="DashVideoFullScreenScene" BaseClassName="XuiPerspectiveScene">
   </XUIClass>
   <XUIClass Name="MetaPanelScene" BaseClassName="XuiScene">
@@ -188,11 +201,7 @@
   </XUIClass>
   <XUIClass Name="VideoScene" BaseClassName="XuiScene">
   </XUIClass>
-  <XUIClass Name="DetailsRootScene" BaseClassName="ControlPackRomeScene">
-  </XUIClass>
   <XUIClass Name="FiltersCollectionsScene" BaseClassName="ScriptScene">
-  </XUIClass>
-  <XUIClass Name="FiltersRootScene" BaseClassName="ControlPackRomeScene">
   </XUIClass>
   <XUIClass Name="MediaSourceSelectionScene" BaseClassName="DashScene">
   </XUIClass>
@@ -239,8 +248,6 @@
   <XUIClass Name="CNetworkTraceroute" BaseClassName="XuiScene">
   </XUIClass>
   <XUIClass Name="CNetworkTracerouteResults" BaseClassName="XuiScene">
-  </XUIClass>
-  <XUIClass Name="NetworkSelectionMainScene" BaseClassName="ControlPackRomeScene">
   </XUIClass>
   <XUIClass Name="NetworkSelectionOOBE" BaseClassName="XuiScene">
   </XUIClass>
@@ -353,10 +360,6 @@
   <XUIClass Name="SlotContainerScene" BaseClassName="XuiScene">
   </XUIClass>
   <XUIClass Name="QuickplaySlotScene" BaseClassName="XuiScene">
-  </XUIClass>
-  <XUIClass Name="CGamerRootScene" BaseClassName="ControlPackRomeScene">
-  </XUIClass>
-  <XUIClass Name="ThemesRootScene" BaseClassName="ControlPackRomeScene">
   </XUIClass>
   <XUIClass Name="ThemePickerScene" BaseClassName="XuiScene">
   </XUIClass>

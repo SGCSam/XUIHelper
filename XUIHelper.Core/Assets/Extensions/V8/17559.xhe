@@ -6,11 +6,10 @@
 	  <RelationalExtension>XuiElements.xml</RelationalExtension>
     <RelationalExtension>XuiDataBinding.xml</RelationalExtension>
     <RelationalExtension>XamElements.xml</RelationalExtension>
-	  <RelationalExtension>17559DashElements.xml</RelationalExtension>
-	  <RelationalExtension>17559HUDElements.xml</RelationalExtension>
-    <RelationalExtension>17559ControlPackElements.xml</RelationalExtension>
-    <RelationalExtension>17559SceneElements.xml</RelationalExtension>
     <RelationalExtension>17559CustomElements.xml</RelationalExtension>
+    <RelationalExtension>17559SceneElements.xml</RelationalExtension>
+    <RelationalExtension>17559ControlPackElements.xml</RelationalExtension>
+	  <RelationalExtension>17559HUDElements.xml</RelationalExtension>
   </RelationalExtensions>
 
   <IgnoreProperties>
@@ -28,6 +27,7 @@
     </IgnoreClass>
     <IgnoreClass ClassName="XuiControl">
       <IgnoreProperty>AutoId</IgnoreProperty>
+      <IgnoreProperty>UseNuiAsMouse</IgnoreProperty>
     </IgnoreClass>
     <IgnoreClass ClassName="XuiImage">
       <IgnoreProperty>TextureSurfaceElement</IgnoreProperty>

@@ -8,13 +8,14 @@
 
   <ItemGroup>
     <None Remove="Assets\Extensions\V5\9199.xhe" />
+    <None Remove="Assets\Extensions\V5\9199CustomElements.xml" />
     <None Remove="Assets\Extensions\V5\9199DashElements.xml" />
     <None Remove="Assets\Extensions\V5\9199HUDElements.xml" />
+    <None Remove="Assets\Extensions\V5\9199SceneElements.xml" />
     <None Remove="Assets\Extensions\V5\XuiElements.xml" />
     <None Remove="Assets\Extensions\V8\17559.xhe" />
     <None Remove="Assets\Extensions\V8\17559ControlPackElements.xml" />
     <None Remove="Assets\Extensions\V8\17559CustomElements.xml" />
-    <None Remove="Assets\Extensions\V8\17559DashElements.xml" />
     <None Remove="Assets\Extensions\V8\17559HUDElements.xml" />
     <None Remove="Assets\Extensions\V8\17559SceneElements.xml" />
     <None Remove="Assets\Extensions\V8\XamElements.xml" />
@@ -26,10 +27,16 @@
     <Content Include="Assets\Extensions\V5\9199.xhe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Extensions\V5\9199CustomElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Extensions\V5\9199DashElements.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Extensions\V5\9199HUDElements.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Extensions\V5\9199SceneElements.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Extensions\V5\XuiElements.xml">
@@ -42,9 +49,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Extensions\V8\17559CustomElements.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Extensions\V8\17559DashElements.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Extensions\V8\17559HUDElements.xml">

@@ -108,11 +108,13 @@ namespace XUIHelper.Core
                             interpolationType = XUKeyframeInterpolationTypes.Ease;
                             bytesRead += 3;
                         }
+                        else if(flags == 0x3) { }
                         else if (flags == 0xA)
                         {
                             xur.Logger?.Here().Error("Unknown flag of 0xA.", flags);
-                            reader.ReadByte();
-                            bytesRead++;
+                            byte readUnknownBytes = 0;
+                            int unknownId = (int)reader.ReadPackedUInt(out readUnknownBytes);
+                            bytesRead += readUnknownBytes;
                         }
                         else if (flags == 0xB)
                         {
