@@ -19,6 +19,28 @@ XUIHelper is a suite of tools written in C# that provides interfaces for reading
    
   `conv -s <Source XUR Path> -f "xuiv12" -o <Output XUI Path> -g "V8"`
 
+## Adding Extensions to XuiTool
+
+The provided extensions within XUIHelper.Core are directly compatible with XuiTool. If you are working with XURv5 files (1888 - 9199), you should add the extensions within the V5 folder. If you are working with XURv8 files (12611 - 17559), you should add the extensions within the V8 folder.
+
+**Do not add the .xhe file or "XuiElements.xml" to XuiTool.**
+
+**ORDER MATTERS.** XuiTool imports extensions from the first file in the list through to the last. Therefore, if you have an extension in an XML file that utilizes a BaseClass defined in a 2nd XML file, the XML file that defines the BaseClass must be placed in the list first. Failure to do this will result in XuiTool reporting the "Failed loading xml extension file" error, as it has no definition for the BaseClass yet.
+
+For V5 extensions, the following order is recommended:
+1) 9199SceneElements.xml
+2) 9199CustomElements.xml
+3) 9199DashElements.xml
+4) 9199HUDElements.xml
+
+For V8 extensions, the following order is recommended:
+1) XuiDataBinding.xml
+2) XamElements.xml
+3) 17559SceneElements.xml
+4) 17559CustomElements.xml
+5) 17559ControlPackElements.xml
+6) 17559HUDElements.xml
+
 ## Wiki
 
 For documentation on using XUIHelper.CLI, see "Documentation/XUIHelper.CLI Documentation" 
