@@ -1,6 +1,7 @@
 ﻿using Serilog;
 using Serilog.Core;
 using System;
+using System.Collections;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using XUIHelper.Core.Extensions;
@@ -644,7 +645,6 @@ namespace XUIHelper.Core
                 int propertyDefinitionsCount = reader.ReadInt32BE();
                 xur.Logger?.Here().Verbose("Got a count of {0} property definitions.", propertyDefinitionsCount);
 
-                int maxIndex = 0;
                 List<XUPropertyDefinition> animatedPropertyDefinitions = new List<XUPropertyDefinition>();
                 List<int> indexedPropertyIndexes = new List<int>();
                 for (int i = 0; i < propertyDefinitionsCount; i++)
@@ -734,11 +734,6 @@ namespace XUIHelper.Core
                         int index = reader.ReadInt32BE();
                         xur.Logger?.Here()?.Verbose("Read a timeline compound index value of {0}", index);
                         indexedPropertyIndexes.Add(index);
-
-                        if(index > maxIndex)
-                        {
-                            maxIndex = index;
-                        }
                     }
                 }
 
@@ -822,10 +817,21 @@ namespace XUIHelper.Core
                                 continue;
                             }
 
-                            List<object?> values = new List<object?>();
-                            for(int j = 0; j <= maxIndex; j++)
+                            //Not all indexed property values will be animated. We may have 6 StopPos for colours, and the 6 positions may change,
+                            //But only 2 of the 6 positions may actually have different colours
+                            //If this happens, we grab the property definition from the element we're adding and initialize our values to be the same
+                            //Only overriding any index that is animated
+                            List<object>? indexedValues = (List<object>?)elementObject.TryGetPropertyDefinitionValue(xuProperty.PropertyDefinition);
+                            if(indexedValues == null)
                             {
-                                values.Add(null);
+                                xur.Logger?.Here().Error("Failed to find indexed values for property definition {0}, returning null.", xuProperty.PropertyDefinition.Name);
+                                return null;
+                            }
+
+                            List<object?> values = new List<object?>();
+                            for(int j = 0; j < indexedValues.Count; j++)
+                            {
+                                values.Add(indexedValues[j]);
                             }
 
                             values[indexToUse] = (xuProperty.Value as List<object>)[0];

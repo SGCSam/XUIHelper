@@ -268,6 +268,32 @@ namespace XUIHelper.Core
             return retDepth;
         }
 
+        public object? TryGetPropertyDefinitionValue(XUPropertyDefinition propertyDefinition)
+        {
+            return TryGetPropertyDefinitionValue(Properties, propertyDefinition);
+        }
+
+        public object? TryGetPropertyDefinitionValue(List<XUProperty> properties, XUPropertyDefinition propertyDefinition)
+        {
+            foreach (var prop in properties)
+            {
+                if (prop.PropertyDefinition == propertyDefinition)
+                {
+                    return prop.Value;
+                }
+                else if (prop.Value is List<XUProperty> childProps)
+                {
+                    object? val = TryGetPropertyDefinitionValue(childProps, propertyDefinition);
+                    if (val != null)
+                    {
+                        return val;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public int? TryGetDepthOfPropertyDefinition(XUPropertyDefinition propertyDefinition, string className, ILogger? logger = null)
         {
             return TryGetDepthOfPropertyDefinition(propertyDefinition, className, 1, logger);
