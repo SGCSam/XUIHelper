@@ -40,9 +40,10 @@ Thank you!
 
 1) XUR v8's KEYD section hasn't been fully reversed. There's 6 bits of a flag byte I've been unable to reverse.
 2) XUR v5's logic for whether the extended count header should be written isn't fully correct - there's a few false positives.
-3) Not all XML extensions have been added for custom dash controls for both 9199 and 17559 - reversing these will allow greater compatibility.
-4) Currently, the read/write property functions for XURs and XUIs only do checks for indexed properties inside the TryWriteObject functions, since the only XUI control that uses indexed properties is XuiFigureFillGradient. While this works in practice, this is *technically* wrong, and the read/write functions should be refactored to check for indexed properties in the root TryReadProperty and TryWriteProperty functions.
-5) Support for ignore properties should be added for XUR files rather than just XUI files for completeness.
+3) Verification of XURv5 and XURv8 count headers have been disabled as a logic bug prevents a small amount of XUR files from verifying.
+4) Not all XML extensions have been added for custom dash controls for both 9199 and 17559 - reversing these will allow greater compatibility.
+5) Currently, the read/write property functions for XURs and XUIs only do checks for indexed properties inside the TryWriteObject functions, since the only XUI control that uses indexed properties is XuiFigureFillGradient. While this works in practice, this is *technically* wrong, and the read/write functions should be refactored to check for indexed properties in the root TryReadProperty and TryWriteProperty functions.
+6) Support for ignore properties should be added for XUR files rather than just XUI files for completeness.
 
 ## Shoutouts
 
