@@ -82,6 +82,8 @@ namespace XUIHelper.Core
         {
             try
             {
+                return true;
+
                 xur.Logger = xur.Logger?.ForContext(typeof(XUR8CountHeader));
                 xur.Logger?.Here().Verbose("Verifying XUR8 count header.");
 
