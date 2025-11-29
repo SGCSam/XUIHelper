@@ -27,6 +27,7 @@
     </IgnoreClass>
     <IgnoreClass ClassName="XuiControl">
       <IgnoreProperty>AutoId</IgnoreProperty>
+      <IgnoreProperty>QuickInput</IgnoreProperty>
       <IgnoreProperty>UseNuiAsMouse</IgnoreProperty>
     </IgnoreClass>
     <IgnoreClass ClassName="XuiImage">
@@ -35,6 +36,9 @@
     </IgnoreClass>
     <IgnoreClass ClassName="XuiImagePresenter">
       <IgnoreProperty>LoadType</IgnoreProperty>
+    </IgnoreClass>
+    <IgnoreClass ClassName="XuiList">
+      <IgnoreProperty>WrapBump</IgnoreProperty>
     </IgnoreClass>
     <IgnoreClass ClassName="XuiText">
       <IgnoreProperty>TextScale</IgnoreProperty>

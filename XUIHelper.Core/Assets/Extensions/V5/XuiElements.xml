@@ -321,7 +321,6 @@
     <PropDef Id="103" Name="Wrap" Type="bool">
       <DefaultVal>false</DefaultVal>
     </PropDef>
-    <PropDef Id="104" Name="WrapBump" Type="bool"></PropDef>
   </XUIClass>
   <XUIClass Name="XuiCommonList" BaseClassName="XuiList" Icon="Images/XuiCommonList.bmp" Description="XuiCommonList">
     <PropDef Id="105" Editor="ListItemsEditor" Name="ItemsText" Type="string">
