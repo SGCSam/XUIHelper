@@ -28,5 +28,20 @@ namespace XUIHelper.Core
         {
             return string.Format("X: {0}, Y: {1}, Z: {2}", X, Y, Z);
         }
+
+        public override bool Equals(object? obj)
+        {
+            if(obj is not XUVector xuVector)
+            {
+                return false;
+            }
+
+            return xuVector.X == X && xuVector.Y == Y && xuVector.Z == Z;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y, Z);
+        }
     }
 }

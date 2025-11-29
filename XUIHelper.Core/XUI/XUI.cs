@@ -40,8 +40,12 @@ namespace XUIHelper.Core
 
                 Logger?.Here().Information("Reading XUI file at {0}", FilePath);
 
-                XDocument document = XDocument.Load(FilePath);
-                if(document.Root == null)
+                //Use this so CR LF is preserved - this matters for XURs
+                StreamReader reader = new StreamReader(FilePath);
+                XmlTextReader xmlReader = new XmlTextReader(reader);
+                XDocument document = XDocument.Load(xmlReader);
+
+                if (document.Root == null)
                 {
                     Logger?.Here().Error("The document root element was null, returning false.");
                     return false;

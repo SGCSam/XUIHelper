@@ -30,5 +30,20 @@ namespace XUIHelper.Core
         {
             return string.Format("X: {0}, Y: {1}, Z: {2}, W: {3}", X, Y, Z, W);
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not XUQuaternion xuQuaternion)
+            {
+                return false;
+            }
+
+            return xuQuaternion.X == X && xuQuaternion.Y == Y && xuQuaternion.Z == Z && xuQuaternion.W == W;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y, Z, W);
+        }
     }
 }

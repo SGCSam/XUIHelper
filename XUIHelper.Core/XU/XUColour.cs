@@ -30,5 +30,20 @@ namespace XUIHelper.Core
         {
             return string.Format("R: {0}, G: {1}, B: {2}, A: {3}", R, G, B, A);
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not XUColour xuColour)
+            {
+                return false;
+            }
+
+            return xuColour.A == A && xuColour.R == R && xuColour.G == G && xuColour.B == B;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(A, R, G, B);
+        }
     }
 }

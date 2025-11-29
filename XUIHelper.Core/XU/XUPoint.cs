@@ -26,5 +26,20 @@ namespace XUIHelper.Core
         {
             return string.Format("X: {0}, Y: {1}", X, Y);
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not XUPoint xuPoint)
+            {
+                return false;
+            }
+
+            return xuPoint.X == X && xuPoint.Y == Y;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y);
+        }
     }
 }

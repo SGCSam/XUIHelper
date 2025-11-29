@@ -101,10 +101,8 @@ namespace XUIHelper.Core.Extensions
 
         public static void WriteNullTerminatedString(this BinaryWriter writer, string val)
         {
-            foreach(char c in val)
-            {
-                writer.Write(c);
-            }
+            byte[] bytes = Encoding.ASCII.GetBytes(val);
+            writer.Write(bytes);
 
             writer.Write((byte)0x00);
         }
