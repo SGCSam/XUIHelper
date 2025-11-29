@@ -386,10 +386,13 @@ namespace XUIHelper.Core
                     return null;
                 }
 
+                float largestX = float.MinValue;
+                float largestY = float.MinValue;
+
                 List<XUBezierPoint> bezierPoints = new List<XUBezierPoint>();
                 for(int bezierPointIndex = 0; bezierPointIndex < bezierPointsCount; bezierPointIndex++)
                 {
-                    int stringIndex = (bezierPointIndex * 6) + (bezierPointIndex * 1);
+                    int stringIndex = (bezierPointIndex * 6) + (bezierPointIndex * 1) + 1;
                     xui.Logger?.Here().Verbose("Reading bezier point index {0}, got string index {1}.", bezierPointIndex, stringIndex);
 
                     float refX = Convert.ToSingle(points[stringIndex]);
@@ -408,6 +411,33 @@ namespace XUIHelper.Core
                     xui.Logger?.Here().Verbose("Got control point two of {0}.", controlPointTwo);
 
                     bezierPoints.Add(new XUBezierPoint(bezierReferencePoint, controlPointOne, controlPointTwo));
+
+                    //TODO: I'm far from sure that this is the correct logic for obtaining the bounding box...
+                    if(refX > largestX)
+                    {
+                        largestX = refX;
+                    }
+                    if (controlPointOneX > largestX)
+                    {
+                        largestX = controlPointOneX;
+                    }
+                    if (controlPointTwoX > largestX)
+                    {
+                        largestX = controlPointTwoX;
+                    }
+
+                    if (refY > largestY)
+                    {
+                        largestY = refY;
+                    }
+                    if (controlPointOneY > largestY)
+                    {
+                        largestY = controlPointOneY;
+                    }
+                    if (controlPointTwoY > largestY)
+                    {
+                        largestY = controlPointTwoY;
+                    }
                 }
 
                 if(bezierPoints.Count != bezierPointsCount)
@@ -416,7 +446,7 @@ namespace XUIHelper.Core
                     return null;
                 }
 
-                return new XUFigure(new XUPoint(), bezierPoints);
+                return new XUFigure(new XUPoint(largestX, largestY), bezierPoints);
             }
             catch (Exception ex)
             {

@@ -121,37 +121,6 @@ namespace XUIHelper.Core
                         return null;
                     }
 
-                    if(readProperty.PropertyDefinition.Type == XUPropertyDefinitionTypes.Custom)
-                    {
-                        Logger?.Here().Verbose("Property definition {0} was custom, updating bounding box...", propertyDefinition.Name);
-                        XUFigure oldFigure = (XUFigure)readProperty.Value;
-
-                        float widthValue = 60.0f;
-                        XUProperty? widthProperty = thisObject.Properties.Where(x => x.PropertyDefinition.Name == "Width").FirstOrDefault();
-                        if(widthProperty == null)
-                        {
-                            Logger?.Here().Error("Width property was null, using default of {0}", widthValue);
-                        }
-                        else
-                        {
-                            widthValue = (float)widthProperty.Value;
-                        }
-
-                        float heightValue = 30.0f;
-                        XUProperty? heightProperty = thisObject.Properties.Where(x => x.PropertyDefinition.Name == "Height").FirstOrDefault();
-                        if (heightProperty == null)
-                        {
-                            Logger?.Here().Error("Height property was null, using default of {0}", heightValue);
-                        }
-                        else
-                        {
-                            heightValue = (float)heightProperty.Value;
-                        }
-
-                        XUFigure newFigure = new XUFigure(new XUPoint(widthValue, heightValue), oldFigure.Points);
-                        readProperty = new XUProperty(propertyDefinition, newFigure);
-                    }
-
                     thisObject.Properties.Add(readProperty);
                     found = true;
                     break;
