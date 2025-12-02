@@ -506,7 +506,7 @@ namespace XUIHelper.Core
                 int custOffset = 0x00;
                 foreach (XUFigure figure in custSection.Figures)
                 {
-                    if (figure == figureVal)
+                    if (figure.Equals(figureVal))
                     {
                         writer.WriteInt32BE(custOffset);
                         xur.Logger?.Here().Verbose("Written {0} custom property value of {1} as offset {2}.", propertyDefinition.Name, figureVal, custOffset);

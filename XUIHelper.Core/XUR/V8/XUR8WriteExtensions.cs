@@ -540,7 +540,7 @@ namespace XUIHelper.Core
                 uint custOffset = 0x00;
                 foreach (XUFigure figure in custSection.Figures)
                 {
-                    if (figure == figureVal)
+                    if (figure.Equals(figureVal))
                     {
                         int custOffsetBytesWritten = 0;
                         writer.WritePackedUInt(custOffset, out custOffsetBytesWritten);
